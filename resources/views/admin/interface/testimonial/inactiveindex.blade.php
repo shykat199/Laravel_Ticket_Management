@@ -77,11 +77,11 @@
                 <td class="testimonial_name"
                     data-id="{{$userTestimonial->id}}">{{strtoupper($userTestimonial->users->user_role)}}</td>
 
-                <td class="testimonial_name"
+                <td class="testimonial_text"
                     data-iddd="{{$userTestimonial->feedback_text}}">{{\Illuminate\Support\Str::limit($userTestimonial->feedback_text,30,'....')}}</td>
                 {{--                <td class="category_name">{{$userTestimonial->category_name}}</td>--}}
-                <td class="testimonial_name">
-                    <img class="" src="{{asset('storage/image/'.$userTestimonial->image)}}"
+                <td class="">
+                    <img class="testimonial_image" src="{{asset('storage/image/'.$userTestimonial->image)}}"
                          data-idd="{{$userTestimonial->image}}" alt="" style="height: 80px; width: 80px">
                 </td>
                 <td class="testimonial_name"><h4><span class="badge bg-danger">InActive</span></h4></td>
@@ -121,7 +121,9 @@
                         <input type="hidden" name="testimonial_id" id="testimonial_id">
 
                         <label class="form-label" for="validationCustom01">Feedback Text</label>
-                        <textarea class="ckeditor form-control" id="text" name="feedback_text"></textarea>
+                        <textarea class="ckeditor form-control" id="text" name="feedback_text">
+
+                        </textarea>
 
                         @error('feedback_text')
                         <span class="text-danger">{{$message}}</span>
@@ -131,7 +133,7 @@
                         <label for="formFile" class="form-label">Post Image</label>
                         <input class="form-control" name="image" type="file" id="post_image"
                                onchange="readUrl1(this)">
-                        <img class="mt-2" id="image" src="" alt=""/>
+                        <img class="mt-2" id="image1" src="" alt="" style="height: 80px; width: 80px;"/>
 
                         @error('image')
                         <span class="text-danger">{{$message}}</span>
@@ -157,13 +159,14 @@
                 let currentRow = $(this).closest('tr');
                 let col1 = currentRow.find('.testimonial_name').html(); //user
                 let testimonial_id = currentRow.find('.testimonial_name').data('id');  //id
-                let testimonial_text = currentRow.find('.testimonial_name').data('iddd'); //text
-                //let testimonial_image = currentRow.find('.testimonial_name').data('idd'); //image
-                //console.log(testimonial_image);
+                let testimonial_text = currentRow.find('.testimonial_text').data('iddd'); //text
+                let testimonial_image = currentRow.find('.testimonial_image').data('idd'); //image
+                //console.log(testimonial_text);
 
                 $("#testimonial_id").val(testimonial_id);
-                $("#text").val(testimonial_text);
-                //$("#image").attr("src", {{asset('storage/image/')}} + testimonial_image);
+                //$("#text").val(testimonial_text);
+                CKEDITOR.instances.text.setData(testimonial_text);
+                $("#image1").attr("src", '{{asset('storage/image')}}/' + testimonial_image);
 
             })
         })
