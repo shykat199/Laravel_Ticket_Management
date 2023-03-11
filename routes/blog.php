@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\admin\BlogController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BlogController;
 
 
 //admin/dashboard

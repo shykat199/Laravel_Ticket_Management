@@ -122,6 +122,25 @@
                     </div>
                 </li>
 
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                        <i class="uil-store"></i>
+                        <span> Testimonial Section </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarEcommerce">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="{{route('admin.testimonial.active')}}">Active Testimonial</a>
+                            </li>
+                            <li>
+                                <a href="{{route('admin.testimonial.inactive')}}">InActive Testimonial</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+
 
             </ul>
 

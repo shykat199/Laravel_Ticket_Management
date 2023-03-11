@@ -18,9 +18,10 @@ Route::prefix('dashboard')->group(function () {
 
 });
 
-Route::middleware('auth')->prefix('admin/dashboard')->group(function (){
+Route::middleware('auth')->prefix('admin/dashboard')->group(function () {
     require base_path('routes/category.php');
     require base_path('routes/blog.php');
+    require base_path('routes/testimonial.php');
 });
 
 //Route::get('test', function () {
