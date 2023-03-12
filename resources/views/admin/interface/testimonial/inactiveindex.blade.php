@@ -132,7 +132,7 @@
 
                         <label for="formFile" class="form-label">Post Image</label>
                         <input class="form-control" name="image" type="file" id="post_image"
-                               onchange="readUrl1(this)">
+                               onchange="readUrl(this)">
                         <img class="mt-2" id="image1" src="" alt="" style="height: 80px; width: 80px;"/>
 
                         @error('image')
@@ -186,6 +186,20 @@
                 let reader = new FileReader();
                 reader.onload = function (e) {
                     $('#image')
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(150)
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        function readUrl(input) {
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#image1')
                         .attr('src', e.target.result)
                         .width(150)
                         .height(150)

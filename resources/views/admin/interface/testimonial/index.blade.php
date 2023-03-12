@@ -66,28 +66,32 @@
 
         <tbody>
 
-            @php
-                $idx=1;
-            @endphp
-            @foreach($allTestimonialsUser as $userTestimonial)
-                <tr>
-                    <td>{{$idx++}}</td>
-                    <td class="testimonial_name" data-id="{{$userTestimonial->id}}">{{$userTestimonial->users->name}}</td>
-                    <td class="testimonial_name" data-id="{{$userTestimonial->id}}">{{strtoupper($userTestimonial->users->user_role)}}</td>
-                    <td class="testimonial_name">{{\Illuminate\Support\Str::limit($userTestimonial->feedback_text,40,'....')}}</td>
-                    {{--                <td class="category_name">{{$userTestimonial->category_name}}</td>--}}
-                    <td class="testimonial_name">
-                        <img src="{{asset('storage/image/'.$userTestimonial->image)}}" alt="" style="height: 80px;width: 80px">
-                    </td>
-                    <td class="testimonial_name"><h4><span class="badge bg-success">Active</span></h4></td>
-                    <td>
-                        <button class="btn btn-warning btnEdit" data-bs-toggle="modal" data-bs-target="#centermodal1"><i
-                                class=" fa-solid fa-pen-to-square"></i></button>
-                        <a href="{{route('admin.testimonial.delete',$userTestimonial->id)}}" class="btn btn-danger"><i
-                                class=" fa-solid fa-trash"></i></a>
-                    </td>
-                </tr>
-            @endforeach
+        @php
+            $idx=1;
+        @endphp
+        @foreach($allTestimonialsUser as $userTestimonial)
+            <tr>
+                <td>{{$idx++}}</td>
+                <td class="testimonial_name" data-id="{{$userTestimonial->id}}">{{$userTestimonial->users->name}}</td>
+                <td class="testimonial_name"
+                    data-id="{{$userTestimonial->id}}">{{strtoupper($userTestimonial->users->user_role)}}</td>
+
+                <td class="testimonial_text"
+                    data-iddd="{{$userTestimonial->feedback_text}}">{{\Illuminate\Support\Str::limit($userTestimonial->feedback_text,30,'....')}}</td>
+                {{--                <td class="category_name">{{$userTestimonial->category_name}}</td>--}}
+                <td class="">
+                    <img class="testimonial_image" src="{{asset('storage/image/'.$userTestimonial->image)}}"
+                         data-idd="{{$userTestimonial->image}}" alt="" style="height: 80px; width: 80px">
+                </td>
+                <td class="testimonial_name"><h4><span class="badge bg-success">Active</span></h4></td>
+                <td>
+                    <button class="btn btn-warning btnEdit" data-bs-toggle="modal" data-bs-target="#centermodal1"><i
+                            class=" fa-solid fa-pen-to-square"></i></button>
+                    <a href="{{route('admin.testimonial.delete',$userTestimonial->id)}}" class="btn btn-danger"><i
+                            class=" fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+        @endforeach
 
         </tbody>
     </table>
@@ -105,7 +109,7 @@
                     <form action="{{route('admin.testimonial.toInactive')}}" method="post">
                         @csrf
                         <div class="float-left mb-1">
-                            <input type="text" name="testimonial_id" id="testimonial_id">
+                            <input type="hidden" name="testimonial_id" id="testimonial_id">
                             <button type="submit" class="btn btn-danger">InActive Testimonial</button>
                         </div>
                     </form>
@@ -116,7 +120,9 @@
                         <input type="hidden" name="testimonial_id" id="testimonial_id">
 
                         <label class="form-label" for="validationCustom01">Feedback Text</label>
-                        <textarea class="ckeditor form-control" id="text" name="feedback_text"></textarea>
+                        <textarea class="ckeditor form-control" id="text" name="feedback_text">
+
+                        </textarea>
 
                         @error('feedback_text')
                         <span class="text-danger">{{$message}}</span>
@@ -125,8 +131,8 @@
 
                         <label for="formFile" class="form-label">Post Image</label>
                         <input class="form-control" name="image" type="file" id="post_image"
-                               onchange="readUrl1(this)">
-                        <img class="mt-2" id="image" src="" alt=""/>
+                               onchange="readUrl(this)">
+                        <img class="mt-2" id="image1" src="" alt="" style="height: 80px; width: 80px;"/>
 
                         @error('image')
                         <span class="text-danger">{{$message}}</span>
@@ -151,13 +157,14 @@
                 let currentRow = $(this).closest('tr');
                 let col1 = currentRow.find('.testimonial_name').html(); //user
                 let testimonial_id = currentRow.find('.testimonial_name').data('id');  //id
-                let testimonial_text = currentRow.find('.testimonial_name').data('iddd'); //text
-                //let testimonial_image = currentRow.find('.testimonial_name').data('idd'); //image
-                //console.log(testimonial_image);
+                let testimonial_text = currentRow.find('.testimonial_text').data('iddd'); //text
+                let testimonial_image = currentRow.find('.testimonial_image').data('idd'); //image
+                //console.log(testimonial_text);
 
                 $("#testimonial_id").val(testimonial_id);
-                $("#text").val(testimonial_text);
-                //$("#image").attr("src", {{asset('storage/image/')}} + testimonial_image);
+                //$("#text").val(testimonial_text);
+                CKEDITOR.instances.text.setData(testimonial_text);
+                $("#image1").attr("src", '{{asset('storage/image')}}/' + testimonial_image);
 
             })
         })
@@ -177,6 +184,19 @@
                 let reader = new FileReader();
                 reader.onload = function (e) {
                     $('#image')
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(150)
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function readUrl(input) {
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#image1')
                         .attr('src', e.target.result)
                         .width(150)
                         .height(150)
