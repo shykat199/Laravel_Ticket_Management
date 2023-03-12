@@ -23,6 +23,7 @@ Route::middleware('auth')->prefix('admin/dashboard')->group(function () {
     require base_path('routes/blog.php');
     require base_path('routes/testimonial.php');
     require base_path('routes/team.php');
+    require base_path('routes/advantage.php');
 });
 
 //Route::get('test', function () {
