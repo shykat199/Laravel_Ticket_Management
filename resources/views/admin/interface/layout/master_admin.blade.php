@@ -4,34 +4,39 @@
 
 <!-- Mirrored from coderthemes.com/hyper/saas/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 May 2022 20:21:31 GMT -->
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>Dashboard | Hyper - Responsive Bootstrap 5 Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    <meta content="Coderthemes" name="author" />
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
+    <meta content="Coderthemes" name="author"/>
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{asset("admin/assets/images/favicon.ico")}}">
 
     <!-- third party css -->
-    <link href="{{asset("admin/assets/css/vendor/jquery-jvectormap-1.2.2.css")}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset("admin/assets/css/vendor/jquery-jvectormap-1.2.2.css")}}" rel="stylesheet" type="text/css"/>
     <!-- third party css end -->
 
     <!-- App css -->
-    <link href="{{asset("admin/assets/css/icons.min.css")}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset("admin/assets/css/icons.min.css")}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset("admin/assets/css/app.min.css")}}" rel="stylesheet" type="text/css" id="app-style"/>
 
     <link href="{{asset("admin/assets/css/vendor/dataTables.bootstrap5.css")}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset("admin/assets/css/vendor/responsive.bootstrap5.css")}}" rel="stylesheet" type="text/css"/>
-    <link href="{{asset("admin/assets/css/vendor/quill.core.css")}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset("admin/assets/css/vendor/quill.snow.css")}}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="{{asset("admin/assets/css/vendor/quill.core.css")}}" rel="stylesheet" type="text/css"/>
+    <link href="{{asset("admin/assets/css/vendor/quill.snow.css")}}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+          integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.css" integrity="sha512-9tISBnhZjiw7MV4a1gbemtB9tmPcoJ7ahj8QWIc0daBCdvlKjEA48oLlo6zALYm3037tPYYulT0YQyJIJJoyMQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.css"
+          integrity="sha512-9tISBnhZjiw7MV4a1gbemtB9tmPcoJ7ahj8QWIc0daBCdvlKjEA48oLlo6zALYm3037tPYYulT0YQyJIJJoyMQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
 
 </head>
 
-<body class="loading" data-layout-color="light" data-leftbar-theme="dark" data-layout-mode="fluid" data-rightbar-onstart="true">
+<body class="loading" data-layout-color="light" data-leftbar-theme="dark" data-layout-mode="fluid"
+      data-rightbar-onstart="true">
 <!-- Begin page -->
 <div class="wrapper">
     <!-- ========== Left Sidebar Start ========== -->
@@ -65,7 +70,8 @@
                 <li class="side-nav-title side-nav-item">Navigation</li>
 
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarDashboards" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
+                    <a data-bs-toggle="collapse" href="#sidebarDashboards" aria-expanded="false"
+                       aria-controls="sidebarDashboards" class="side-nav-link">
                         <i class="uil-home-alt"></i>
                         <span class="badge bg-success float-end">4</span>
                         <span> Dashboards </span>
@@ -82,7 +88,8 @@
                                 <a href="dashboard-projects.html">Projects</a>
                             </li>
                             <li>
-                                <a href="dashboard-wallet.html">E-Wallet <span class="badge rounded bg-danger font-10 float-end">New</span></a>
+                                <a href="dashboard-wallet.html">E-Wallet <span
+                                        class="badge rounded bg-danger font-10 float-end">New</span></a>
                             </li>
                         </ul>
                     </div>
@@ -91,7 +98,8 @@
                 <li class="side-nav-title side-nav-item">All Section</li>
 
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                       aria-controls="sidebarEcommerce" class="side-nav-link">
                         <i class="uil-store"></i>
                         <span> Category Section </span>
                         <span class="menu-arrow"></span>
@@ -106,7 +114,8 @@
                     </div>
                 </li>
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                       aria-controls="sidebarEcommerce" class="side-nav-link">
                         <i class="uil-store"></i>
                         <span> Blog Section </span>
                         <span class="menu-arrow"></span>
@@ -125,7 +134,8 @@
                 </li>
 
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                       aria-controls="sidebarEcommerce" class="side-nav-link">
                         <i class="uil-store"></i>
                         <span> Testimonial Section </span>
                         <span class="menu-arrow"></span>
@@ -143,8 +153,10 @@
                     </div>
                 </li>
 
+
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                       aria-controls="sidebarEcommerce" class="side-nav-link">
                         <i class="uil-store"></i>
                         <span> Team Section </span>
                         <span class="menu-arrow"></span>
@@ -160,7 +172,8 @@
                 </li>
 
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                       aria-controls="sidebarEcommerce" class="side-nav-link">
                         <i class="uil-store"></i>
                         <span>Advantage Section</span>
                         <span class="menu-arrow"></span>
@@ -198,47 +211,56 @@
             <div class="navbar-custom">
                 <ul class="list-unstyled topbar-menu float-end mb-0">
                     <li class="dropdown notification-list d-lg-none">
-                        <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
                             <i class="dripicons-search noti-icon"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
                             <form class="p-3">
-                                <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                                <input type="text" class="form-control" placeholder="Search ..."
+                                       aria-label="Recipient's username">
                             </form>
                         </div>
                     </li>
                     <li class="dropdown notification-list topbar-dropdown">
-                        <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
                             <img src="assets/images/flags/us.jpg" alt="user-image" class="me-0 me-sm-1" height="12">
-                            <span class="align-middle d-none d-sm-inline-block">English</span> <i class="mdi mdi-chevron-down d-none d-sm-inline-block align-middle"></i>
+                            <span class="align-middle d-none d-sm-inline-block">English</span> <i
+                                class="mdi mdi-chevron-down d-none d-sm-inline-block align-middle"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu">
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
+                                <img src="assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12">
+                                <span class="align-middle">German</span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
+                                <img src="assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12">
+                                <span class="align-middle">Italian</span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
+                                <img src="assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12">
+                                <span class="align-middle">Spanish</span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
+                                <img src="assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12">
+                                <span class="align-middle">Russian</span>
                             </a>
 
                         </div>
                     </li>
 
                     <li class="dropdown notification-list">
-                        <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
                             <i class="dripicons-bell noti-icon"></i>
                             <span class="noti-icon-badge"></span>
                         </a>
@@ -259,7 +281,8 @@
 
                                 <h5 class="text-muted font-13 fw-normal mt-0">Today</h5>
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item p-0 notify-item card unread-noti shadow-none mb-2">
+                                <a href="javascript:void(0);"
+                                   class="dropdown-item p-0 notify-item card unread-noti shadow-none mb-2">
                                     <div class="card-body">
                                         <span class="float-end noti-close-btn text-muted"><i class="mdi mdi-close"></i></span>
                                         <div class="d-flex align-items-center">
@@ -269,15 +292,18 @@
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1 text-truncate ms-2">
-                                                <h5 class="noti-item-title fw-semibold font-14">Datacorp <small class="fw-normal text-muted ms-1">1 min ago</small></h5>
-                                                <small class="noti-item-subtitle text-muted">Caleb Flakelar commented on Admin</small>
+                                                <h5 class="noti-item-title fw-semibold font-14">Datacorp <small
+                                                        class="fw-normal text-muted ms-1">1 min ago</small></h5>
+                                                <small class="noti-item-subtitle text-muted">Caleb Flakelar commented on
+                                                    Admin</small>
                                             </div>
                                         </div>
                                     </div>
                                 </a>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item p-0 notify-item card read-noti shadow-none mb-2">
+                                <a href="javascript:void(0);"
+                                   class="dropdown-item p-0 notify-item card read-noti shadow-none mb-2">
                                     <div class="card-body">
                                         <span class="float-end noti-close-btn text-muted"><i class="mdi mdi-close"></i></span>
                                         <div class="d-flex align-items-center">
@@ -287,7 +313,8 @@
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1 text-truncate ms-2">
-                                                <h5 class="noti-item-title fw-semibold font-14">Admin <small class="fw-normal text-muted ms-1">1 hours ago</small></h5>
+                                                <h5 class="noti-item-title fw-semibold font-14">Admin <small
+                                                        class="fw-normal text-muted ms-1">1 hours ago</small></h5>
                                                 <small class="noti-item-subtitle text-muted">New user registered</small>
                                             </div>
                                         </div>
@@ -297,18 +324,22 @@
                                 <h5 class="text-muted font-13 fw-normal mt-0">Yesterday</h5>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item p-0 notify-item card read-noti shadow-none mb-2">
+                                <a href="javascript:void(0);"
+                                   class="dropdown-item p-0 notify-item card read-noti shadow-none mb-2">
                                     <div class="card-body">
                                         <span class="float-end noti-close-btn text-muted"><i class="mdi mdi-close"></i></span>
                                         <div class="d-flex align-items-center">
                                             <div class="flex-shrink-0">
                                                 <div class="notify-icon">
-                                                    <img src="assets/images/users/avatar-2.jpg" class="img-fluid rounded-circle" alt="" />
+                                                    <img src="assets/images/users/avatar-2.jpg"
+                                                         class="img-fluid rounded-circle" alt=""/>
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1 text-truncate ms-2">
-                                                <h5 class="noti-item-title fw-semibold font-14">Cristina Pride <small class="fw-normal text-muted ms-1">1 day ago</small></h5>
-                                                <small class="noti-item-subtitle text-muted">Hi, How are you? What about our next meeting</small>
+                                                <h5 class="noti-item-title fw-semibold font-14">Cristina Pride <small
+                                                        class="fw-normal text-muted ms-1">1 day ago</small></h5>
+                                                <small class="noti-item-subtitle text-muted">Hi, How are you? What about
+                                                    our next meeting</small>
                                             </div>
                                         </div>
                                     </div>
@@ -317,7 +348,8 @@
                                 <h5 class="text-muted font-13 fw-normal mt-0">30 Dec 2021</h5>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item p-0 notify-item card read-noti shadow-none mb-2">
+                                <a href="javascript:void(0);"
+                                   class="dropdown-item p-0 notify-item card read-noti shadow-none mb-2">
                                     <div class="card-body">
                                         <span class="float-end noti-close-btn text-muted"><i class="mdi mdi-close"></i></span>
                                         <div class="d-flex align-items-center">
@@ -328,25 +360,29 @@
                                             </div>
                                             <div class="flex-grow-1 text-truncate ms-2">
                                                 <h5 class="noti-item-title fw-semibold font-14">Datacorp</h5>
-                                                <small class="noti-item-subtitle text-muted">Caleb Flakelar commented on Admin</small>
+                                                <small class="noti-item-subtitle text-muted">Caleb Flakelar commented on
+                                                    Admin</small>
                                             </div>
                                         </div>
                                     </div>
                                 </a>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item p-0 notify-item card read-noti shadow-none mb-2">
+                                <a href="javascript:void(0);"
+                                   class="dropdown-item p-0 notify-item card read-noti shadow-none mb-2">
                                     <div class="card-body">
                                         <span class="float-end noti-close-btn text-muted"><i class="mdi mdi-close"></i></span>
                                         <div class="d-flex align-items-center">
                                             <div class="flex-shrink-0">
                                                 <div class="notify-icon">
-                                                    <img src="assets/images/users/avatar-4.jpg" class="img-fluid rounded-circle" alt="" />
+                                                    <img src="assets/images/users/avatar-4.jpg"
+                                                         class="img-fluid rounded-circle" alt=""/>
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1 text-truncate ms-2">
                                                 <h5 class="noti-item-title fw-semibold font-14">Karen Robinson</h5>
-                                                <small class="noti-item-subtitle text-muted">Wow ! this admin looks good and awesome design</small>
+                                                <small class="noti-item-subtitle text-muted">Wow ! this admin looks good
+                                                    and awesome design</small>
                                             </div>
                                         </div>
                                     </div>
@@ -358,7 +394,8 @@
                             </div>
 
                             <!-- All-->
-                            <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item border-top border-light py-2">
+                            <a href="javascript:void(0);"
+                               class="dropdown-item text-center text-primary notify-item border-top border-light py-2">
                                 View All
                             </a>
 
@@ -366,7 +403,8 @@
                     </li>
 
                     <li class="dropdown notification-list d-none d-sm-inline-block">
-                        <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
                             <i class="dripicons-view-apps noti-icon"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg p-0">
@@ -425,17 +463,20 @@
                     </li>
 
                     <li class="dropdown notification-list">
-                        <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                        <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#"
+                           role="button" aria-haspopup="false"
                            aria-expanded="false">
                                     <span class="account-user-avatar">
-                                        <img src="{{asset("admin/assets/images/users/avatar-1.jpg")}}" alt="user-image" class="rounded-circle">
+                                        <img src="{{asset("admin/assets/images/users/avatar-1.jpg")}}" alt="user-image"
+                                             class="rounded-circle">
                                     </span>
                             <span>
                                         <span class="account-user-name">{{Auth::user()->name}}</span>
                                         <span class="account-position">{{strtoupper(Auth::user()->user_role)}}</span>
                                     </span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
+                        <div
+                            class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
                             <!-- item-->
                             <div class=" dropdown-header noti-title">
                                 <h6 class="text-overflow m-0">Welcome !</h6>
@@ -448,7 +489,7 @@
                             </a>
 
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <a href="{{route('admin.setting.index')}}" class="dropdown-item notify-item">
                                 <i class="mdi mdi-account-edit me-1"></i>
                                 <span>Settings</span>
                             </a>
@@ -480,7 +521,8 @@
                 <div class="app-search dropdown d-none d-lg-block">
                     <form>
                         <div class="input-group">
-                            <input type="text" class="form-control dropdown-toggle"  placeholder="Search..." id="top-search">
+                            <input type="text" class="form-control dropdown-toggle" placeholder="Search..."
+                                   id="top-search">
                             <span class="mdi mdi-magnify search-icon"></span>
                             <button class="input-group-text btn-primary" type="submit">Search</button>
                         </div>
@@ -519,7 +561,8 @@
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <div class="d-flex">
-                                    <img class="d-flex me-2 rounded-circle" src="assets/images/users/avatar-2.jpg" alt="Generic placeholder image" height="32">
+                                    <img class="d-flex me-2 rounded-circle" src="assets/images/users/avatar-2.jpg"
+                                         alt="Generic placeholder image" height="32">
                                     <div class="w-100">
                                         <h5 class="m-0 font-14">Erwin Brown</h5>
                                         <span class="font-12 mb-0">UI Designer</span>
@@ -530,7 +573,8 @@
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <div class="d-flex">
-                                    <img class="d-flex me-2 rounded-circle" src="assets/images/users/avatar-5.jpg" alt="Generic placeholder image" height="32">
+                                    <img class="d-flex me-2 rounded-circle" src="assets/images/users/avatar-5.jpg"
+                                         alt="Generic placeholder image" height="32">
                                     <div class="w-100">
                                         <h5 class="m-0 font-14">Jacob Deo</h5>
                                         <span class="font-12 mb-0">Developer</span>
@@ -575,12 +619,12 @@
                 @if(\Illuminate\Support\Facades\Session::has('success'))
                     <div class="alert alert-success m-2" role="alert">
                         <i class="dripicons-checkmark me-2"></i><strong>{{\Illuminate\Support\Facades\Session::get('success')}}</strong>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close" style="float: right"></button>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close" style="float: right"></button>
                     </div>
                 @endif
 
                 @yield('admin.content')
-
 
 
             </div>
@@ -594,7 +638,8 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
-                        <script>document.write(new Date().getFullYear())</script> © Hyper - Coderthemes.com
+                        <script>document.write(new Date().getFullYear())</script>
+                        © Hyper - Coderthemes.com
                     </div>
                     <div class="col-md-6">
                         <div class="text-md-end footer-links d-none d-md-block">
@@ -622,7 +667,7 @@
 <div class="end-bar">
 
     <div class="rightbar-title">
-        <a href="javascript:void(0);" class="end-bar-toggle float-end">
+        <a href="" class="end-bar-toggle float-end">
             <i class="dripicons-cross noti-icon"></i>
         </a>
         <h5 class="m-0">Settings</h5>
@@ -637,22 +682,24 @@
 
             <!-- Settings -->
             <h5 class="mt-3">Color Scheme</h5>
-            <hr class="mt-1" />
+            <hr class="mt-1"/>
 
             <div class="form-check form-switch mb-1">
-                <input class="form-check-input" type="checkbox" name="color-scheme-mode" value="light" id="light-mode-check" checked>
+                <input class="form-check-input" type="checkbox" name="color-scheme-mode" value="light"
+                       id="light-mode-check" checked>
                 <label class="form-check-label" for="light-mode-check">Light Mode</label>
             </div>
 
             <div class="form-check form-switch mb-1">
-                <input class="form-check-input" type="checkbox" name="color-scheme-mode" value="dark" id="dark-mode-check">
+                <input class="form-check-input" type="checkbox" name="color-scheme-mode" value="dark"
+                       id="dark-mode-check">
                 <label class="form-check-label" for="dark-mode-check">Dark Mode</label>
             </div>
 
 
             <!-- Width -->
             <h5 class="mt-4">Width</h5>
-            <hr class="mt-1" />
+            <hr class="mt-1"/>
             <div class="form-check form-switch mb-1">
                 <input class="form-check-input" type="checkbox" name="width" value="fluid" id="fluid-check" checked>
                 <label class="form-check-label" for="fluid-check">Fluid</label>
@@ -666,7 +713,7 @@
 
             <!-- Left Sidebar-->
             <h5 class="mt-4">Left Sidebar</h5>
-            <hr class="mt-1" />
+            <hr class="mt-1"/>
             <div class="form-check form-switch mb-1">
                 <input class="form-check-input" type="checkbox" name="theme" value="default" id="default-check">
                 <label class="form-check-label" for="default-check">Default</label>
@@ -741,7 +788,9 @@
 <!-- init js -->
 <script src="{{asset("admin/assets/js/ui/component.fileupload.js")}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js" integrity="sha512-F636MAkMAhtTplahL9F6KmTfxTmYcAcjcCkyu0f0voT3N/6vzAuJ4Num55a0gEJ+hRLHhdz3vDvZpf6kqgEa5w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"
+        integrity="sha512-F636MAkMAhtTplahL9F6KmTfxTmYcAcjcCkyu0f0voT3N/6vzAuJ4Num55a0gEJ+hRLHhdz3vDvZpf6kqgEa5w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </body>
 

@@ -24,6 +24,7 @@ Route::middleware('auth')->prefix('admin/dashboard')->group(function () {
     require base_path('routes/testimonial.php');
     require base_path('routes/team.php');
     require base_path('routes/advantage.php');
+    require base_path('routes/sightSetting.php');
 });
 
 //Route::get('test', function () {
