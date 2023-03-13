@@ -17,7 +17,7 @@ class AuthController extends Controller
     public function loginPage()
     {
 
-        if (Auth::user() && Auth::check()) {
+        if (Auth::check() && Auth::user()) {
             if (Auth::user()->user_role === 'admin') {
                 return redirect()->route('admin.category.index');
             }

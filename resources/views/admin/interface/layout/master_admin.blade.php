@@ -101,6 +101,23 @@
                     <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
                        aria-controls="sidebarEcommerce" class="side-nav-link">
                         <i class="uil-store"></i>
+                        <span> Bus Company Section </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarEcommerce">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="{{route('admin.company.index')}}">Bus Company</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                       aria-controls="sidebarEcommerce" class="side-nav-link">
+                        <i class="uil-store"></i>
                         <span> Category Section </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -113,6 +130,7 @@
                         </ul>
                     </div>
                 </li>
+
                 <li class="side-nav-item">
                     <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
                        aria-controls="sidebarEcommerce" class="side-nav-link">
