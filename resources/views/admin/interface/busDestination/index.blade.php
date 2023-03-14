@@ -16,6 +16,8 @@
             <th>#Id</th>
             <th>Company Name</th>
             <th>Coach Name</th>
+            <th>Available Seat</th>
+            <th>Coach Type</th>
             <th>Seat Price</th>
             <th>From</th>
             <th>To</th>
@@ -34,6 +36,8 @@
                 <td>{{$idx++}}</td>
                 <td>{{$destination->busDetails->busCompany->bus_company}}</td>
                 <td>{{$destination->busDetails->bus_coach}}</td>
+                <td>{{$destination->busDetails->bus_seat}}</td>
+                <td>{{$destination->busDetails->bus_type}}</td>
                 <td>{{$destination->ticket_price}}</td>
                 <td>{{$destination->starting_point}}</td>
                 <td>{{$destination->arrival_point}}</td>
@@ -42,9 +46,9 @@
                 <td>
                     <a href="{{route('blog.show',$destination->id)}}" class="btn btn-warning "><i
                             class="fa-solid fa-eye"></i></a>
-                    <a href="{{route('blog.edit',$destination->id)}}" class="btn btn-primary "><i
+                    <a href="{{route('post.admin.bus_destination.edit',$destination->id)}}" class="btn btn-primary "><i
                             class=" fa-solid fa-pen-to-square"></i></a>
-                    <a href="{{route('admin.blog.delete',$destination->id)}}" class="btn btn-danger"><i
+                    <a href="{{route('delete.admin.bus_destination',$destination->id)}}" class="btn btn-danger"><i
                             class=" fa-solid fa-trash"></i></a>
                 </td>
             </tr>

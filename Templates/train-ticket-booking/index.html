@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Train Ticket Booking</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="assets/css/slick.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="assets/js/jquery-3.6.3.min.js"></script>
+</head>
+
+<body>
+  <header class="header-area">
+    <nav class="navbar bg-dark navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand ticket-booking-logo" href="#">
+          <i class="fa fa-train pe-2" aria-hidden="true"></i>
+          BOOK<span class="ticket-booking-logo-text-decrease">YOUR</span>TRAIN
+        </a>
+        <button class="navbar-toggler nav-collaps-icon" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li></li>
+          </ul>
+          <div class="d-flex">
+            <button class="btn btn-outline-success me-2 ticket-booking-nav-button-style" type="submit">Sign Up</button>
+            <button class="btn btn-outline-success ticket-booking-nav-button-style" type="submit">Login</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg ticket-booking-nav2 py-4">
+      <div class="container">
+        <button class="navbar-toggler nav-collaps-icon" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse ticket-booking-nav2-text-design" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item pe-4">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item pe-4">
+              <a class="nav-link" href="#">Blog</a>
+            </li>
+            <li class="nav-item pe-4">
+              <a class="nav-link pe-4" href="#">Gallery</a>
+            </li>
+            <li class="nav-item dropdown pe-4">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Pages
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+            <li class="nav-item pe-4">
+              <a class="nav-link disabled">About</a>
+            </li>
+          </ul>
+          <ul class="d-flex">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                USD
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+            <li class="nav-item px-4">
+              <a class="nav-link disabled">|</a>
+            </li>
+            <li class="nav-item dropdown pe-3">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                UN
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- header hero start -->
+    <section class="header-hero">
+      <div class="container ticket-booking-home-header-hero-container">
+        <div class="row gy-4 ticket-booking-home-header-hero-content">
+          <div
+            class="col-12 col-sm-12 col-md-6 col-lg-6 d-flex flex-column justify-content-center ticket-booking-home-header-hero-title">
+            <h2>WELCOME TO BOOK <span>YOUR</span> TRAIN</h2>
+            <div class="row">
+              <div class="col-12 col-sm-12 col-md-10 col-lg-10">
+                <p>We saves your time both while purchasing, the check-in and during the travel</p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-12 col-sm-12 col-md-6 col-lg-6 ticket-booking-home-header-search-ticket-form d-flex flex-column justify-content-end">
+            <form class="row g-3 pt-3 pb-5 px-2">
+              <!-- travelling route start -->
+              <div class="col-md-5 hero-input-with-icon">
+                <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
+                <input type="text" class="form-control" id="inputtext1" placeholder="From">
+                <i class="fa fa-map-marker"></i>
+              </div>
+              <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="form-control">
+                  <i class="fa fa-refresh"></i>
+                </button>
+              </div>
+              <div class="col-md-5 d-flex align-items-end hero-input-with-icon">
+                <input type="text" class="form-control" id="inputtext2" placeholder="To">
+                <i class="fa fa-map-marker"></i>
+              </div>
+              <!-- travelling route end -->
+              <!-- travelling date start -->
+              <div class="col-md-6 hero-input-with-icon mt-4">
+                <label for="inputtext3" class="form-label pb-2">Travelling Date</label>
+                <input type="text" class="form-control" id="inputtext3" placeholder="MM/DD/YY">
+                <i class="fa fa-calendar"></i>
+              </div>
+              <div class="col-md-6 d-flex align-items-end hero-input-with-icon mt-4">
+                <input type="text" class="form-control" id="inputtext4" placeholder="One Way">
+                <i class="fa fa-calendar"></i>
+              </div>
+              <!-- travelling date end -->
+              <!-- travelling person start -->
+              <div class="col-md-6 hero-input-with-icon mt-4 hide-numberType-icon">
+                <label for="inputtext5" class="form-label pb-2">Travelling Persons</label>
+                <input type="number" class="form-control" id="inputtext5" placeholder="1 Adult">
+                <i class="fa fa-caret-down"></i>
+              </div>
+              <div class="col-md-6 d-flex align-items-end hero-input-with-icon mt-4 hide-numberType-icon">
+                <input type="number" class="form-control" id="inputtext4" placeholder="0 Kids">
+                <i class="fa fa-caret-down"></i>
+              </div>
+
+              <!-- travelling person end -->
+              <div class="col-md-6 d-flex ">
+
+              </div>
+              <div class="col-md-6 d-flex pt-5 ">
+                <button type="submit" class="form-control py-3  search-ticket-btn">
+                  SEARCH TICKETS
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- header hero end -->
+  </header>
+  <!-- main start -->
+  <main class="">
+    <!-- top travel destination start  -->
+    <section class="container ticket-booking-home-top-trav-destination mt-5">
+      <div class="d-flex justify-content-between pt-4 mb-5">
+        <h3>TOP TRAVEL DESTINATION</h3>
+        <button type="button" class="btn btn-outline-dark fw-semibold">Browse All</button>
+      </div>
+      <!-- top destination cards -->
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+          <div class="card h-100">
+            <img src="./assets/images/newyork.jpg" class="card-img-top img-fluid" alt="new york">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-6">
+                  <h5 class="card-title">New York</h5>
+                  <p class="text-danger">Penn station, NY</p>
+                </div>
+                <div class="col-6">
+                  <h5 class="card-title text-end">Los Angels</h5>
+                  <p class="text-danger text-end">Union Station, CA</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="row">
+                <div class="col-6 d-flex align-items-center">
+                  <small class="text-muted">Every day</small>
+                </div>
+                <div class="col-6 d-flex align-items-center justify-content-end">
+                  <small class="text-muted ">From <span class="text-danger fs-4 fw-semibold">$280</span></small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="./assets/images/los-angels.jpg" class="card-img-top img-fluid" alt="los-angels">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-6">
+                  <h5 class="card-title">Los Angels</h5>
+                  <p class="text-danger">Union Station, CA</p>
+                </div>
+                <div class="col-6">
+                  <h5 class="card-title text-end">Chicago</h5>
+                  <p class="text-danger text-end">Union Station, IL</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="row">
+                <div class="col-6 d-flex align-items-center">
+                  <small class="text-muted">Every day</small>
+                </div>
+                <div class="col-6 d-flex align-items-center justify-content-end">
+                  <small class="text-muted ">From <span class="text-danger fs-4 fw-semibold">$280</span></small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="./assets/images/chicago.jpg" class="card-img-top img-fluid" alt="chicago">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-6">
+                  <h5 class="card-title">Chicago</h5>
+                  <p class="text-danger">Union Station, IL</p>
+                </div>
+                <div class="col-6">
+                  <h5 class="card-title text-end">New York</h5>
+                  <p class="text-danger text-end">Penn station,NY</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="row">
+                <div class="col-6 d-flex align-items-center">
+                  <small class="text-muted">Every day</small>
+                </div>
+                <div class="col-6 d-flex align-items-center justify-content-end">
+                  <small class="text-muted ">From <span class="text-danger fs-4 fw-semibold">$280</span></small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="./assets/images/california.jpg" class="card-img-top img-fluid" alt="california">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-6">
+                  <h5 class="card-title">California</h5>
+                  <p class="text-danger">Penn station, CA</p>
+                </div>
+                <div class="col-6">
+                  <h5 class="card-title text-end">Los Angels</h5>
+                  <p class="text-danger text-end">Union Station, CA</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="row">
+                <div class="col-6 d-flex align-items-center">
+                  <small class="text-muted">Every day</small>
+                </div>
+                <div class="col-6 d-flex align-items-center justify-content-end">
+                  <small class="text-muted ">From <span class="text-danger fs-4 fw-semibold">$280</span></small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="./assets/images/florida.jpg" class="card-img-top img-fluid" alt="florida">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-6">
+                  <h5 class="card-title">Florida</h5>
+                  <p class="text-danger">Union Station, FL</p>
+                </div>
+                <div class="col-6">
+                  <h5 class="card-title text-end">Chicago</h5>
+                  <p class="text-danger text-end">Union Station, IL</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="row">
+                <div class="col-6 d-flex align-items-center">
+                  <small class="text-muted">Every day</small>
+                </div>
+                <div class="col-6 d-flex align-items-center justify-content-end">
+                  <small class="text-muted ">From <span class="text-danger fs-4 fw-semibold">$280</span></small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="./assets/images/newyork.jpg" class="card-img-top img-fluid" alt="newyork">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-6">
+                  <h5 class="card-title">New York</h5>
+                  <p class="text-danger">Penn station,NY</p>
+                </div>
+                <div class="col-6">
+                  <h5 class="card-title text-end">California</h5>
+                  <p class="text-danger text-end">Penn station,CA</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="row">
+                <div class="col-6 d-flex align-items-center">
+                  <small class="text-muted">Every day</small>
+                </div>
+                <div class="col-6 d-flex align-items-center justify-content-end">
+                  <small class="text-muted ">From <span class="text-danger fs-4 fw-semibold">$280</span></small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- top travel destination end -->
+    <!-- latest post start  -->
+    <section class=" py-5 ticket-booking-home-latest-post mt-5">
+      <div class="container">
+        <div class="d-flex justify-content-between pt-4 mb-5">
+          <h3>LATEST POSTS</h3>
+          <button type="button" class="btn btn-outline-dark fw-semibold">Older Posts</button>
+        </div>
+        <!-- latest post cards -->
+        <div class="row row-cols-1 row-cols-lg-2 g-4">
+          <div class="col">
+            <div class="card h-100">
+              <div class="row">
+                <div class="col-6 latest-post-card-body-1st-row-img">
+                  <img src="./assets/images/new-train-destition.jpg" class="img-fluid latest-post-card-img"
+                    alt="new york">
+                </div>
+                <div class="col-6 latest-post-card-body latest-post-card-body-1st-row">
+                  <div class="card-body">
+                    <h5 class="card-title">New train destination</h5>
+                    <p class="fs-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, ullam.</p>
+                  </div>
+                  <div class="card-footer">
+                    <div class="row">
+                      <div class="col-6 d-flex align-items-center">
+                        <small class="text-muted ">by <span class="text-danger fs-6">Admin</span></small>
+                      </div>
+                      <div class="col-6 d-flex align-items-center justify-content-end">
+                        <small class="text-muted ">1 <span class=" fst-italic">day ago</span></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="row">
+                <div class="col-6 latest-post-card-body-1st-row-img">
+                  <img src="./assets/images/top-summer-detination.jpg" class="img-fluid latest-post-card-img"
+                    alt="new york">
+                </div>
+                <div class="col-6 latest-post-card-body latest-post-card-body-1st-row">
+                  <div class="card-body">
+                    <h5 class="card-title">Best travel destination</h5>
+                    <p class="fs-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, ullam.</p>
+                  </div>
+                  <div class="card-footer">
+                    <div class="row">
+                      <div class="col-6 d-flex align-items-center">
+                        <small class="text-muted ">by <span class="text-danger fs-6">Admin</span></small>
+                      </div>
+                      <div class="col-6 d-flex align-items-center justify-content-end">
+                        <small class="text-muted ">1 <span class=" fst-italic">day ago</span></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="row">
+                <div class="col-6 d-flex order-1 latest-post-card-body-2nd-row-img">
+                  <img src="./assets/images/top-ten-train-station.jpg" class="img-fluid " alt="new york">
+                </div>
+                <div class="col-6 d-flex order-0 latest-post-card-body latest-post-card-body-2nd-row">
+                  <div>
+                    <div class="card-body">
+                      <h5 class="card-title">Top10 best train stations</h5>
+                      <p class="fs-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, ullam.</p>
+                    </div>
+                    <div class="card-footer">
+                      <div class="row">
+                        <div class="col-6 d-flex align-items-center">
+                          <small class="text-muted ">by <span class="text-danger fs-6">Admin</span></small>
+                        </div>
+                        <div class="col-6 d-flex align-items-center justify-content-end">
+                          <small class="text-muted ">1 <span class=" fst-italic">day ago</span></small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="row">
+                <div class="col-6 order-1 latest-post-card-body-2nd-row-img">
+                  <img src="./assets/images/top-travel-destination.jpg" class="img-fluid" alt="new york">
+                </div>
+                <div class="col-6 order-0 latest-post-card-body latest-post-card-body-2nd-row">
+                  <div class="card-body">
+                    <h5 class="card-title">Summer Trips from 2023</h5>
+                    <p class="fs-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, ullam.</p>
+                  </div>
+                  <div class="card-footer">
+                    <div class="row">
+                      <div class="col-6 d-flex align-items-center">
+                        <small class="text-muted ">by <span class="text-danger fs-6">Admin</span></small>
+                      </div>
+                      <div class="col-6 d-flex align-items-center justify-content-end">
+                        <small class="text-muted ">1 <span class=" fst-italic">day ago</span></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+    <!-- latest post end -->
+
+    <!-- E-Ticket advantages start -->
+    <section class="ticket-booking-home-e-ticket pt-5  mt-5">
+      <div class="container">
+        <div class="d-flex justify-content-between pt-4 mb-5">
+          <h3 class="text-light">E-TICKETS ADVANTAGE</h3>
+          <button type="button" class="btn btn-outline-light text-light fw-semibold">Learn More</button>
+        </div>
+        <div class="pt-4 row ticket-booking-home-e-ticket-middle">
+          <div class="col text-center ticket-booking-home-e-ticket-middle-content">
+            <i class="fa fa-desktop"></i>
+            <p class="text-light px-3 pt-5 pb-2 my-5">It's very easy to order a train ticket online. E-ticket can not be
+              lost
+              or
+              forgotten at home.</p>
+          </div>
+          <div class="col text-center ticket-booking-home-e-ticket-middle-content">
+            <i class="fa fa-home"></i>
+            <p class="text-light px-3 pt-5 pb-2 my-5">There's no need to go to the ticket office additional before your
+              trip.
+              Save your
+              money and nerves.</p>
+          </div>
+          <div class="col text-center ticket-booking-home-e-ticket-middle-content">
+            <i class="fa fa-globe"></i>
+            <p class="text-light px-3 pt-5 pb-2 my-5">To order tickets all you need is internet, a couple minutes and a
+              payment card.
+              Grab bonuses and discounts</p>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+    <!-- E-Ticket advantages end -->
+
+    <!-- Testimonial start -->
+    <section class="container ticket-booking-home-testimonial mb-5">
+      <h3 class="text-dark mt-5 pt-4">TESTIMONIALS</h3>
+      <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators home-carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active bg-dark"
+            aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1" aria-label="Slide 2"
+            class="bg-dark"></button>
+          <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="2" aria-label="Slide 3"
+            class="bg-dark"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="row">
+              <div class="col-6">
+                <div class="row pt-5">
+                  <div class="col-4 d-flex align-items-center  justify-content-end">
+                    <img class="img-fluid home-carousal-image" src="./assets/images/avatar7.jpg" alt="avatar">
+                  </div>
+                  <div class="col-8 d-flex  flex-column  justify-content-center">
+                    <h4>Jhon Doe</h4>
+                    <small class="text-muted fst-italic">" Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                      Reiciendis cupiditate cum mollitia
+                      velit at, excepturi aliquid facilis perferendis! Quos, velit! "</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="row pt-5">
+                  <div class="col-4 d-flex align-items-center  justify-content-end">
+                    <img class="img-fluid home-carousal-image" src="./assets/images/avatar8.jpg" alt="avatar">
+                  </div>
+                  <div class="col-8 d-flex  flex-column  justify-content-center">
+                    <h4>Jhon Doe</h4>
+                    <small class="text-muted fst-italic">" Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                      Reiciendis cupiditate cum mollitia
+                      velit at, excepturi aliquid facilis perferendis! Quos, velit! "</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="row">
+              <div class="col-6">
+                <div class="row pt-5">
+                  <div class="col-4 d-flex align-items-center  justify-content-end">
+                    <img class="img-fluid home-carousal-image" src="./assets/images/avatar9.jpg" alt="avatar">
+                  </div>
+                  <div class="col-8 d-flex  flex-column  justify-content-center">
+                    <h4>Jhon Doe</h4>
+                    <small class="text-muted fst-italic">" Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                      Reiciendis cupiditate cum mollitia
+                      velit at, excepturi aliquid facilis perferendis! Quos, velit! "</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="row pt-5">
+                  <div class="col-4 d-flex align-items-center  justify-content-end">
+                    <img class="img-fluid home-carousal-image" src="./assets/images/avatar7.jpg" alt="avatar">
+                  </div>
+                  <div class="col-8 d-flex  flex-column  justify-content-center">
+                    <h4>Jhon Doe</h4>
+                    <small class="text-muted fst-italic">" Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                      Reiciendis cupiditate cum mollitia
+                      velit at, excepturi aliquid facilis perferendis! Quos, velit! "</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="row">
+              <div class="col-6">
+                <div class="row pt-5">
+                  <div class="col-4 d-flex align-items-center  justify-content-end">
+                    <img class="img-fluid home-carousal-image" src="./assets/images/avatar8.jpg" alt="avatar">
+                  </div>
+                  <div class="col-8 d-flex  flex-column  justify-content-center">
+                    <h4>Jhon Doe</h4>
+                    <small class="text-muted fst-italic">" Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                      Reiciendis cupiditate cum mollitia
+                      velit at, excepturi aliquid facilis perferendis! Quos, velit! "</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="row pt-5">
+                  <div class="col-4 d-flex align-items-center  justify-content-end">
+                    <img class="img-fluid home-carousal-image" src="./assets/images/avatar9.jpg" alt="avatar">
+                  </div>
+                  <div class="col-8 d-flex  flex-column  justify-content-center">
+                    <h4>Jhon Doe</h4>
+                    <small class="text-muted fst-italic">" Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                      Reiciendis cupiditate cum mollitia
+                      velit at, excepturi aliquid facilis perferendis! Quos, velit! "</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button> -->
+          <!-- <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button> -->
+        </div>
+    </section>
+    <!-- Testimonial end -->
+  </main>
+  <!-- main end -->
+  <!-- footer star -->
+  <footer class="footer">
+    <div class="container mt-5">
+      <div
+        class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 g-lg-3 g-md-5 footer-upper-part">
+        <div class="col">
+          <div class="py-3">
+            <h6 class="text-light">Menu</h6>
+          </div>
+          <ul class="footer-1st-colum-menu-list">
+            <li class="py-2 text-light">
+              <a href="javascript:void(0)">
+                Press Center
+              </a>
+            </li>
+            <li class="py-2 text-light">
+              <a href="javascript:void(0)">
+                Travel News
+              </a>
+            </li>
+            <li class="py-2 text-light">
+              <a href="javascript:void(0)">
+                Privacy Policy
+              </a>
+            </li>
+            <li class="py-2 text-light">
+              <a href="javascript:void(0)">
+                Best Price Guarantee
+              </a>
+            </li>
+            <li class="py-2 text-light">
+              <a href="javascript:void(0)">
+                About Us
+              </a>
+            </li>
+            <li class="py-2 text-light">
+              <a href="javascript:void(0)">
+                Contacts
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col">
+          <div class="py-3">
+            <h6 class="text-light">Contact Us</h6>
+          </div>
+          <ul class="footer-2nd-colum-menu-list">
+            <li class="py-2">
+              <a class="d-flex align-items-center" href="javascript:void(0)">
+                <i class="fa fa-phone-square"></i>
+                <span class="ps-3 fs-4">+444 5533 8866</span>
+              </a>
+            </li>
+            <li class="py-2">
+              <a class="d-flex align-items-center" href="javascript:void(0)">
+                <i class="fa fa-skype"></i>
+                <span class="ps-3 fs-6">book.your.train</span>
+              </a>
+            </li>
+            <li class="py-2">
+              <a class="d-flex align-items-center" href="javascript:void(0)">
+                <i class="fa fa-envelope"></i>
+                <span class="ps-3 fs-6">mail@bookyourtrain.com</span>
+              </a>
+            </li>
+            <li class="py-3">
+              <a class="d-flex" href="javascript:void(0)">
+                <i class="fa fa-map-marker"></i>
+                <span class="ps-3 fs-6">5138 Little Shadow Gardens, Del Monte, Alaska, 99631-4129, US</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col">
+          <div class="py-3">
+            <h6 class="text-light">Blog Posts</h6>
+          </div>
+          <div class="footer-3rd-colum-menu-list">
+
+            <a href="javascript:void(0)" class="row py-2">
+              <div class="col-6 d-flex align-items-center  justify-content-center
+              ">
+                <img class="img-fluid" src="./assets/images/new-train-destition.jpg" alt="blog post">
+              </div>
+              <div class="col-6">
+                <h6>Lorem ipsum dolor sit amet.</h6>
+                <p class="fst-italic">1 day ago</p>
+              </div>
+            </a>
+            <a href="javascript:void(0)" class="row py-4">
+              <div class="col-6 d-flex align-items-center  justify-content-center
+              ">
+                <img class="img-fluid" src="./assets/images/california.jpg" alt="blog post">
+              </div>
+              <div class="col-6">
+                <h6>Lorem ipsum dolor sit amet.</h6>
+                <p class="fst-italic">1 day ago</p>
+              </div>
+            </a>
+
+          </div>
+        </div>
+        <div class="col">
+          <div class="py-3">
+            <h6 class="text-light">Subscribe</h6>
+            <div class="footer-4th-colum-menu-list pt-3">
+              <form class="row g-3">
+                <div class="col-8">
+                  <label for="inputEmail" class="footer-subscribe-lavel pb-3">Be aware of news</label>
+                  <input type="text" class="form-control" id="inputEmail" placeholder="Your e-mail">
+                </div>
+                <div class="col-4 d-flex align-items-end">
+                  <!-- <label for="send-btn" class="footer-subscribe-lavel pb-3"></label> -->
+                  <button type="submit" class="btn btn-secondary" id="send-btn">Send</button>
+                </div>
+              </form>
+              <div class="mt-5">
+                <h6 class="fs-5">Follow Us</h6>
+                <ul class="d-flex align-items-center pt-2">
+                  <li>
+                    <a href="javascript:void(0)">
+                      <i class="fa fa-linkedin"></i>
+                    </a>
+                  </li>
+                  <li class="ms-4">
+                    <a href="javascript:void(0)">
+                      <i class="fa fa-facebook"></i>
+                    </a>
+                  </li>
+                  <li class="ms-4">
+                    <a href="javascript:void(0)">
+                      <i class="fa fa-twitter"></i>
+                    </a>
+                  </li>
+                  <li class="ms-4">
+                    <a href="javascript:void(0)">
+                      <i class="fa fa-google-plus"></i>
+                    </a>
+                  </li>
+                  <li class="ms-4">
+                    <a href="javascript:void(0)">
+                      <i class="fa fa-youtube-play"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-lower-part pt-4">
+        <ul class="d-flex align-items-center justify-content-between">
+          <li>
+            <i class="fa fa-train text-danger fs-4" aria-hidden="true"></i>
+            <span class="fs-4 fw-semibold ps-3">BOOK<span class="fw-lighter">YOUR</span>TRAIN</span>
+          </li>
+          <li>
+            <i class="fa fa-chevron-up footer-lower-part-angle-up"></i>
+          </li>
+          <li class="">&copy 2015 BESTWEBSOFT</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <!-- footer end -->
+  <footer>
+
+  </footer>
+
+
+
+
+
+  <script src="assets/js/slick.min.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+
+  </script>
+</body>
+
+</html>

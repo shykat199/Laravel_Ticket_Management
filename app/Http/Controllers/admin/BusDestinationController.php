@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BusDestinationStoreRequest;
 use App\Models\BusCompany;
 use App\Models\BusDestination;
+use App\Models\BusDetails;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -90,11 +91,18 @@ class BusDestinationController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param \App\Models\BusDestination $busDestination
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit(BusDestination $busDestination)
+    public function edit(string $id)
     {
-        //
+        $allBusCompany = BusCompany::all();
+        $busDetails=BusDetails::all();
+        //dd($busDetails);
+        $busDestination=BusDestination::where('id',$id)
+            ->with(['busDetails.busCompany'])
+            ->first();
+        //dd($busDestination);
+        return view('admin.interface.busDestination.edit',compact('busDestination','allBusCompany','busDetails'));
     }
 
     /**

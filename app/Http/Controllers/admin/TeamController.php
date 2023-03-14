@@ -40,6 +40,7 @@ class TeamController extends Controller
      */
     public function store(TeamRequest $request)
     {
+        //dd($request->all());
         $name = null;
         if ($request->hasFile('member_image')) {
             $name = Uuid::uuid() . '.' . $request->file('member_image')->getClientOriginalExtension();

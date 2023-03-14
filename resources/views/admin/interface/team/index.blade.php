@@ -18,7 +18,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{route('admin.team.update')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('admin.team.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
 
                         <label class="form-label" for="validationCustom01">Member Name</label>

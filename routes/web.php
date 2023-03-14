@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\admin\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\frontend\HomePageController;
+use App\Http\Controllers\frontend\FrontendController;
+use App\Http\Controllers\frontend\AboutUsPageController;
 
 
 //require base_path('routes/blog.php');
@@ -30,6 +33,13 @@ Route::middleware('auth')->prefix('admin/dashboard')->group(function () {
     require base_path('routes/busDetails.php');
     require base_path('routes/busDestination.php');
 });
+
+
+Route::prefix('/ticket/book')->group(function (){
+    Route::get('/home',[HomePageController::class,'index'])->name('frontend.home');
+    Route::get('/about_us',[AboutUsPageController::class,'index'])->name('frontend.aboutUs');
+});
+
 
 //Route::get('test', function () {
 //  phpinfo();

@@ -1,0 +1,2875 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+$textColor: #043F2D;
+$fontFamilyPoppins: 'Poppins', sans-serif;
+$fontFamilyDmSerif: 'DM Serif Text', serif;
+$themeBgColor: #FDF3E5;
+$themeBtnColor: #FE3C28;
+$themeHoverColor: red;
+$themeFontSize: 16px;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  // background: $themeBgColor;
+  font-family: $fontFamilyPoppins;
+  // color: $textColor;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    // color: $textColor;
+    transition: all 0.4s ease-in-out 0s;
+    text-decoration: none;
+
+    &:hover {
+      color: $themeHoverColor;
+    }
+  }
+
+}
+
+.header-area {
+
+
+  .ticket-booking-logo {
+    color: #ddd;
+    font-size: 25px;
+
+    i {
+      font-size: 25px;
+      color: red;
+    }
+
+    .ticket-booking-logo-text-decrease {
+      font-weight: 200;
+    }
+  }
+
+  .nav-collaps-icon {
+    color: #ddd;
+    background: #ddd;
+  }
+
+  .ticket-booking-nav-button-style {
+    color: #ddd;
+    border: none;
+    font-size: 14px;
+  }
+
+  .ticket-booking-nav2 {
+    background-color: rgb(0, 0, 0, 0.7);
+    // margin-bottom: 10px;
+
+    .ticket-booking-nav2-text-design {
+
+      ul {
+        li {
+          a {
+            color: #ddd;
+          }
+
+          .active {
+            color: #a7a2a2 !important;
+          }
+        }
+      }
+    }
+  }
+
+  // header hero start
+
+  .header-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/ticket-booking-home-hero-img.jpg");
+    background-repeat: no-repeat;
+    // background-attachment: fixed;
+    background-size: cover;
+    height: 750px;
+    margin-top: 24px;
+    border-bottom: 5px solid red;
+
+    @media (max-width: 768px) {
+      height: auto;
+    }
+
+    .ticket-booking-home-header-hero-container {
+      height: 100%;
+
+      .ticket-booking-home-header-hero-content {
+        height: 100%;
+
+        .ticket-booking-home-header-hero-title {
+          h2 {
+            color: #FFFFFF;
+            font-weight: 800;
+            font-size: 56px;
+            margin-bottom: 40px;
+
+            span {
+              font-weight: 300;
+            }
+          }
+
+          p {
+            color: white;
+            font-size: 20px;
+          }
+        }
+
+        .ticket-booking-home-header-search-ticket-form {
+          form {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+
+            label {
+              color: white;
+            }
+
+            .hero-input-with-icon {
+              position: relative;
+
+              i {
+                position: absolute;
+                right: 10%;
+                top: 62%;
+                font-size: 18px;
+
+                @media (max-width: 991px) {
+                  display: none;
+                }
+              }
+            }
+
+            // hide input type number by default icon
+            .hide-numberType-icon {
+
+              /* Chrome, Safari, Edge, Opera */
+              input::-webkit-outer-spin-button,
+              input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+              }
+
+              /* Firefox */
+              input[type=number] {
+                -moz-appearance: textfield;
+              }
+            }
+
+            .search-ticket-btn {
+              background-color: red;
+              color: white;
+              border: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // header hero end
+}
+
+// main start
+
+// latest-post
+.ticket-booking-home-latest-post {
+  background-color: #f3f2f2;
+
+  .latest-post-card-body-1st-row-img {
+    padding-right: 0;
+
+    img {
+      height: -webkit-fill-available;
+    }
+  }
+
+  .latest-post-card-body-2nd-row-img {
+    padding-left: 0;
+
+    img {
+      height: -webkit-fill-available;
+    }
+  }
+
+  .latest-post-card-body-1st-row {
+    padding-left: 0;
+    position: relative;
+
+    &::before {
+      position: absolute;
+      content: '';
+      width: 0;
+      height: 0;
+      border-top: 15px solid transparent;
+      border-right: 20px solid white;
+      border-bottom: 15px solid transparent;
+      top: 50%;
+      left: -3%;
+      transform: translate(-50%, -50%);
+
+      @media (max-width: 991px) {
+        left: -2%;
+      }
+    }
+  }
+
+  .latest-post-card-body-2nd-row {
+    padding-right: 0;
+    position: relative;
+
+    &::after {
+      position: absolute;
+      content: '';
+      width: 0;
+      height: 0;
+      border-top: 15px solid transparent;
+      border-left: 20px solid white;
+      border-bottom: 15px solid transparent;
+      top: 50%;
+      right: -10%;
+      transform: translate(-50%, -50%);
+
+      @media (min-width: 1400px) {
+        right: -9%;
+      }
+
+      @media (max-width: 991px) {
+        right: -7%;
+      }
+
+      @media (max-width: 768px) {
+        right: -10%;
+      }
+
+      @media (max-width: 576px) {
+        right: -10%;
+      }
+
+      @media (max-width: 476px) {
+        right: -10%;
+      }
+    }
+
+  }
+}
+
+// e-ticket advantage
+.ticket-booking-home-e-ticket {
+  background: linear-gradient(rgba(243, 7, 7, 0.804), rgba(243, 7, 7, 0.804)), url("../images//e-ticket-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: auto;
+
+  .ticket-booking-home-e-ticket-middle {
+    i {
+      border-radius: 50%;
+      padding: 20px;
+      font-size: 50px;
+      width: 100px;
+      height: 100px;
+      text-align: center;
+      color: rgba(243, 7, 7, 0.804);
+      background-color: #FFFFFF;
+
+      @media (max-width: 768px) {
+        width: 70px;
+        height: 70px;
+        font-size: 35px;
+        padding: 20px 10px 5px;
+      }
+    }
+
+    .ticket-booking-home-e-ticket-middle-content {
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        background: rgb(255, 255, 255, 0.5);
+        height: 2px;
+        width: 150px;
+        bottom: 58%;
+        left: 30%;
+
+        @media (min-width: 1392px) {
+          left: 32%;
+        }
+
+        @media (max-width: 1190px) {
+          left: 26%;
+
+        }
+
+        @media (max-width: 991px) {
+          left: 18%;
+          bottom: 64%;
+        }
+
+        @media (max-width: 768px) {
+          width: 100px;
+          left: 20%;
+          bottom: 75%;
+        }
+      }
+    }
+  }
+}
+
+// testimonial
+.ticket-booking-home-testimonial {
+  .home-carousal-image {
+    width: 70%;
+    border-radius: 50%;
+  }
+
+  .home-carousel-indicators {
+    position: absolute;
+    bottom: -58px;
+
+  }
+}
+
+// footer 
+.footer {
+  background: rgba(0, 0, 0, 0.8);
+  margin-top: 150px;
+  padding-bottom: 20px;
+
+  .footer-upper-part {
+    padding-bottom: 25px;
+    border-bottom: 1px solid white;
+
+    .footer-1st-colum-menu-list {
+      li {
+        a {
+          color: #a7a2a2;
+          transition: 0.3s;
+
+          &:hover {
+            color: #ddd
+          }
+        }
+      }
+    }
+
+    .footer-2nd-colum-menu-list {
+      a {
+        color: #a7a2a2;
+        transition: 0.3s;
+
+        &:hover {
+          color: #ddd
+        }
+
+        i {
+          font-size: 25px;
+        }
+      }
+    }
+
+    .footer-3rd-colum-menu-list {
+      a {
+        color: #a7a2a2;
+        transition: 0.3s;
+
+        &:hover {
+          color: #ddd
+        }
+
+        i {
+          font-size: 25px;
+        }
+      }
+    }
+
+    .footer-4th-colum-menu-list {
+      .footer-subscribe-lavel {
+        color: #a7a2a2;
+        font-size: 14px;
+
+      }
+
+      h6 {
+        color: #FFFFFF;
+      }
+
+      ul {
+        li {
+          a {
+            color: #a7a2a2;
+            transition: 0.3s;
+
+            &:hover {
+              color: #ddd
+            }
+
+            i {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .footer-lower-part {
+    ul {
+
+      li {
+        color: #a7a2a2;
+
+        .footer-lower-part-angle-up {
+          border: 1px solid #a7a2a2;
+          border-radius: 50%;
+          padding: 8px;
+        }
+      }
+
+      @media (max-width: 530px) {
+        flex-direction: column;
+        row-gap: 10px;
+      }
+    }
+  }
+}
+
+// About page css start
+
+.about-header-hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/ticket-booking-home-hero-img.jpg");
+  background-repeat: no-repeat;
+  // background-attachment: fixed;
+  background-size: cover;
+  height: 500px;
+  margin-top: 24px;
+  border-bottom: 5px solid red;
+
+  @media (max-width: 768px) {
+    height: auto;
+  }
+
+  .ticket-booking-about-header-hero-container {
+    height: 100%;
+
+    .ticket-booking-about-header-hero-content {
+      height: 100%;
+
+      .ticket-booking-about-header-hero-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        i {
+          font-size: 130px;
+          color: #ddd;
+          background-color: rgb(255, 255, 255, 0.2);
+          padding: 0 12px;
+          border-radius: 50%;
+
+          @media (max-width: 768px) {
+            font-size: 80px;
+          }
+        }
+
+        h2 {
+          color: #FFFFFF;
+          font-weight: 800;
+          font-size: 56px;
+          padding: 50px 0 15px;
+
+          @media (max-width: 768px) {
+            font-weight: 700;
+            font-size: 36px;
+            padding: 25px 0 0px;
+          }
+        }
+
+        h5 {
+          color: white;
+          font-size: 30px;
+          font-weight: 200;
+
+          @media (max-width: 768px) {
+            font-size: 20px;
+          }
+        }
+      }
+
+    }
+  }
+}
+
+//who we are
+.who-we-are {
+  .who-we-are-content {
+    .who-we-are-content-paragraph {
+      font-size: 14px;
+      line-height: 26px;
+    }
+  }
+}
+
+//our team
+.ticket-booking-about-our-team {
+  background: linear-gradient(rgba(243, 7, 7, 0.804), rgba(243, 7, 7, 0.804)), url("../images//e-ticket-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: auto;
+
+  .ticket-booking-about-our-team-middle {
+    img {
+      border-radius: 50%;
+      padding: 2px;
+      font-size: 50px;
+      width: 100px;
+      height: 100px;
+      text-align: center;
+      background-color: #FFFFFF;
+
+      @media (max-width: 768px) {
+        width: 70px;
+        height: 70px;
+        font-size: 35px;
+        padding: 20px 10px 5px;
+      }
+    }
+
+    .ticket-booking-about-our-team-middle-content {
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        background: rgb(255, 255, 255, 0.5);
+        height: 2px;
+        width: 150px;
+        bottom: 58%;
+        left: 30%;
+
+        @media (min-width: 1392px) {
+          left: 32%;
+        }
+
+        @media (max-width: 1190px) {
+          left: 26%;
+
+        }
+
+        @media (max-width: 991px) {
+          left: 18%;
+          bottom: 64%;
+        }
+
+        @media (max-width: 768px) {
+          width: 100px;
+          left: 20%;
+          bottom: 75%;
+        }
+      }
+    }
+  }
+}
+
+//about testimonial
+.ticket-booking-about-testimonial {
+  background-color: aliceblue;
+
+  .home-carousal-image {
+    width: 40%;
+    border-radius: 50%;
+  }
+
+  .carousel-inner {
+    button {
+      .about-carousal-prev-btn {
+        color: black;
+        font-size: 50px;
+
+        &:hover {
+          color: #fa4d0a;
+        }
+      }
+    }
+
+  }
+
+}
+
+
+// results page css
+.header-area {
+  .result-header-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/ticket-booking-home-hero-img.jpg");
+    background-repeat: no-repeat;
+    // background-attachment: fixed;
+    background-size: cover;
+    height: 500px;
+    margin-top: 24px;
+    border-bottom: 5px solid red;
+
+    @media (max-width: 768px) {
+      height: auto;
+    }
+
+    .ticket-booking-home-header-hero-container {
+      height: 100%;
+
+      .ticket-booking-home-header-hero-content {
+        height: 100%;
+
+        .ticket-booking-home-header-hero-title {
+          h2 {
+            color: #FFFFFF;
+            font-weight: 800;
+            font-size: 56px;
+            margin-bottom: 40px;
+
+            span {
+              font-weight: 300;
+            }
+          }
+
+          p {
+            color: white;
+            font-size: 20px;
+          }
+        }
+
+        .ticket-booking-home-header-search-ticket-form {
+          form {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+
+            label {
+              color: white;
+            }
+
+            .hero-input-with-icon {
+              position: relative;
+
+              i {
+                position: absolute;
+                right: 10%;
+                top: 62%;
+                font-size: 18px;
+
+                @media (max-width: 991px) {
+                  display: none;
+                }
+              }
+            }
+
+            // hide input type number by default icon
+            .hide-numberType-icon {
+
+              /* Chrome, Safari, Edge, Opera */
+              input::-webkit-outer-spin-button,
+              input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+              }
+
+              /* Firefox */
+              input[type=number] {
+                -moz-appearance: textfield;
+              }
+            }
+
+            .search-ticket-btn {
+              background-color: red;
+              color: white;
+              border: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.results-steps {
+  margin-top: -10px;
+  position: relative;
+  z-index: 1111;
+  color: white;
+  background: linear-gradient(to right,
+      rgb(255, 0, 0) 0%, rgb(255, 0, 0) 25%, rgb(0, 0, 0) 25%, rgb(0, 0, 0) 100%);
+
+  .container {
+    background: linear-gradient(to right,
+        rgb(255, 0, 0) 0%, rgb(255, 0, 0) 25%, rgb(0, 0, 0) 25%, rgb(0, 0, 0) 100%);
+
+    .results-single-current-steps {
+      position: relative;
+
+      .number-round {
+        border: 1px solid white;
+        border-radius: 50%;
+        width: 20px;
+        padding: 1px 8px;
+
+        @media (max-width: 768px) {
+          width: 10px;
+          padding: 1px 5px;
+        }
+      }
+
+      p {
+        margin-bottom: 0;
+
+        @media (max-width: 991px) {
+          font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+          font-size: 8px;
+        }
+      }
+
+      .red-triagl {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 0, 0);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -12.2%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -10.4%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -14.4%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 0, 0);
+          border-bottom: 17px solid transparent;
+          right: -16.5%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 0, 0);
+          border-bottom: 15px solid transparent;
+          right: -20%;
+        }
+
+        @media (max-width: 578px) {
+          right: -19%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 0, 0);
+          border-bottom: 20px solid transparent;
+          right: -26%;
+        }
+      }
+
+      .white-triangle {
+
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 255, 255);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -12.6%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -10.4%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -14.3%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(0, 0, 0);
+          border-bottom: 17px solid transparent;
+          right: -20%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(0, 0, 0);
+          border-bottom: 15px solid transparent;
+          right: -19.8%;
+        }
+
+        @media (max-width: 578px) {
+          right: -18.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(0, 0, 0);
+          border-bottom: 20px solid transparent;
+          right: -25.6%;
+        }
+      }
+
+      // &::after {
+      //   position: absolute;
+      //   content: '';
+      //   width: 0;
+      //   height: 0;
+      //   border-top: 20px solid transparent;
+      //   border-left: 20px solid rgb(255, 0, 0);
+      //   border-bottom: 20px solid transparent;
+      //   top: 50%;
+      //   right: 8%;
+      //   // transform: translate(-50%, -50%);
+      // }
+
+    }
+
+    .results-single-next-steps {
+      position: relative;
+
+      .number-round {
+        margin-right: 10px;
+        border: 1px solid white;
+        border-radius: 50%;
+        width: 20px;
+        padding: 1px 8px;
+
+        @media (max-width: 768px) {
+          width: 10px;
+          padding: 1px 5px;
+          margin-right: 0;
+        }
+      }
+
+      p {
+        margin-bottom: 0;
+
+        @media (max-width: 991px) {
+          font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+          font-size: 8px;
+        }
+      }
+
+      .black-triagl {
+
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid white;
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -12.4%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -10.4%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -14.4%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid white;
+          border-bottom: 17px solid transparent;
+          right: -16.5%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid white;
+          border-bottom: 15px solid transparent;
+          right: -20%;
+        }
+
+        @media (max-width: 578px) {
+          right: -19%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid white;
+          border-bottom: 20px solid transparent;
+          right: -26%;
+        }
+      }
+
+      .inner-triangle {
+
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(0, 0, 0);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -12.2%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -10%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -14.2%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(0, 0, 0);
+          border-bottom: 17px solid transparent;
+          right: -16%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(0, 0, 0);
+          border-bottom: 15px solid transparent;
+          right: -19.8%;
+        }
+
+        @media (max-width: 578px) {
+          right: -18.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(0, 0, 0);
+          border-bottom: 20px solid transparent;
+          right: -25.6%;
+        }
+      }
+    }
+  }
+
+
+
+
+
+}
+
+.all-ticket {
+  .container {
+    .row {
+      .all-ticket-left-colum {
+        .small-text {
+          font-size: 10px;
+          margin-bottom: 0;
+          line-height: 0;
+        }
+
+        .row {
+          .all-ticket-left-colum-upper-part {
+            .card {
+              background-color: rgb(0, 0, 0, 0.8);
+
+              .all-ticket-left-colum-upper-part-title {
+                border-bottom: 1px solid rgb(255, 255, 255, 0.5);
+                padding-bottom: 20px;
+                margin-left: -5%;
+                margin-right: -5%;
+
+              }
+
+              .card-body {
+                .form-switch .form-check-input {}
+
+                .form-switch .form-check-input:focus {
+                  border-color: rgba(0, 0, 0, 0.25);
+                  outline: 0;
+                  box-shadow: 0 0 0 0 rgba(255, 255, 255, .9);
+                  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(0,0,0,0.25)'/></svg>");
+                }
+
+                .form-switch .form-check-input:checked {
+                  background-color: red;
+                  border-color: red;
+                  // border: none;
+                  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(255,255,255,1.0)'/></svg>");
+                }
+
+                //range custom
+                .form-range {
+                  width: 100%;
+                  height: 1.5rem;
+                  padding: 0;
+                  background-color: transparent;
+                  -webkit-appearance: none;
+                  -moz-appearance: none;
+                  appearance: none;
+                }
+
+                .form-range:focus {
+                  outline: 0;
+                }
+
+                .form-range:focus::-webkit-slider-thumb {
+                  box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(253, 13, 45, 0.219);
+                }
+
+                .form-range:focus::-moz-range-thumb {
+                  box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(253, 13, 13, 0.25);
+                }
+
+                .form-range::-moz-focus-outer {
+                  border: 0;
+                }
+
+                .form-range::-webkit-slider-thumb {
+                  width: 1rem;
+                  height: 1rem;
+                  margin-top: -0.25rem;
+                  background-color: red;
+                  border: 0;
+                  border-radius: 1rem;
+                  -webkit-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                  -webkit-appearance: none;
+                  appearance: none;
+                }
+
+                @media (prefers-reduced-motion: reduce) {
+                  .form-range::-webkit-slider-thumb {
+                    -webkit-transition: none;
+                    transition: none;
+                  }
+                }
+
+                .form-range::-webkit-slider-thumb:active {
+                  background-color: #feb6b6;
+                }
+
+                .form-range::-webkit-slider-runnable-track {
+                  width: 100%;
+                  height: 0.5rem;
+                  color: transparent;
+                  cursor: pointer;
+                  background-color: #dee2e6;
+                  border-color: transparent;
+                  border-radius: 1rem;
+                }
+
+                .form-range::-moz-range-thumb {
+                  width: 1rem;
+                  height: 1rem;
+                  background-color: red;
+                  border: 0;
+                  border-radius: 1rem;
+                  -moz-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                  -moz-appearance: none;
+                  appearance: none;
+                }
+
+                @media (prefers-reduced-motion: reduce) {
+                  .form-range::-moz-range-thumb {
+                    -moz-transition: none;
+                    transition: none;
+                  }
+                }
+
+                .form-range::-moz-range-thumb:active {
+                  background-color: #b6d4fe;
+                }
+
+                .form-range::-moz-range-track {
+                  width: 100%;
+                  height: 0.5rem;
+                  color: transparent;
+                  cursor: pointer;
+                  background-color: #dee2e6;
+                  border-color: transparent;
+                  border-radius: 1rem;
+                }
+
+                .form-range:disabled {
+                  pointer-events: none;
+                }
+
+                .form-range:disabled::-webkit-slider-thumb {
+                  background-color: #adb5bd;
+                }
+
+                .form-range:disabled::-moz-range-thumb {
+                  background-color: #adb5bd;
+                }
+              }
+            }
+          }
+
+          .all-ticket-left-colum-middle-part {}
+
+          .all-ticket-left-colum-lower-part {
+            .all-ticket-left-colum-lower-part {
+              .image-container {
+                padding-left: 0;
+              }
+
+              a {
+                color: black;
+                transition: 0.3s;
+                border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+                border-top: 1px solid rgb(0, 0, 0, 0.2);
+                padding-top: 20px;
+                padding-bottom: 20px;
+                // margin-left: 0;
+
+                p {
+                  color: #a7a2a2;
+                  font-size: 10px;
+
+                }
+
+                &:hover {
+                  color: red;
+
+                  p {
+                    color: red;
+                  }
+                }
+
+              }
+            }
+          }
+        }
+      }
+
+      .available-all-ticket {
+        .available-all-ticket-content {
+          .all-ticket-card-left {
+            .all-ticket-card-left-icon {
+              font-size: 50px;
+            }
+          }
+
+          .all-ticket-card-middle {
+
+            h5,
+            h6,
+            p {
+              margin-bottom: 0;
+            }
+
+            .small-text {
+              font-size: 10px;
+              margin-bottom: 0;
+              line-height: 0;
+            }
+          }
+
+          .all-ticket-card-right {
+            .all-ticket-card-right-content {
+              span {
+                color: red;
+                font-size: 30px;
+              }
+            }
+          }
+        }
+
+        .custom-design-for-pagination {
+          .page-item {
+            margin-right: 15px;
+
+
+            .page-link {
+              padding: 5px 15px;
+              color: rgb(174, 174, 176);
+              transition: all 0.5s ease-in-out;
+
+              &:hover {
+                background-color: red;
+                color: #FFFFFF;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//passangers page css
+
+.passenger-results-steps {
+  margin-top: -10px;
+  position: relative;
+  z-index: 1111;
+  color: white;
+  background: linear-gradient(to right,
+      rgb(255, 0, 0) 0%, rgb(255, 0, 0) 50%, rgb(0, 0, 0) 50%, rgb(0, 0, 0) 100%);
+
+  .container {
+    background: linear-gradient(to right,
+        rgb(255, 0, 0) 0%, rgb(255, 0, 0) 50%, rgb(0, 0, 0) 50%, rgb(0, 0, 0) 100%);
+
+    .results-single-current-steps {
+      position: relative;
+
+      .number-round {
+        border: 1px solid white;
+        border-radius: 50%;
+        width: 20px;
+        padding: 1px 8px;
+
+        @media (max-width: 768px) {
+          width: 10px;
+          padding: 1px 5px;
+        }
+      }
+
+      p {
+        margin-bottom: 0;
+
+        @media (max-width: 991px) {
+          font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+          font-size: 8px;
+        }
+      }
+
+      .red-triagl {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 0, 0);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -12.2%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -10.4%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -14.4%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 0, 0);
+          border-bottom: 17px solid transparent;
+          right: -19.8%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 0, 0);
+          border-bottom: 15px solid transparent;
+          right: -20%;
+        }
+
+        @media (max-width: 578px) {
+          right: -19%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 0, 0);
+          border-bottom: 20px solid transparent;
+          right: -26%;
+        }
+      }
+
+      .red-triagl2 {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 0, 0);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -10.4%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -8.8%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -12.6%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 0, 0);
+          border-bottom: 17px solid transparent;
+          right: -13.9%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 0, 0);
+          border-bottom: 15px solid transparent;
+          right: -16%;
+        }
+
+        @media (max-width: 578px) {
+          right: -15.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 0, 0);
+          border-bottom: 20px solid transparent;
+          right: -24%;
+        }
+      }
+
+      .white-triangle {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 255, 255);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -12.6%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -10.4%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -14.3%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 255, 255);
+          border-bottom: 17px solid transparent;
+          right: -20.4%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 255, 255);
+          border-bottom: 15px solid transparent;
+          right: -19.8%;
+        }
+
+        @media (max-width: 578px) {
+          right: -18.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 255, 255);
+          border-bottom: 20px solid transparent;
+          right: -25.6%;
+        }
+      }
+
+      .white-triangle2 {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 255, 255);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -10.8%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -9.5%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -13.4%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 255, 255);
+          border-bottom: 17px solid transparent;
+          right: -15%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 255, 255);
+          border-bottom: 15px solid transparent;
+          right: -17.2%;
+        }
+
+        @media (max-width: 578px) {
+          right: -16.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 255, 255);
+          border-bottom: 20px solid transparent;
+          right: -25.6%;
+        }
+      }
+
+      // &::after {
+      //   position: absolute;
+      //   content: '';
+      //   width: 0;
+      //   height: 0;
+      //   border-top: 20px solid transparent;
+      //   border-left: 20px solid rgb(255, 0, 0);
+      //   border-bottom: 20px solid transparent;
+      //   top: 50%;
+      //   right: 8%;
+      //   // transform: translate(-50%, -50%);
+      // }
+
+    }
+
+    .results-single-next-steps {
+      position: relative;
+
+      .number-round {
+        margin-right: 10px;
+        border: 1px solid white;
+        border-radius: 50%;
+        width: 20px;
+        padding: 1px 8px;
+
+        @media (max-width: 768px) {
+          width: 10px;
+          padding: 1px 5px;
+          margin-right: 0;
+        }
+      }
+
+      p {
+        margin-bottom: 0;
+
+        @media (max-width: 991px) {
+          font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+          font-size: 8px;
+        }
+      }
+
+      .black-triagl {
+
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid white;
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -12.4%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -10.4%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -14.4%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid white;
+          border-bottom: 17px solid transparent;
+          right: -16.5%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid white;
+          border-bottom: 15px solid transparent;
+          right: -20%;
+        }
+
+        @media (max-width: 578px) {
+          right: -19%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid white;
+          border-bottom: 20px solid transparent;
+          right: -26%;
+        }
+      }
+
+      .inner-triangle {
+
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(0, 0, 0);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -12.2%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -10%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -14.2%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(0, 0, 0);
+          border-bottom: 17px solid transparent;
+          right: -16%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(0, 0, 0);
+          border-bottom: 15px solid transparent;
+          right: -19.8%;
+        }
+
+        @media (max-width: 578px) {
+          right: -18.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(0, 0, 0);
+          border-bottom: 20px solid transparent;
+          right: -25.6%;
+        }
+      }
+    }
+  }
+}
+
+.all-processing {
+  .container {
+    .row {
+      .all-processing-left-colum {
+        .small-text {
+          font-size: 12px;
+          margin-bottom: 0;
+
+        }
+
+        .text-gray {
+          color: #d2d0d0;
+        }
+
+        .row {
+          .all-processing-left-colum-upper-part {
+            .card {
+              background-color: rgb(0, 0, 0, 0.8);
+            }
+          }
+
+          .all-ticket-left-colum-middle-part {}
+
+          .all-ticket-left-colum-lower-part {
+            .all-ticket-left-colum-lower-part {
+              .image-container {
+                padding-left: 0;
+              }
+
+              a {
+                color: black;
+                transition: 0.3s;
+                border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+                border-top: 1px solid rgb(0, 0, 0, 0.2);
+                padding-top: 20px;
+                padding-bottom: 20px;
+                // margin-left: 0;
+
+                p {
+                  color: #a7a2a2;
+                  font-size: 10px;
+
+                }
+
+                &:hover {
+                  color: red;
+
+                  p {
+                    color: red;
+                  }
+                }
+
+              }
+            }
+          }
+        }
+      }
+
+      .processing-form {
+        .available-all-ticket-content {
+          .all-ticket-card-left {
+            a {
+              color: black;
+              // &[aria-expanded="false"]{
+
+              // }
+              i {
+                font-size: 20px;
+              }
+            }
+
+            .all-ticket-card-left-icon {
+              font-size: 50px;
+            }
+          }
+
+          .all-ticket-card-middle {
+
+            h5,
+            h6,
+            p {
+              margin-bottom: 0;
+            }
+
+            .small-text {
+              font-size: 10px;
+              margin-bottom: 0;
+              line-height: 0;
+            }
+          }
+
+          .all-ticket-card-right {
+            .all-ticket-card-right-content {
+              span {
+                color: red;
+                font-size: 30px;
+              }
+            }
+          }
+        }
+
+        #appendData {
+          cursor: pointer;
+        }
+
+        .custom-design-for-pagination {
+          .page-item {
+            margin-right: 15px;
+
+
+            .page-link {
+              padding: 5px 15px;
+              color: rgb(174, 174, 176);
+              transition: all 0.5s ease-in-out;
+
+              &:hover {
+                background-color: red;
+                color: #FFFFFF;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//payment page css
+
+.payment-steps {
+  margin-top: -10px;
+  position: relative;
+  z-index: 1111;
+  color: white;
+  background: linear-gradient(to right,
+      rgb(255, 0, 0) 0%, rgb(255, 0, 0) 75%, rgb(0, 0, 0) 75%, rgb(0, 0, 0) 100%);
+
+  .container {
+    background: linear-gradient(to right,
+        rgb(255, 0, 0) 0%, rgb(255, 0, 0) 75%, rgb(0, 0, 0) 75%, rgb(0, 0, 0) 100%);
+
+    .results-single-current-steps {
+      position: relative;
+
+      .number-round {
+        border: 1px solid white;
+        border-radius: 50%;
+        width: 20px;
+        padding: 1px 8px;
+
+        @media (max-width: 768px) {
+          width: 10px;
+          padding: 1px 5px;
+        }
+      }
+
+      p {
+        margin-bottom: 0;
+
+        @media (max-width: 991px) {
+          font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+          font-size: 8px;
+        }
+      }
+
+      .red-triagl {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 0, 0);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -12.2%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -10.4%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -14.4%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 0, 0);
+          border-bottom: 17px solid transparent;
+          right: -19.8%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 0, 0);
+          border-bottom: 15px solid transparent;
+          right: -20%;
+        }
+
+        @media (max-width: 578px) {
+          right: -19%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 0, 0);
+          border-bottom: 20px solid transparent;
+          right: -26%;
+        }
+      }
+
+      .red-triagl2 {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 0, 0);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -10.4%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -8.8%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -12.6%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 0, 0);
+          border-bottom: 17px solid transparent;
+          right: -13.9%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 0, 0);
+          border-bottom: 15px solid transparent;
+          right: -16%;
+        }
+
+        @media (max-width: 578px) {
+          right: -15.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 0, 0);
+          border-bottom: 20px solid transparent;
+          right: -24%;
+        }
+      }
+
+      .red-triagl3 {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 0, 0);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -8%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -7%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -9.6%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 0, 0);
+          border-bottom: 17px solid transparent;
+          right: -9.9%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 0, 0);
+          border-bottom: 15px solid transparent;
+          right: -11%;
+        }
+
+        @media (max-width: 578px) {
+          right: -11.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 0, 0);
+          border-bottom: 20px solid transparent;
+          right: -18%;
+        }
+      }
+
+      .white-triangle {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 255, 255);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -12.6%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -10.4%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -14.3%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 255, 255);
+          border-bottom: 17px solid transparent;
+          right: -20.4%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 255, 255);
+          border-bottom: 15px solid transparent;
+          right: -19.8%;
+        }
+
+        @media (max-width: 578px) {
+          right: -18.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 255, 255);
+          border-bottom: 20px solid transparent;
+          right: -25.6%;
+        }
+      }
+
+      .white-triangle2 {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 255, 255);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -10.8%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -9.5%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -13.4%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 255, 255);
+          border-bottom: 17px solid transparent;
+          right: -15%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 255, 255);
+          border-bottom: 15px solid transparent;
+          right: -17.2%;
+        }
+
+        @media (max-width: 578px) {
+          right: -16.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 255, 255);
+          border-bottom: 20px solid transparent;
+          right: -25.6%;
+        }
+      }
+
+      .white-triangle3 {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 255, 255);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -8.4%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -7.5%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -10.4%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 255, 255);
+          border-bottom: 17px solid transparent;
+          right: -11%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 255, 255);
+          border-bottom: 15px solid transparent;
+          right: -12.2%;
+        }
+
+        @media (max-width: 578px) {
+          right: -12.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 255, 255);
+          border-bottom: 20px solid transparent;
+          right: -18.9%;
+        }
+      }
+
+      // &::after {
+      //   position: absolute;
+      //   content: '';
+      //   width: 0;
+      //   height: 0;
+      //   border-top: 20px solid transparent;
+      //   border-left: 20px solid rgb(255, 0, 0);
+      //   border-bottom: 20px solid transparent;
+      //   top: 50%;
+      //   right: 8%;
+      //   // transform: translate(-50%, -50%);
+      // }
+
+    }
+
+    .results-single-next-steps {
+      position: relative;
+
+      .number-round {
+        margin-right: 10px;
+        border: 1px solid white;
+        border-radius: 50%;
+        width: 20px;
+        padding: 1px 8px;
+
+        @media (max-width: 768px) {
+          width: 10px;
+          padding: 1px 5px;
+          margin-right: 0;
+        }
+      }
+
+      p {
+        margin-bottom: 0;
+
+        @media (max-width: 991px) {
+          font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+          font-size: 8px;
+        }
+      }
+
+      .black-triagl {
+
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid white;
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -12.4%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -10.4%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -14.4%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid white;
+          border-bottom: 17px solid transparent;
+          right: -16.5%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid white;
+          border-bottom: 15px solid transparent;
+          right: -20%;
+        }
+
+        @media (max-width: 578px) {
+          right: -19%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid white;
+          border-bottom: 20px solid transparent;
+          right: -26%;
+        }
+      }
+
+      .inner-triangle {
+
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(0, 0, 0);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -12.2%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -10%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -14.2%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(0, 0, 0);
+          border-bottom: 17px solid transparent;
+          right: -16%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(0, 0, 0);
+          border-bottom: 15px solid transparent;
+          right: -19.8%;
+        }
+
+        @media (max-width: 578px) {
+          right: -18.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(0, 0, 0);
+          border-bottom: 20px solid transparent;
+          right: -25.6%;
+        }
+      }
+    }
+  }
+}
+
+.all-processing {
+  .container {
+    .row {
+      .all-processing-left-colum {
+        .small-text {
+          font-size: 12px;
+          margin-bottom: 0;
+
+        }
+
+        .text-gray {
+          color: #d2d0d0;
+        }
+
+        .row {
+          .all-processing-left-colum-upper-part {
+            .card {
+              background-color: rgb(0, 0, 0, 0.8);
+            }
+          }
+
+          .all-ticket-left-colum-middle-part {}
+
+          .all-ticket-left-colum-lower-part {
+            .all-ticket-left-colum-lower-part {
+              .image-container {
+                padding-left: 0;
+              }
+
+              a {
+                color: black;
+                transition: 0.3s;
+                border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+                border-top: 1px solid rgb(0, 0, 0, 0.2);
+                padding-top: 20px;
+                padding-bottom: 20px;
+                // margin-left: 0;
+
+                p {
+                  color: #a7a2a2;
+                  font-size: 10px;
+
+                }
+
+                &:hover {
+                  color: red;
+
+                  p {
+                    color: red;
+                  }
+                }
+
+              }
+            }
+          }
+        }
+      }
+
+      .personal-form-container {
+        .personal-form-content {
+          .all-ticket-card-left {
+            a {
+              color: black;
+              // &[aria-expanded="false"]{
+
+              // }
+              i {
+                font-size: 20px;
+              }
+            }
+
+            .all-ticket-card-left-icon {
+              font-size: 50px;
+            }
+          }
+
+          .all-ticket-card-middle {
+
+            h5,
+            h6,
+            p {
+              margin-bottom: 0;
+            }
+
+            .small-text {
+              font-size: 10px;
+              margin-bottom: 0;
+              line-height: 0;
+            }
+          }
+
+          .all-ticket-card-right {
+            .all-ticket-card-right-content {
+              span {
+                color: red;
+                font-size: 30px;
+              }
+            }
+          }
+
+          .personal-form {
+            .personal-form-input-with-icon {
+              position: relative;
+
+              i {
+                position: absolute;
+                top: 70%;
+                transform: translate(-50%, -50%);
+                right: 7%;
+              }
+            }
+          }
+        }
+
+        .attention-part {
+          i {
+            color: red;
+            padding: 20px;
+            background-color: #e5d4d4;
+            border-radius: 50%;
+          }
+        }
+
+        .custom-design-for-pagination {
+          .page-item {
+            margin-right: 15px;
+
+
+            .page-link {
+              padding: 5px 15px;
+              color: rgb(174, 174, 176);
+              transition: all 0.5s ease-in-out;
+
+              &:hover {
+                background-color: red;
+                color: #FFFFFF;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+//validation page css
+
+.validation-steps {
+  margin-top: -10px;
+  position: relative;
+  z-index: 1111;
+  color: white;
+  background: linear-gradient(to right,
+      rgb(255, 0, 0) 0%, rgb(255, 0, 0) 100%);
+
+  .container {
+    background: linear-gradient(to right,
+        rgb(255, 0, 0) 0%, rgb(255, 0, 0) 100%);
+
+    .results-single-current-steps {
+      position: relative;
+
+      .number-round {
+        border: 1px solid white;
+        border-radius: 50%;
+        width: 20px;
+        padding: 1px 8px;
+
+        @media (max-width: 768px) {
+          width: 10px;
+          padding: 1px 5px;
+        }
+      }
+
+      p {
+        margin-bottom: 0;
+
+        @media (max-width: 991px) {
+          font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+          font-size: 8px;
+        }
+      }
+
+      .red-triagl {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 0, 0);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -12.2%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -10.4%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -14.4%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 0, 0);
+          border-bottom: 17px solid transparent;
+          right: -19.8%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 0, 0);
+          border-bottom: 15px solid transparent;
+          right: -20%;
+        }
+
+        @media (max-width: 578px) {
+          right: -19%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 0, 0);
+          border-bottom: 20px solid transparent;
+          right: -26%;
+        }
+      }
+
+      .red-triagl2 {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 0, 0);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -10.4%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -8.8%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -12.6%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 0, 0);
+          border-bottom: 17px solid transparent;
+          right: -13.9%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 0, 0);
+          border-bottom: 15px solid transparent;
+          right: -16%;
+        }
+
+        @media (max-width: 578px) {
+          right: -15.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 0, 0);
+          border-bottom: 20px solid transparent;
+          right: -24%;
+        }
+      }
+
+      .red-triagl3 {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 0, 0);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -8%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -7%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -9.6%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 0, 0);
+          border-bottom: 17px solid transparent;
+          right: -9.9%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 0, 0);
+          border-bottom: 15px solid transparent;
+          right: -11%;
+        }
+
+        @media (max-width: 578px) {
+          right: -11.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 0, 0);
+          border-bottom: 20px solid transparent;
+          right: -18%;
+        }
+      }
+
+      .white-triangle {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 255, 255);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -12.6%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -10.4%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -14.3%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 255, 255);
+          border-bottom: 17px solid transparent;
+          right: -20.4%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 255, 255);
+          border-bottom: 15px solid transparent;
+          right: -19.8%;
+        }
+
+        @media (max-width: 578px) {
+          right: -18.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 255, 255);
+          border-bottom: 20px solid transparent;
+          right: -25.6%;
+        }
+      }
+
+      .white-triangle2 {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 255, 255);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -10.8%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -9.5%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -13.4%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 255, 255);
+          border-bottom: 17px solid transparent;
+          right: -15%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 255, 255);
+          border-bottom: 15px solid transparent;
+          right: -17.2%;
+        }
+
+        @media (max-width: 578px) {
+          right: -16.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 255, 255);
+          border-bottom: 20px solid transparent;
+          right: -25.6%;
+        }
+      }
+
+      .white-triangle3 {
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(255, 255, 255);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -8.4%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -7.5%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -10.4%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(255, 255, 255);
+          border-bottom: 17px solid transparent;
+          right: -11%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(255, 255, 255);
+          border-bottom: 15px solid transparent;
+          right: -12.2%;
+        }
+
+        @media (max-width: 578px) {
+          right: -12.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(255, 255, 255);
+          border-bottom: 20px solid transparent;
+          right: -18.9%;
+        }
+      }
+
+      // &::after {
+      //   position: absolute;
+      //   content: '';
+      //   width: 0;
+      //   height: 0;
+      //   border-top: 20px solid transparent;
+      //   border-left: 20px solid rgb(255, 0, 0);
+      //   border-bottom: 20px solid transparent;
+      //   top: 50%;
+      //   right: 8%;
+      //   // transform: translate(-50%, -50%);
+      // }
+
+    }
+
+    .results-single-next-steps {
+      position: relative;
+
+      .number-round {
+        margin-right: 10px;
+        border: 1px solid white;
+        border-radius: 50%;
+        width: 20px;
+        padding: 1px 8px;
+
+        @media (max-width: 768px) {
+          width: 10px;
+          padding: 1px 5px;
+          margin-right: 0;
+        }
+      }
+
+      p {
+        margin-bottom: 0;
+
+        @media (max-width: 991px) {
+          font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+          font-size: 8px;
+        }
+      }
+
+      .black-triagl {
+
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid white;
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -12.4%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -10.4%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -14.4%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid white;
+          border-bottom: 17px solid transparent;
+          right: -16.5%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid white;
+          border-bottom: 15px solid transparent;
+          right: -20%;
+        }
+
+        @media (max-width: 578px) {
+          right: -19%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid white;
+          border-bottom: 20px solid transparent;
+          right: -26%;
+        }
+      }
+
+      .inner-triangle {
+
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-left: 20px solid rgb(0, 0, 0);
+        border-bottom: 20px solid transparent;
+        top: 50%;
+        right: -12.2%;
+        transform: translate(-50%, -50%);
+
+        @media (min-width: 1400px) {
+          right: -10%;
+        }
+
+        @media (max-width: 1200px) {
+          right: -14.2%;
+        }
+
+        @media (max-width: 991px) {
+          border-top: 17px solid transparent;
+          border-left: 17px solid rgb(0, 0, 0);
+          border-bottom: 17px solid transparent;
+          right: -16%;
+        }
+
+        @media (max-width: 768px) {
+          border-top: 15px solid transparent;
+          border-left: 15px solid rgb(0, 0, 0);
+          border-bottom: 15px solid transparent;
+          right: -19.8%;
+        }
+
+        @media (max-width: 578px) {
+          right: -18.5%;
+        }
+
+        @media (max-width: 536px) {
+          border-top: 20px solid transparent;
+          border-left: 20px solid rgb(0, 0, 0);
+          border-bottom: 20px solid transparent;
+          right: -25.6%;
+        }
+      }
+    }
+  }
+}
+
+.all-processing {
+  .container {
+    .row {
+      .all-processing-left-colum {
+        .small-text {
+          font-size: 12px;
+          margin-bottom: 0;
+
+        }
+
+        .text-gray {
+          color: #d2d0d0;
+        }
+
+        .row {
+          .all-processing-left-colum-upper-part {
+            .card {
+              background-color: rgb(0, 0, 0, 0.8);
+            }
+          }
+
+          .all-ticket-left-colum-middle-part {}
+
+          .all-ticket-left-colum-lower-part {
+            .all-ticket-left-colum-lower-part {
+              .image-container {
+                padding-left: 0;
+              }
+
+              a {
+                color: black;
+                transition: 0.3s;
+                border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+                border-top: 1px solid rgb(0, 0, 0, 0.2);
+                padding-top: 20px;
+                padding-bottom: 20px;
+                // margin-left: 0;
+
+                p {
+                  color: #a7a2a2;
+                  font-size: 10px;
+
+                }
+
+                &:hover {
+                  color: red;
+
+                  p {
+                    color: red;
+                  }
+                }
+
+              }
+            }
+          }
+        }
+      }
+
+      .vailidation-container {
+        .vailidation-content {
+          .validation-train-card-left {
+            a {
+              color: black;
+              // &[aria-expanded="false"]{
+
+              // }
+              i {
+                font-size: 20px;
+              }
+            }
+
+            .all-ticket-card-left-icon {
+              font-size: 50px;
+            }
+          }
+
+          .validation-train-card-middle {
+
+            h5,
+            h6,
+            p {
+              margin-bottom: 0;
+            }
+
+            .small-text {
+              font-size: 10px;
+              margin-bottom: 0;
+              line-height: 0;
+            }
+          }
+
+          .validation-train-card-right {
+            .all-ticket-card-right-content {
+              span {
+                color: red;
+                font-size: 30px;
+              }
+            }
+          }
+
+          .personal-form {
+            .personal-form-input-with-icon {
+              position: relative;
+
+              i {
+                position: absolute;
+                top: 70%;
+                transform: translate(-50%, -50%);
+                right: 7%;
+              }
+            }
+          }
+        }
+
+        .passenger-details {
+          .passenger-details-list {
+            li {
+              display: flex;
+
+              .lavel {
+                width: 250px;
+                font-size: 14px;
+                font-weight: 500;
+              }
+
+              span {
+                font-size: 14px;
+                width: 100%;
+              }
+            }
+          }
+        }
+
+        .attention-part {
+          i {
+            color: red;
+            padding: 20px;
+            background-color: #e5d4d4;
+            border-radius: 50%;
+          }
+        }
+
+        .total-cost {
+
+
+          // .total-price {
+          //   margin-left: -2%;
+          // }
+        }
+
+        .custom-design-for-pagination {
+          .page-item {
+            margin-right: 15px;
+
+
+            .page-link {
+              padding: 5px 15px;
+              color: rgb(174, 174, 176);
+              transition: all 0.5s ease-in-out;
+
+              &:hover {
+                background-color: red;
+                color: #FFFFFF;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

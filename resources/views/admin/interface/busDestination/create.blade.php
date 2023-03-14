@@ -10,7 +10,7 @@
         <label class="form-label" for="validationCustom01">Bus Company</label>
         <div class="form-floating mb-3">
             <select name="" class="form-control select2" data-toggle="select2" id="busCompanyy">
-                <option selected>Select A Category</option>
+                <option selected>Select A Company</option>
                 @foreach($allBusCompany as $company)
                     <option value="{{$company->id}}">{{$company->bus_company}}</option>
                 @endforeach
