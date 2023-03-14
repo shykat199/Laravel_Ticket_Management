@@ -118,6 +118,43 @@
                     <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
                        aria-controls="sidebarEcommerce" class="side-nav-link">
                         <i class="uil-store"></i>
+                        <span> Bus Details Section</span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarEcommerce">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="{{route('admin.bus_details.index')}}">Bus Details</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                       aria-controls="sidebarEcommerce" class="side-nav-link">
+                        <i class="uil-store"></i>
+                        <span> Bus Destination Section</span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarEcommerce">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="{{route('admin.bus_destination.index')}}">All Bus Destination</a>
+                            </li>
+                            <li>
+                                <a href="{{route('admin.bus_destination.create')}}">Add New Destination</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                       aria-controls="sidebarEcommerce" class="side-nav-link">
+                        <i class="uil-store"></i>
                         <span> Category Section </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -809,7 +846,23 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"
         integrity="sha512-F636MAkMAhtTplahL9F6KmTfxTmYcAcjcCkyu0f0voT3N/6vzAuJ4Num55a0gEJ+hRLHhdz3vDvZpf6kqgEa5w=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
 
+    $('#busCompanyy').select2().on('change', function () {
+        let companyId = this.value;
+        $.ajax({
+            url: `{{ route('admin.bus_destination.coach') }}?company_id=${companyId}`,
+            type: 'get',
+            success: function (response) {
+                $.each(response, function (key, value) {
+                    $('#busCoach').append('<option value="' + value
+                        .id + '">' + value.bus_coach + '</option>');
+                });
+            }
+        });
+
+    });
+</script>
 </body>
 
 <!-- Mirrored from coderthemes.com/hyper/saas/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 May 2022 20:22:16 GMT -->

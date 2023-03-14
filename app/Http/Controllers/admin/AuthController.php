@@ -28,7 +28,7 @@ class AuthController extends Controller
 
     public function registerPage()
     {
-        if (Auth::check()) {
+        if (Auth::check() && Auth::user()) {
             return redirect()->route('admin.category.index');
         }
         return view('admin.auth.register');

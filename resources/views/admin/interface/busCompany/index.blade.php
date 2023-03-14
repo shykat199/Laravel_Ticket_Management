@@ -45,6 +45,7 @@
         <tr>
             <th>#Id</th>
             <th>Company Name</th>
+            <th>Coach Count</th>
             <th>Status</th>
             <th>Action</th>
 
@@ -59,6 +60,7 @@
             <tr>
                 <td>{{$idx++}}</td>
                 <td class="company_name" data-id="{{$company->id}}">{{$company->bus_company}}</td>
+                <td class="coach_count">{{$company->total}}</td>
                 <td class="company_status">
                     <input id="switch-primary-{{$company->id}}" value="{{$company->id}}" type="checkbox"
                            name="toggle" class="toggle-class" data-onstyle="success"

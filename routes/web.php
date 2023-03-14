@@ -27,6 +27,8 @@ Route::middleware('auth')->prefix('admin/dashboard')->group(function () {
     require base_path('routes/advantage.php');
     require base_path('routes/sightSetting.php');
     require base_path('routes/busCompany.php');
+    require base_path('routes/busDetails.php');
+    require base_path('routes/busDestination.php');
 });
 
 //Route::get('test', function () {

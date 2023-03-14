@@ -17,7 +17,13 @@ class BusCompanyController extends Controller
      */
     public function index()
     {
-        $allCompanies = BusCompany::all();
+
+//
+
+        $allCompanies = BusCompany::leftJoin('bus_details','bus_details.company_id','bus_companies.id')
+        ->select('bus_companies.*',DB::raw('count(bus_details.id) as total'))
+        ->groupBy('bus_details.company_id')->get();
+        //dd($allCompanies);
         return view('admin.interface.busCompany.index', compact('allCompanies'));
     }
 

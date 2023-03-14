@@ -21,6 +21,7 @@ class BlogController extends Controller
     public function index()
     {
         $allPost = BlogPost::with(['users', 'category'])->latest()->get();
+        //$allPost=BlogPost::all();
         return view('admin.interface.blog.index', compact('allPost'));
     }
 
