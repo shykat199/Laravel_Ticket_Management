@@ -316,7 +316,7 @@
                     @foreach($eAdvantages as $eAdvantage)
                         <div class="col text-center ticket-booking-home-e-ticket-middle-content">
                             <i class="fa fa-desktop"></i>
-                            <p class="text-light px-3 pt-5 pb-2 my-5">{!! $eAdvantage->advantage_text !!}</p>
+                            <p class=" px-3 pt-5 pb-2 my-5 text-white">{!! $eAdvantage->advantage_text !!}</p>
                         </div>
                     @endforeach
 
@@ -352,23 +352,20 @@
                                                  alt="avatar">
                                         </div>
                                         <div class="col-8 d-flex  flex-column  justify-content-center">
-                                            <h4>{{$testmonial->user_id}}</h4>
-                                            <small class="text-muted fst-italic">" {!! $testmonial->feedback_text !!}"</small>
-                                        </div>
+                                            <h4>{{$testmonial->name}}</h4>
+                                            <small class="text-muted fst-italic">"{!! $testmonial->feedback_text !!}"</small>
+                                        </div>"
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="row pt-5">
                                         <div class="col-4 d-flex align-items-center  justify-content-end">
-                                            <img class="img-fluid home-carousal-image" src="./assets/images/avatar8.jpg"
+                                            <img class="img-fluid home-carousal-image" src="{{asset('storage/image/'.$testmonial->image)}}"
                                                  alt="avatar">
                                         </div>
                                         <div class="col-8 d-flex  flex-column  justify-content-center">
-                                            <h4>Jhon Doe</h4>
-                                            <small class="text-muted fst-italic">" Lorem ipsum dolor sit, amet consectetur
-                                                adipisicing elit.
-                                                Reiciendis cupiditate cum mollitia
-                                                velit at, excepturi aliquid facilis perferendis! Quos, velit! "</small>
+                                            <h4>{{$testmonial->name}}</h4>
+                                            <small class="text-muted fst-italic">"{!! $testmonial->feedback_text !!}"</small>
                                         </div>
                                     </div>
                                 </div>

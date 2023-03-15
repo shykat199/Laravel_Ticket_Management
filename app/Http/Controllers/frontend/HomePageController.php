@@ -17,7 +17,9 @@ class HomePageController extends Controller
             ->get();
         $eAdvantages=Advantage::get(['advantage_text']);
 
-        $testmonials=Testmonial::all();
+        //$testmonials=Testmonial::all();
+        $testmonials=Testmonial::leftJoin('users','users.id','testmonials.user_id')
+            ->select('testmonials.*','users.name')->where('status','=',1)->get();
         //dd($testmonials);
         return view('frontend.home',compact('blogPost','eAdvantages','testmonials'));
     }

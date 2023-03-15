@@ -266,26 +266,18 @@
                 </div>
                 <div class="footer-3rd-colum-menu-list">
 
-                    <a href="javascript:void(0)" class="row py-2">
-                        <div class="col-6 d-flex align-items-center  justify-content-center
-              ">
-                            <img class="img-fluid" src="./assets/images/new-train-destition.jpg" alt="blog post">
-                        </div>
-                        <div class="col-6">
-                            <h6>Lorem ipsum dolor sit amet.</h6>
-                            <p class="fst-italic">1 day ago</p>
-                        </div>
-                    </a>
-                    <a href="javascript:void(0)" class="row py-4">
-                        <div class="col-6 d-flex align-items-center  justify-content-center
-              ">
-                            <img class="img-fluid" src="./assets/images/california.jpg" alt="blog post">
-                        </div>
-                        <div class="col-6">
-                            <h6>Lorem ipsum dolor sit amet.</h6>
-                            <p class="fst-italic">1 day ago</p>
-                        </div>
-                    </a>
+{{--                    @foreach($blogPost as $post)--}}
+{{--                        <a href="javascript:void(0)" class="row py-2">--}}
+{{--                            <div class="col-6 d-flex align-items-center  justify-content-center">--}}
+{{--                                <img class="img-fluid" src="{{\Illuminate\Support\Facades\Storage::url($post->post_image)}}" alt="blog post">--}}
+{{--                            </div>--}}
+{{--                            <div class="col-6">--}}
+{{--                                <h6>{{$post->post_title}}</h6>--}}
+{{--                                <p class="fst-italic">{{$post->created_at->format('d M Y')}}</p>--}}
+{{--                            </div>--}}
+{{--                        </a>--}}
+{{--                    @endforeach--}}
+
 
                 </div>
             </div>

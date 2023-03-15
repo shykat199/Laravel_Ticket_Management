@@ -265,7 +265,7 @@
                                             <div class="col-7 d-flex  flex-column  justify-content-center">
 
                                                 <p class="text-muted fst-italic">"{!! $testimonial->feedback_text !!}"</p>
-                                                <small class="text-muted">{{$testimonial->user_id}}</small>
+                                                <small class="text-muted">{{$testimonial->name}}</small>
                                             </div>
                                         </div>
                                     </div>

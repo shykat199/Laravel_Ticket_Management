@@ -32,6 +32,7 @@ Route::middleware('auth')->prefix('admin/dashboard')->group(function () {
     require base_path('routes/busCompany.php');
     require base_path('routes/busDetails.php');
     require base_path('routes/busDestination.php');
+    require base_path('routes/service.php');
 });
 
 
