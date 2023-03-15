@@ -44,14 +44,16 @@ Route::prefix('/ticket/book')->group(function () {
     //Home page
     Route::get('/home', [HomePageController::class, 'index'])->name('frontend.home');
 
+    //Show Result
+    Route::post('/show/search/result', [HomePageController::class, 'showResult'])->name('frontend.show.result');
+
     //About Us
     Route::get('/about_us', [AboutUsPageController::class, 'index'])->name('frontend.aboutUs');
 
     // Search result page
     Route::get('/show/result', [ResultController::class, 'index'])->name('frontend.show.result.page');
 
-    //Show Result
-    Route::post('/show/search/result', [ResultController::class, 'showResult'])->name('frontend.show.result');
+
 
     //add passenger
     Route::get('/add/passengers', [PassengerController::class, 'index'])->name('frontend.add.passenger.list');
@@ -62,6 +64,8 @@ Route::prefix('/ticket/book')->group(function () {
     //validation ticket
     Route::get('/validate', [ValidationController::class, 'index'])->name('frontend.ticket.validate');
 });
+
+Route::get('/delete/session',[ResultController::class,'deleteSession']);
 
 
 //Route::get('test', function () {

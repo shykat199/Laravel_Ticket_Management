@@ -11,10 +11,10 @@ class BusDestination extends Model
 
     protected $fillable = ['bus_details_id', 'starting_point', 'arrival_point', 'ticket_price', 'departure_time', 'arrival_time'];
 
-    public function busCompany()
-    {
-        return $this->belongsToThrough(BusCompany::class, BusDetails::class,'bus_details_id','company_id','id','id');
-    }
+//    public function busCompany()
+//    {
+//        return $this->belongsToThrough(BusCompany::class, BusDetails::class,'bus_details_id','company_id','id','id');
+//    }
 
 
     public function busDetails(): \Illuminate\Database\Eloquent\Relations\BelongsTo

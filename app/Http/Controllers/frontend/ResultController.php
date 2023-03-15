@@ -4,15 +4,22 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ShowResultRequest;
-use GuzzleHttp\Psr7\Request;
-
+use App\Models\BusDestination;
+use App\Models\BusDetails;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 class ResultController extends Controller
 {
-    public function index(){
-        return view('frontend.showResult');
+    public function index(Request $request)
+    {
+        $sessionData=$request->session()->get('searchedResults');
+        //dd($sessionData);
+        return view('frontend.showResult',compact('sessionData'));
     }
 
-    public function showResult(ShowResultRequest $request){
-        dd($request->all());
+
+    public function deleteSession(Request $request): void
+    {
+        $request->session()->forget('searchedResults');
     }
 }
