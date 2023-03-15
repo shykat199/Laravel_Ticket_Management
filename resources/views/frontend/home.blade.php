@@ -14,43 +14,68 @@
                 </div>
                 <div
                     class="col-12 col-sm-12 col-md-6 col-lg-6 ticket-booking-home-header-search-ticket-form d-flex flex-column justify-content-end">
-                    <form class="row g-3 pt-3 pb-5 px-2" action="" method="post">
+                    <form class="row g-3 pt-3 pb-5 px-2" action="{{route('frontend.show.result')}}" method="post">
                         @csrf
                         <!-- travelling route start -->
                         <div class="col-md-5 hero-input-with-icon">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
-                            <input type="text" class="form-control" id="inputtext1" placeholder="From">
+                            <input type="text" name="starting_point" class="form-control" id="inputtext1"
+                                   placeholder="From">
                             <i class="fa fa-map-marker"></i>
+                            @error('starting_point')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
+
                         <div class="col-md-2 d-flex align-items-end">
                             <button type="submit" class="form-control">
                                 <i class="fa fa-refresh"></i>
                             </button>
                         </div>
+
                         <div class="col-md-5 d-flex align-items-end hero-input-with-icon">
-                            <input type="text" class="form-control" id="inputtext2" placeholder="To">
+                            <input type="text" name="arrival_point" class="form-control" id="inputtext2"
+                                   placeholder="To">
                             <i class="fa fa-map-marker"></i>
+                            @error('arrival_point')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
+
+
                         <!-- travelling route end -->
                         <!-- travelling date start -->
                         <div class="col-md-6 hero-input-with-icon mt-4">
                             <label for="inputtext3" class="form-label pb-2">Travelling Date</label>
-                            <input type="text" class="form-control" id="inputtext3" placeholder="MM/DD/YY">
-                            <i class="fa fa-calendar"></i>
+                            <input type="date" name="dateOfJourney" class="form-control" id="inputtext3"
+                                   placeholder="MM/DD/YY">
+
+                            @error('dateOfJourney')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
+
                         <div class="col-md-6 d-flex align-items-end hero-input-with-icon mt-4">
-                            <input type="text" class="form-control" id="inputtext4" placeholder="One Way">
-                            <i class="fa fa-calendar"></i>
+                            <input type="date" name="returnOfDate" class="form-control" id="inputtext4"
+                                   placeholder="One Way">
+
                         </div>
                         <!-- travelling date end -->
                         <!-- travelling person start -->
                         <div class="col-md-6 hero-input-with-icon mt-4 hide-numberType-icon">
                             <label for="inputtext5" class="form-label pb-2">Travelling Persons</label>
-                            <input type="number" class="form-control" id="inputtext5" placeholder="1 Adult">
+                            <input type="number" name="totalPerson" class="form-control" id="inputtext5"
+                                   placeholder="1 Adult">
                             <i class="fa fa-caret-down"></i>
+                            @error('totalPerson')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
+
+
                         <div class="col-md-6 d-flex align-items-end hero-input-with-icon mt-4 hide-numberType-icon">
-                            <input type="number" class="form-control" id="inputtext4" placeholder="0 Kids">
+                            <input type="number" name="totalKids" class="form-control" id="inputtext4"
+                                   placeholder="0 Kids">
                             <i class="fa fa-caret-down"></i>
                         </div>
 
@@ -82,7 +107,8 @@
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <div class="col">
                     <div class="card h-100">
-                        <img src="{{asset("frontend/assets/images/newyork.jpg")}}" class="card-img-top img-fluid" alt="new york">
+                        <img src="{{asset("frontend/assets/images/newyork.jpg")}}" class="card-img-top img-fluid"
+                             alt="new york">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
@@ -110,7 +136,8 @@
                 </div>
                 <div class="col">
                     <div class="card h-100">
-                        <img src="{{asset("frontend/assets/images/los-angels")}}.jpg" class="card-img-top img-fluid" alt="los-angels">
+                        <img src="{{asset("frontend/assets/images/los-angels")}}.jpg" class="card-img-top img-fluid"
+                             alt="los-angels">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
@@ -138,7 +165,8 @@
                 </div>
                 <div class="col">
                     <div class="card h-100">
-                        <img src="{{asset("frontend/assets/images/chicago.jpg")}}" class="card-img-top img-fluid" alt="chicago">
+                        <img src="{{asset("frontend/assets/images/chicago.jpg")}}" class="card-img-top img-fluid"
+                             alt="chicago">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
@@ -166,7 +194,8 @@
                 </div>
                 <div class="col">
                     <div class="card h-100">
-                        <img src="{{asset("frontend/assets/images/california.jpg")}}" class="card-img-top img-fluid" alt="california">
+                        <img src="{{asset("frontend/assets/images/california.jpg")}}" class="card-img-top img-fluid"
+                             alt="california">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
@@ -194,7 +223,8 @@
                 </div>
                 <div class="col">
                     <div class="card h-100">
-                        <img src="{{asset("frontend/assets/images/florida.jpg")}}" class="card-img-top img-fluid" alt="florida">
+                        <img src="{{asset("frontend/assets/images/florida.jpg")}}" class="card-img-top img-fluid"
+                             alt="florida">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
@@ -222,7 +252,8 @@
                 </div>
                 <div class="col">
                     <div class="card h-100">
-                        <img src="{{asset("frontend/assets/images/newyork.jpg")}}" class="card-img-top img-fluid" alt="newyork">
+                        <img src="{{asset("frontend/assets/images/newyork.jpg")}}" class="card-img-top img-fluid"
+                             alt="newyork">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
@@ -285,9 +316,9 @@
                                                 </div>
                                                 <div class="col-6 d-flex align-items-center justify-content-end">
                                                     <small class="text-muted ">{{$post->created_at->format('d M Y')}}
-{{--                                                        <span--}}
-{{--                                                            class=" fst-italic">day ago --}}
-{{--                                                        </span>--}}
+                                                        {{--                                                        <span--}}
+                                                        {{--                                                            class=" fst-italic">day ago --}}
+                                                        {{--                                                        </span>--}}
                                                     </small>
                                                 </div>
                                             </div>
@@ -316,7 +347,7 @@
                     @foreach($eAdvantages as $eAdvantage)
                         <div class="col text-center ticket-booking-home-e-ticket-middle-content">
                             <i class="fa fa-desktop"></i>
-                            <p class=" px-3 pt-5 pb-2 my-5 text-white">{!! $eAdvantage->advantage_text !!}</p>
+                            <p class=" px-3 pt-5 pb-2 my-5 text-white">{{strip_tags($eAdvantage->advantage_text)}}</p>
                         </div>
                     @endforeach
 
@@ -348,24 +379,31 @@
                                 <div class="col-6">
                                     <div class="row pt-5">
                                         <div class="col-4 d-flex align-items-center  justify-content-end">
-                                            <img class="img-fluid home-carousal-image" src="{{asset('storage/image/'.$testmonial->image)}}"
+                                            <img class="img-fluid home-carousal-image"
+                                                 src="{{asset('storage/image/'.$testmonial->image)}}"
                                                  alt="avatar">
                                         </div>
                                         <div class="col-8 d-flex  flex-column  justify-content-center">
                                             <h4>{{$testmonial->name}}</h4>
-                                            <small class="text-muted fst-italic">"{!! $testmonial->feedback_text !!}"</small>
-                                        </div>"
+                                            <small
+                                                class="text-muted fst-italic text-justify">" {{strip_tags($testmonial->feedback_text)}}
+                                                "</small>
+                                        </div>
+                                        "
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="row pt-5">
                                         <div class="col-4 d-flex align-items-center  justify-content-end">
-                                            <img class="img-fluid home-carousal-image" src="{{asset('storage/image/'.$testmonial->image)}}"
+                                            <img class="img-fluid home-carousal-image"
+                                                 src="{{asset('storage/image/'.$testmonial->image)}}"
                                                  alt="avatar">
                                         </div>
                                         <div class="col-8 d-flex  flex-column  justify-content-center">
                                             <h4>{{$testmonial->name}}</h4>
-                                            <small class="text-muted fst-italic">"{!! $testmonial->feedback_text !!}"</small>
+                                            <small
+                                                class="text-muted fst-italic text-justify">" {{strip_tags($testmonial->feedback_text)}}
+                                                "</small>
                                         </div>
                                     </div>
                                 </div>
@@ -373,84 +411,6 @@
                         </div>
                     @endforeach
 
-{{--                    <div class="carousel-item">--}}
-{{--                        <div class="row">--}}
-{{--                            <div class="col-6">--}}
-{{--                                <div class="row pt-5">--}}
-{{--                                    <div class="col-4 d-flex align-items-center  justify-content-end">--}}
-{{--                                        <img class="img-fluid home-carousal-image" src="./assets/images/avatar9.jpg"--}}
-{{--                                             alt="avatar">--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-8 d-flex  flex-column  justify-content-center">--}}
-{{--                                        <h4>Jhon Doe</h4>--}}
-{{--                                        <small class="text-muted fst-italic">" Lorem ipsum dolor sit, amet consectetur--}}
-{{--                                            adipisicing elit.--}}
-{{--                                            Reiciendis cupiditate cum mollitia--}}
-{{--                                            velit at, excepturi aliquid facilis perferendis! Quos, velit! "</small>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-6">--}}
-{{--                                <div class="row pt-5">--}}
-{{--                                    <div class="col-4 d-flex align-items-center  justify-content-end">--}}
-{{--                                        <img class="img-fluid home-carousal-image" src="./assets/images/avatar7.jpg"--}}
-{{--                                             alt="avatar">--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-8 d-flex  flex-column  justify-content-center">--}}
-{{--                                        <h4>Jhon Doe</h4>--}}
-{{--                                        <small class="text-muted fst-italic">" Lorem ipsum dolor sit, amet consectetur--}}
-{{--                                            adipisicing elit.--}}
-{{--                                            Reiciendis cupiditate cum mollitia--}}
-{{--                                            velit at, excepturi aliquid facilis perferendis! Quos, velit! "</small>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="carousel-item">--}}
-{{--                        <div class="row">--}}
-{{--                            <div class="col-6">--}}
-{{--                                <div class="row pt-5">--}}
-{{--                                    <div class="col-4 d-flex align-items-center  justify-content-end">--}}
-{{--                                        <img class="img-fluid home-carousal-image" src="./assets/images/avatar8.jpg"--}}
-{{--                                             alt="avatar">--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-8 d-flex  flex-column  justify-content-center">--}}
-{{--                                        <h4>Jhon Doe</h4>--}}
-{{--                                        <small class="text-muted fst-italic">" Lorem ipsum dolor sit, amet consectetur--}}
-{{--                                            adipisicing elit.--}}
-{{--                                            Reiciendis cupiditate cum mollitia--}}
-{{--                                            velit at, excepturi aliquid facilis perferendis! Quos, velit! "</small>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-6">--}}
-{{--                                <div class="row pt-5">--}}
-{{--                                    <div class="col-4 d-flex align-items-center  justify-content-end">--}}
-{{--                                        <img class="img-fluid home-carousal-image" src="./assets/images/avatar9.jpg"--}}
-{{--                                             alt="avatar">--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-8 d-flex  flex-column  justify-content-center">--}}
-{{--                                        <h4>Jhon Doe</h4>--}}
-{{--                                        <small class="text-muted fst-italic">" Lorem ipsum dolor sit, amet consectetur--}}
-{{--                                            adipisicing elit.--}}
-{{--                                            Reiciendis cupiditate cum mollitia--}}
-{{--                                            velit at, excepturi aliquid facilis perferendis! Quos, velit! "</small>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-                    <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                      data-bs-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Previous</span>
-                    </button> -->
-                    <!-- <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                      data-bs-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Next</span>
-                    </button> -->
                 </div>
             </div>
         </section>

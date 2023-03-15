@@ -1,0 +1,748 @@
+@extends('frontend.layout.master_frontend')
+@section('show.frontend')
+
+    <!-- header hero start -->
+    <section class="result-header-hero">
+        <div class="container ticket-booking-home-header-hero-container">
+            <div class="row gy-4 ticket-booking-home-header-hero-content">
+                <div
+                    class="col-12 ticket-booking-home-header-search-ticket-form d-flex flex-column justify-content-end">
+                    <form class="row g-3 pt-3 pb-5 px-2">
+                        <!-- travelling route start -->
+                        <div class="col-md-5 col-xl-2 hero-input-with-icon mt-4">
+                            <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
+                            <input type="text" class="form-control" id="inputtext1" placeholder="From">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+                        <div class="col-md-2 col-xl-1 d-flex align-items-end">
+                            <button type="submit" class="form-control">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                        <div class="col-md-5 col-xl-2 d-flex align-items-end hero-input-with-icon">
+                            <input type="text" class="form-control" id="inputtext2" placeholder="To">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+                        <!-- travelling route end -->
+                        <!-- travelling date start -->
+                        <div class="col-md-3 col-xl-2 hero-input-with-icon mt-4">
+                            <label for="inputtext3" class="form-label pb-2">Travelling Date</label>
+                            <input type="text" class="form-control" id="inputtext3" placeholder="MM/DD/YY">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <div class="col-md-3 col-xl-2 d-flex align-items-end hero-input-with-icon mt-4">
+                            <input type="text" class="form-control" id="inputtext4" placeholder="One Way">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <!-- travelling date end -->
+                        <!-- travelling person start -->
+                        <div class="col-md-3 col-xl-2 hero-input-with-icon mt-4 hide-numberType-icon">
+                            <label for="inputtext5" class="form-label pb-2">Travelling Persons</label>
+                            <input type="number" class="form-control" id="inputtext5" placeholder="1 Adult">
+                            <i class="fa fa-caret-down"></i>
+                        </div>
+                        <div
+                            class="col-md-3 col-xl-1 d-flex align-items-end hero-input-with-icon mt-4 hide-numberType-icon">
+                            <input type="number" class="form-control" id="inputtext4" placeholder="0 Kids">
+                            <i class="fa fa-caret-down"></i>
+                        </div>
+
+                        <!-- travelling person end -->
+                        <div class="col-md-9 d-flex ">
+
+                        </div>
+                        <div class="col-md-3 d-flex pt-5 ">
+                            <button type="submit" class="form-control py-3  search-ticket-btn">
+                                SEARCH TICKETS
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- header hero end -->
+    </header>
+
+
+    <!-- main start -->
+    <main class="">
+        <!-- ticket processing steps start-->
+        <section class="results-steps">
+            <div class="container py-2">
+                <div class="row gx-5">
+                    <div class="col-3 d-flex align-items-center results-single-current-steps">
+                        <p><span class="number-round me-2 triangle-red">1</span> TICKETS</p>
+                        <div class="white-triangle"></div>
+                        <div class="red-triagl"></div>
+                    </div>
+                    <div class="col-3 results-single-next-steps">
+                        <p class="ps-4"><span class="number-round triangle-black">2</span> PASSENGERS</p>
+                        <div class="black-triagl">
+                        </div>
+                        <div class="inner-triangle"></div>
+                    </div>
+                    <div class="col-3 results-single-next-steps">
+                        <p class="ps-4"><span class="number-round triangle-black">3</span> PAYMENT</p>
+                        <div class="black-triagl"></div>
+                        <div class="inner-triangle"></div>
+                    </div>
+                    <div class="col-3 results-single-next-steps">
+                        <p class="ps-4"><span class="number-round  triangle-black">4</span> VALIDATION</p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ticket processing steps end-->
+        <!-- all ticket start-->
+        <section class="all-ticket mt-5">
+            <div class="container  pt-5">
+                <div class="row">
+                    <div class="col-4 all-ticket-left-colum">
+                        <div class="row">
+                            <div class="row all-ticket-left-colum-upper-part mb-2">
+                                <div class="card all-ticket-left-colum-upper-part rounded-0">
+                                    <h4
+                                        class="text-center text-light pt-4 fw-normal all-ticket-left-colum-upper-part-title">
+                                        Filter by
+                                    </h4>
+                                    <div class="row  card-body pt-4">
+                                        <div class="row ">
+                                            <h5 class="text-light fw-normal ps-0">Coach Type</h5>
+                                            <div class="form-check form-switch py-2">
+                                                <input class="form-check-input small text-danger  ps-0" type="checkbox"
+                                                       role="switch" id="flexSwitchCheckDefault">
+                                                <label class="form-check-label text-light small ps-2"
+                                                       for="flexSwitchCheckDefault">Third class sleeping</label>
+                                            </div>
+                                            <div class="form-check form-switch pb-2">
+                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
+                                                       id="flexSwitchCheckDefault">
+                                                <label class="form-check-label text-light small ps-2"
+                                                       for="flexSwitchCheckDefault">Second class sleeping</label>
+                                            </div>
+                                            <div class="form-check form-switch pb-2">
+                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
+                                                       id="flexSwitchCheckDefault">
+                                                <label class="form-check-label text-light small ps-2"
+                                                       for="flexSwitchCheckDefault">First class sleeping</label>
+                                            </div>
+                                            <div class="form-check form-switch pb-2">
+                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
+                                                       id="flexSwitchCheckDefault">
+                                                <label class="form-check-label text-light small ps-2"
+                                                       for="flexSwitchCheckDefault">Comfortable</label>
+                                            </div>
+                                            <div class="form-check form-switch pb-2">
+                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
+                                                       id="flexSwitchCheckDefault">
+                                                <label class="form-check-label text-light small ps-2"
+                                                       for="flexSwitchCheckDefault">Third class non reserved </label>
+                                            </div>
+                                            <div class="form-check form-switch pb-2">
+                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
+                                                       id="flexSwitchCheckDefault">
+                                                <label class="form-check-label text-light small ps-2"
+                                                       for="flexSwitchCheckDefault">Sedentary carriage</label>
+                                            </div>
+                                            <div class="form-check form-switch pb-2">
+                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
+                                                       id="flexSwitchCheckDefault" checked>
+                                                <label class="form-check-label text-light small ps-2"
+                                                       for="flexSwitchCheckDefault">All</label>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="row ">
+                                                <h5 class="text-light fw-normal ps-0 mb-0">Departure / Arrive time</h5>
+                                                <div>
+                                                    <label for="customRange1" class="form-label"></label>
+                                                    <input type="range" class="form-range" id="customRange1">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="row ">
+                                                <h5 class="text-light fw-normal ps-0 mb-0">Price</h5>
+                                                <div>
+                                                    <label for="customRange1" class="form-label"></label>
+                                                    <input type="range" class="form-range" id="customRange1">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row all-ticket-left-colum-middle-part mb-3 mt-5">
+                                <h4 class="">
+                                    Recent Tickets
+                                </h4>
+                                <div class=" card rounded-0 recent-ticket-card mt-4">
+                                    <div class="row  card-body pt-4">
+                                        <div class="row ">
+                                            <div class="col-6">
+                                                <h6 class="mb-0">New York</h6>
+                                                <small class="small-text">Peen Station,NY</small>
+                                            </div>
+                                            <div class="col-6 text-end">
+                                                <h6 class="mb-0">Los Angels</h6>
+                                                <small class="small-text">Union Station,CA</small>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <div class="col-6">
+                                                <ul class="d-flex">
+                                                    <li class="pe-2 text-muted small">
+                                                        <i class="fa fa-wifi" aria-hidden="true"></i>
+                                                    </li>
+                                                    <li class="pe-2 text-muted small">
+                                                        <i class="fa fa-moon-o" aria-hidden="true"></i>
+                                                    </li>
+                                                    <li class="pe-2 text-muted small">
+                                                        <i class="fa fa-coffee" aria-hidden="true"></i>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <p class="small-text text-muted text-end">from
+                                                    <span class="fs-3 text-danger">
+                                                        $48
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class=" card rounded-0 recent-ticket-card mt-4">
+                                    <div class="row  card-body pt-4">
+                                        <div class="row ">
+                                            <div class="col-6">
+                                                <h6 class="mb-0">Paris</h6>
+                                                <small class="small-text">Gare Saint-Lazare</small>
+                                            </div>
+                                            <div class="col-6 text-end">
+                                                <h6 class="mb-0">London</h6>
+                                                <small class="small-text">Paddington Station</small>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <div class="col-6">
+                                                <ul class="d-flex">
+                                                    <li class="pe-2 text-muted small">
+                                                        <i class="fa fa-wifi" aria-hidden="true"></i>
+                                                    </li>
+                                                    <li class="pe-2 text-muted small">
+                                                        <i class="fa fa-moon-o" aria-hidden="true"></i>
+                                                    </li>
+                                                    <li class="pe-2 text-muted small">
+                                                        <i class="fa fa-coffee" aria-hidden="true"></i>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <p class="small-text text-muted text-end">from
+                                                    <span class="fs-3 text-danger">
+                                                        $72
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class=" card rounded-0 recent-ticket-card mt-4">
+                                    <div class="row  card-body pt-4">
+                                        <div class="row ">
+                                            <div class="col-6">
+                                                <h6 class="mb-0">New York</h6>
+                                                <small class="small-text">Peen Station,NY</small>
+                                            </div>
+                                            <div class="col-6 text-end">
+                                                <h6 class="mb-0">Los Angels</h6>
+                                                <small class="small-text">Union Station,CA</small>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <div class="col-6">
+                                                <ul class="d-flex">
+                                                    <li class="pe-2 text-muted small">
+                                                        <i class="fa fa-wifi" aria-hidden="true"></i>
+                                                    </li>
+                                                    <li class="pe-2 text-muted small">
+                                                        <i class="fa fa-moon-o" aria-hidden="true"></i>
+                                                    </li>
+                                                    <li class="pe-2 text-muted small">
+                                                        <i class="fa fa-coffee" aria-hidden="true"></i>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <p class="small-text text-muted text-end">from
+                                                    <span class="fs-3 text-danger">
+                                                        $48
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row all-ticket-left-colum-lower-part mt-5">
+                                <h4 class="">
+                                    Recent Posts
+                                </h4>
+                                <div class="all-ticket-left-colum-lower-part pt-4">
+                                    <a href="javascript:void(0)" class="row py-4">
+                                        <div class="col-4 image-container">
+                                            <img class="img-fluid" src="./assets/images/new-train-destition.jpg"
+                                                 alt="blog post">
+                                        </div>
+                                        <div class="col-8">
+                                            <h6>Lorem ipsum dolor sit amet.</h6>
+                                            <p class="fst-italic">1 day ago</p>
+                                        </div>
+                                    </a>
+                                    <a href="javascript:void(0)" class="row py-4">
+                                        <div class="col-4 image-container">
+                                            <img class="img-fluid" src="./assets/images/california.jpg" alt="blog post">
+                                        </div>
+                                        <div class="col-8 ">
+                                            <h6>Lorem ipsum dolor sit amet.</h6>
+                                            <p class="fst-italic">5 month ago</p>
+                                        </div>
+                                    </a>
+                                    <a href="javascript:void(0)" class="row py-4">
+                                        <div class="col-4 image-container">
+                                            <img class="img-fluid" src="./assets/images/top-summer-detination.jpg"
+                                                 alt="blog post">
+                                        </div>
+                                        <div class="col-8">
+                                            <h6>Lorem ipsum dolor sit amet.</h6>
+                                            <p class="fst-italic">1 day ago</p>
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8 available-all-ticket">
+                        <div class="d-flex justify-content-between">
+                            <p>10 of 12 found</p>
+                            <div>
+                                <select class="small text-muted border-1" aria-label="Default select example">
+                                    <option selected class="">Short by time</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                                <select class="small text-muted border-1" aria-label="Default select example">
+                                    <option selected>Show 5 tickets on page</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row available-all-ticket-content pt-3">
+                            <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                                <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">048A</h5>
+                                    <p class="card-text text-center text-muted">North Express</p>
+                                </div>
+                            </div>
+                            <div class="col-6 card rounded-0 all-ticket-card-middle">
+                                <div class="row  card-body">
+                                    <div class="row">
+                                        <div class="col-4 all-ticket-card-middle-left-colum">
+                                            <h5>8:30p</h5>
+                                            <small class="small-text">Feb 14 SUN</small>
+                                            <h6 class="small">New York</h6>
+                                            <small class="small-text">Peen Station,NY</small>
+                                        </div>
+                                        <div
+                                            class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+                                            <p class="text-muted small text-center">07:25</p>
+                                            <p class="text-center"><i class="fa fa-long-arrow-right text-muted"></i>
+                                            </p>
+                                        </div>
+                                        <div class="col-4 all-ticket-card-middle-right-colum">
+                                            <h5>2:50a</h5>
+                                            <small class="small-text">Feb 15 SUN</small>
+                                            <h6 class="small">Los Angels</h6>
+                                            <small class="small-text">Union Station,CA</small>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-4 all-ticket-card-middle-left-colum">
+                                            <h5>10:20p</h5>
+                                            <small class="small-text">Feb 18 THU</small>
+                                            <h6 class="small">New York</h6>
+                                            <small class="small-text">Peen Station,NY</small>
+                                        </div>
+                                        <div
+                                            class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+                                            <p class="text-muted small text-center">11:30</p>
+                                            <p class="text-center"><i class="fa fa-long-arrow-left text-muted"></i>
+                                            </p>
+                                        </div>
+                                        <div class="col-4 all-ticket-card-middle-right-colum">
+                                            <h5>9:50a</h5>
+                                            <small class="small-text">Feb 19 THU</small>
+                                            <h6 class="small">Los Angels</h6>
+                                            <small class="small-text">Union Station,CA</small>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
+                                <div class="all-ticket-card-right-content">
+                                    <p class="text-muted small"><span>$38 </span>/person</p>
+                                </div>
+                                <ul class="d-flex">
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-wifi" aria-hidden="true"></i>
+                                    </li>
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-moon-o" aria-hidden="true"></i>
+                                    </li>
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-coffee" aria-hidden="true"></i>
+                                    </li>
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-rocket" aria-hidden="true"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row available-all-ticket-content pt-3">
+                            <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                                <i class="fa fa-train all-ticket-card-left-icon text-center"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">105A</h5>
+                                    <p class="card-text text-center text-muted">Silver Arrow</p>
+                                </div>
+                            </div>
+                            <div class="col-6 card rounded-0 all-ticket-card-middle">
+                                <div class="row  card-body">
+                                    <div class="row">
+                                        <div class="col-4 all-ticket-card-middle-left-colum">
+                                            <h5>12:30a</h5>
+                                            <small class="small-text">Feb 14 SUN</small>
+                                            <h6 class="small">New York</h6>
+                                            <small class="small-text">Peen Station,NY</small>
+                                        </div>
+                                        <div
+                                            class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+                                            <p class="text-muted small text-center">07:25</p>
+                                            <p class="text-center"><i class="fa fa-long-arrow-right text-muted"></i>
+                                            </p>
+                                        </div>
+                                        <div class="col-4 all-ticket-card-middle-right-colum">
+                                            <h5>3:50p</h5>
+                                            <small class="small-text">Feb 15 SUN</small>
+                                            <h6 class="small">Los Angels</h6>
+                                            <small class="small-text">Union Station,CA</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
+                                <div class="all-ticket-card-right-content">
+                                    <p class="text-muted small"><span>$59 </span>/person</p>
+                                </div>
+                                <ul class="d-flex">
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-wifi" aria-hidden="true"></i>
+                                    </li>
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-coffee" aria-hidden="true"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row available-all-ticket-content pt-3">
+                            <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                                <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">048A</h5>
+                                    <p class="card-text text-center text-muted">North Express</p>
+                                </div>
+                            </div>
+                            <div class="col-6 card rounded-0 all-ticket-card-middle">
+                                <div class="row  card-body">
+                                    <div class="row">
+                                        <div class="col-4 all-ticket-card-middle-left-colum">
+                                            <h5>8:30p</h5>
+                                            <small class="small-text">Feb 14 SUN</small>
+                                            <h6 class="small">New York</h6>
+                                            <small class="small-text">Peen Station,NY</small>
+                                        </div>
+                                        <div
+                                            class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+                                            <p class="text-muted small text-center">07:25</p>
+                                            <p class="text-center"><i class="fa fa-long-arrow-right text-muted"></i>
+                                            </p>
+                                        </div>
+                                        <div class="col-4 all-ticket-card-middle-right-colum">
+                                            <h5>2:50a</h5>
+                                            <small class="small-text">Feb 15 SUN</small>
+                                            <h6 class="small">Los Angels</h6>
+                                            <small class="small-text">Union Station,CA</small>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-4 all-ticket-card-middle-left-colum">
+                                            <h5>10:20p</h5>
+                                            <small class="small-text">Feb 18 THU</small>
+                                            <h6 class="small">New York</h6>
+                                            <small class="small-text">Peen Station,NY</small>
+                                        </div>
+                                        <div
+                                            class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+                                            <p class="text-muted small text-center">11:30</p>
+                                            <p class="text-center"><i class="fa fa-long-arrow-left text-muted"></i>
+                                            </p>
+                                        </div>
+                                        <div class="col-4 all-ticket-card-middle-right-colum">
+                                            <h5>9:50a</h5>
+                                            <small class="small-text">Feb 19 THU</small>
+                                            <h6 class="small">Los Angels</h6>
+                                            <small class="small-text">Union Station,CA</small>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
+                                <div class="all-ticket-card-right-content">
+                                    <p class="text-muted small"><span>$38 </span>/person</p>
+                                </div>
+                                <ul class="d-flex">
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-wifi" aria-hidden="true"></i>
+                                    </li>
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-moon-o" aria-hidden="true"></i>
+                                    </li>
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-coffee" aria-hidden="true"></i>
+                                    </li>
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-rocket" aria-hidden="true"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row available-all-ticket-content pt-3">
+                            <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                                <i class="fa fa-train all-ticket-card-left-icon text-center"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">105A</h5>
+                                    <p class="card-text text-center text-muted">Silver Arrow</p>
+                                </div>
+                            </div>
+                            <div class="col-6 card rounded-0 all-ticket-card-middle">
+                                <div class="row  card-body">
+                                    <div class="row">
+                                        <div class="col-4 all-ticket-card-middle-left-colum">
+                                            <h5>12:30a</h5>
+                                            <small class="small-text">Feb 14 SUN</small>
+                                            <h6 class="small">New York</h6>
+                                            <small class="small-text">Peen Station,NY</small>
+                                        </div>
+                                        <div
+                                            class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+                                            <p class="text-muted small text-center">07:25</p>
+                                            <p class="text-center"><i class="fa fa-long-arrow-right text-muted"></i>
+                                            </p>
+                                        </div>
+                                        <div class="col-4 all-ticket-card-middle-right-colum">
+                                            <h5>3:50p</h5>
+                                            <small class="small-text">Feb 15 SUN</small>
+                                            <h6 class="small">Los Angels</h6>
+                                            <small class="small-text">Union Station,CA</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
+                                <div class="all-ticket-card-right-content">
+                                    <p class="text-muted small"><span>$59 </span>/person</p>
+                                </div>
+                                <ul class="d-flex">
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-wifi" aria-hidden="true"></i>
+                                    </li>
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-coffee" aria-hidden="true"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row available-all-ticket-content pt-3">
+                            <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                                <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">048A</h5>
+                                    <p class="card-text text-center text-muted">North Express</p>
+                                </div>
+                            </div>
+                            <div class="col-6 card rounded-0 all-ticket-card-middle">
+                                <div class="row  card-body">
+                                    <div class="row">
+                                        <div class="col-4 all-ticket-card-middle-left-colum">
+                                            <h5>8:30p</h5>
+                                            <small class="small-text">Feb 14 SUN</small>
+                                            <h6 class="small">New York</h6>
+                                            <small class="small-text">Peen Station,NY</small>
+                                        </div>
+                                        <div
+                                            class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+                                            <p class="text-muted small text-center">07:25</p>
+                                            <p class="text-center"><i class="fa fa-long-arrow-right text-muted"></i>
+                                            </p>
+                                        </div>
+                                        <div class="col-4 all-ticket-card-middle-right-colum">
+                                            <h5>2:50a</h5>
+                                            <small class="small-text">Feb 15 SUN</small>
+                                            <h6 class="small">Los Angels</h6>
+                                            <small class="small-text">Union Station,CA</small>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-4 all-ticket-card-middle-left-colum">
+                                            <h5>10:20p</h5>
+                                            <small class="small-text">Feb 18 THU</small>
+                                            <h6 class="small">New York</h6>
+                                            <small class="small-text">Peen Station,NY</small>
+                                        </div>
+                                        <div
+                                            class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+                                            <p class="text-muted small text-center">11:30</p>
+                                            <p class="text-center"><i class="fa fa-long-arrow-left text-muted"></i>
+                                            </p>
+                                        </div>
+                                        <div class="col-4 all-ticket-card-middle-right-colum">
+                                            <h5>9:50a</h5>
+                                            <small class="small-text">Feb 19 THU</small>
+                                            <h6 class="small">Los Angels</h6>
+                                            <small class="small-text">Union Station,CA</small>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
+                                <div class="all-ticket-card-right-content">
+                                    <p class="text-muted small"><span>$38 </span>/person</p>
+                                </div>
+                                <ul class="d-flex">
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-wifi" aria-hidden="true"></i>
+                                    </li>
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-moon-o" aria-hidden="true"></i>
+                                    </li>
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-coffee" aria-hidden="true"></i>
+                                    </li>
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-rocket" aria-hidden="true"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row available-all-ticket-content pt-3">
+                            <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                                <i class="fa fa-train all-ticket-card-left-icon text-center"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">105A</h5>
+                                    <p class="card-text text-center text-muted">Silver Arrow</p>
+                                </div>
+                            </div>
+                            <div class="col-6 card rounded-0 all-ticket-card-middle">
+                                <div class="row  card-body">
+                                    <div class="row">
+                                        <div class="col-4 all-ticket-card-middle-left-colum">
+                                            <h5>12:30a</h5>
+                                            <small class="small-text">Feb 14 SUN</small>
+                                            <h6 class="small">New York</h6>
+                                            <small class="small-text">Peen Station,NY</small>
+                                        </div>
+                                        <div
+                                            class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+                                            <p class="text-muted small text-center">07:25</p>
+                                            <p class="text-center"><i class="fa fa-long-arrow-right text-muted"></i>
+                                            </p>
+                                        </div>
+                                        <div class="col-4 all-ticket-card-middle-right-colum">
+                                            <h5>3:50p</h5>
+                                            <small class="small-text">Feb 15 SUN</small>
+                                            <h6 class="small">Los Angels</h6>
+                                            <small class="small-text">Union Station,CA</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
+                                <div class="all-ticket-card-right-content">
+                                    <p class="text-muted small"><span>$59 </span>/person</p>
+                                </div>
+                                <ul class="d-flex">
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-wifi" aria-hidden="true"></i>
+                                    </li>
+                                    <li class="pe-2 text-muted small">
+                                        <i class="fa fa-coffee" aria-hidden="true"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Pagination -->
+                        <nav aria-label="Page navigation example ">
+                            <ul class="pagination pt-5 justify-content-center custom-design-for-pagination">
+                                <li class=" page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+            </div>
+        </section>
+        <!-- all ticket end-->
+
+
+    </main>
+    <!-- main end -->
+
+@endsection
+

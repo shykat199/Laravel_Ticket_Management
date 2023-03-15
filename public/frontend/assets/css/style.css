@@ -79,7 +79,7 @@ body a:hover {
   height: 100%;
 }
 .header-area .header-hero .ticket-booking-home-header-hero-container .ticket-booking-home-header-hero-content .ticket-booking-home-header-hero-title h2 {
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 800;
   font-size: 56px;
   margin-bottom: 40px;
@@ -221,7 +221,7 @@ body a:hover {
   height: 100px;
   text-align: center;
   color: rgba(243, 7, 7, 0.804);
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 @media (max-width: 768px) {
   .ticket-booking-home-e-ticket .ticket-booking-home-e-ticket-middle i {
@@ -317,7 +317,7 @@ body a:hover {
   font-size: 14px;
 }
 .footer .footer-upper-part .footer-4th-colum-menu-list h6 {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .footer .footer-upper-part .footer-4th-colum-menu-list ul li a {
   color: #a7a2a2;
@@ -382,7 +382,7 @@ body a:hover {
   }
 }
 .about-header-hero .ticket-booking-about-header-hero-container .ticket-booking-about-header-hero-content .ticket-booking-about-header-hero-title h2 {
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 800;
   font-size: 56px;
   padding: 50px 0 15px;
@@ -423,7 +423,7 @@ body a:hover {
   width: 100px;
   height: 100px;
   text-align: center;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 @media (max-width: 768px) {
   .ticket-booking-about-our-team .ticket-booking-about-our-team-middle img {
@@ -504,7 +504,7 @@ body a:hover {
   height: 100%;
 }
 .header-area .result-header-hero .ticket-booking-home-header-hero-container .ticket-booking-home-header-hero-content .ticket-booking-home-header-hero-title h2 {
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 800;
   font-size: 56px;
   margin-bottom: 40px;
@@ -977,7 +977,7 @@ body a:hover {
 }
 .all-ticket .container .row .available-all-ticket .custom-design-for-pagination .page-item .page-link:hover {
   background-color: red;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .passenger-results-steps {
@@ -1404,7 +1404,7 @@ body a:hover {
 }
 .all-processing .container .row .processing-form .custom-design-for-pagination .page-item .page-link:hover {
   background-color: red;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .payment-steps {
@@ -1939,7 +1939,7 @@ body a:hover {
 }
 .all-processing .container .row .personal-form-container .custom-design-for-pagination .page-item .page-link:hover {
   background-color: red;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .validation-steps {
@@ -2486,5 +2486,13 @@ body a:hover {
 }
 .all-processing .container .row .vailidation-container .custom-design-for-pagination .page-item .page-link:hover {
   background-color: red;
-  color: #FFFFFF;
+  color: #ffffff;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.text-white {
+  color: whitesmoke;
 }/*# sourceMappingURL=style.css.map */
