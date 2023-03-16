@@ -15,7 +15,7 @@ class HomePageController extends Controller
 {
     public function index(Request $request)
     {
-        $blogPost = BlogPost::select('*')
+        $blogPost = BlogPost::select('post_title','post_description','post_image','created_at')
             ->offset(0)
             ->orderBy('id', 'DESC')
             ->limit(4)
@@ -45,9 +45,10 @@ class HomePageController extends Controller
                     ->get();
                 $request->session()->put('searchedResults', $request->all());
             }
-            //dd($searchResults);
-
-            return view('frontend.showResult', compact('searchResults'));
+            //dd('1');
+            $sessionData=$request->session()->get('searchedResults');
+            //dd($sessionData);
+            return view('frontend.showResult', compact('searchResults','sessionData'));
             //dd($searchResult);
         }
     }

@@ -56,7 +56,8 @@ Route::prefix('/ticket/book')->group(function () {
 
 
     //add passenger
-    Route::get('/add/passengers', [PassengerController::class, 'index'])->name('frontend.add.passenger.list');
+    Route::post('/add/passengers', [PassengerController::class, 'index'])->name('frontend.add.passenger.list');
+    Route::post('/add/passengers/details', [PassengerController::class, 'sessionStorePassenger'])->name('frontend.add.passenger.session');
 
     //Payment Method
     Route::get('/payment', [PaymentController::class, 'index'])->name('frontend.ticket.payment');
@@ -66,6 +67,7 @@ Route::prefix('/ticket/book')->group(function () {
 });
 
 Route::get('/delete/session',[ResultController::class,'deleteSession']);
+Route::get('/delete/session/price',[ResultController::class,'deleteSessionBusTicket']);
 
 
 //Route::get('test', function () {

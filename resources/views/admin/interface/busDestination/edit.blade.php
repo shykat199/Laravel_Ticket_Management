@@ -20,19 +20,11 @@
 
             </select>
         </div>
-
-
         <label class="form-label" for="validationCustom01">Bus Coach Number</label>
         <div class="form-floating mb-3">
 
-            <select name="" class="form-control select2" data-toggle="select2" id="busCoach">
-                <option selected>Select Bus Coach</option>
-                @foreach($busDetails as $details)
-                    <option value="{{$details->id}}" {{$details->id===$busDestination->bus_details_id ?'selected':''}}>
-                        {{$details->bus_coach}}
-                    </option>
-                @endforeach
-
+            <select name="bus_details_id" class="form-control select2" data-toggle="select2" id="busCoach">
+                {!! getBusCoach($busDestination->busDetails->company_id,$busDestination->busDetails->id) !!}
             </select>
         </div>
         @error('bus_details_id')
@@ -70,9 +62,9 @@
         <br>
 
         <div class="form-floating mb-3">
-            <input type="time" value="{{$busDestination->arrival_time}}" name="arrival_time" class="form-control"
+            <input type="number" value="{{$busDestination->arrival_time}}" name="arrival_time" class="form-control"
                    id="floatingInput" placeholder="Post Title"/>
-            <label for="floatingInput">Arrival time</label>
+            <label for="floatingInput">Arrival time (Hours)</label>
         </div>
         @error('arrival_time')
         <span class="text-danger">{{$message}}</span>

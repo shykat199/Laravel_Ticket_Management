@@ -57,7 +57,7 @@ class BusDestinationController extends Controller
     public function store(BusDestinationStoreRequest $request)
     {
         $departure_time = Carbon::parse($request->get('departure_time'))->format('g:i A');
-        $arrival_time = Carbon::parse($request->get('arrival_time'))->format('g:i A');
+        // $arrival_time = Carbon::parse($request->get('arrival_time'))->format('g:i A');
         //dd($departure_time, $arrival_time);
 
         $storeBusDestination = BusDestination::create([
@@ -66,7 +66,7 @@ class BusDestinationController extends Controller
             'arrival_point' => $request->get('arrival_point'),
             'ticket_price' => $request->get('ticket_price'),
             'departure_time' => $departure_time,
-            'arrival_time' => $arrival_time,
+            'arrival_time' =>$request->get('arrival_time'),
         ]);
 
         if ($storeBusDestination) {
@@ -96,13 +96,14 @@ class BusDestinationController extends Controller
     public function edit(string $id)
     {
         $allBusCompany = BusCompany::all();
-        $busDetails=BusDetails::all();
+        $busDetails = BusDetails::all();
         //dd($busDetails);
-        $busDestination=BusDestination::where('id',$id)
+        $busDestination = BusDestination::where('id', $id)
             ->with(['busDetails.busCompany'])
             ->first();
         //dd($busDestination);
-        return view('admin.interface.busDestination.edit',compact('busDestination','allBusCompany','busDetails'));
+        // return $busDestination;
+        return view('admin.interface.busDestination.edit', compact('busDestination', 'allBusCompany', 'busDetails'));
     }
 
     /**
@@ -112,19 +113,42 @@ class BusDestinationController extends Controller
      * @param \App\Models\BusDestination $busDestination
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BusDestination $busDestination)
+    public function update(string $id, Request $request)
     {
-        //
+        //dd($request->all());
+        $departure_time = Carbon::parse($request->get('departure_time'))->format('g:i A');
+        //$arrival_time = Carbon::parse($request->get('arrival_time'))->format('g:i A');
+        //dd($departure_time, $arrival_time);
+        $storeBusDestination = BusDestination::where('id', $id)->update([
+            'bus_details_id' => $request->get('bus_details_id'),
+            'starting_point' => $request->get('starting_point'),
+            'arrival_point' => $request->get('arrival_point'),
+            'ticket_price' => $request->get('ticket_price'),
+            'departure_time' => $departure_time,
+            'arrival_time' => $request->get('arrival_time'),
+        ]);
+
+
+        if ($storeBusDestination) {
+            return to_route('admin.bus_destination.index')->with('success', 'Destination Added Successfully');
+        } else {
+            return \Redirect::back()->with('error', 'Something Wrong....');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param \App\Models\BusDestination $busDestination
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(BusDestination $busDestination)
+    public function destroy(string $id)
     {
-        //
+        $dltBusTestination = BusDestination::find($id)->delete();
+        if ($dltBusTestination) {
+            return to_route('admin.bus_destination.index')->with('success', 'Destination Deleted Successfully');
+        } else {
+            return \Redirect::back()->with('error', 'Something Wrong....');
+        }
     }
 }

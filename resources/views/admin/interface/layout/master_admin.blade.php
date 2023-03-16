@@ -98,13 +98,13 @@
                 <li class="side-nav-title side-nav-item">All Section</li>
 
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                    <a data-bs-toggle="collapse" href="#busComapany" aria-expanded="false"
                        aria-controls="sidebarEcommerce" class="side-nav-link">
                         <i class="uil-store"></i>
                         <span> Bus Company Section </span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="sidebarEcommerce">
+                    <div class="collapse" id="busComapany">
                         <ul class="side-nav-second-level">
                             <li>
                                 <a href="{{route('admin.company.index')}}">Bus Company</a>
@@ -115,13 +115,13 @@
                 </li>
 
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                    <a data-bs-toggle="collapse" href="#busDetails" aria-expanded="false"
                        aria-controls="sidebarEcommerce" class="side-nav-link">
                         <i class="uil-store"></i>
                         <span> Bus Details Section</span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="sidebarEcommerce">
+                    <div class="collapse" id="busDetails">
                         <ul class="side-nav-second-level">
                             <li>
                                 <a href="{{route('admin.bus_details.index')}}">Bus Details</a>
@@ -132,13 +132,13 @@
                 </li>
 
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                    <a data-bs-toggle="collapse" href="#busDestination" aria-expanded="false"
                        aria-controls="sidebarEcommerce" class="side-nav-link">
                         <i class="uil-store"></i>
                         <span> Bus Destination Section</span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="sidebarEcommerce">
+                    <div class="collapse" id="busDestination">
                         <ul class="side-nav-second-level">
                             <li>
                                 <a href="{{route('admin.bus_destination.index')}}">All Bus Destination</a>
@@ -152,13 +152,13 @@
                 </li>
 
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                    <a data-bs-toggle="collapse" href="#category" aria-expanded="false"
                        aria-controls="sidebarEcommerce" class="side-nav-link">
                         <i class="uil-store"></i>
                         <span> Category Section </span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="sidebarEcommerce">
+                    <div class="collapse" id="category">
                         <ul class="side-nav-second-level">
                             <li>
                                 <a href="{{route('admin.category.index')}}">Category</a>
@@ -169,13 +169,13 @@
                 </li>
 
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                    <a data-bs-toggle="collapse" href="#blog" aria-expanded="false"
                        aria-controls="sidebarEcommerce" class="side-nav-link">
                         <i class="uil-store"></i>
                         <span> Blog Section </span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="sidebarEcommerce">
+                    <div class="collapse" id="blog">
                         <ul class="side-nav-second-level">
                             <li>
                                 <a href="{{route('blog.index')}}">All Posts</a>
@@ -189,13 +189,13 @@
                 </li>
 
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                    <a data-bs-toggle="collapse" href="#testimonial" aria-expanded="false"
                        aria-controls="sidebarEcommerce" class="side-nav-link">
                         <i class="uil-store"></i>
                         <span> Testimonial Section </span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="sidebarEcommerce">
+                    <div class="collapse" id="testimonial">
                         <ul class="side-nav-second-level">
                             <li>
                                 <a href="{{route('admin.testimonial.active')}}">Active Testimonial</a>
@@ -210,13 +210,13 @@
 
 
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                    <a data-bs-toggle="collapse" href="#team" aria-expanded="false"
                        aria-controls="sidebarEcommerce" class="side-nav-link">
                         <i class="uil-store"></i>
                         <span> Team Section </span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="sidebarEcommerce">
+                    <div class="collapse" id="team">
                         <ul class="side-nav-second-level">
                             <li>
                                 <a href="{{route('admin.team.index')}}">Team Member</a>
@@ -227,13 +227,13 @@
                 </li>
 
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                    <a data-bs-toggle="collapse" href="#advantage" aria-expanded="false"
                        aria-controls="sidebarEcommerce" class="side-nav-link">
                         <i class="uil-store"></i>
                         <span>Advantage Section</span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="sidebarEcommerce">
+                    <div class="collapse" id="advantage">
                         <ul class="side-nav-second-level">
                             <li>
                                 <a href="{{route('admin.advantage.index')}}">Sight Advantage</a>
@@ -244,13 +244,13 @@
                 </li>
 
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                    <a data-bs-toggle="collapse" href="#service" aria-expanded="false"
                        aria-controls="sidebarEcommerce" class="side-nav-link">
                         <i class="uil-store"></i>
                         <span>All Service Section</span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="sidebarEcommerce">
+                    <div class="collapse" id="service">
                         <ul class="side-nav-second-level">
                             <li>
                                 <a href="{{route('admin.service.index')}}">Service Section</a>
@@ -871,7 +871,11 @@
             url: `{{ route('admin.bus_destination.coach') }}?company_id=${companyId}`,
             type: 'get',
             success: function (response) {
+                if(response==''){
+                    $('#busCoach').html('<option value="">Select Coach</option>');
+                }
                 $.each(response, function (key, value) {
+
                     $('#busCoach').append('<option value="' + value
                         .id + '">' + value.bus_coach + '</option>');
                 });

@@ -310,28 +310,6 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div
-                                        class="row border border-top-0 border-secondary-subtle rounded-0  all-ticket-card-left pb-4">
-                                        <div class="col-md-4">
-                                            <label for="documentType" class="form-label small">Document Type</label>
-                                            <select id="documentType" class="form-select">
-                                                <option selected></option>
-                                                <option>...</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="documentNumber" class="form-label small">Document
-                                                Number</label>
-                                            <input type="number" class="form-control" id="documentNumber">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="citizenship" class="form-label small">Citizenship</label>
-                                            <select id="citizenship" class="form-select">
-                                                <option selected></option>
-                                                <option>...</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                 </form>
 
 

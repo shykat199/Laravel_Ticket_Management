@@ -57,8 +57,8 @@
         <br>
 
         <div class="form-floating mb-3">
-            <input type="time" name="arrival_time" class="form-control" id="floatingInput" placeholder="Post Title"/>
-            <label for="floatingInput">Arrival time</label>
+            <input type="number" name="arrival_time" class="form-control" id="floatingInput" placeholder="Post Title"/>
+            <label for="floatingInput">Arrival time (Hours)</label>
         </div>
         @error('arrival_time')
         <span class="text-danger">{{$message}}</span>

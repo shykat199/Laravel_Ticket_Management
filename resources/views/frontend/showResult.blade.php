@@ -12,7 +12,7 @@
                         <div class="col-md-5 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
                             <input name="starting_point"
-                                   value="{{isset($sessionData->starting_point)??$sessionData->starting_point}}"
+                                   value="{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}"
                                    type="text" class="form-control" id="inputtext1" placeholder="From">
                             <i class="fa fa-map-marker"></i>
                         </div>
@@ -23,7 +23,7 @@
                         </div>
                         <div class="col-md-5 col-xl-2 d-flex align-items-end hero-input-with-icon">
                             <input name="arrival_point"
-                                   value="{{isset($sessionData->arrival_point)??$sessionData->arrival_point}}"
+                                   value="{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}"
                                    type="text"
                                    class="form-control" id="inputtext2" placeholder="To">
                             <i class="fa fa-map-marker"></i>
@@ -33,14 +33,14 @@
                         <div class="col-md-3 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext3" class="form-label pb-2">Travelling Date</label>
                             <input name="dateOfJourney"
-                                   value="{{isset($sessionData->dateOfJourney)??$sessionData->dateOfJourney}}"
+                                   value="{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}"
                                    type="date"
                                    class="form-control" id="inputtext3" placeholder="MM/DD/YY">
 
                         </div>
                         <div class="col-md-3 col-xl-2 d-flex align-items-end hero-input-with-icon mt-4">
                             <input name="returnOfDate"
-                                   value="{{isset($sessionData->returnOfDate)??$sessionData->returnOfDate}}" type="date"
+                                   value="{{isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:''}}" type="date"
                                    class="form-control" id="inputtext4" placeholder="One Way">
                             <i class="fa fa-calendar"></i>
                         </div>
@@ -49,14 +49,15 @@
                         <div class="col-md-3 col-xl-2 hero-input-with-icon mt-4 hide-numberType-icon">
                             <label for="inputtext5" class="form-label pb-2">Travelling Persons</label>
                             <input name="totalPerson"
-                                   value="{{isset($sessionData->totalPerson)?? $sessionData->totalPerson}}"
+                                   value="{{isset($sessionData['totalPerson']) ? $sessionData['totalPerson']:''}}"
                                    type="number"
                                    class="form-control" id="inputtext5" placeholder="1 Adult">
                             <i class="fa fa-caret-down"></i>
                         </div>
                         <div
                             class="col-md-3 col-xl-1 d-flex align-items-end hero-input-with-icon mt-4 hide-numberType-icon">
-                            <input name="totalKids" value="{{isset($sessionData->totalKids)??$sessionData->totalKids}}"
+                            <input name="totalKids"
+                                   value="{{isset($sessionData['totalKids']) ? $sessionData['totalKids']:''}}"
                                    type="number"
                                    class="form-control" id="inputtext4" placeholder="0 Kids">
                             <i class="fa fa-caret-down"></i>
@@ -281,12 +282,16 @@
                                 </select>
                             </div>
                         </div>
+
                         @foreach($searchResults as $searchResult)
+
                             <div class="row available-all-ticket-content pt-3">
                                 <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
                                     <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
                                     <div class="card-body">
                                         <h5 class="card-title text-center">{{$searchResult->busDetails->bus_coach}}</h5>
+                                        <h6 class="card-title text-center">{{$searchResult->busDetails->bus_type}}</h6>
+                                        <p class="card-title text-center">Seat- {{$searchResult->busDetails->bus_seat}}</p>
                                         <p class="card-text text-center text-muted">{{$searchResult->busDetails->busCompany->bus_company}}</p>
                                     </div>
                                 </div>
@@ -295,51 +300,55 @@
                                         <div class="row">
                                             <div class="col-4 all-ticket-card-middle-left-colum">
                                                 <h5>{{$searchResult->departure_time}}</h5>
-                                                <small class="small-text">Feb 14 SUN</small>
+                                                <small class="small-text">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</small>
                                                 <h6 class="small">{{$searchResult->starting_point}}</h6>
-                                                <small class="small-text">Peen Station,NY</small>
+{{--                                                <small class="small-text">Peen Station,NY</small>--}}
                                             </div>
                                             <div
                                                 class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
-                                                <p class="text-muted small text-center">07:25</p>
+{{--                                                <p class="text-muted small text-center">07:25</p>--}}
                                                 <p class="text-center"><i class="fa fa-long-arrow-right text-muted"></i>
                                                 </p>
                                             </div>
                                             <div class="col-4 all-ticket-card-middle-right-colum">
                                                 <h5>{{$searchResult->arrival_time}}</h5>
-                                                <small class="small-text">Feb 15 SUN</small>
+{{--                                                <small class="small-text">Feb 15 SUN</small>--}}
                                                 <h6 class="small">{{$searchResult->arrival_point}}</h6>
-                                                <small class="small-text">Union Station,CA</small>
+{{--                                                <small class="small-text">Union Station,CA</small>--}}
                                             </div>
                                         </div>
-                                        <div class="row mt-4">
-                                            <div class="col-4 all-ticket-card-middle-left-colum">
-                                                <h5>10:20p</h5>
-                                                <small class="small-text">Feb 18 THU</small>
-                                                <h6 class="small">New York</h6>
-                                                <small class="small-text">Peen Station,NY</small>
+
+                                        @if($sessionData['returnOfDate'])
+                                            <div class="row mt-4">
+                                                <div class="col-4 all-ticket-card-middle-left-colum">
+                                                    <h5>{{$searchResult->arrival_time }}</h5>
+                                                    <small class="small-text">{{isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:''}}</small>
+                                                    <h6 class="small">{{$searchResult->arrival_point}}</h6>
+{{--                                                    <small class="small-text">Peen Station,NY</small>--}}
+                                                </div>
+                                                <div
+                                                    class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+{{--                                                    <p class="text-muted small text-center">11:30</p>--}}
+                                                    <p class="text-center"><i class="fa fa-long-arrow-left text-muted"></i>
+                                                    </p>
+                                                </div>
+                                                <div class="col-4 all-ticket-card-middle-right-colum">
+                                                    <h5>{{$searchResult->departure_time }}</h5>
+{{--                                                    <small class="small-text">{{isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:''}}</small>--}}
+                                                    <h6 class="small">{{$searchResult->starting_point}}</h6>
+{{--                                                    <small class="small-text">Peen Station,NY</small>--}}
+                                                </div>
                                             </div>
-                                            <div
-                                                class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
-                                                <p class="text-muted small text-center">11:30</p>
-                                                <p class="text-center"><i class="fa fa-long-arrow-left text-muted"></i>
-                                                </p>
-                                            </div>
-                                            <div class="col-4 all-ticket-card-middle-right-colum">
-                                                <h5>9:50a</h5>
-                                                <small class="small-text">Feb 19 THU</small>
-                                                <h6 class="small">Los Angels</h6>
-                                                <small class="small-text">Union Station,CA</small>
-                                            </div>
-                                        </div>
+                                        @endif
+
 
                                     </div>
                                 </div>
 
                                 <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
                                     <div class="all-ticket-card-right-content">
-                                        <p class="text-muted small"><span>${{$searchResult->ticket_price}} </span>/person
-                                        </p>
+                                        <p class="text-muted small"><span>${{$searchResult->ticket_price}} </span>/person</p>
+
                                     </div>
                                     <ul class="d-flex">
                                         <li class="pe-2 text-muted small">
@@ -355,6 +364,12 @@
                                             <i class="fa fa-rocket" aria-hidden="true"></i>
                                         </li>
                                     </ul>
+                                    <form action="{{route('frontend.add.passenger.list')}}" method="post" >
+                                        @csrf
+                                        <input type="hidden" name="bus_id" id="" value="{{$searchResult->id}}">
+                                        <button type="submit" class="btn btn-primary mt-3">Book Now</button>
+                                    </form>
+
                                 </div>
                             </div>
                         @endforeach
