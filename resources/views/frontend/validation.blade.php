@@ -11,7 +11,9 @@
                         <!-- travelling route start -->
                         <div class="col-md-5 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
-                            <input type="text" class="form-control" id="inputtext1" placeholder="From">
+                            <input name="starting_point"
+                                   value="{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}"
+                                   type="text" class="form-control" id="inputtext1" placeholder="From">
                             <i class="fa fa-map-marker"></i>
                         </div>
                         <div class="col-md-2 col-xl-1 d-flex align-items-end">
@@ -20,30 +22,45 @@
                             </button>
                         </div>
                         <div class="col-md-5 col-xl-2 d-flex align-items-end hero-input-with-icon">
-                            <input type="text" class="form-control" id="inputtext2" placeholder="To">
+                            <input name="arrival_point"
+                                   value="{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}"
+                                   type="text"
+                                   class="form-control" id="inputtext2" placeholder="To">
                             <i class="fa fa-map-marker"></i>
                         </div>
                         <!-- travelling route end -->
                         <!-- travelling date start -->
                         <div class="col-md-3 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext3" class="form-label pb-2">Travelling Date</label>
-                            <input type="text" class="form-control" id="inputtext3" placeholder="MM/DD/YY">
-                            <i class="fa fa-calendar"></i>
+                            <input name="dateOfJourney"
+                                   value="{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}"
+                                   type="date"
+                                   class="form-control" id="inputtext3" placeholder="MM/DD/YY">
+
                         </div>
                         <div class="col-md-3 col-xl-2 d-flex align-items-end hero-input-with-icon mt-4">
-                            <input type="text" class="form-control" id="inputtext4" placeholder="One Way">
+                            <input name="returnOfDate"
+                                   value="{{isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:''}}"
+                                   type="date"
+                                   class="form-control" id="inputtext4" placeholder="One Way">
                             <i class="fa fa-calendar"></i>
                         </div>
                         <!-- travelling date end -->
                         <!-- travelling person start -->
                         <div class="col-md-3 col-xl-2 hero-input-with-icon mt-4 hide-numberType-icon">
                             <label for="inputtext5" class="form-label pb-2">Travelling Persons</label>
-                            <input type="number" class="form-control" id="inputtext5" placeholder="1 Adult">
+                            <input name="totalPerson"
+                                   value="{{isset($sessionData['totalPerson']) ? $sessionData['totalPerson']:''}}"
+                                   type="number"
+                                   class="form-control" id="inputtext5" placeholder="1 Adult">
                             <i class="fa fa-caret-down"></i>
                         </div>
                         <div
                             class="col-md-3 col-xl-1 d-flex align-items-end hero-input-with-icon mt-4 hide-numberType-icon">
-                            <input type="number" class="form-control" id="inputtext4" placeholder="0 Kids">
+                            <input name="totalKids"
+                                   value="{{isset($sessionData['totalKids']) ? $sessionData['totalKids']:''}}"
+                                   type="number"
+                                   class="form-control" id="inputtext4" placeholder="0 Kids">
                             <i class="fa fa-caret-down"></i>
                         </div>
 
@@ -118,18 +135,18 @@
                                             </div>
                                             <div class="pt-4">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">Train</p>
-                                                    <p class="small text-light  mb-0">048A</p>
+                                                    <p class="small-text text-gray mb-0">Coach</p>
+                                                    <p class="small text-light  mb-0">{{isset($busDetails->busDetails->bus_coach) ? $busDetails->busDetails->bus_coach:''}}</p>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">Name</p>
-                                                    <p class="small text-light  mb-0">North Express</p>
+                                                    <p class="small-text text-gray mb-0">Company</p>
+                                                    <p class="small text-light  mb-0">{{isset($busDetails->busDetails->busCompany->bus_company) ? $busDetails->busDetails->busCompany->bus_company:''}}</p>
                                                 </div>
                                             </div>
                                             <div class="mt-4 d-flex align-items-center justify-content-between">
                                                 <div class="">
-                                                    <p class="text-light mb-0">8:30a</p>
-                                                    <p class="small-text text-light mb-0">Feb 12 MON</p>
+                                                    <p class="text-light mb-0">{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</p>
+                                                    <p class="small-text text-light mb-0">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</p>
                                                 </div>
                                                 <div
                                                     class="d-flex flex-column align-items-center justify-content-center">
@@ -137,26 +154,20 @@
                                                     <i class="fa fa-long-arrow-right mb-0 text-light"></i>
                                                 </div>
                                                 <div class="d-flex flex-column align-items-end">
-                                                    <p class="text-light mb-0">4:15p</p>
+                                                    <p class="text-light mb-0">{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</p>
                                                     <p class="small-text text-light mb-0">Feb 13 TUE</p>
                                                 </div>
                                             </div>
                                             <div class="pt-4">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small text-light mb-0">New York</p>
-                                                    <p class="small text-light  mb-0">Los Angeles</p>
+                                                    <p class="small text-light mb-0">{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}</p>
+                                                    <p class="small text-light  mb-0">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</p>
                                                 </div>
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">Peen Station,</p>
-                                                    <p class="small-text text-gray  mb-0">Union Station,</p>
-                                                </div>
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">NY, USA</p>
-                                                    <p class="small-text text-gray mb-0">CA, USA</p>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="row  card-body border-top py-4">
                                         <div class="row ">
                                             <div class="d-flex align-items-center justify-content-between">
@@ -169,43 +180,40 @@
                                             </div>
                                             <div class="pt-4">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">Train</p>
-                                                    <p class="small text-light  mb-0">048A</p>
+                                                    <p class="small-text text-gray mb-0">Coach</p>
+                                                    <p class="small text-light  mb-0">{{isset($busDetails->busDetails->bus_coach) ? $busDetails->busDetails->bus_coach:''}}</p>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">Name</p>
-                                                    <p class="small text-light  mb-0">North Express</p>
+                                                    <p class="small-text text-gray mb-0">Company</p>
+                                                    <p class="small text-light  mb-0">{{isset($busDetails->busDetails->busCompany->bus_company) ? $busDetails->busDetails->busCompany->bus_company:''}}</p>
                                                 </div>
                                             </div>
+
+
                                             <div class="mt-4 d-flex align-items-center justify-content-between">
                                                 <div class="">
-                                                    <p class="text-light mb-0">8:30a</p>
-                                                    <p class="small-text text-light mb-0">Feb 12 MON</p>
+                                                    <p class="text-light mb-0">{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</p>
+                                                    <p class="small-text text-light mb-0">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</p>
                                                 </div>
                                                 <div
                                                     class="d-flex flex-column align-items-center justify-content-center">
-                                                    <p class="small-text text-light">9:10</p>
-                                                    <i class="fa fa-long-arrow-left mb-0 text-light"></i>
+                                                    <p class="small-text text-light">8:20</p>
+                                                    <i class="fa fa-long-arrow-right mb-0 text-light"></i>
                                                 </div>
                                                 <div class="d-flex flex-column align-items-end">
-                                                    <p class="text-light mb-0">4:15p</p>
+                                                    <p class="text-light mb-0">{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</p>
                                                     <p class="small-text text-light mb-0">Feb 13 TUE</p>
                                                 </div>
                                             </div>
+
                                             <div class="pt-4">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small text-light mb-0">New York</p>
-                                                    <p class="small text-light  mb-0">Los Angeles</p>
+                                                    <p class="small text-light  mb-0">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</p>
+                                                    <p class="small text-light mb-0">{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}</p>
                                                 </div>
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">Peen Station,</p>
-                                                    <p class="small-text text-gray  mb-0">Union Station,</p>
-                                                </div>
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">NY, USA</p>
-                                                    <p class="small-text text-gray mb-0">CA, USA</p>
-                                                </div>
+
                                             </div>
+
                                         </div>
                                     </div>
                                     <div class="row  card-body border-top  py-4">
@@ -218,13 +226,21 @@
                                             </div>
                                             <div class="pt-4">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">1 Adult</p>
-                                                    <p class="small text-light  mb-0">$260</p>
+                                                    <p class="small-text text-gray mb-0">{{isset($sessionData['totalPerson']) ? $sessionData['totalPerson']:''}}
+                                                        Adult</p>
+                                                    <p class="small text-light  mb-0">
+                                                        ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails->ticket_price * $sessionData['totalPerson'] : '' }}
+                                                    </p>
                                                 </div>
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">0 Children</p>
-                                                    <p class="small text-light  mb-0">$0</p>
-                                                </div>
+                                                @if(isset($sessionData['totalKids']))
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <p class="small-text text-gray mb-0">{{isset($sessionData['totalKids']) ? $sessionData['totalKids']:''}}
+                                                            Children</p>
+                                                        <p class="small text-light  mb-0">
+                                                            ${{isset($busDetails->ticket_price) && isset($sessionData['totalKids']) ? $busDetails->ticket_price * $sessionData['totalKids'] : '' }}</p>
+                                                    </div>
+                                                @endif
+
                                             </div>
                                         </div>
                                     </div>
@@ -240,7 +256,7 @@
                                             <div class="pt-4">
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <p class="small-text text-gray mb-0">1 Excess</p>
-                                                    <p class="small text-light  mb-0">$44</p>
+                                                    <p class="small text-light  mb-0">$0</p>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <p class="small-text text-gray mb-0">0 Animals/Birds</p>
@@ -253,14 +269,34 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row  card-body py-4">
-                                        <div class="row ">
-                                            <div class="d-flex align-items-center justify-content-between text-danger">
-                                                <h5>Total</h5>
-                                                <h5>$304.00</h5>
+
+
+                                    @if(isset($sessionData['totalKids']))
+                                        <div class="row  card-body py-4">
+                                            <div class="row ">
+                                                <div
+                                                    class="d-flex align-items-center justify-content-between text-danger">
+                                                    <h5>Total</h5>
+                                                    <h5>
+                                                        ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
+                                                            ($busDetails->ticket_price * $sessionData['totalPerson'])+
+                                                            ($busDetails->ticket_price * $sessionData['totalKids']) : '' }}
+                                                    </h5>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @else
+                                        <div class="row  card-body py-4">
+                                            <div class="row ">
+                                                <div
+                                                    class="d-flex align-items-center justify-content-between text-danger">
+                                                    <h5>Total</h5>
+                                                    <h5>
+                                                        ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails->ticket_price * $sessionData['totalPerson'] : '' }}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -272,7 +308,7 @@
                                     <div
                                         class="d-flex justify-content-between align-items-center py-4 px-3 border border-secondary-subtle rounded-0 first-passenger">
                                         <h5 class="d-flex align-items-center mb-0">
-                                            Train
+                                            Bus
                                         </h5>
                                     </div>
                                 </div>
@@ -282,8 +318,8 @@
                                             class="col-3 card rounded-0 border-secondary-subtle border-end-0 pt-4 validation-train-card-left">
                                             <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
                                             <div class="card-body">
-                                                <h5 class="card-title text-center">048A</h5>
-                                                <p class="card-text text-center text-muted">North Express</p>
+                                                <h5 class="card-title text-center">{{isset($busDetails->busDetails->bus_coach) ? $busDetails->busDetails->bus_coach:''}}</h5>
+                                                <p class="card-text text-center text-muted">{{isset($busDetails->busDetails->busCompany->bus_company) ? $busDetails->busDetails->busCompany->bus_company:''}}</p>
                                             </div>
                                         </div>
                                         <div
@@ -291,10 +327,15 @@
                                             <div class="row  card-body">
                                                 <div class="row">
                                                     <div class="col-4 all-ticket-card-middle-left-colum">
-                                                        <h5>8:30p</h5>
-                                                        <small class="small-text">Feb 14 SUN</small>
-                                                        <h6 class="small">New York</h6>
-                                                        <small class="small-text">Peen Station,NY</small>
+
+                                                        <p class="small-text text-light mb-0"></p>
+                                                        <h5>{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</h5>
+                                                        <small
+                                                            class="small-text">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</small>
+
+                                                        <p class="small text-light  mb-0"></p>
+                                                        <h6 class="small">{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}</h6>
+
                                                     </div>
                                                     <div
                                                         class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
@@ -304,18 +345,19 @@
                                                         </p>
                                                     </div>
                                                     <div class="col-4 all-ticket-card-middle-right-colum">
-                                                        <h5>2:50a</h5>
+                                                        <h5>{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</h5>
                                                         <small class="small-text">Feb 15 SUN</small>
-                                                        <h6 class="small">Los Angels</h6>
-                                                        <small class="small-text">Union Station,CA</small>
+                                                        <h6 class="small">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</h6>
+
                                                     </div>
                                                 </div>
                                                 <div class="row mt-4">
                                                     <div class="col-4 all-ticket-card-middle-left-colum">
-                                                        <h5>10:20p</h5>
-                                                        <small class="small-text">Feb 18 THU</small>
-                                                        <h6 class="small">New York</h6>
-                                                        <small class="small-text">Peen Station,NY</small>
+                                                        <h5>{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</h5>
+                                                        <small
+                                                            class="small-text">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</small>
+                                                        <h6 class="small">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</h6>
+
                                                     </div>
                                                     <div
                                                         class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
@@ -325,10 +367,10 @@
                                                         </p>
                                                     </div>
                                                     <div class="col-4 all-ticket-card-middle-right-colum">
-                                                        <h5>9:50a</h5>
+                                                        <h5>{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</h5>
                                                         <small class="small-text">Feb 19 THU</small>
-                                                        <h6 class="small">Los Angels</h6>
-                                                        <small class="small-text">Union Station,CA</small>
+                                                        <h6 class="small">{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}</h6>
+
                                                     </div>
                                                 </div>
 
@@ -337,11 +379,9 @@
                                         <div
                                             class="col-3 card border-secondary-subtle rounded-0 border-start-0 validation-train-card-right pt-4">
                                             <div class="all-ticket-card-right-content  d-flex justify-content-end me-3">
-                                                <p class="text-muted small"><span>$38 </span>/person</p>
-                                            </div>
-                                            <div class="row d-flex align-items-center justify-content-end">
-                                                <button type="button"
-                                                        class="col-6 me-4 btn btn-outline-dark border-2 ">Change</button>
+                                                <p class="text-muted small">
+                                                    <span>${{isset($busDetails->ticket_price) ? $busDetails->ticket_price:''}} </span>/person
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -359,119 +399,56 @@
                                 <div class="col-12">
                                     <div class="d-flex border-0 rounded-0 ">
                                         <div class="col-9 border border-secondary-subtle  rounded-0 px-3">
-                                            <div class="row">
-                                                <div class="col-12 py-3 passenger-details">
-                                                    <h6>Adult 1</h6>
-                                                    <ul class="passenger-details-list">
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Name</strong>
-                                                            <span class="text-muted">John Doe</span>
-                                                        </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Date of Birth</strong>
-                                                            <span class="text-muted">07/17/87</span>
-                                                        </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Document</strong>
-                                                            <span class="text-muted">Passport of USA MD357895</span>
-                                                        </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Baggage</strong>
-                                                            <span
-                                                                class="text-muted d-flex d-block justify-content-between">1
-                                                                Excess
-                                                                <strong>$44</strong>
-                                                            </span>
-                                                        </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel"></strong>
-                                                            <span
-                                                                class="text-muted d-flex d-block justify-content-between">1
-                                                                Equipment
-                                                                <strong>$32</strong>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="row border-top">
-                                                <div class="col-12 py-3 passenger-details">
-                                                    <h6>Adult 2</h6>
-                                                    <ul class="passenger-details-list">
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Name</strong>
-                                                            <span class="text-muted">John Doe</span>
-                                                        </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Date of Birth</strong>
-                                                            <span class="text-muted">08/28/89</span>
-                                                        </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Document</strong>
-                                                            <span class="text-muted">Passport of USA MD654321</span>
-                                                        </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Mobility</strong>
-                                                            <span class="text-muted">Reduced mobility</span>
-                                                        </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Baggage</strong>
-                                                            <span
-                                                                class="text-muted d-flex d-block justify-content-between">2
-                                                                Excess
-                                                                <strong>$88</strong>
-                                                            </span>
-                                                        </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel"></strong>
-                                                            <span
-                                                                class="text-muted d-flex d-block justify-content-between">1
-                                                                Animal/bird
-                                                                <strong>$62</strong>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="row border-top">
-                                                <div class="col-12 py-3 passenger-details">
-                                                    <h6>Kid 1</h6>
-                                                    <ul class="passenger-details-list">
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Name</strong>
-                                                            <span class="text-muted">Jim Doe</span>
-                                                        </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Date of Birth</strong>
-                                                            <span class="text-muted">11/26/00</span>
-                                                        </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Document</strong>
-                                                            <span class="text-muted">Passport of USA CI159876</span>
-                                                        </li>
+                                            {{--                                            @php--}}
+                                            {{--                                                $count=1;--}}
+                                            {{--                                            @endphp--}}
+                                            {{--                                            @foreach($sessionPassengerData as $data)--}}
+                                            {{--                                                <div class="row border-top">--}}
+                                            {{--                                                    <div class="col-12 py-3 passenger-details">--}}
+                                            {{--                                                        <h6>Adult {{$count++}}</h6>--}}
+                                            {{--                                                        <ul class="passenger-details-list">--}}
+                                            {{--                                                            <li class="pt-2">--}}
+                                            {{--                                                                <strong class="lavel">Name</strong>--}}
+                                            {{--                                                                <span class="text-muted">{{$data['first_name']}} {{$data['last_name']}}</span>--}}
+                                            {{--                                                            </li>--}}
+                                            {{--                                                            <li class="pt-2">--}}
+                                            {{--                                                                <strong class="lavel">Age</strong>--}}
+                                            {{--                                                                <span class="text-muted">{{$data['age']}}</span>--}}
+                                            {{--                                                            </li>--}}
+                                            {{--                                                            <li class="pt-2">--}}
+                                            {{--                                                                <strong class="lavel">Document</strong>--}}
+                                            {{--                                                                <span class="text-muted">{{$data['document_type']}} {{$data['document_number']}}</span>--}}
+                                            {{--                                                            </li>--}}
+                                            {{--                                                            <li class="pt-2">--}}
+                                            {{--                                                                <strong class="lavel">Baggage</strong>--}}
+                                            {{--                                                                <span--}}
+                                            {{--                                                                    class="text-muted d-flex d-block justify-content-between">{{$data['additional_baggage']}}--}}
 
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Baggage</strong>
-                                                            <span
-                                                                class="text-muted d-flex d-block justify-content-between">1
-                                                                Excess
-                                                                <strong>$44</strong>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                            {{--                                                            </span>--}}
+                                            {{--                                                            </li>--}}
+                                            {{--                                                            <li class="pt-2">--}}
+                                            {{--                                                                <strong class="lavel"></strong>--}}
+                                            {{--                                                                <span--}}
+                                            {{--                                                                    class="text-muted d-flex d-block justify-content-between">{{$data['animal_type']}}--}}
+
+                                            {{--                                                            </span>--}}
+                                            {{--                                                            </li>--}}
+                                            {{--                                                        </ul>--}}
+                                            {{--                                                    </div>--}}
+                                            {{--                                                </div>--}}
+                                            {{--                                            @endforeach--}}
+
                                         </div>
                                         <div
                                             class="col-3 border border-start-0 border-secondary-subtle  rounded-0 pt-3">
                                             <div class="all-ticket-card-right-content  d-flex justify-content-end me-3">
-                                                <p class="text-danger fs-1">$210
+                                                <p class="text-danger fs-1">
+                                                    ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
+                                                            ($busDetails->ticket_price * $sessionData['totalPerson'])+
+                                                            ($busDetails->ticket_price * $sessionData['totalKids']) : '' }}
                                                 </p>
                                             </div>
-                                            <div class="row d-flex align-items-center justify-content-end">
-                                                <button type="button"
-                                                        class="col-6 me-4 btn btn-outline-dark border-2">Change</button>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -495,20 +472,18 @@
                                                     <ul class="passenger-details-list">
                                                         <li class="pt-2">
                                                             <strong class="lavel">Name</strong>
-                                                            <span class="text-muted">John Doe</span>
+                                                            <span
+                                                                class="text-muted">{{$paymentDetails['f_name']}} {{$paymentDetails['l_name']}}</span>
                                                         </li>
                                                         <li class="pt-2">
                                                             <strong class="lavel">Date of Birth</strong>
-                                                            <span class="text-muted">07/17/87</span>
+                                                            <span class="text-muted">{{$paymentDetails['dob']}}</span>
                                                         </li>
                                                         <li class="pt-2">
                                                             <strong class="lavel">Email</strong>
-                                                            <span class="text-muted">qweqwe@mail.com</span>
+                                                            <span class="text-muted">{{$paymentDetails['email']}}</span>
                                                         </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Document</strong>
-                                                            <span class="text-muted">Passport of USA MD357895</span>
-                                                        </li>
+
                                                     </ul>
                                                 </div>
                                             </div>
@@ -518,19 +493,22 @@
                                                     <ul class="passenger-details-list">
                                                         <li class="pt-2">
                                                             <strong class="lavel">Card number</strong>
-                                                            <span class="text-muted">6666 6666 6666 6666</span>
+                                                            <span
+                                                                class="text-muted">{{$paymentDetails['c_number']}}</span>
                                                         </li>
                                                         <li class="pt-2">
                                                             <strong class="lavel">Card holder Name</strong>
-                                                            <span class="text-muted">John Doe</span>
+                                                            <span
+                                                                class="text-muted">{{$paymentDetails['c_name']}}</span>
                                                         </li>
                                                         <li class="pt-2">
                                                             <strong class="lavel">Expiration Date</strong>
-                                                            <span class="text-muted">April 2020</span>
+                                                            <span
+                                                                class="text-muted">{{$paymentDetails['ex_month']}} {{$paymentDetails['ex_year']}}</span>
                                                         </li>
                                                         <li class="pt-2">
                                                             <strong class="lavel">CVV</strong>
-                                                            <span class="text-muted">5051</span>
+                                                            <span class="text-muted">{{$paymentDetails['c_vvv']}}</span>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -538,10 +516,7 @@
                                         </div>
                                         <div
                                             class="col-3 border border-start-0 border-secondary-subtle  rounded-0 pt-4">
-                                            <div class="row d-flex align-items-center justify-content-end">
-                                                <button type="button"
-                                                        class="col-6 me-4 btn btn-outline-dark border-2">Change</button>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -549,7 +524,11 @@
                         </div>
                         <div class="d-flex align-items-center justify-content-between pt-5  total-cost">
                             <div class="total-price">
-                                <h5>Total Cost <span class="text-danger fs-1">$999</span></h5>
+                                <h5>Total Cost <span class="text-danger fs-1">
+                                        ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
+                                                            ($busDetails->ticket_price * $sessionData['totalPerson'])+
+                                                            ($busDetails->ticket_price * $sessionData['totalKids']) : '' }}
+                                    </span></h5>
                             </div>
                             <button class="py-2 btn btn-danger">BUY
                                 TICKET

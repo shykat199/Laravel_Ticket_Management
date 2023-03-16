@@ -61,12 +61,15 @@ Route::prefix('/ticket/book')->group(function () {
 
     //Payment Method
     Route::get('/payment', [PaymentController::class, 'index'])->name('frontend.ticket.payment');
+    Route::post('/store/payment-details', [PaymentController::class, 'storePaymentDetails'])->name('frontend.ticket.store.payment-details');
+   // Route::get('/payment', [PaymentController::class, 'index'])->name('frontend.ticket.payment');
 
     //validation ticket
     Route::get('/validate', [ValidationController::class, 'index'])->name('frontend.ticket.validate');
 });
 
 Route::get('/delete/session',[ResultController::class,'deleteSession']);
+Route::get('/delete/session/price',[ResultController::class,'deleteSessionBusTicket']);
 Route::get('/delete/session/price',[ResultController::class,'deleteSessionBusTicket']);
 
 

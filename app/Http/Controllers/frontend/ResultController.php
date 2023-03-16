@@ -25,5 +25,6 @@ class ResultController extends Controller
     public function deleteSessionBusTicket(Request $request): void
     {
         $request->session()->forget('sessionTicketPrice');
+        $request->session()->forget('sessionPassengerData');
     }
 }

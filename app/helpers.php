@@ -1,38 +1,42 @@
 <?php
+
 use App\Models\BlogPost;
 use App\Models\BusDestination;
+
 function blogPosts()
 {
-    $blogPosts=BlogPost::select('post_title','post_description','post_image','created_at')
+    $blogPosts = BlogPost::select('post_title', 'post_description', 'post_image', 'created_at')
         ->offset(0)
         ->limit(3)
         ->get();
     return $blogPosts;
 }
+
 function recentTickets()
 {
-    $blogPosts=BusDestination::select('starting_point','arrival_point','ticket_price')
+    $blogPosts = BusDestination::select('starting_point', 'arrival_point', 'ticket_price')
         ->offset(0)
         ->limit(3)
         ->get();
     return $blogPosts;
 }
 
-function getBusCoach($busId=0,$selected = 0){
+function getBusCoach($busId = 0, $selected = 0)
+{
 
-    if ($busId>0){
-        $coachName = \App\Models\BusDetails::where('company_id',$busId)->get();
-    }else{
+    if ($busId > 0) {
+        $coachName = \App\Models\BusDetails::where('company_id', $busId)->get();
+    } else {
         $coachName = \App\Models\BusDetails::all();
     }
     $html = '<option value="">Select Coach</option>';
-    if (!empty($coachName)){
-        foreach ($coachName as $name){
-            $html .='<option value="'.$name->id.'"';
-            if ($name->id == $selected){
-                $html .=' selected ';
+    if (!empty($coachName)) {
+        foreach ($coachName as $name) {
+            $html .= '<option value="' . $name->id . '"';
+            if ($name->id == $selected) {
+                $html .= ' selected ';
             }
-            $html .=' >'.ucfirst($name->bus_coach).'</option>';
+            $html .= ' >' . ucfirst($name->bus_coach) . '</option>';
         }
     }
     return $html;
@@ -41,7 +45,7 @@ function getBusCoach($busId=0,$selected = 0){
 
 function documents(): array
 {
-    $document=['Passport','Driving Licence','NID','Birth Certificate'];
+    $document = ['Passport', 'Driving Licence', 'NID', 'Birth Certificate'];
     return $document;
 }
 
@@ -244,4 +248,22 @@ function nationals(): array
     );
 
     return $nationals;
+}
+
+function months()
+{
+    $months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+    return $months;
+}
+
+function years()
+{
+
+    $year_array = array();
+    $current_year = date('Y');
+    $max_year = $current_year + 10;
+    for ($i = $current_year; $i <= $max_year; $i++) {
+        $year_array[$i] = $i;
+    }
+    return $year_array;
 }

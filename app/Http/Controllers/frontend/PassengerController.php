@@ -30,9 +30,11 @@ class PassengerController extends Controller
         //dd($request->all());
 
         $request->session()->put('sessionPassengerData',$request->all());
+        $sessionData = $request->session()->get('searchedResults');
         $sessionPassengerData=$request->session()->get('sessionPassengerData');
-        //dd($sessionPassengerData);
-        return view('frontend.payment',compact('sessionPassengerData'));
+        $busDetails=$request->session()->get('sessionTicketPrice');
+        //dd($busDetails);
+        return view('frontend.payment',compact('sessionPassengerData','busDetails','sessionData'));
 
     }
 

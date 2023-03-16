@@ -245,6 +245,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="row  card-body border-top border-bottom  py-4">
                                         <div class="row ">
                                             <div class="d-flex align-items-center justify-content-between">
@@ -257,7 +258,7 @@
                                             <div class="pt-4">
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <p class="small-text text-gray mb-0">1 Excess</p>
-                                                    <p class="small text-light  mb-0">$44</p>
+                                                    <p class="small text-light  mb-0">$0</p>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <p class="small-text text-gray mb-0">0 Animals/Birds</p>
@@ -303,6 +304,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-8 processing-form">
 
                         <form action="{{route('frontend.add.passenger.session')}}" method="post">
