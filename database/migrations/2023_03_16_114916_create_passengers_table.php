@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('passengers', function (Blueprint $table) {
             $table->id();
-            $table->index('booking_id');
+            $table->integer('booking_id');
             $table->string('first_name',20);
             $table->string('last_name',20);
             $table->string('age',20);

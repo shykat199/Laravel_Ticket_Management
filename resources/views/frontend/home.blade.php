@@ -19,8 +19,15 @@
                         <!-- travelling route start -->
                         <div class="col-md-5 hero-input-with-icon">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
-                            <input type="text" name="starting_point" class="form-control" id="inputtext1"
-                                   placeholder="From">
+{{--                            <input type="text" name="starting_point" class="form-control" id="inputtext1"--}}
+{{--                                   placeholder="From">--}}
+                            <select name="starting_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
+                                <option selected>Starting Point</option>
+                                @foreach($froms as $from)
+                                    <option value="{{$from->starting_point}}">{{$from->starting_point}}</option>
+                                @endforeach
+
+                            </select>
                             <i class="fa fa-map-marker"></i>
                             @error('starting_point')
                             <span class="text-danger">{{$message}}</span>
@@ -34,8 +41,13 @@
                         </div>
 
                         <div class="col-md-5 d-flex align-items-end hero-input-with-icon">
-                            <input type="text" name="arrival_point" class="form-control" id="inputtext2"
-                                   placeholder="To">
+                            <select name="arrival_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
+                                <option selected>Destination Point</option>
+                                @foreach($tos as $to)
+                                    <option value="{{$to->arrival_point}}">{{$to->arrival_point}}</option>
+                                @endforeach
+
+                            </select>
                             <i class="fa fa-map-marker"></i>
                             @error('arrival_point')
                             <span class="text-danger">{{$message}}</span>
@@ -47,7 +59,9 @@
                         <!-- travelling date start -->
                         <div class="col-md-6 hero-input-with-icon mt-4">
                             <label for="inputtext3" class="form-label pb-2">Travelling Date</label>
-                            <input type="date" name="dateOfJourney" class="form-control" id="inputtext3"
+                            <input type="datetime-local" name="dateOfJourney" class="form-control" id="inputtext3"
+                                   min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
+                                   max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
                                    placeholder="MM/DD/YY">
 
                             @error('dateOfJourney')
@@ -56,26 +70,51 @@
                         </div>
 
                         <div class="col-md-6 d-flex align-items-end hero-input-with-icon mt-4">
-                            <input type="date" name="returnOfDate" class="form-control" id="inputtext4"
+                            <input type="datetime-local" name="returnOfDate" class="form-control" id="inputtext4"
+                                   min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
+                                   max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
                                    placeholder="One Way">
 
                         </div>
                         <!-- travelling date end -->
                         <!-- travelling person start -->
+
+                       @php
+                           $persons=[0,1,2,3,4,5];
+                       @endphp
                         <div class="col-md-6 hero-input-with-icon mt-4 hide-numberType-icon">
                             <label for="inputtext5" class="form-label pb-2">Travelling Persons</label>
-                            <input type="number" name="totalPerson" class="form-control" id="inputtext5"
-                                   placeholder="1 Adult">
+
+                            <input type="number"  name="totalPerson" class="form-control" id="inputtext5" placeholder="1 Adult">
+
+{{--                            <select name="totalPerson" class="form-control select2" data-toggle="select2" id="busCompanyy">--}}
+
+{{--                                @foreach($persons as $person)--}}
+{{--                                    <option value={{$person}}>{{$person}}</option>--}}
+{{--                                @endforeach--}}
+
+{{--                            </select>--}}
+
                             <i class="fa fa-caret-down"></i>
                             @error('totalPerson')
                             <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
 
-
+                        @php
+                            $kids=[0,1,2,3,4,5];
+                        @endphp
                         <div class="col-md-6 d-flex align-items-end hero-input-with-icon mt-4 hide-numberType-icon">
-                            <input type="number" name="totalKids" class="form-control" id="inputtext4"
-                                   placeholder="0 Kids">
+                            <input type="number" name="totalKids" class="form-control" id="inputtext4" placeholder="0 Kids">
+
+{{--                            <select name="totalKids" class="form-control select2" data-toggle="select2" id="busCompanyy">--}}
+
+{{--                                @foreach($kids as $kid)--}}
+{{--                                    <option value={{$kid}}>{{$kid}}</option>--}}
+{{--                                @endforeach--}}
+
+{{--                            </select>--}}
+
                             <i class="fa fa-caret-down"></i>
                         </div>
 

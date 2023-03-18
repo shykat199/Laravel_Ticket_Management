@@ -2,6 +2,7 @@
 
 use App\Models\BlogPost;
 use App\Models\BusDestination;
+use App\Models\SightSetting;
 
 function blogPosts()
 {
@@ -266,4 +267,12 @@ function years()
         $year_array[$i] = $i;
     }
     return $year_array;
+}
+
+function contactUs(){
+
+    $contactUs=SightSetting::all();
+    //$contactUs=SightSetting::select('*')->where('key','=','About Us')->get();
+
+    return $contactUs;
 }

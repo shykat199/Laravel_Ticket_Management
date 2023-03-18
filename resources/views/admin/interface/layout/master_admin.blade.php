@@ -60,205 +60,239 @@
             <span class="logo-sm">
                         <img src="{{asset("admin/assets/images/logo_sm_dark.png")}}" alt="" height="16">
                     </span>
+
         </a>
 
         <div class="h-100" id="leftside-menu-container" data-simplebar>
 
             <!--- Sidemenu -->
             <ul class="side-nav">
+                @if(Auth::user()->user_role==='admin')
+                    <li class="side-nav-title side-nav-item">Navigation</li>
 
-                <li class="side-nav-title side-nav-item">Navigation</li>
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#sidebarDashboards" aria-expanded="false"
+                           aria-controls="sidebarDashboards" class="side-nav-link">
+                            <i class="uil-home-alt"></i>
+                            <span class="badge bg-success float-end">4</span>
+                            <span> Dashboards </span>
+                        </a>
+                        <div class="collapse" id="sidebarDashboards">
+                            <ul class="side-nav-second-level">
+                                <li>
+                                    <a href="dashboard-analytics.html">Analytics</a>
+                                </li>
+                                <li>
+                                    <a href="index-2.html">Blog Section</a>
+                                </li>
+                                <li>
+                                    <a href="dashboard-projects.html">Projects</a>
+                                </li>
+                                <li>
+                                    <a href="dashboard-wallet.html">E-Wallet <span
+                                            class="badge rounded bg-danger font-10 float-end">New</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @endif
 
-                <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarDashboards" aria-expanded="false"
-                       aria-controls="sidebarDashboards" class="side-nav-link">
-                        <i class="uil-home-alt"></i>
-                        <span class="badge bg-success float-end">4</span>
-                        <span> Dashboards </span>
-                    </a>
-                    <div class="collapse" id="sidebarDashboards">
-                        <ul class="side-nav-second-level">
-                            <li>
-                                <a href="dashboard-analytics.html">Analytics</a>
-                            </li>
-                            <li>
-                                <a href="index-2.html">Blog Section</a>
-                            </li>
-                            <li>
-                                <a href="dashboard-projects.html">Projects</a>
-                            </li>
-                            <li>
-                                <a href="dashboard-wallet.html">E-Wallet <span
-                                        class="badge rounded bg-danger font-10 float-end">New</span></a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
 
                 <li class="side-nav-title side-nav-item">All Section</li>
 
-                <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#busComapany" aria-expanded="false"
-                       aria-controls="sidebarEcommerce" class="side-nav-link">
-                        <i class="uil-store"></i>
-                        <span> Bus Company Section </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="busComapany">
-                        <ul class="side-nav-second-level">
-                            <li>
-                                <a href="{{route('admin.company.index')}}">Bus Company</a>
-                            </li>
+                @if(Auth::user()->user_role==='user')
 
-                        </ul>
-                    </div>
-                </li>
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#userDashboard" aria-expanded="false"
+                           aria-controls="sidebarEcommerce" class="side-nav-link">
+                            <i class="uil-store"></i>
+                            <span> User Dashboard </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="userDashboard">
+                            <ul class="side-nav-second-level">
+                                <li>
+                                    <a href="{{route('user.auth.dashboard')}}">User Dashboard</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('auth.user.dashboard.profile')}}">User Profile</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('auth.user.dashboard.ticket')}}">User Reservation</a>
+                                </li>
 
-                <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#busDetails" aria-expanded="false"
-                       aria-controls="sidebarEcommerce" class="side-nav-link">
-                        <i class="uil-store"></i>
-                        <span> Bus Details Section</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="busDetails">
-                        <ul class="side-nav-second-level">
-                            <li>
-                                <a href="{{route('admin.bus_details.index')}}">Bus Details</a>
-                            </li>
+                            </ul>
+                        </div>
+                    </li>
 
-                        </ul>
-                    </div>
-                </li>
+                @endif
 
-                <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#busDestination" aria-expanded="false"
-                       aria-controls="sidebarEcommerce" class="side-nav-link">
-                        <i class="uil-store"></i>
-                        <span> Bus Destination Section</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="busDestination">
-                        <ul class="side-nav-second-level">
-                            <li>
-                                <a href="{{route('admin.bus_destination.index')}}">All Bus Destination</a>
-                            </li>
-                            <li>
-                                <a href="{{route('admin.bus_destination.create')}}">Add New Destination</a>
-                            </li>
+                @if(Auth::user()->user_role==='admin')
 
-                        </ul>
-                    </div>
-                </li>
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#busComapany" aria-expanded="false"
+                           aria-controls="sidebarEcommerce" class="side-nav-link">
+                            <i class="uil-store"></i>
+                            <span> Bus Company Section </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="busComapany">
+                            <ul class="side-nav-second-level">
+                                <li>
+                                    <a href="{{route('admin.company.index')}}">Bus Company</a>
+                                </li>
 
-                <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#category" aria-expanded="false"
-                       aria-controls="sidebarEcommerce" class="side-nav-link">
-                        <i class="uil-store"></i>
-                        <span> Category Section </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="category">
-                        <ul class="side-nav-second-level">
-                            <li>
-                                <a href="{{route('admin.category.index')}}">Category</a>
-                            </li>
+                            </ul>
+                        </div>
+                    </li>
 
-                        </ul>
-                    </div>
-                </li>
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#busDetails" aria-expanded="false"
+                           aria-controls="sidebarEcommerce" class="side-nav-link">
+                            <i class="uil-store"></i>
+                            <span> Bus Details Section</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="busDetails">
+                            <ul class="side-nav-second-level">
+                                <li>
+                                    <a href="{{route('admin.bus_details.index')}}">Bus Details</a>
+                                </li>
 
-                <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#blog" aria-expanded="false"
-                       aria-controls="sidebarEcommerce" class="side-nav-link">
-                        <i class="uil-store"></i>
-                        <span> Blog Section </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="blog">
-                        <ul class="side-nav-second-level">
-                            <li>
-                                <a href="{{route('blog.index')}}">All Posts</a>
-                            </li>
-                            <li>
-                                <a href="{{route('blog.create')}}">Add New Posts</a>
-                            </li>
+                            </ul>
+                        </div>
+                    </li>
 
-                        </ul>
-                    </div>
-                </li>
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#busDestination" aria-expanded="false"
+                           aria-controls="sidebarEcommerce" class="side-nav-link">
+                            <i class="uil-store"></i>
+                            <span> Bus Destination Section</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="busDestination">
+                            <ul class="side-nav-second-level">
+                                <li>
+                                    <a href="{{route('admin.bus_destination.index')}}">All Bus Destination</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('admin.bus_destination.create')}}">Add New Destination</a>
+                                </li>
 
-                <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#testimonial" aria-expanded="false"
-                       aria-controls="sidebarEcommerce" class="side-nav-link">
-                        <i class="uil-store"></i>
-                        <span> Testimonial Section </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="testimonial">
-                        <ul class="side-nav-second-level">
-                            <li>
-                                <a href="{{route('admin.testimonial.active')}}">Active Testimonial</a>
-                            </li>
-                            <li>
-                                <a href="{{route('admin.testimonial.inactive')}}">InActive Testimonial</a>
-                            </li>
+                            </ul>
+                        </div>
+                    </li>
 
-                        </ul>
-                    </div>
-                </li>
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#category" aria-expanded="false"
+                           aria-controls="sidebarEcommerce" class="side-nav-link">
+                            <i class="uil-store"></i>
+                            <span> Category Section </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="category">
+                            <ul class="side-nav-second-level">
+                                <li>
+                                    <a href="{{route('admin.category.index')}}">Category</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#blog" aria-expanded="false"
+                           aria-controls="sidebarEcommerce" class="side-nav-link">
+                            <i class="uil-store"></i>
+                            <span> Blog Section </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="blog">
+                            <ul class="side-nav-second-level">
+                                <li>
+                                    <a href="{{route('blog.index')}}">All Posts</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('blog.create')}}">Add New Posts</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#testimonial" aria-expanded="false"
+                           aria-controls="sidebarEcommerce" class="side-nav-link">
+                            <i class="uil-store"></i>
+                            <span> Testimonial Section </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="testimonial">
+                            <ul class="side-nav-second-level">
+                                <li>
+                                    <a href="{{route('admin.testimonial.active')}}">Active Testimonial</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('admin.testimonial.inactive')}}">InActive Testimonial</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
 
 
-                <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#team" aria-expanded="false"
-                       aria-controls="sidebarEcommerce" class="side-nav-link">
-                        <i class="uil-store"></i>
-                        <span> Team Section </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="team">
-                        <ul class="side-nav-second-level">
-                            <li>
-                                <a href="{{route('admin.team.index')}}">Team Member</a>
-                            </li>
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#team" aria-expanded="false"
+                           aria-controls="sidebarEcommerce" class="side-nav-link">
+                            <i class="uil-store"></i>
+                            <span> Team Section </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="team">
+                            <ul class="side-nav-second-level">
+                                <li>
+                                    <a href="{{route('admin.team.index')}}">Team Member</a>
+                                </li>
 
-                        </ul>
-                    </div>
-                </li>
+                            </ul>
+                        </div>
+                    </li>
 
-                <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#advantage" aria-expanded="false"
-                       aria-controls="sidebarEcommerce" class="side-nav-link">
-                        <i class="uil-store"></i>
-                        <span>Advantage Section</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="advantage">
-                        <ul class="side-nav-second-level">
-                            <li>
-                                <a href="{{route('admin.advantage.index')}}">Sight Advantage</a>
-                            </li>
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#advantage" aria-expanded="false"
+                           aria-controls="sidebarEcommerce" class="side-nav-link">
+                            <i class="uil-store"></i>
+                            <span>Advantage Section</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="advantage">
+                            <ul class="side-nav-second-level">
+                                <li>
+                                    <a href="{{route('admin.advantage.index')}}">Sight Advantage</a>
+                                </li>
 
-                        </ul>
-                    </div>
-                </li>
+                            </ul>
+                        </div>
+                    </li>
 
-                <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#service" aria-expanded="false"
-                       aria-controls="sidebarEcommerce" class="side-nav-link">
-                        <i class="uil-store"></i>
-                        <span>All Service Section</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="service">
-                        <ul class="side-nav-second-level">
-                            <li>
-                                <a href="{{route('admin.service.index')}}">Service Section</a>
-                            </li>
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#service" aria-expanded="false"
+                           aria-controls="sidebarEcommerce" class="side-nav-link">
+                            <i class="uil-store"></i>
+                            <span>All Service Section</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="service">
+                            <ul class="side-nav-second-level">
+                                <li>
+                                    <a href="{{route('admin.service.index')}}">Service Section</a>
+                                </li>
 
-                        </ul>
-                    </div>
-                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                @endif
 
 
             </ul>
@@ -871,7 +905,7 @@
             url: `{{ route('admin.bus_destination.coach') }}?company_id=${companyId}`,
             type: 'get',
             success: function (response) {
-                if(response==''){
+                if (response == '') {
                     $('#busCoach').html('<option value="">Select Coach</option>');
                 }
                 $.each(response, function (key, value) {

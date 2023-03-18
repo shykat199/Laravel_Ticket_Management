@@ -5,7 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
 
-class FrontendController extends Controller
+class DashsboardController extends Controller
 {
     public function index(){
         $blogPost=BlogPost::select('*')

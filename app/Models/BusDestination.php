@@ -19,7 +19,12 @@ class BusDestination extends Model
 
     public function busDetails(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(BusDetails::class,'bus_details_id');
+        return $this->belongsTo(BusDetails::class, 'bus_details_id');
+    }
+
+    public function reservations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Reservation::class);
     }
 
 }

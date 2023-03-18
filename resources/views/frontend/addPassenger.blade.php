@@ -336,21 +336,23 @@
                                             class="row border  border-secondary-subtle rounded-0  all-ticket-card-left py-3">
                                             <div class="col-md-4">
                                                 <label for="inputFirstName" class="form-label small">First Name</label>
-                                                <input type="text" name="first_name[]" class="form-control"
+                                                <input type="text" name="users[0]['first_name']" class="form-control"
                                                        id="inputFirstName">
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="inputLastName" class="form-label small">Last Name</label>
-                                                <input type="text" name="last_name[]" class="form-control"
+                                                <input type="text" name="users[0]['last_name']" class="form-control"
                                                        id="inputLastName">
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="ageNumber" class="form-label small">Age</label>
-                                                <input type="number" name="age[]" class="form-control" id="ageNumber">
+                                                <input type="number" name="users[0]['age']" class="form-control"
+                                                       id="ageNumber">
                                             </div>
                                             <div class="col-md-4 py-4">
                                                 <div class="form-check d-flex align-items-center">
-                                                    <input name="user_mobility[]" class="form-check-input rounded-0 p-3"
+                                                    <input name="users[0]['user_mobility'] "
+                                                           class="form-check-input rounded-0 p-3"
                                                            type="checkbox"
                                                            id="gridCheck">
                                                     <label class="form-check-label small ps-4" for="gridCheck">
@@ -363,7 +365,8 @@
                                             class="row border border-top-0 border-secondary-subtle rounded-0  all-ticket-card-left py-3">
                                             <div class="col-md-4">
                                                 <label for="documentType" class="form-label small">Document Type</label>
-                                                <select id="documentType" name="document_type" class="form-select">
+                                                <select id="documentType" name="users[0]['document_type']"
+                                                        class="form-select">
                                                     <option selected>Select Document</option>
                                                     @foreach(documents() as $doc)
                                                         <option value="{{$doc}}">{{$doc}}</option>
@@ -373,12 +376,14 @@
                                             <div class="col-md-4">
                                                 <label for="documentNumber" class="form-label small">Document
                                                     Number</label>
-                                                <input type="number" name="document_number" class="form-control"
+                                                <input type="number" name="users[0]['document_number']"
+                                                       class="form-control"
                                                        id="documentNumber">
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="citizenship" class="form-label small">Citizenship</label>
-                                                <select id="citizenship" name="citizenship" class="form-select">
+                                                <select id="citizenship" name="users[0]['citizenship']"
+                                                        class="form-select">
                                                     <option selected>Select Citizenship</option>
                                                     @foreach(nationals() as $nation)
                                                         <option value="{{$nation}}">{{$nation}}</option>
@@ -391,7 +396,7 @@
                                             <div class="col-md-4">
                                                 <label for="additionalBaggage" class="form-label small">Additional
                                                     Baggage</label>
-                                                <select id="additionalBaggage" name="additional_baggage[]"
+                                                <select id="additionalBaggage" name="users[0]['additional_baggage']"
                                                         class="form-select">
                                                     <option selected>Select Baggage</option>
                                                     <option value="yes">Yes</option>
@@ -400,7 +405,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="animals" class="form-label small">Animals</label>
-                                                <select id="animals" name="animal_type[]" class="form-select">
+                                                <select id="animals" name="users[0]['animal_type']" class="form-select">
                                                     <option selected>Select Animal</option>
                                                     <option value="yes">Yes</option>
                                                     <option value="no">No</option>
@@ -408,7 +413,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="equipment" class="form-label small">Equipment</label>
-                                                <select id="equipment" name="equipment[]" class="form-select">
+                                                <select id="equipment" name="users[0]['equipment']" class="form-select">
                                                     <option selected>Select Equipment</option>
                                                     <option value="yes">Yes</option>
                                                     <option value="no">No</option>
@@ -490,19 +495,19 @@
                                         class="row border  border-secondary-subtle rounded-0  all-ticket-card-left py-3">
                                         <div class="col-md-4">
                                             <label for="inputFirstName" class="form-label small">First Name</label>
-                                            <input type="text" name="first_name[]" class="form-control" id="inputFirstName">
+                                            <input type="text" name="users[${count}]['first_name']" class="form-control" id="inputFirstName">
                                         </div>
                                         <div class="col-md-4">
                                             <label for="inputLastName" class="form-label small">Last Name</label>
-                                            <input type="text" name="last_name[]" class="form-control" id="inputLastName">
+                                            <input type="text" name="users[${count}]['last_name']" class="form-control" id="inputLastName">
                                         </div>
                                         <div class="col-md-4">
                                             <label for="ageNumber" class="form-label small">Age</label>
-                                            <input type="number" name="age[]" class="form-control" id="ageNumber">
+                                            <input type="number" name="users[${count}]['age']" class="form-control" id="ageNumber">
                                         </div>
                                         <div class="col-md-4 py-2">
                                             <div class="form-check d-flex align-items-center">
-                                                <input name="user_mobility[]" class="form-check-input rounded-0 p-3" type="checkbox"
+                                                <input name="users[${count}]['user_mobility']" class="form-check-input rounded-0 p-3" type="checkbox"
                                                     id="gridCheck">
                                                 <label class="form-check-label small ps-4" for="gridCheck">
                                                     Reduced mobility
@@ -514,7 +519,7 @@
                                         class="row border border-top-0 border-secondary-subtle rounded-0  all-ticket-card-left py-3">
                                         <div class="col-md-4">
                                             <label for="documentType" class="form-label small">Document Type</label>
-                                            <select id="documentType" name="document_type[]" class="form-select">
+                                            <select id="documentType" name="users[${count}]['document_type']" class="form-select">
                                                 <option selected>Select A Document</option>
                                                 @foreach(documents() as $doc)
                 <option value={{$doc}}>{{$doc}}</option>
@@ -525,11 +530,11 @@
             <div class="col-md-4">
                 <label for="documentNumber" class="form-label small">Document
                     Number</label>
-                <input type="number" name="document_number[]" class="form-control" id="documentNumber">
+                <input type="number" name="users[${count}]['document_number']" class="form-control" id="documentNumber">
             </div>
             <div class="col-md-4">
                 <label for="citizenship" class="form-label small">Citizenship</label>
-                <select id="citizenship" name="citizenship[]" class="form-select">
+                <select id="citizenship" name="users[${count}]['citizenship']" class="form-select">
                     <option selected></option>
 @foreach(nationals() as $nation)
                 <option value={{$nation}}>{{$nation}}</option>
@@ -542,7 +547,7 @@
             <div class="col-md-4">
                 <label for="additionalBaggage" class="form-label small">Additional
                     Baggage</label>
-                <select id="additionalBaggage" name="additional_baggage[]" class="form-select">
+                <select id="additionalBaggage" name="users[${count}]['additional_baggage']" class="form-select">
                     <option selected>Select Baggage</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
@@ -550,7 +555,7 @@
             </div>
             <div class="col-md-4">
                 <label for="animals" class="form-label small">Animals</label>
-                <select id="animals" name="animal_type[]" class="form-select">
+                <select id="animals" name="users[${count}]['animal_type']" class="form-select">
                     <option selected>Select Animal</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
@@ -558,7 +563,7 @@
             </div>
             <div class="col-md-4">
                 <label for="equipment" class="form-label small">Equipment</label>
-                <select id="equipment" name="equipment[]" class="form-select">
+                <select id="equipment" name="users[${count}]['equipment']" class="form-select">
                     <option selected>Select Equipment</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>

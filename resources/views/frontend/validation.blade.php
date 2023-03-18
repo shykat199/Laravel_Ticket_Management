@@ -7,7 +7,8 @@
             <div class="row gy-4 ticket-booking-home-header-hero-content">
                 <div
                     class="col-12 ticket-booking-home-header-search-ticket-form d-flex flex-column justify-content-end">
-                    <form class="row g-3 pt-3 pb-5 px-2">
+                    <form class="row g-3 pt-3 pb-5 px-2" action="" method="post">
+                        @csrf
                         <!-- travelling route start -->
                         <div class="col-md-5 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
@@ -301,240 +302,259 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-8 vailidation-container">
-                        <div id="allData">
-                            <div class="row vailidation-content">
-                                <div class="col-12 all-ticket-card-left">
-                                    <div
-                                        class="d-flex justify-content-between align-items-center py-4 px-3 border border-secondary-subtle rounded-0 first-passenger">
-                                        <h5 class="d-flex align-items-center mb-0">
-                                            Bus
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="d-flex justify-content-between border-0 rounded-0">
+                    <form class="row g-3 pt-3 pb-5 px-2" action="{{route('reservation.done')}}" method="post">
+                        @csrf
+                        <div class="col-8 vailidation-container">
+                            <div id="allData">
+                                <div class="row vailidation-content">
+                                    <div class="col-12 all-ticket-card-left">
                                         <div
-                                            class="col-3 card rounded-0 border-secondary-subtle border-end-0 pt-4 validation-train-card-left">
-                                            <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
-                                            <div class="card-body">
-                                                <h5 class="card-title text-center">{{isset($busDetails->busDetails->bus_coach) ? $busDetails->busDetails->bus_coach:''}}</h5>
-                                                <p class="card-text text-center text-muted">{{isset($busDetails->busDetails->busCompany->bus_company) ? $busDetails->busDetails->busCompany->bus_company:''}}</p>
-                                            </div>
+                                            class="d-flex justify-content-between align-items-center py-4 px-3 border border-secondary-subtle rounded-0 first-passenger">
+                                            <h5 class="d-flex align-items-center mb-0">
+                                                Bus
+                                            </h5>
                                         </div>
-                                        <div
-                                            class="col-6 card border-secondary-subtle rounded-0 validation-train-card-middle">
-                                            <div class="row  card-body">
-                                                <div class="row">
-                                                    <div class="col-4 all-ticket-card-middle-left-colum">
-
-                                                        <p class="small-text text-light mb-0"></p>
-                                                        <h5>{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</h5>
-                                                        <small
-                                                            class="small-text">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</small>
-
-                                                        <p class="small text-light  mb-0"></p>
-                                                        <h6 class="small">{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}</h6>
-
-                                                    </div>
-                                                    <div
-                                                        class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
-                                                        <p class="text-muted small text-center">07:25</p>
-                                                        <p class="text-center"><i
-                                                                class="fa fa-long-arrow-right text-muted"></i>
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-4 all-ticket-card-middle-right-colum">
-                                                        <h5>{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</h5>
-                                                        <small class="small-text">Feb 15 SUN</small>
-                                                        <h6 class="small">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</h6>
-
-                                                    </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="d-flex justify-content-between border-0 rounded-0">
+                                            <div
+                                                class="col-3 card rounded-0 border-secondary-subtle border-end-0 pt-4 validation-train-card-left">
+                                                <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
+                                                <div class="card-body">
+                                                    <h5 class="card-title text-center">{{isset($busDetails->busDetails->bus_coach) ? $busDetails->busDetails->bus_coach:''}}</h5>
+                                                    <p class="card-text text-center text-muted">{{isset($busDetails->busDetails->busCompany->bus_company) ? $busDetails->busDetails->busCompany->bus_company:''}}</p>
                                                 </div>
-                                                <div class="row mt-4">
-                                                    <div class="col-4 all-ticket-card-middle-left-colum">
-                                                        <h5>{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</h5>
-                                                        <small
-                                                            class="small-text">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</small>
-                                                        <h6 class="small">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</h6>
+                                            </div>
+                                            <div
+                                                class="col-6 card border-secondary-subtle rounded-0 validation-train-card-middle">
+                                                <div class="row  card-body">
+                                                    <div class="row">
+                                                        <div class="col-4 all-ticket-card-middle-left-colum">
 
-                                                    </div>
-                                                    <div
-                                                        class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
-                                                        <p class="text-muted small text-center">11:30</p>
-                                                        <p class="text-center"><i
-                                                                class="fa fa-long-arrow-left text-muted"></i>
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-4 all-ticket-card-middle-right-colum">
-                                                        <h5>{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</h5>
-                                                        <small class="small-text">Feb 19 THU</small>
-                                                        <h6 class="small">{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}</h6>
+                                                            <p class="small-text text-light mb-0"></p>
+                                                            <h5>{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</h5>
+                                                            <small
+                                                                class="small-text">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</small>
 
+                                                            <p class="small text-light  mb-0"></p>
+                                                            <h6 class="small">{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}</h6>
+
+                                                        </div>
+                                                        <div
+                                                            class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+                                                            <p class="text-muted small text-center">07:25</p>
+                                                            <p class="text-center"><i
+                                                                    class="fa fa-long-arrow-right text-muted"></i>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-4 all-ticket-card-middle-right-colum">
+                                                            <h5>{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</h5>
+                                                            <small class="small-text">Feb 15 SUN</small>
+                                                            <h6 class="small">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</h6>
+
+                                                        </div>
                                                     </div>
+                                                    <div class="row mt-4">
+                                                        <div class="col-4 all-ticket-card-middle-left-colum">
+                                                            <h5>{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</h5>
+                                                            <small
+                                                                class="small-text">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</small>
+                                                            <h6 class="small">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</h6>
+
+                                                        </div>
+                                                        <div
+                                                            class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+                                                            <p class="text-muted small text-center">11:30</p>
+                                                            <p class="text-center"><i
+                                                                    class="fa fa-long-arrow-left text-muted"></i>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-4 all-ticket-card-middle-right-colum">
+                                                            <h5>{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</h5>
+                                                            <small class="small-text">Feb 19 THU</small>
+                                                            <h6 class="small">{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}</h6>
+
+                                                        </div>
+                                                    </div>
+
                                                 </div>
-
                                             </div>
-                                        </div>
-                                        <div
-                                            class="col-3 card border-secondary-subtle rounded-0 border-start-0 validation-train-card-right pt-4">
-                                            <div class="all-ticket-card-right-content  d-flex justify-content-end me-3">
-                                                <p class="text-muted small">
-                                                    <span>${{isset($busDetails->ticket_price) ? $busDetails->ticket_price:''}} </span>/person
-                                                </p>
+                                            <div
+                                                class="col-3 card border-secondary-subtle rounded-0 border-start-0 validation-train-card-right pt-4">
+                                                <div
+                                                    class="all-ticket-card-right-content  d-flex justify-content-end me-3">
+                                                    <p class="text-muted small">
+                                                        <span>${{isset($busDetails->ticket_price) ? $busDetails->ticket_price:''}} </span>/person
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row vailidation-content pt-4">
-                                <div class="col-12 all-ticket-card-left">
-                                    <div
-                                        class="d-flex justify-content-between align-items-center py-4 px-3 border border-secondary-subtle rounded-0 first-passenger">
-                                        <h5 class="d-flex align-items-center mb-0">
-                                            Passengers
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="d-flex border-0 rounded-0 ">
-                                        <div class="col-9 border border-secondary-subtle  rounded-0 px-3">
-                                            {{--                                            @php--}}
-                                            {{--                                                $count=1;--}}
-                                            {{--                                            @endphp--}}
-                                            {{--                                            @foreach($sessionPassengerData as $data)--}}
-                                            {{--                                                <div class="row border-top">--}}
-                                            {{--                                                    <div class="col-12 py-3 passenger-details">--}}
-                                            {{--                                                        <h6>Adult {{$count++}}</h6>--}}
-                                            {{--                                                        <ul class="passenger-details-list">--}}
-                                            {{--                                                            <li class="pt-2">--}}
-                                            {{--                                                                <strong class="lavel">Name</strong>--}}
-                                            {{--                                                                <span class="text-muted">{{$data['first_name']}} {{$data['last_name']}}</span>--}}
-                                            {{--                                                            </li>--}}
-                                            {{--                                                            <li class="pt-2">--}}
-                                            {{--                                                                <strong class="lavel">Age</strong>--}}
-                                            {{--                                                                <span class="text-muted">{{$data['age']}}</span>--}}
-                                            {{--                                                            </li>--}}
-                                            {{--                                                            <li class="pt-2">--}}
-                                            {{--                                                                <strong class="lavel">Document</strong>--}}
-                                            {{--                                                                <span class="text-muted">{{$data['document_type']}} {{$data['document_number']}}</span>--}}
-                                            {{--                                                            </li>--}}
-                                            {{--                                                            <li class="pt-2">--}}
-                                            {{--                                                                <strong class="lavel">Baggage</strong>--}}
-                                            {{--                                                                <span--}}
-                                            {{--                                                                    class="text-muted d-flex d-block justify-content-between">{{$data['additional_baggage']}}--}}
-
-                                            {{--                                                            </span>--}}
-                                            {{--                                                            </li>--}}
-                                            {{--                                                            <li class="pt-2">--}}
-                                            {{--                                                                <strong class="lavel"></strong>--}}
-                                            {{--                                                                <span--}}
-                                            {{--                                                                    class="text-muted d-flex d-block justify-content-between">{{$data['animal_type']}}--}}
-
-                                            {{--                                                            </span>--}}
-                                            {{--                                                            </li>--}}
-                                            {{--                                                        </ul>--}}
-                                            {{--                                                    </div>--}}
-                                            {{--                                                </div>--}}
-                                            {{--                                            @endforeach--}}
-
-                                        </div>
+                                <div class="row vailidation-content pt-4">
+                                    <div class="col-12 all-ticket-card-left">
                                         <div
-                                            class="col-3 border border-start-0 border-secondary-subtle  rounded-0 pt-3">
-                                            <div class="all-ticket-card-right-content  d-flex justify-content-end me-3">
-                                                <p class="text-danger fs-1">
-                                                    ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
+                                            class="d-flex justify-content-between align-items-center py-4 px-3 border border-secondary-subtle rounded-0 first-passenger">
+                                            <h5 class="d-flex align-items-center mb-0">
+                                                Passengers
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="d-flex border-0 rounded-0 ">
+                                            <div class="col-9 border border-secondary-subtle  rounded-0 px-3">
+                                                    {{--{{dd($sessionPassengerData['users'])}}--}}
+                                                @php
+                                                    $idx=1;
+                                                @endphp
+                                                @foreach($sessionPassengerData['users'] as $key=>$data)
+                                                    <div class="row border-top">
+                                                        <div class="col-12 py-3 passenger-details">
+                                                            <h6>Adult {{$idx++}}</h6>
+                                                            <ul class="passenger-details-list">
+                                                                <li class="pt-2">
+                                                                    <strong class="lavel">Name</strong>
+                                                                    <span
+                                                                        class="text-muted">{{$data["'first_name'"]}} {{$data["'last_name'"]}}</span>
+                                                                </li>
+                                                                <li class="pt-2">
+                                                                    <strong class="lavel">Age</strong>
+                                                                    <span class="text-muted">{{$data["'age'"]}}</span>
+                                                                </li>
+                                                                <li class="pt-2">
+                                                                    <strong class="lavel">Document</strong>
+                                                                    <span
+                                                                        class="text-muted">{{$data["'document_type'"]}} of {{$data["'citizenship'"]}} {{$data["'document_number'"]}}</span>
+                                                                </li>
+                                                                <li class="pt-2">
+                                                                    <strong class="lavel">Baggage</strong>
+                                                                    <span
+                                                                        class="text-muted d-flex d-block justify-content-between">
+                                                                    {{$data["'additional_baggage'"]}}
+                                                            </span>
+                                                                </li>
+                                                                <li class="pt-2">
+                                                                    <strong class="lavel"></strong>
+                                                                    <span
+                                                                        class="text-muted d-flex d-block justify-content-between">
+                                                                       <strong>Equipment</strong> {{$data["'equipment'"]}}
+                                                                        <br>
+                                                                        <strong>Animal</strong>  {{$data["'animal_type'"]}}
+                                                                </span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+
+                                            </div>
+                                            <div
+                                                class="col-3 border border-start-0 border-secondary-subtle  rounded-0 pt-3">
+                                                <div
+                                                    class="all-ticket-card-right-content  d-flex justify-content-end me-3">
+                                                    <p class="text-danger fs-1">${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
                                                             ($busDetails->ticket_price * $sessionData['totalPerson'])+
-                                                            ($busDetails->ticket_price * $sessionData['totalKids']) : '' }}
-                                                </p>
-                                            </div>
+                                                            ($busDetails->ticket_price * $sessionData['totalKids']) :  ($busDetails->ticket_price * $sessionData['totalPerson']) }}
+                                                    </p>
+                                                </div>
 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="d-flex border-0 rounded-0 ">
+                                            <div class="col-9 border border-secondary-subtle  rounded-0 px-3">
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row vailidation-content pt-4">
-                                <div class="col-12 all-ticket-card-left">
-                                    <div
-                                        class="d-flex justify-content-between align-items-center py-4 px-3 border border-secondary-subtle rounded-0 first-passenger">
-                                        <h5 class="d-flex align-items-center mb-0">
-                                            Payment
-                                        </h5>
-                                    </div>
-                                </div>
-
-                                <div class="12">
-                                    <div class="d-flex border-0 rounded-0 ">
-                                        <div class="col-9 border border-secondary-subtle  rounded-0 px-3">
-                                            <div class="row">
-                                                <div class="col-12 py-3 passenger-details">
-                                                    <h6>Personal information</h6>
-                                                    <ul class="passenger-details-list">
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Name</strong>
-                                                            <span
-                                                                class="text-muted">{{$paymentDetails['f_name']}} {{$paymentDetails['l_name']}}</span>
-                                                        </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Date of Birth</strong>
-                                                            <span class="text-muted">{{$paymentDetails['dob']}}</span>
-                                                        </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Email</strong>
-                                                            <span class="text-muted">{{$paymentDetails['email']}}</span>
-                                                        </li>
-
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="row border-top">
-                                                <div class="col-12 py-3 passenger-details">
-                                                    <h6>Card information</h6>
-                                                    <ul class="passenger-details-list">
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Card number</strong>
-                                                            <span
-                                                                class="text-muted">{{$paymentDetails['c_number']}}</span>
-                                                        </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Card holder Name</strong>
-                                                            <span
-                                                                class="text-muted">{{$paymentDetails['c_name']}}</span>
-                                                        </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">Expiration Date</strong>
-                                                            <span
-                                                                class="text-muted">{{$paymentDetails['ex_month']}} {{$paymentDetails['ex_year']}}</span>
-                                                        </li>
-                                                        <li class="pt-2">
-                                                            <strong class="lavel">CVV</strong>
-                                                            <span class="text-muted">{{$paymentDetails['c_vvv']}}</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="row vailidation-content pt-4">
+                                    <div class="col-12 all-ticket-card-left">
                                         <div
-                                            class="col-3 border border-start-0 border-secondary-subtle  rounded-0 pt-4">
+                                            class="d-flex justify-content-between align-items-center py-4 px-3 border border-secondary-subtle rounded-0 first-passenger">
+                                            <h5 class="d-flex align-items-center mb-0">
+                                                Payment
+                                            </h5>
+                                        </div>
+                                    </div>
 
+                                    <div class="12">
+                                        <div class="d-flex border-0 rounded-0 ">
+                                            <div class="col-9 border border-secondary-subtle  rounded-0 px-3">
+                                                <div class="row">
+                                                    <div class="col-12 py-3 passenger-details">
+                                                        <h6>Personal information</h6>
+                                                        <ul class="passenger-details-list">
+                                                            <li class="pt-2">
+                                                                <strong class="lavel">Name</strong>
+                                                                <span
+                                                                    class="text-muted">{{$paymentDetails['f_name']}} {{$paymentDetails['l_name']}}</span>
+                                                            </li>
+                                                            <li class="pt-2">
+                                                                <strong class="lavel">Date of Birth</strong>
+                                                                <span
+                                                                    class="text-muted">{{$paymentDetails['dob']}}</span>
+                                                            </li>
+                                                            <li class="pt-2">
+                                                                <strong class="lavel">Email</strong>
+                                                                <span
+                                                                    class="text-muted">{{$paymentDetails['email']}}</span>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="row border-top">
+                                                    <div class="col-12 py-3 passenger-details">
+                                                        <h6>Card information</h6>
+                                                        <ul class="passenger-details-list">
+                                                            <li class="pt-2">
+                                                                <strong class="lavel">Card number</strong>
+                                                                <span
+                                                                    class="text-muted">{{$paymentDetails['c_number']}}</span>
+                                                            </li>
+                                                            <li class="pt-2">
+                                                                <strong class="lavel">Card holder Name</strong>
+                                                                <span
+                                                                    class="text-muted">{{$paymentDetails['c_name']}}</span>
+                                                            </li>
+                                                            <li class="pt-2">
+                                                                <strong class="lavel">Expiration Date</strong>
+                                                                <span
+                                                                    class="text-muted">{{$paymentDetails['ex_month']}} {{$paymentDetails['ex_year']}}</span>
+                                                            </li>
+                                                            <li class="pt-2">
+                                                                <strong class="lavel">CVV</strong>
+                                                                <span
+                                                                    class="text-muted">{{$paymentDetails['c_vvv']}}</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="col-3 border border-start-0 border-secondary-subtle  rounded-0 pt-4">
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between pt-5  total-cost">
-                            <div class="total-price">
-                                <h5>Total Cost <span class="text-danger fs-1">
+                            <div class="d-flex align-items-center justify-content-between pt-5  total-cost">
+                                <div class="total-price">
+                                    <h5>Total Cost <span class="text-danger fs-1">
                                         ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
                                                             ($busDetails->ticket_price * $sessionData['totalPerson'])+
                                                             ($busDetails->ticket_price * $sessionData['totalKids']) : '' }}
                                     </span></h5>
+                                </div>
+                                <button type="submit" class="py-2 btn btn-danger">BUY
+                                    TICKET
+                                </button>
                             </div>
-                            <button class="py-2 btn btn-danger">BUY
-                                TICKET
-                            </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             </div>

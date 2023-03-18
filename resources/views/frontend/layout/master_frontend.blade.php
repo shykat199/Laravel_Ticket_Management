@@ -240,33 +240,47 @@
                     <div class="py-3">
                         <h6 class="text-light">Contact Us</h6>
                     </div>
-                    <ul class="footer-2nd-colum-menu-list">
-                        <li class="py-2">
-                            <a class="d-flex align-items-center" href="javascript:void(0)">
-                                <i class="fa fa-phone-square"></i>
-                                <span class="ps-3 fs-4">+444 5533 8866</span>
-                            </a>
-                        </li>
-                        <li class="py-2">
-                            <a class="d-flex align-items-center" href="javascript:void(0)">
-                                <i class="fa fa-skype"></i>
-                                <span class="ps-3 fs-6">book.your.train</span>
-                            </a>
-                        </li>
-                        <li class="py-2">
-                            <a class="d-flex align-items-center" href="javascript:void(0)">
-                                <i class="fa fa-envelope"></i>
-                                <span class="ps-3 fs-6">mail@bookyourtrain.com</span>
-                            </a>
-                        </li>
-                        <li class="py-3">
-                            <a class="d-flex" href="javascript:void(0)">
-                                <i class="fa fa-map-marker"></i>
-                                <span
-                                    class="ps-3 fs-6">5138 Little Shadow Gardens, Del Monte, Alaska, 99631-4129, US</span>
-                            </a>
-                        </li>
-                    </ul>
+{{--                    {{dd(contactUs())}}--}}
+{{--                    <ul class="footer-2nd-colum-menu-list">--}}
+{{--                        <li class="py-2">--}}
+{{--                            <a class="d-flex align-items-center" href="javascript:void(0)">--}}
+{{--                                <i class="fa fa-phone-square">--}}
+{{--                                @if(contactUs()->key==='Skype')--}}
+{{--                                        <span class="ps-3 fs-4">{{contactUs()->value}}</span>--}}
+{{--                                @endif--}}
+
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        <li class="py-2">--}}
+{{--                            <a class="d-flex align-items-center" href="javascript:void(0)">--}}
+{{--                                <i class="fa fa-skype"></i>--}}
+{{--                                @if(contactUs()->key==='Skype')--}}
+{{--                                    <span class="ps-3 fs-6">{{contactUs()->value}}</span>--}}
+{{--                                @endif--}}
+
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        <li class="py-2">--}}
+{{--                            <a class="d-flex align-items-center" href="javascript:void(0)">--}}
+{{--                                <i class="fa fa-envelope"></i>--}}
+{{--                                @if(contactUs()->key==='Gmail')--}}
+{{--                                    <span class="ps-3 fs-6">{{contactUs()->value}}</span>--}}
+{{--                                @endif--}}
+
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        <li class="py-3">--}}
+{{--                            <a class="d-flex" href="javascript:void(0)">--}}
+{{--                                <i class="fa fa-map-marker"></i>--}}
+{{--                                @if(contactUs()->key==='Address')--}}
+{{--                                    <span--}}
+{{--                                        class="ps-3 fs-6">{{contactUs()->value}}--}}
+{{--                                    </span>--}}
+{{--                                @endif--}}
+
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
                 </div>
                 <div class="col">
                     <div class="py-3">

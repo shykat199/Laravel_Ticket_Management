@@ -311,8 +311,9 @@
                                                 </p>
                                             </div>
                                             <div class="col-4 all-ticket-card-middle-right-colum">
-                                                <h5>{{$searchResult->arrival_time}}</h5>
-{{--                                                <small class="small-text">Feb 15 SUN</small>--}}
+{{--
+                                                <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time)))}}</h5>
+{{--
                                                 <h6 class="small">{{$searchResult->arrival_point}}</h6>
 {{--                                                <small class="small-text">Union Station,CA</small>--}}
                                             </div>

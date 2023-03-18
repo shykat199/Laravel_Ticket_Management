@@ -4,11 +4,13 @@ use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\frontend\PaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\frontend\HomePageController;
-use App\Http\Controllers\frontend\FrontendController;
+use App\Http\Controllers\frontend\DashsboardController;
 use App\Http\Controllers\frontend\AboutUsPageController;
 use App\Http\Controllers\frontend\ResultController;
 use App\Http\Controllers\frontend\PassengerController;
 use App\Http\Controllers\frontend\ValidationController;
+use App\Http\Controllers\frontend\ReservationController;
+use App\Http\Controllers\frontend\FrontendAuthController;
 
 
 //require base_path('routes/blog.php');
@@ -27,16 +29,37 @@ Route::prefix('dashboard')->group(function () {
 
 Route::middleware('auth')->prefix('admin/dashboard')->group(function () {
 
+    Route::get('/admin/dashboard',[ReservationController::class,'UserDashboard'])->name('admin.auth.dashboard');
+
 //    require base_path('routes/category.php');
-    require base_path('routes/blog.php');
-    require base_path('routes/testimonial.php');
-    require base_path('routes/team.php');
-    require base_path('routes/advantage.php');
-    require base_path('routes/sightSetting.php');
-    require base_path('routes/busCompany.php');
-    require base_path('routes/busDetails.php');
-    require base_path('routes/busDestination.php');
-    require base_path('routes/service.php');
+    Route::middleware('ticket:admin,user')->group(function (){
+
+        require base_path('routes/blog.php');
+        require base_path('routes/testimonial.php');
+        require base_path('routes/team.php');
+        require base_path('routes/advantage.php');
+        require base_path('routes/sightSetting.php');
+        require base_path('routes/busCompany.php');
+        require base_path('routes/busDetails.php');
+        require base_path('routes/busDestination.php');
+        require base_path('routes/service.php');
+
+        //Store Reservation
+        Route::get('/user/dashboard',[ReservationController::class,'UserDashboard'])->name('user.auth.dashboard');
+        Route::get('/user/dashboard/profile',[ReservationController::class,'UserProfile'])->name('auth.user.dashboard.profile');
+        Route::get('/user/dashboard/your-ticket',[ReservationController::class,'UserTicket'])->name('auth.user.dashboard.ticket');
+
+
+        Route::post('/reservation-done',[ReservationController::class,'store'])->name('reservation.done');
+
+        //User Details Dashboard
+        Route::get('/user/dashboard/ticket-details',[ReservationController::class,'userDashboardTicketDetails'])->name('user.dashboard.ticket-details');
+        Route::get('/user/profile',[ReservationController::class,'userProfile'])->name('user.dashboard.profile');
+        Route::get('/user/profile/delete/{id}',[ReservationController::class,'dltReservation'])->name('dlt.user.reservation');
+
+    });
+
+
 });
 
 
@@ -66,7 +89,19 @@ Route::prefix('/ticket/book')->group(function () {
 
     //validation ticket
     Route::get('/validate', [ValidationController::class, 'index'])->name('frontend.ticket.validate');
+
+    //Store Reservation
+
+
+    //login
+    Route::get('/user/login',[FrontendAuthController::class,'loginPage'])->name('user.loginPage');
+    Route::get('/user/register',[FrontendAuthController::class,'registerPage'])->name('user.registerPage');
 });
+
+
+
+
+
 
 Route::get('/delete/session',[ResultController::class,'deleteSession']);
 Route::get('/delete/session/price',[ResultController::class,'deleteSessionBusTicket']);

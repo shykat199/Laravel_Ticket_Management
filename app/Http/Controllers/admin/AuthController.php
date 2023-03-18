@@ -60,10 +60,12 @@ class AuthController extends Controller
             'password' => $check['password'],
         ])) {
             if (Auth::user()->user_role === 'admin') {
-                return to_route('admin.category.index')->with('success', 'Successfully Login');
-            } else {
-                return to_route('admin.category.index')->with('success', 'Successfully Login');
-
+                return to_route('admin.auth.dashboard')->with('success', 'Successfully Login');
+            }
+            else if (Auth::user()->user_role === 'user') {
+                return to_route('user.auth.dashboard')->with('success', 'Successfully Login');
+            }else{
+                return "Invalid User";
             }
         } else {
             return Redirect::back()->with('error', 'Wrong Credential, Try Again...');
