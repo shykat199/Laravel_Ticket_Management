@@ -11,6 +11,7 @@ use App\Http\Controllers\frontend\PassengerController;
 use App\Http\Controllers\frontend\ValidationController;
 use App\Http\Controllers\frontend\ReservationController;
 use App\Http\Controllers\frontend\FrontendAuthController;
+use App\Http\Controllers\admin\AdminDashboard;
 
 
 //require base_path('routes/blog.php');
@@ -29,7 +30,7 @@ Route::prefix('dashboard')->group(function () {
 
 Route::middleware('auth')->prefix('admin/dashboard')->group(function () {
 
-    Route::get('/admin/dashboard',[ReservationController::class,'UserDashboard'])->name('admin.auth.dashboard');
+    Route::get('/admin/dashboard',[AdminDashboard::class,'adminDashboard'])->name('admin.auth.dashboard');
 
 //    require base_path('routes/category.php');
     Route::middleware('ticket:admin,user')->group(function (){
@@ -43,6 +44,8 @@ Route::middleware('auth')->prefix('admin/dashboard')->group(function () {
         require base_path('routes/busDetails.php');
         require base_path('routes/busDestination.php');
         require base_path('routes/service.php');
+        require base_path('routes/ticketReservation.php');
+        require base_path('routes/user.php');
 
         //Store Reservation
         Route::get('/user/dashboard',[ReservationController::class,'UserDashboard'])->name('user.auth.dashboard');

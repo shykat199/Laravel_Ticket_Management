@@ -71,29 +71,13 @@
                     <li class="side-nav-title side-nav-item">Navigation</li>
 
                     <li class="side-nav-item">
-                        <a data-bs-toggle="collapse" href="#sidebarDashboards" aria-expanded="false"
-                           aria-controls="sidebarDashboards" class="side-nav-link">
+                        <a  href="{{route('admin.auth.dashboard')}}" aria-expanded="false"
+                           class="side-nav-link">
                             <i class="uil-home-alt"></i>
-                            <span class="badge bg-success float-end">4</span>
+{{--                            <span class="badge bg-success float-end">4</span>--}}
                             <span> Dashboards </span>
                         </a>
-                        <div class="collapse" id="sidebarDashboards">
-                            <ul class="side-nav-second-level">
-                                <li>
-                                    <a href="dashboard-analytics.html">Analytics</a>
-                                </li>
-                                <li>
-                                    <a href="index-2.html">Blog Section</a>
-                                </li>
-                                <li>
-                                    <a href="dashboard-projects.html">Projects</a>
-                                </li>
-                                <li>
-                                    <a href="dashboard-wallet.html">E-Wallet <span
-                                            class="badge rounded bg-danger font-10 float-end">New</span></a>
-                                </li>
-                            </ul>
-                        </div>
+
                     </li>
                 @endif
 
@@ -128,6 +112,49 @@
                 @endif
 
                 @if(Auth::user()->user_role==='admin')
+
+
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#adminUser" aria-expanded="false"
+                               aria-controls="sidebarEcommerce" class="side-nav-link">
+                                <i class="uil-store"></i>
+                                <span>All User Section </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="adminUser">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{{route('admin.user.index')}}">All User</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{route('admin.index')}}">All Admin</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+
+
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#busReservation" aria-expanded="false"
+                               aria-controls="sidebarEcommerce" class="side-nav-link">
+                                <i class="uil-store"></i>
+                                <span>Reservation Section </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="busReservation">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{{route('admin.reservation.index')}}">All Reservations</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{route('admin.reservation.create')}}">Add New Reservation</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+
 
                     <li class="side-nav-item">
                         <a data-bs-toggle="collapse" href="#busComapany" aria-expanded="false"
@@ -910,6 +937,27 @@
                 }
                 $.each(response, function (key, value) {
 
+                    $('#busCoach').append('<option value="' + value
+                        .id + '">' + value.bus_coach + '</option>');
+                });
+            }
+        });
+
+    });
+</script>
+
+<script>
+
+    $('#bCompany').select2().on('change', function () {
+        let companyId = this.value;
+        $.ajax({
+            url: `{{ route('admin.bus_destination.coach') }}?company_id=${companyId}`,
+            type: 'get',
+            success: function (response) {
+                if (response == '') {
+                    $('#busCoach').html('<option value="">Select Coach</option>');
+                }
+                $.each(response, function (key, value) {
                     $('#busCoach').append('<option value="' + value
                         .id + '">' + value.bus_coach + '</option>');
                 });

@@ -311,9 +311,9 @@
                                                 </p>
                                             </div>
                                             <div class="col-4 all-ticket-card-middle-right-colum">
-{{--
+
                                                 <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time)))}}</h5>
-{{--
+
                                                 <h6 class="small">{{$searchResult->arrival_point}}</h6>
 {{--                                                <small class="small-text">Union Station,CA</small>--}}
                                             </div>
@@ -335,7 +335,7 @@
                                                 </div>
                                                 <div class="col-4 all-ticket-card-middle-right-colum">
                                                     <h5>{{$searchResult->departure_time }}</h5>
-{{--                                                    <small class="small-text">{{isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:''}}</small>--}}
+                                                    <small class="small-text">{{isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:''}}</small>
                                                     <h6 class="small">{{$searchResult->starting_point}}</h6>
 {{--                                                    <small class="small-text">Peen Station,NY</small>--}}
                                                 </div>

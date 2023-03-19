@@ -245,7 +245,7 @@
 {{--                        <li class="py-2">--}}
 {{--                            <a class="d-flex align-items-center" href="javascript:void(0)">--}}
 {{--                                <i class="fa fa-phone-square">--}}
-{{--                                @if(contactUs()->key==='Skype')--}}
+{{--                                @if(contactUs()->['key']==='Skype')--}}
 {{--                                        <span class="ps-3 fs-4">{{contactUs()->value}}</span>--}}
 {{--                                @endif--}}
 

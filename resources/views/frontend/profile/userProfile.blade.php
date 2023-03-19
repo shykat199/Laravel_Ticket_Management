@@ -5,6 +5,15 @@
 @section('admin.content')
     <!-- Start Content-->
     <div class="container-fluid">
+{{--        @foreach($ticketDetails as $list)--}}
+
+{{--            <h1>Bus Ticket=</h1>{{$list->destinations->busDetails->bus_seat}}--}}
+{{--            <h1>Occupied Ticket=</h1>{{$list->total_passenger}}--}}
+
+{{--            <h2>Ticket Left</h2>{{$list->destinations->busDetails->bus_seat - $list->total_passenger}}--}}
+
+{{--        @endforeach--}}
+
 
         <div class="row">
             <div class="col-md-12">

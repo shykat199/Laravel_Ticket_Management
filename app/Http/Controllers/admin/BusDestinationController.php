@@ -38,7 +38,6 @@ class BusDestinationController extends Controller
 
     public function getBusCoach(Request $request)
     {
-
         $busCoach = \DB::table('bus_details')
             ->where('company_id', $request->get('company_id'))->get();
 
