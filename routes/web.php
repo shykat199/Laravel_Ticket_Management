@@ -58,7 +58,7 @@ Route::middleware(['auth', 'prevent_back_history'])->prefix('admin/dashboard')->
 
 
         //User Details Dashboard
-        Route::get('/user/dashboard/ticket-details', [ReservationController::class, 'userDashboardTicketDetails'])->name('user.dashboard.ticket-details');
+        //Route::get('/user/dashboard/ticket-details', [ReservationController::class, 'userDashboardTicketDetails'])->name('user.dashboard.ticket-details');
         Route::get('/user/profile', [ReservationController::class, 'userProfile'])->name('user.dashboard.profile');
         Route::get('/user/profile/delete/{id}', [ReservationController::class, 'dltReservation'])->name('dlt.user.reservation');
 

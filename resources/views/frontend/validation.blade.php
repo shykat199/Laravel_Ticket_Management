@@ -408,7 +408,7 @@
                                     <div class="col-12">
                                         <div class="d-flex border-0 rounded-0 ">
                                             <div class="col-9 border border-secondary-subtle  rounded-0 px-3">
-                                                    {{--{{dd($sessionPassengerData['users'])}}--}}
+                                                {{--{{dd($sessionPassengerData['users'])}}--}}
                                                 @php
                                                     $idx=1;
                                                 @endphp
@@ -555,33 +555,43 @@
                                     </span></h5>
                                 </div>
                                 @if(\Auth::check())
-                                    <button type="button" class="py-2 btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                    <button type="button" class="py-2 btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModalCenter">
                                         BUY
                                         TICKET
                                     </button>
 
-                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal
+                                                        title</h5>
 
                                                 </div>
                                                 <div class="modal-body">
                                                     <form>
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">Email address</label>
-                                                            <input type="email"  name="email" class="form-control" id="user_email" aria-describedby="emailHelp" placeholder="Enter email">
+                                                            <input type="email" name="email" class="form-control"
+                                                                   id="user_email" aria-describedby="emailHelp"
+                                                                   placeholder="Enter email">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="exampleInputPassword1">Password</label>
-                                                            <input type="password" name="password" class="form-control" id="user_pwd" placeholder="Password">
+                                                            <input type="password" name="password" class="form-control"
+                                                                   id="user_pwd" placeholder="Password">
                                                         </div>
-                                                        <button type="submit" id="but_submit" class="btn btn-primary mt-2">Log In</button>
+                                                        <button type="submit" id="but_submit"
+                                                                class="btn btn-primary mt-2">Log In
+                                                        </button>
                                                     </form>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close
+                                                    </button>
                                                     <button type="button" class="btn btn-primary">Save changes</button>
                                                 </div>
                                             </div>
@@ -611,24 +621,27 @@
     <!-- main end -->
 
     <script>
-        $(document).ready(function(){
-            $("#but_submit").click(function(){
+        $(document).ready(function () {
+            $("#but_submit").click(function () {
                 let email = $("#user_email").val().trim();
                 let password = $("#user_pwd").val().trim();
                 console.log(email);
-                if( email !== "" && password !== "" ){
+                if (email !== "" && password !== "") {
                     $.ajax({
-                        url:'{{route('user.login.ajax')}}',
-                        type:'post',
-                        data:{email:email,
-                            password:password
+                        url: '{{route('user.login.ajax')}}',
+                        type: 'post',
+                        data: {
+                            email: email,
+                            password: password
                         },
-                        success:function(response){
+                        success: function (response) {
                             let msg = "";
-                            if(response.status){
-                                window.location.reload();
-                            }else{
-                                console.log(msg);
+                            if (response.status === 1) {
+                                console.log('Admin')
+                            } else if (response.status === 2) {
+                                console.log("User");
+                            } else {
+                                console.log('None')
                             }
                         }
                     });
