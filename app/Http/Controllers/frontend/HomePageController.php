@@ -72,7 +72,7 @@ class HomePageController extends Controller
                     ->where('starting_point', 'like', $request->get('starting_point'))
                     ->where('arrival_point', 'like', $request->get('arrival_point'))
                     ->get();
-                return $searchResults;
+
                 //dd($searchResults);
                 //dd($searchResults);
                 $request->session()->put('searchedResults', $request->all());

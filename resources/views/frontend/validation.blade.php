@@ -554,7 +554,7 @@
                                                             ($busDetails->ticket_price * $sessionData['totalKids']) : '' }}
                                     </span></h5>
                                 </div>
-<<<<<<< HEAD
+
                                 @if(!\Illuminate\Support\Facades\Auth::check())
                                     <button type="button" class="py-2 btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
                                         BUY TICKET
@@ -584,48 +584,6 @@
                                                         <button type="button" id="but_submit" class="btn btn-primary">Log In</button>
                                                     </div>
                                                 </form>
-=======
-                                @if(\Auth::check())
-                                    <button type="button" class="py-2 btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModalCenter">
-                                        BUY
-                                        TICKET
-                                    </button>
-
-                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal
-                                                        title</h5>
-
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form>
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Email address</label>
-                                                            <input type="email" name="email" class="form-control"
-                                                                   id="user_email" aria-describedby="emailHelp"
-                                                                   placeholder="Enter email">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="exampleInputPassword1">Password</label>
-                                                            <input type="password" name="password" class="form-control"
-                                                                   id="user_pwd" placeholder="Password">
-                                                        </div>
-                                                        <button type="submit" id="but_submit"
-                                                                class="btn btn-primary mt-2">Log In
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close
-                                                    </button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                                </div>
->>>>>>> 5a53c46a329ee4d3a39d767627b0678adbc8e5c6
                                             </div>
                                         </div>
                                     </div>
