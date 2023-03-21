@@ -11,6 +11,7 @@ use App\Models\SightSetting;
 use App\Models\Testmonial;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PhpParser\Builder;
 
 
 class HomePageController extends Controller
@@ -52,19 +53,28 @@ class HomePageController extends Controller
 
             $searchResults = BusDestination::query();
 
-//            $total_passenger = isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
-//                ($sessionData['totalPerson']) + ($sessionData['totalKids']) : ($sessionData['totalPerson']);
+            $total_passenger = isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
+                ($sessionData['totalPerson']) + ($sessionData['totalKids']) : ($sessionData['totalPerson']);
 
-
+            //dd($searchResults);
             if ($request->get('starting_point') && $request->get('arrival_point'))
             {
-                $searchResults = $searchResults->with(['busDetails.busCompany'])
-//                    ->whereHas('busDetails',function ($val) use($total_passenger){
+//                $searchResults ->$searchResults->load('destinations')->first();
+//                dd($searchResults);
+                $searchResults = $searchResults
+//                    ->whereHas('bus_details',function ($val) use($total_passenger){
 //                        $val->where('bus_seat','>=',$total_passenger);
 //                    })
+                        ->join('bus_details','bus_destinations.bus_details_id','bus_details.id')
+                    ->where('bus_details.bus_seat','>=',$total_passenger)
+//                    ->orWhere('bus_details.bus_seat','<=',$total_passenger)
+//                        ->where('bus_details.bus_seat','>=',$total_passenger)
                     ->where('starting_point', 'like', $request->get('starting_point'))
                     ->where('arrival_point', 'like', $request->get('arrival_point'))
                     ->get();
+                return $searchResults;
+                //dd($searchResults);
+                //dd($searchResults);
                 $request->session()->put('searchedResults', $request->all());
             } else {
                 //return back

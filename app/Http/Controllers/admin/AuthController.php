@@ -64,34 +64,40 @@ class AuthController extends Controller
         ])) {
             if (Auth::user()->user_role === 'admin') {
                 return to_route('admin.auth.dashboard')->with('success', 'Successfully Login');
-            }
-            else if (Auth::user()->user_role === 'user') {
+            } else if (Auth::user()->user_role === 'user') {
 
                 return to_route('user.auth.dashboard')->with('success', 'Successfully Login');
-            }else{
+            } else {
                 return "Invalid User";
             }
         } else {
             return Redirect::back()->with('error', 'Wrong Credential, Try Again...');
         }
     }
-    public function ajaxLogin(Request $request){
 
-        if (\request()->ajax()){
+    public function ajaxLogin(Request $request)
+    {
+
+        if (\request()->ajax()) {
             $check = $request->all();
             // dd($check);
             if (Auth::attempt([
                 'email' => $check['email'],
                 'password' => $check['password'],
-            ])){
+            ])) {
+                if (Auth::user()->user_role === "admin") {
+                    return response()->json([
+                        'status' => 1,
+                    ]);
+                } elseif (Auth::user()->user_role === "user") {
+                    return response()->json([
+                        'status' => 2
+                    ]);
+                }
+            } else {
                 return response()->json([
-                    'status'=>true,
-                ]);
-
-            }else{
-                return response()->json([
-                    'status'=>false,
-                    'mesg'=>"Wrong User Crediential",
+                    'status' => false,
+                    'msg' => "Wrong User Credential",
 
                 ]);
             }
