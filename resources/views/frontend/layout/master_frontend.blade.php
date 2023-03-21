@@ -39,9 +39,19 @@
                     <li></li>
                 </ul>
                 <div class="d-flex">
-                    <button class="btn btn-outline-success me-2 ticket-booking-nav-button-style" type="submit">Sign Up
-                    </button>
-                    <button class="btn btn-outline-success ticket-booking-nav-button-style" type="submit">Login</button>
+                    @if(Auth::guest())
+                        <a href="{{route('user.registerPage')}}"
+                        class="btn btn-outline-success me-2 ticket-booking-nav-button-style" type="submit">Sign Up
+                        </a>
+                        <a href="{{route('user.loginPage')}}"
+                           class="btn btn-outline-success ticket-booking-nav-button-style" type="submit">Login</a>
+
+                    @elseif(Auth::check())
+                        <a href="{{route('admin.logout')}}"
+                           class="btn btn-outline-success ticket-booking-nav-button-style" type="submit">Logout</a>
+                    @endif
+
+
                 </div>
             </div>
         </div>
@@ -236,52 +246,52 @@
                         </li>
                     </ul>
                 </div>
+
+
                 <div class="col">
                     <div class="py-3">
                         <h6 class="text-light">Contact Us</h6>
                     </div>
-{{--                    {{dd(contactUs())}}--}}
-{{--                    <ul class="footer-2nd-colum-menu-list">--}}
-{{--                        <li class="py-2">--}}
-{{--                            <a class="d-flex align-items-center" href="javascript:void(0)">--}}
-{{--                                <i class="fa fa-phone-square">--}}
-{{--                                @if(contactUs()->['key']==='Skype')--}}
-{{--                                        <span class="ps-3 fs-4">{{contactUs()->value}}</span>--}}
-{{--                                @endif--}}
+                    <ul class="footer-2nd-colum-menu-list">
+                        <li class="py-2">
+                            @if(contactUs('Phone'))
+                                <a class="d-flex align-items-center" href="javascript:void(0)">
+                                    <i class="fa fa-phone-square"></i>
+                                    <span class="ps-3 fs-4">{{contactUs('Phone')}}</span>
+                                </a>
+                            @endif
+                        </li>
+                        <li class="py-2">
+                            @if(contactUs('Skype'))
+                                <a class="d-flex align-items-center" href="javascript:void(0)">
+                                    <i class="fa fa-skype"></i>
+                                    <span class="ps-3 fs-6">{{contactUs('Skype')}}</span>
+                                </a>
+                            @endif
 
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li class="py-2">--}}
-{{--                            <a class="d-flex align-items-center" href="javascript:void(0)">--}}
-{{--                                <i class="fa fa-skype"></i>--}}
-{{--                                @if(contactUs()->key==='Skype')--}}
-{{--                                    <span class="ps-3 fs-6">{{contactUs()->value}}</span>--}}
-{{--                                @endif--}}
+                        </li>
+                        <li class="py-2">
+                            @if(contactUs('Gmail'))
+                                <a class="d-flex align-items-center" href="javascript:void(0)">
+                                    <i class="fa fa-envelope"></i>
+                                    <span class="ps-3 fs-6">{{contactUs('Gmail')}}</span>
+                                </a>
+                            @endif
 
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li class="py-2">--}}
-{{--                            <a class="d-flex align-items-center" href="javascript:void(0)">--}}
-{{--                                <i class="fa fa-envelope"></i>--}}
-{{--                                @if(contactUs()->key==='Gmail')--}}
-{{--                                    <span class="ps-3 fs-6">{{contactUs()->value}}</span>--}}
-{{--                                @endif--}}
+                        </li>
+                        <li class="py-3">
+                            @if(contactUs('Address'))
+                                <a class="d-flex" href="javascript:void(0)">
+                                    <i class="fa fa-map-marker"></i>
+                                    <span class="ps-3 fs-6">{{contactUs('Address')}}</span>
+                                </a>
+                            @endif
 
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li class="py-3">--}}
-{{--                            <a class="d-flex" href="javascript:void(0)">--}}
-{{--                                <i class="fa fa-map-marker"></i>--}}
-{{--                                @if(contactUs()->key==='Address')--}}
-{{--                                    <span--}}
-{{--                                        class="ps-3 fs-6">{{contactUs()->value}}--}}
-{{--                                    </span>--}}
-{{--                                @endif--}}
-
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
+                        </li>
+                    </ul>
                 </div>
+
+
                 <div class="col">
                     <div class="py-3">
                         <h6 class="text-light">Blog Posts</h6>
@@ -322,37 +332,43 @@
                             <div class="mt-5">
                                 <h6 class="fs-5">Follow Us</h6>
                                 <ul class="d-flex align-items-center pt-2">
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <i class="fa fa-linkedin"></i>
-                                        </a>
-                                    </li>
-                                    <li class="ms-4">
-                                        <a href="javascript:void(0)">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li class="ms-4">
-                                        <a href="javascript:void(0)">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li class="ms-4">
-                                        <a href="javascript:void(0)">
-                                            <i class="fa fa-google-plus"></i>
-                                        </a>
-                                    </li>
-                                    <li class="ms-4">
-                                        <a href="javascript:void(0)">
-                                            <i class="fa fa-youtube-play"></i>
-                                        </a>
-                                    </li>
+
+                                    @if(contactUs('Linkedin'))
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                <i class="fa fa-linkedin"></i>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @if(contactUs('Facebook'))
+                                        <li class="ms-4">
+                                            <a href="javascript:void(0)">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @if(contactUs('Twitter'))
+                                        <li class="ms-4">
+                                            <a href="javascript:void(0)">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @if(contactUs('Youtube'))
+                                        <li class="ms-4">
+                                            <a href="javascript:void(0)">
+                                                <i class="fa fa-youtube-play"></i>
+                                            </a>
+                                        </li>
+                                    @endif
+
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="footer-lower-part pt-4">
                 <ul class="d-flex align-items-center justify-content-between">
                     <li>

@@ -17,17 +17,24 @@ class ReservationController extends Controller
 {
     public function store(Request $request)
     {
-        //dd('aa');
+//            $previousUrl = url()->previous();
+//            dd($previousUrl);
 
         if (Auth::guest()) {
+
             return to_route('user.loginPage');
-        } else {
+
+        } elseif (Auth::user()->user_role === "admin") {
+
+            return to_route('user.loginPage');
+        }
+        else {
 
             $paymentDetails = $request->session()->get('paymentDetails');
             $sessionData = $request->session()->get('searchedResults');
             $sessionPassengerData = $request->session()->get('sessionPassengerData');
             $busDetails = $request->session()->get('sessionTicketPrice');
-            //dd($sessionData['returnOfDate']);
+            //dd($sessionData['$busDetails']);
 
             // For Reservation Session Data Store in Reservation Model
             $busDestinationId = $busDetails->id;
@@ -117,14 +124,25 @@ class ReservationController extends Controller
             ]);
 
 
-            //update Bus Ticket After Reservation
-            $ticketUpdate = Reservation::with('destinations.busDetails.busCompany')->select('reservations.*')
-                ->where('reservations.user_id', Auth::id())
-                ->get();
-            // dd($ticketUpdate);
-//        $updateBusTicket=BusDetails::find()->update([
-//
-//        ]);
+            //dd($storeReservation);
+            //seat in bus
+            $storeReservation = $storeReservation->load('destinations');
+            // Seat number of that coach
+            $busSeat = BusDetails::select('bus_seat', 'id')
+                ->where('id', $storeReservation->destinations->bus_details_id)
+                ->first();
+
+            //dd($busSeat);
+
+
+            $totalSeatOccupy = $storeReservation->total_passenger;
+            // dd($totalSeatOccupy);
+
+            $ticketLeft = $busSeat->bus_seat - $totalSeatOccupy;
+
+            $updateBusSeat = BusDetails::where('id', $busSeat->id)->update([
+                'bus_seat' => $ticketLeft
+            ]);
 
             $request->session()->forget('searchedResults');
             $request->session()->forget('sessionTicketPrice');
@@ -135,8 +153,6 @@ class ReservationController extends Controller
 
 
         }
-
-
     }
 
     public function UserDashboard()

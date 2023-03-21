@@ -135,27 +135,6 @@
                         </li>
 
 
-                        <li class="side-nav-item">
-                            <a data-bs-toggle="collapse" href="#busReservation" aria-expanded="false"
-                               aria-controls="sidebarEcommerce" class="side-nav-link">
-                                <i class="uil-store"></i>
-                                <span>Reservation Section </span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <div class="collapse" id="busReservation">
-                                <ul class="side-nav-second-level">
-                                    <li>
-                                        <a href="{{route('admin.reservation.index')}}">All Reservations</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{route('admin.reservation.create')}}">Add New Reservation</a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </li>
-
-
                     <li class="side-nav-item">
                         <a data-bs-toggle="collapse" href="#busComapany" aria-expanded="false"
                            aria-controls="sidebarEcommerce" class="side-nav-link">

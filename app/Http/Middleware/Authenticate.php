@@ -21,7 +21,12 @@ class Authenticate extends Middleware
             Session::flash('error','Please LogIn First.');
         }
         if (! $request->expectsJson()) {
+            Session::put('oldUrl',$request->url());
             return route('admin.login_page');
         }
+
+//        if (app('router')->getRoutes()->match(app('request')->create(\URL::previous()))->getName() == 'frontend.ticket.store.payment-details'){
+//            return redirect()->route('reservation.done');
+//        }
     }
 }

@@ -7,7 +7,7 @@
             <div class="row gy-4 ticket-booking-home-header-hero-content">
                 <div
                     class="col-12 ticket-booking-home-header-search-ticket-form d-flex flex-column justify-content-end">
-                    <form class="row g-3 pt-3 pb-5 px-2" action="" method="post">
+                    <form class="row g-3 pt-3 pb-5 px-2" action="{{route('frontend.show.result')}}" method="post">
                         @csrf
                         <!-- travelling route start -->
                         <div class="col-md-5 col-xl-2 hero-input-with-icon mt-4">
@@ -35,16 +35,20 @@
                             <label for="inputtext3" class="form-label pb-2">Travelling Date</label>
                             <input name="dateOfJourney"
                                    value="{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}"
-                                   type="date"
+                                   type="datetime-local"
+                                   min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
+                                   max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
                                    class="form-control" id="inputtext3" placeholder="MM/DD/YY">
 
                         </div>
                         <div class="col-md-3 col-xl-2 d-flex align-items-end hero-input-with-icon mt-4">
                             <input name="returnOfDate"
                                    value="{{isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:''}}"
-                                   type="date"
+                                   type="datetime-local"
+                                   min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
+                                   max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
                                    class="form-control" id="inputtext4" placeholder="One Way">
-                            <i class="fa fa-calendar"></i>
+
                         </div>
                         <!-- travelling date end -->
                         <!-- travelling person start -->
@@ -302,6 +306,7 @@
                             </div>
                         </div>
                     </div>
+
                     <form class="row g-3 pt-3 pb-5 px-2" action="{{route('reservation.done')}}" method="post">
                         @csrf
                         <div class="col-8 vailidation-container">
@@ -544,26 +549,93 @@
                             <div class="d-flex align-items-center justify-content-between pt-5  total-cost">
                                 <div class="total-price">
                                     <h5>Total Cost <span class="text-danger fs-1">
-                                        ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
+                                        ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) || isset($sessionData['totalKids']) ?
                                                             ($busDetails->ticket_price * $sessionData['totalPerson'])+
                                                             ($busDetails->ticket_price * $sessionData['totalKids']) : '' }}
                                     </span></h5>
                                 </div>
-                                <button type="submit" class="py-2 btn btn-danger">BUY
-                                    TICKET
-                                </button>
+                                @if(\Auth::check())
+                                    <button type="button" class="py-2 btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                        BUY
+                                        TICKET
+                                    </button>
+
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Email address</label>
+                                                            <input type="email"  name="email" class="form-control" id="user_email" aria-describedby="emailHelp" placeholder="Enter email">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputPassword1">Password</label>
+                                                            <input type="password" name="password" class="form-control" id="user_pwd" placeholder="Password">
+                                                        </div>
+                                                        <button type="submit" id="but_submit" class="btn btn-primary mt-2">Log In</button>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                @else
+                                    <button type="submit" class="py-2 btn btn-danger">BUY
+                                        TICKET
+                                    </button>
+                                @endif
+
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
             </div>
+
         </section>
+
+
         <!-- all processing end-->
 
 
     </main>
     <!-- main end -->
+
+    <script>
+        $(document).ready(function(){
+            $("#but_submit").click(function(){
+                let email = $("#user_email").val().trim();
+                let password = $("#user_pwd").val().trim();
+                console.log(email);
+                if( email !== "" && password !== "" ){
+                    $.ajax({
+                        url:'{{route('user.login.ajax')}}',
+                        type:'post',
+                        data:{email:email,
+                            password:password
+                        },
+                        success:function(response){
+                            let msg = "";
+                            if(response.status){
+                                window.location.reload();
+                            }else{
+                                console.log(msg);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 
 @endsection
 

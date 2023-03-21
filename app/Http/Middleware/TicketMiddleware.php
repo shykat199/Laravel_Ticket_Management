@@ -22,6 +22,7 @@ class TicketMiddleware
     {
         //dd($roles);
         if (Auth::check() && in_array(Auth::user()->user_role, $roles)) {
+
             return $next($request);
         }
 

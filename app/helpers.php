@@ -269,10 +269,16 @@ function years()
     return $year_array;
 }
 
-function contactUs(){
+function contactUs($input = null)
+{
 
-    $contactUs=SightSetting::all();
-    //$contactUs=SightSetting::select('*')->where('key','=','About Us')->get();
+    $contactUs = SightSetting::get()->pluck('value', 'key');
 
-    return $contactUs;
+    if (empty($input)) {
+        return $contactUs;
+    } elseif (isset($contactUs[$input])) {
+        return $contactUs[$input];
+    }
+    return null;
+
 }

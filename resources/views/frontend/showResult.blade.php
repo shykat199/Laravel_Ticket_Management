@@ -7,7 +7,8 @@
             <div class="row gy-4 ticket-booking-home-header-hero-content">
                 <div
                     class="col-12 ticket-booking-home-header-search-ticket-form d-flex flex-column justify-content-end">
-                    <form class="row g-3 pt-3 pb-5 px-2">
+                    <form class="row g-3 pt-3 pb-5 px-2" action="{{route('frontend.show.result')}}" method="post">
+                        @csrf
                         <!-- travelling route start -->
                         <div class="col-md-5 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
@@ -33,16 +34,21 @@
                         <div class="col-md-3 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext3" class="form-label pb-2">Travelling Date</label>
                             <input name="dateOfJourney"
-                                   value="{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}"
-                                   type="date"
+                                   value="{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']: $sessionData['dateOfJourney']}}"
+                                   type="datetime-local"
+                                   min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
+                                   max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
                                    class="form-control" id="inputtext3" placeholder="MM/DD/YY">
 
                         </div>
                         <div class="col-md-3 col-xl-2 d-flex align-items-end hero-input-with-icon mt-4">
                             <input name="returnOfDate"
-                                   value="{{isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:''}}" type="date"
+                                   value="{{isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:''}}"
+                                   type="datetime-local"
+                                   min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
+                                   max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
                                    class="form-control" id="inputtext4" placeholder="One Way">
-                            <i class="fa fa-calendar"></i>
+
                         </div>
                         <!-- travelling date end -->
                         <!-- travelling person start -->
@@ -202,11 +208,11 @@
                                             <div class="row ">
                                                 <div class="col-6">
                                                     <h6 class="mb-0">{{$tickets->starting_point}}</h6>
-                                                    <small class="small-text">Peen Station,NY</small>
+
                                                 </div>
                                                 <div class="col-6 text-end">
                                                     <h6 class="mb-0">{{$tickets->arrival_point}}</h6>
-                                                    <small class="small-text">Union Station,CA</small>
+
                                                 </div>
                                             </div>
                                             <div class="row mt-4">
@@ -300,20 +306,20 @@
                                         <div class="row">
                                             <div class="col-4 all-ticket-card-middle-left-colum">
                                                 <h5>{{$searchResult->departure_time}}</h5>
-                                                <small class="small-text">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</small>
+                                                <small class="small-text">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y') :''}}</small>
                                                 <h6 class="small">{{$searchResult->starting_point}}</h6>
-{{--                                                <small class="small-text">Peen Station,NY</small>--}}
+
                                             </div>
                                             <div
                                                 class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
-{{--                                                <p class="text-muted small text-center">07:25</p>--}}
+
                                                 <p class="text-center"><i class="fa fa-long-arrow-right text-muted"></i>
                                                 </p>
                                             </div>
                                             <div class="col-4 all-ticket-card-middle-right-colum">
 
                                                 <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time)))}}</h5>
-
+                                                <small class="small-text">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->addHour($searchResult->arrival_time)->format('d-m-Y') :''}}</small>
                                                 <h6 class="small">{{$searchResult->arrival_point}}</h6>
 {{--                                                <small class="small-text">Union Station,CA</small>--}}
                                             </div>
@@ -322,8 +328,8 @@
                                         @if($sessionData['returnOfDate'])
                                             <div class="row mt-4">
                                                 <div class="col-4 all-ticket-card-middle-left-colum">
-                                                    <h5>{{$searchResult->arrival_time }}</h5>
-                                                    <small class="small-text">{{isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:''}}</small>
+                                                    <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time )))}}</h5>
+                                                    <small class="small-text">{{isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y') :''}}</small>
                                                     <h6 class="small">{{$searchResult->arrival_point}}</h6>
 {{--                                                    <small class="small-text">Peen Station,NY</small>--}}
                                                 </div>
@@ -335,7 +341,7 @@
                                                 </div>
                                                 <div class="col-4 all-ticket-card-middle-right-colum">
                                                     <h5>{{$searchResult->departure_time }}</h5>
-                                                    <small class="small-text">{{isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:''}}</small>
+                                                    <small class="small-text">{{isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->addHour($searchResult->arrival_time)->format('d-m-Y') :''}}</small>
                                                     <h6 class="small">{{$searchResult->starting_point}}</h6>
 {{--                                                    <small class="small-text">Peen Station,NY</small>--}}
                                                 </div>

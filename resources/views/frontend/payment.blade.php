@@ -7,7 +7,8 @@
             <div class="row gy-4 ticket-booking-home-header-hero-content">
                 <div
                     class="col-12 ticket-booking-home-header-search-ticket-form d-flex flex-column justify-content-end">
-                    <form class="row g-3 pt-3 pb-5 px-2">
+                    <form class="row g-3 pt-3 pb-5 px-2" action="{{route('frontend.show.result')}}" method="post">
+                        @csrf
                         <!-- travelling route start -->
                         <div class="col-md-5 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
@@ -34,15 +35,20 @@
                             <label for="inputtext3" class="form-label pb-2">Travelling Date</label>
                             <input name="dateOfJourney"
                                    value="{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}"
-                                   type="date"
+                                   type="datetime-local"
+                                   min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
+                                   max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
                                    class="form-control" id="inputtext3" placeholder="MM/DD/YY">
 
                         </div>
                         <div class="col-md-3 col-xl-2 d-flex align-items-end hero-input-with-icon mt-4">
                             <input name="returnOfDate"
-                                   value="{{isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:''}}" type="date"
+                                   value="{{isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:''}}"
+                                   type="datetime-local"
+                                   min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
+                                   max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
                                    class="form-control" id="inputtext4" placeholder="One Way">
-                            <i class="fa fa-calendar"></i>
+
                         </div>
                         <!-- travelling date end -->
                         <!-- travelling person start -->
@@ -60,7 +66,7 @@
                                    value="{{isset($sessionData['totalKids']) ? $sessionData['totalKids']:''}}"
                                    type="number"
                                    class="form-control" id="inputtext4" placeholder="0 Kids">
-                            <i class="fa fa-caret-down"></i>
+
                         </div>
 
                         <!-- travelling person end -->

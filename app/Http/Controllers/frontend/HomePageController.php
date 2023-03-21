@@ -71,8 +71,10 @@ class HomePageController extends Controller
             }
             //dd('1');
             $sessionData = $request->session()->get('searchedResults');
+            $min_date = Carbon::today();
+            $max_date = Carbon::now()->addWeek();
             //dd($sessionData);
-            return view('frontend.showResult', compact('searchResults', 'sessionData'));
+            return view('frontend.showResult', compact('searchResults', 'sessionData','min_date','max_date'));
             //dd($searchResult);
         }
     }

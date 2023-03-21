@@ -7,6 +7,8 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Models\User;
+use GuzzleHttp\Psr7\Request;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
@@ -63,6 +65,7 @@ class AuthController extends Controller
                 return to_route('admin.auth.dashboard')->with('success', 'Successfully Login');
             }
             else if (Auth::user()->user_role === 'user') {
+
                 return to_route('user.auth.dashboard')->with('success', 'Successfully Login');
             }else{
                 return "Invalid User";
@@ -70,6 +73,29 @@ class AuthController extends Controller
         } else {
             return Redirect::back()->with('error', 'Wrong Credential, Try Again...');
         }
+    }
+    public function ajaxLogin(Request $request){
+
+        if (\request()->ajax()){
+            $check = $request->all();
+            // dd($check);
+            if (Auth::attempt([
+                'email' => $check['email'],
+                'password' => $check['password'],
+            ])){
+                return response()->json([
+                    'status'=>true,
+                ]);
+
+            }else{
+                return response()->json([
+                    'status'=>false,
+                    'mesg'=>"Wrong User Crediential",
+
+                ]);
+            }
+        }
+
     }
 
     public function logout(): \Illuminate\Http\RedirectResponse
