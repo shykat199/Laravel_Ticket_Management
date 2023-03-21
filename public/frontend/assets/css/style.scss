@@ -133,10 +133,8 @@ body {
 
                 .ticket-booking-home-header-search-ticket-form {
                     form {
-                        background: linear-gradient(
-                            rgba(0, 0, 0, 0.5),
-                            rgba(0, 0, 0, 0.5)
-                        );
+                        background: linear-gradient(rgba(0, 0, 0, 0.5),
+                                rgba(0, 0, 0, 0.5));
 
                         label {
                             color: white;
@@ -159,6 +157,7 @@ body {
 
                         // hide input type number by default icon
                         .hide-numberType-icon {
+
                             /* Chrome, Safari, Edge, Opera */
                             input::-webkit-outer-spin-button,
                             input::-webkit-inner-spin-button {
@@ -299,33 +298,30 @@ body {
         .ticket-booking-home-e-ticket-middle-content {
             position: relative;
 
-            &::after {
-                content: "";
-                position: absolute;
+            .img-underline {
                 background: rgb(255, 255, 255, 0.5);
                 height: 2px;
                 width: 150px;
-                bottom: 58%;
-                left: 30%;
+                margin: 40px auto 0;
 
-                @media (min-width: 1392px) {
-                    left: 32%;
-                }
+                // @media (min-width: 1392px) {
+                //     left: 32%;
+                // }
 
-                @media (max-width: 1190px) {
-                    left: 26%;
-                }
+                // @media (max-width: 1190px) {
+                //     left: 26%;
+                // }
 
-                @media (max-width: 991px) {
-                    left: 18%;
-                    bottom: 64%;
-                }
+                // @media (max-width: 991px) {
+                //     left: 18%;
+                //     bottom: 64%;
+                // }
 
-                @media (max-width: 768px) {
-                    width: 100px;
-                    left: 20%;
-                    bottom: 75%;
-                }
+                // @media (max-width: 768px) {
+                //     width: 100px;
+                //     left: 20%;
+                //     bottom: 75%;
+                // }
             }
         }
     }
@@ -535,10 +531,12 @@ body {
         img {
             border-radius: 50%;
             padding: 2px;
-            font-size: 50px;
+            font-size: 17px;
+            line-height: 100px;
             width: 100px;
             height: 100px;
             text-align: center;
+            display: inline-block;
             background-color: #ffffff;
 
             @media (max-width: 768px) {
@@ -649,10 +647,8 @@ body {
 
                 .ticket-booking-home-header-search-ticket-form {
                     form {
-                        background: linear-gradient(
-                            rgba(0, 0, 0, 0.5),
-                            rgba(0, 0, 0, 0.5)
-                        );
+                        background: linear-gradient(rgba(0, 0, 0, 0.5),
+                                rgba(0, 0, 0, 0.5));
 
                         label {
                             color: white;
@@ -675,6 +671,7 @@ body {
 
                         // hide input type number by default icon
                         .hide-numberType-icon {
+
                             /* Chrome, Safari, Edge, Opera */
                             input::-webkit-outer-spin-button,
                             input::-webkit-inner-spin-button {
@@ -705,22 +702,18 @@ body {
     position: relative;
     z-index: 1111;
     color: white;
-    background: linear-gradient(
-        to right,
-        rgb(255, 0, 0) 0%,
-        rgb(255, 0, 0) 25%,
-        rgb(0, 0, 0) 25%,
-        rgb(0, 0, 0) 100%
-    );
-
-    .container {
-        background: linear-gradient(
-            to right,
+    background: linear-gradient(to right,
             rgb(255, 0, 0) 0%,
             rgb(255, 0, 0) 25%,
             rgb(0, 0, 0) 25%,
-            rgb(0, 0, 0) 100%
-        );
+            rgb(0, 0, 0) 100%);
+
+    .container {
+        background: linear-gradient(to right,
+                rgb(255, 0, 0) 0%,
+                rgb(255, 0, 0) 25%,
+                rgb(0, 0, 0) 25%,
+                rgb(0, 0, 0) 100%);
 
         .results-single-current-steps {
             position: relative;
@@ -990,8 +983,7 @@ body {
                             }
 
                             .card-body {
-                                .form-switch .form-check-input {
-                                }
+                                .form-switch .form-check-input {}
 
                                 .form-switch .form-check-input:focus {
                                     border-color: rgba(0, 0, 0, 0.25);
@@ -1043,12 +1035,10 @@ body {
                                     background-color: red;
                                     border: 0;
                                     border-radius: 1rem;
-                                    -webkit-transition: background-color 0.15s
-                                            ease-in-out,
+                                    -webkit-transition: background-color 0.15s ease-in-out,
                                         border-color 0.15s ease-in-out,
                                         box-shadow 0.15s ease-in-out;
-                                    transition: background-color 0.15s
-                                            ease-in-out,
+                                    transition: background-color 0.15s ease-in-out,
                                         border-color 0.15s ease-in-out,
                                         box-shadow 0.15s ease-in-out;
                                     -webkit-appearance: none;
@@ -1082,12 +1072,10 @@ body {
                                     background-color: red;
                                     border: 0;
                                     border-radius: 1rem;
-                                    -moz-transition: background-color 0.15s
-                                            ease-in-out,
+                                    -moz-transition: background-color 0.15s ease-in-out,
                                         border-color 0.15s ease-in-out,
                                         box-shadow 0.15s ease-in-out;
-                                    transition: background-color 0.15s
-                                            ease-in-out,
+                                    transition: background-color 0.15s ease-in-out,
                                         border-color 0.15s ease-in-out,
                                         box-shadow 0.15s ease-in-out;
                                     -moz-appearance: none;
@@ -1130,8 +1118,7 @@ body {
                         }
                     }
 
-                    .all-ticket-left-colum-middle-part {
-                    }
+                    .all-ticket-left-colum-middle-part {}
 
                     .all-ticket-left-colum-lower-part {
                         .all-ticket-left-colum-lower-part {
@@ -1175,6 +1162,7 @@ body {
                     }
 
                     .all-ticket-card-middle {
+
                         h5,
                         h6,
                         p {
@@ -1226,22 +1214,18 @@ body {
     position: relative;
     z-index: 1111;
     color: white;
-    background: linear-gradient(
-        to right,
-        rgb(255, 0, 0) 0%,
-        rgb(255, 0, 0) 50%,
-        rgb(0, 0, 0) 50%,
-        rgb(0, 0, 0) 100%
-    );
-
-    .container {
-        background: linear-gradient(
-            to right,
+    background: linear-gradient(to right,
             rgb(255, 0, 0) 0%,
             rgb(255, 0, 0) 50%,
             rgb(0, 0, 0) 50%,
-            rgb(0, 0, 0) 100%
-        );
+            rgb(0, 0, 0) 100%);
+
+    .container {
+        background: linear-gradient(to right,
+                rgb(255, 0, 0) 0%,
+                rgb(255, 0, 0) 50%,
+                rgb(0, 0, 0) 50%,
+                rgb(0, 0, 0) 100%);
 
         .results-single-current-steps {
             position: relative;
@@ -1594,8 +1578,7 @@ body {
                         }
                     }
 
-                    .all-ticket-left-colum-middle-part {
-                    }
+                    .all-ticket-left-colum-middle-part {}
 
                     .all-ticket-left-colum-lower-part {
                         .all-ticket-left-colum-lower-part {
@@ -1649,6 +1632,7 @@ body {
                     }
 
                     .all-ticket-card-middle {
+
                         h5,
                         h6,
                         p {
@@ -1704,22 +1688,18 @@ body {
     position: relative;
     z-index: 1111;
     color: white;
-    background: linear-gradient(
-        to right,
-        rgb(255, 0, 0) 0%,
-        rgb(255, 0, 0) 75%,
-        rgb(0, 0, 0) 75%,
-        rgb(0, 0, 0) 100%
-    );
-
-    .container {
-        background: linear-gradient(
-            to right,
+    background: linear-gradient(to right,
             rgb(255, 0, 0) 0%,
             rgb(255, 0, 0) 75%,
             rgb(0, 0, 0) 75%,
-            rgb(0, 0, 0) 100%
-        );
+            rgb(0, 0, 0) 100%);
+
+    .container {
+        background: linear-gradient(to right,
+                rgb(255, 0, 0) 0%,
+                rgb(255, 0, 0) 75%,
+                rgb(0, 0, 0) 75%,
+                rgb(0, 0, 0) 100%);
 
         .results-single-current-steps {
             position: relative;
@@ -2158,8 +2138,7 @@ body {
                         }
                     }
 
-                    .all-ticket-left-colum-middle-part {
-                    }
+                    .all-ticket-left-colum-middle-part {}
 
                     .all-ticket-left-colum-lower-part {
                         .all-ticket-left-colum-lower-part {
@@ -2213,6 +2192,7 @@ body {
                     }
 
                     .all-ticket-card-middle {
+
                         h5,
                         h6,
                         p {
@@ -2286,18 +2266,14 @@ body {
     position: relative;
     z-index: 1111;
     color: white;
-    background: linear-gradient(
-        to right,
-        rgb(255, 0, 0) 0%,
-        rgb(255, 0, 0) 100%
-    );
+    background: linear-gradient(to right,
+            rgb(255, 0, 0) 0%,
+            rgb(255, 0, 0) 100%);
 
     .container {
-        background: linear-gradient(
-            to right,
-            rgb(255, 0, 0) 0%,
-            rgb(255, 0, 0) 100%
-        );
+        background: linear-gradient(to right,
+                rgb(255, 0, 0) 0%,
+                rgb(255, 0, 0) 100%);
 
         .results-single-current-steps {
             position: relative;
@@ -2736,8 +2712,7 @@ body {
                         }
                     }
 
-                    .all-ticket-left-colum-middle-part {
-                    }
+                    .all-ticket-left-colum-middle-part {}
 
                     .all-ticket-left-colum-lower-part {
                         .all-ticket-left-colum-lower-part {
@@ -2791,6 +2766,7 @@ body {
                     }
 
                     .validation-train-card-middle {
+
                         h5,
                         h6,
                         p {
@@ -2885,6 +2861,7 @@ body {
 .text-justify {
     text-align: justify;
 }
-.text-white{
-  color: whitesmoke;
+
+.text-white {
+    color: whitesmoke;
 }

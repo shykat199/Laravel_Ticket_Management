@@ -307,9 +307,9 @@
                         </div>
                     </div>
 
-                    <form class="row g-3 pt-3 pb-5 px-2" action="{{route('reservation.done')}}" method="post">
+                    <form class="col-8" action="{{route('reservation.done')}}" method="post">
                         @csrf
-                        <div class="col-8 vailidation-container">
+                        <div class=" vailidation-container">
                             <div id="allData">
                                 <div class="row vailidation-content">
                                     <div class="col-12 all-ticket-card-left">

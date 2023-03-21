@@ -234,37 +234,11 @@ body a:hover {
 .ticket-booking-home-e-ticket .ticket-booking-home-e-ticket-middle .ticket-booking-home-e-ticket-middle-content {
   position: relative;
 }
-.ticket-booking-home-e-ticket .ticket-booking-home-e-ticket-middle .ticket-booking-home-e-ticket-middle-content::after {
-  content: "";
-  position: absolute;
+.ticket-booking-home-e-ticket .ticket-booking-home-e-ticket-middle .ticket-booking-home-e-ticket-middle-content .img-underline {
   background: rgba(255, 255, 255, 0.5);
   height: 2px;
   width: 150px;
-  bottom: 58%;
-  left: 30%;
-}
-@media (min-width: 1392px) {
-  .ticket-booking-home-e-ticket .ticket-booking-home-e-ticket-middle .ticket-booking-home-e-ticket-middle-content::after {
-    left: 32%;
-  }
-}
-@media (max-width: 1190px) {
-  .ticket-booking-home-e-ticket .ticket-booking-home-e-ticket-middle .ticket-booking-home-e-ticket-middle-content::after {
-    left: 26%;
-  }
-}
-@media (max-width: 991px) {
-  .ticket-booking-home-e-ticket .ticket-booking-home-e-ticket-middle .ticket-booking-home-e-ticket-middle-content::after {
-    left: 18%;
-    bottom: 64%;
-  }
-}
-@media (max-width: 768px) {
-  .ticket-booking-home-e-ticket .ticket-booking-home-e-ticket-middle .ticket-booking-home-e-ticket-middle-content::after {
-    width: 100px;
-    left: 20%;
-    bottom: 75%;
-  }
+  margin: 40px auto 0;
 }
 
 .ticket-booking-home-testimonial .home-carousal-image {
@@ -419,10 +393,12 @@ body a:hover {
 .ticket-booking-about-our-team .ticket-booking-about-our-team-middle img {
   border-radius: 50%;
   padding: 2px;
-  font-size: 50px;
+  font-size: 17px;
+  line-height: 100px;
   width: 100px;
   height: 100px;
   text-align: center;
+  display: inline-block;
   background-color: #ffffff;
 }
 @media (max-width: 768px) {

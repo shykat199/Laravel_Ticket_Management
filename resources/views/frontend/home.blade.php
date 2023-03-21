@@ -386,7 +386,8 @@
                     @foreach($eAdvantages as $eAdvantage)
                         <div class="col text-center ticket-booking-home-e-ticket-middle-content">
                             <i class="fa fa-desktop"></i>
-                            <p class=" px-3 pt-5 pb-2 my-5 text-white">{{strip_tags($eAdvantage->advantage_text)}}</p>
+                            <div class="img-underline"></div>
+                            <p class="px-3 pb-2 my-5 text-white">{{strip_tags($eAdvantage->advantage_text)}}</p>
                         </div>
                     @endforeach
 
