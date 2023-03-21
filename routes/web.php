@@ -21,7 +21,7 @@ Route::prefix('dashboard')->group(function () {
 
     Route::get('/login', [AuthController::class, 'loginPage'])->name('admin.login_page');
     Route::post('/login', [AuthController::class, 'login'])->name('admin.login');
-    Route::post('/login/ajax/login', [AuthController::class, 'ajaxLogin'])->name('user.login.ajax');
+    Route::post('ajax-login', [AuthController::class, 'ajaxLogin'])->name('user.login.ajax');
     Route::get('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     Route::get('/register', [AuthController::class, 'registerPage'])->name('admin.register_page');
     Route::post('/register', [AuthController::class, 'register'])->name('admin.register');

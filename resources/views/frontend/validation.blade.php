@@ -554,36 +554,35 @@
                                                             ($busDetails->ticket_price * $sessionData['totalKids']) : '' }}
                                     </span></h5>
                                 </div>
-                                @if(\Auth::check())
+                                @if(!\Illuminate\Support\Facades\Auth::check())
                                     <button type="button" class="py-2 btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                                        BUY
-                                        TICKET
+                                        BUY TICKET
                                     </button>
-
                                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-dialog " role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Please Login form here</h5>
 
                                                 </div>
-                                                <div class="modal-body">
-                                                    <form>
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Email address</label>
-                                                            <input type="email"  name="email" class="form-control" id="user_email" aria-describedby="emailHelp" placeholder="Enter email">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="exampleInputPassword1">Password</label>
-                                                            <input type="password" name="password" class="form-control" id="user_pwd" placeholder="Password">
-                                                        </div>
-                                                        <button type="submit" id="but_submit" class="btn btn-primary mt-2">Log In</button>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                                </div>
+                                                <form action="#" method="POST">
+                                                    <div class="modal-body">
+
+                                                            <div class="form-group">
+                                                                <label for="user_email">Email address</label>
+                                                                <input type="email"  name="email" class="form-control" id="user_email" aria-describedby="emailHelp" placeholder="Enter email">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="user_pwd">Password</label>
+                                                                <input type="password" name="password" class="form-control" id="user_pwd" placeholder="Password">
+                                                            </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" id="but_submit" class="btn btn-primary">Log In</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -612,18 +611,22 @@
 
     <script>
         $(document).ready(function(){
-            $("#but_submit").click(function(){
-                let email = $("#user_email").val().trim();
-                let password = $("#user_pwd").val().trim();
-                console.log(email);
-                if( email !== "" && password !== "" ){
+            $("#but_submit").click(function(e){
+                e.preventDefault();
+                var email = $("#user_email").val().trim();
+                var password = $("#user_pwd").val().trim();
+                console.log(password)
+                if( email != "" && password != "" ){
                     $.ajax({
                         url:'{{route('user.login.ajax')}}',
-                        type:'post',
-                        data:{email:email,
-                            password:password
+                        type:'POST',
+                        data:{
+                            email:email,
+                            password:password,
+                            '_token':'{{csrf_token()}}'
                         },
                         success:function(response){
+                            console.log(response)
                             let msg = "";
                             if(response.status){
                                 window.location.reload();
