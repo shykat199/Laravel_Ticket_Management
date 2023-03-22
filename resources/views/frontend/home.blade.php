@@ -14,23 +14,24 @@
                 </div>
                 <div
                     class="col-12 col-sm-12 col-md-6 col-lg-6 ticket-booking-home-header-search-ticket-form d-flex flex-column justify-content-end">
-                    <form class="row g-3 pt-3 pb-5 px-2" action="{{route('frontend.show.result')}}" method="post">
+                    <form class="row g-3 pt-3 pb-5 px-2" action="{{ route('frontend.show.result') }}" method="post">
                         @csrf
                         <!-- travelling route start -->
                         <div class="col-md-5 hero-input-with-icon">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
-{{--                            <input type="text" name="starting_point" class="form-control" id="inputtext1"--}}
-{{--                                   placeholder="From">--}}
-                            <select name="starting_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
+                            {{--                            <input type="text" name="starting_point" class="form-control" id="inputtext1" --}}
+                            {{--                                   placeholder="From"> --}}
+                            <select name="starting_point" class="form-control select2" data-toggle="select2"
+                                id="busCompanyy">
                                 <option selected>Starting Point</option>
-                                @foreach($froms as $from)
-                                    <option value="{{$from->starting_point}}">{{$from->starting_point}}</option>
+                                @foreach ($froms as $from)
+                                    <option value="{{ $from->starting_point }}">{{ $from->starting_point }}</option>
                                 @endforeach
 
                             </select>
                             <i class="fa fa-map-marker"></i>
                             @error('starting_point')
-                            <span class="text-danger">{{$message}}</span>
+                                <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -41,16 +42,17 @@
                         </div>
 
                         <div class="col-md-5 d-flex align-items-end hero-input-with-icon">
-                            <select name="arrival_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
+                            <select name="arrival_point" class="form-control select2" data-toggle="select2"
+                                id="busCompanyy">
                                 <option selected>Destination Point</option>
-                                @foreach($tos as $to)
-                                    <option value="{{$to->arrival_point}}">{{$to->arrival_point}}</option>
+                                @foreach ($tos as $to)
+                                    <option value="{{ $to->arrival_point }}">{{ $to->arrival_point }}</option>
                                 @endforeach
 
                             </select>
                             <i class="fa fa-map-marker"></i>
                             @error('arrival_point')
-                            <span class="text-danger">{{$message}}</span>
+                                <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -60,60 +62,60 @@
                         <div class="col-md-6 hero-input-with-icon mt-4">
                             <label for="inputtext3" class="form-label pb-2">Travelling Date</label>
                             <input type="datetime-local" name="dateOfJourney" class="form-control" id="inputtext3"
-                                   min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
-                                   max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
-                                   placeholder="MM/DD/YY">
+                                min="{{ $min_date->format('Y-m-d\TH:i:s') }}" max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
+                                placeholder="MM/DD/YY">
 
                             @error('dateOfJourney')
-                            <span class="text-danger">{{$message}}</span>
+                                <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="col-md-6 d-flex align-items-end hero-input-with-icon mt-4">
                             <input type="datetime-local" name="returnOfDate" class="form-control" id="inputtext4"
-                                   min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
-                                   max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
-                                   placeholder="One Way">
+                                min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
+                                max="{{ $max_date->format('Y-m-d\TH:i:s') }}" placeholder="One Way">
 
                         </div>
                         <!-- travelling date end -->
                         <!-- travelling person start -->
 
-                       @php
-                           $persons=[0,1,2,3,4,5];
-                       @endphp
+                        @php
+                            $persons = [0, 1, 2, 3, 4, 5];
+                        @endphp
                         <div class="col-md-6 hero-input-with-icon mt-4 hide-numberType-icon">
                             <label for="inputtext5" class="form-label pb-2">Travelling Persons</label>
 
-                            <input type="number"  name="totalPerson" class="form-control" id="inputtext5" placeholder="1 Adult">
+                            <input type="number" name="totalPerson" class="form-control" id="inputtext5"
+                                placeholder="1 Adult">
 
-{{--                            <select name="totalPerson" class="form-control select2" data-toggle="select2" id="busCompanyy">--}}
+                            {{--                            <select name="totalPerson" class="form-control select2" data-toggle="select2" id="busCompanyy"> --}}
 
-{{--                                @foreach($persons as $person)--}}
-{{--                                    <option value={{$person}}>{{$person}}</option>--}}
-{{--                                @endforeach--}}
+                            {{--                                @foreach ($persons as $person) --}}
+                            {{--                                    <option value={{$person}}>{{$person}}</option> --}}
+                            {{--                                @endforeach --}}
 
-{{--                            </select>--}}
+                            {{--                            </select> --}}
 
                             <i class="fa fa-caret-down"></i>
                             @error('totalPerson')
-                            <span class="text-danger">{{$message}}</span>
+                                <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
                         @php
-                            $kids=[0,1,2,3,4,5];
+                            $kids = [0, 1, 2, 3, 4, 5];
                         @endphp
                         <div class="col-md-6 d-flex align-items-end hero-input-with-icon mt-4 hide-numberType-icon">
-                            <input type="number" name="totalKids" class="form-control" id="inputtext4" placeholder="0 Kids">
+                            <input type="number" name="totalKids" class="form-control" id="inputtext4"
+                                placeholder="0 Kids">
 
-{{--                            <select name="totalKids" class="form-control select2" data-toggle="select2" id="busCompanyy">--}}
+                            {{--                            <select name="totalKids" class="form-control select2" data-toggle="select2" id="busCompanyy"> --}}
 
-{{--                                @foreach($kids as $kid)--}}
-{{--                                    <option value={{$kid}}>{{$kid}}</option>--}}
-{{--                                @endforeach--}}
+                            {{--                                @foreach ($kids as $kid) --}}
+                            {{--                                    <option value={{$kid}}>{{$kid}}</option> --}}
+                            {{--                                @endforeach --}}
 
-{{--                            </select>--}}
+                            {{--                            </select> --}}
 
                             <i class="fa fa-caret-down"></i>
                         </div>
@@ -146,8 +148,8 @@
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <div class="col">
                     <div class="card h-100">
-                        <img src="{{asset("frontend/assets/images/newyork.jpg")}}" class="card-img-top img-fluid"
-                             alt="new york">
+                        <img src="{{ asset('frontend/assets/images/newyork.jpg') }}" class="card-img-top img-fluid"
+                            alt="new york">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
@@ -175,8 +177,8 @@
                 </div>
                 <div class="col">
                     <div class="card h-100">
-                        <img src="{{asset("frontend/assets/images/los-angels")}}.jpg" class="card-img-top img-fluid"
-                             alt="los-angels">
+                        <img src="{{ asset('frontend/assets/images/los-angels') }}.jpg" class="card-img-top img-fluid"
+                            alt="los-angels">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
@@ -204,8 +206,8 @@
                 </div>
                 <div class="col">
                     <div class="card h-100">
-                        <img src="{{asset("frontend/assets/images/chicago.jpg")}}" class="card-img-top img-fluid"
-                             alt="chicago">
+                        <img src="{{ asset('frontend/assets/images/chicago.jpg') }}" class="card-img-top img-fluid"
+                            alt="chicago">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
@@ -233,8 +235,8 @@
                 </div>
                 <div class="col">
                     <div class="card h-100">
-                        <img src="{{asset("frontend/assets/images/california.jpg")}}" class="card-img-top img-fluid"
-                             alt="california">
+                        <img src="{{ asset('frontend/assets/images/california.jpg') }}" class="card-img-top img-fluid"
+                            alt="california">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
@@ -262,8 +264,8 @@
                 </div>
                 <div class="col">
                     <div class="card h-100">
-                        <img src="{{asset("frontend/assets/images/florida.jpg")}}" class="card-img-top img-fluid"
-                             alt="florida">
+                        <img src="{{ asset('frontend/assets/images/florida.jpg') }}" class="card-img-top img-fluid"
+                            alt="florida">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
@@ -291,8 +293,8 @@
                 </div>
                 <div class="col">
                     <div class="card h-100">
-                        <img src="{{asset("frontend/assets/images/newyork.jpg")}}" class="card-img-top img-fluid"
-                             alt="newyork">
+                        <img src="{{ asset('frontend/assets/images/newyork.jpg') }}" class="card-img-top img-fluid"
+                            alt="newyork">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
@@ -326,24 +328,24 @@
             <div class="container">
                 <div class="d-flex justify-content-between pt-4 mb-5">
                     <h3>LATEST POSTS</h3>
-                    <button type="button" class="btn btn-outline-dark fw-semibold">Older Posts</button>
+                    <a href="{{ route('all.posts') }}" type="button" class="btn btn-outline-dark fw-semibold">Older
+                        Posts</a>
                 </div>
                 <!-- latest post cards -->
                 <div class="row row-cols-1 row-cols-lg-2 g-4">
-                    @foreach($blogPost as $post)
+                    @foreach ($blogPost as $post)
                         <div class="col">
                             <div class="card h-100">
                                 <div class="row">
                                     <div class="col-6 latest-post-card-body-1st-row-img">
-                                        <img src="{{\Illuminate\Support\Facades\Storage::url($post->post_image)}}"
-                                             class="img-fluid latest-post-card-img"
-                                             alt="new york">
+                                        <img src="{{ \Illuminate\Support\Facades\Storage::url($post->post_image) }}"
+                                            class="img-fluid latest-post-card-img" alt="new york">
                                     </div>
                                     <div class="col-6 latest-post-card-body latest-post-card-body-1st-row">
                                         <div class="card-body">
-                                            <h5 class="card-title">{{$post->post_title}}</h5>
+                                            <h5 class="card-title">{{ $post->post_title }}</h5>
                                             <p class="fs-6">
-                                                {!! Str::limit($post->post_description,50,'...') !!}
+                                                {!! Str::limit($post->post_description, 50, '...') !!}
 
                                             </p>
                                         </div>
@@ -354,10 +356,10 @@
                                                             class="text-danger fs-6">Admin</span></small>
                                                 </div>
                                                 <div class="col-6 d-flex align-items-center justify-content-end">
-                                                    <small class="text-muted ">{{$post->created_at->format('d M Y')}}
-                                                        {{--                                                        <span--}}
+                                                    <small class="text-muted ">{{ $post->created_at->format('d M Y') }}
+                                                        {{--                                                        <span --}}
                                                         {{--                                                            class=" fst-italic">day ago --}}
-                                                        {{--                                                        </span>--}}
+                                                        {{--                                                        </span> --}}
                                                     </small>
                                                 </div>
                                             </div>
@@ -383,11 +385,11 @@
                     <button type="button" class="btn btn-outline-light text-light fw-semibold">Learn More</button>
                 </div>
                 <div class="pt-4 row ticket-booking-home-e-ticket-middle">
-                    @foreach($eAdvantages as $eAdvantage)
+                    @foreach ($eAdvantages as $eAdvantage)
                         <div class="col text-center ticket-booking-home-e-ticket-middle-content">
                             <i class="fa fa-desktop"></i>
                             <div class="img-underline"></div>
-                            <p class="px-3 pb-2 my-5 text-white">{{strip_tags($eAdvantage->advantage_text)}}</p>
+                            <p class="px-3 pb-2 my-5 text-white">{{ strip_tags($eAdvantage->advantage_text) }}</p>
                         </div>
                     @endforeach
 
@@ -403,46 +405,41 @@
             <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators home-carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0"
-                            class="active bg-dark"
-                            aria-current="true" aria-label="Slide 1"></button>
+                        class="active bg-dark" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1"
-                            aria-label="Slide 2"
-                            class="bg-dark"></button>
+                        aria-label="Slide 2" class="bg-dark"></button>
                     <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="2"
-                            aria-label="Slide 3"
-                            class="bg-dark"></button>
+                        aria-label="Slide 3" class="bg-dark"></button>
                 </div>
                 <div class="carousel-inner">
-                    @foreach($testmonials as $testmonial)
+                    @foreach ($testmonials as $testmonial)
                         <div class="carousel-item active">
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-12 col-md-6">
                                     <div class="row pt-5">
                                         <div class="col-4 d-flex align-items-center  justify-content-end">
                                             <img class="img-fluid home-carousal-image"
-                                                 src="{{asset('storage/image/'.$testmonial->image)}}"
-                                                 alt="avatar">
+                                                src="{{ asset('storage/image/' . $testmonial->image) }}" alt="avatar">
                                         </div>
                                         <div class="col-8 d-flex  flex-column  justify-content-center">
-                                            <h4>{{$testmonial->name}}</h4>
-                                            <small
-                                                class="text-muted fst-italic text-justify">" {{strip_tags($testmonial->feedback_text)}}
+                                            <h4>{{ $testmonial->name }}</h4>
+                                            <small class="text-muted fst-italic text-justify">"
+                                                {{ strip_tags($testmonial->feedback_text) }}
                                                 "</small>
                                         </div>
                                         "
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-12 col-md-6">
                                     <div class="row pt-5">
                                         <div class="col-4 d-flex align-items-center  justify-content-end">
                                             <img class="img-fluid home-carousal-image"
-                                                 src="{{asset('storage/image/'.$testmonial->image)}}"
-                                                 alt="avatar">
+                                                src="{{ asset('storage/image/' . $testmonial->image) }}" alt="avatar">
                                         </div>
                                         <div class="col-8 d-flex  flex-column  justify-content-center">
-                                            <h4>{{$testmonial->name}}</h4>
-                                            <small
-                                                class="text-muted fst-italic text-justify">" {{strip_tags($testmonial->feedback_text)}}
+                                            <h4>{{ $testmonial->name }}</h4>
+                                            <small class="text-muted fst-italic text-justify">"
+                                                {{ strip_tags($testmonial->feedback_text) }}
                                                 "</small>
                                         </div>
                                     </div>
@@ -456,6 +453,4 @@
         </section>
 
         <!-- Testimonial end -->
-
-@endsection
-
+    @endsection

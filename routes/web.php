@@ -5,6 +5,7 @@ use App\Http\Controllers\frontend\PaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\frontend\HomePageController;
 use App\Http\Controllers\frontend\DashsboardController;
+use App\Http\Controllers\frontend\BlogController;
 use App\Http\Controllers\frontend\AboutUsPageController;
 use App\Http\Controllers\frontend\ResultController;
 use App\Http\Controllers\frontend\PassengerController;
@@ -71,6 +72,12 @@ Route::middleware(['auth', 'prevent_back_history'])->prefix('admin/dashboard')->
 Route::prefix('/ticket/book')->group(function () {
     //Home page
     Route::get('/home', [HomePageController::class, 'index'])->name('frontend.home');
+
+    //All Blog Page
+    Route::get('/all-blogs', [BlogController::class, 'allBlogs'])->name('all.posts');
+
+    //Single Blog Page Details
+    Route::get('/all-blogs/single-blog', [BlogController::class, 'singleBlogs'])->name('single.posts');
 
     //Show Result
     Route::post('/show/search/result', [HomePageController::class, 'showResult'])->name('frontend.show.result');
