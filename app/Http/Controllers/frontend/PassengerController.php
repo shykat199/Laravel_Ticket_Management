@@ -17,14 +17,14 @@ class PassengerController extends Controller
     {
         // dd($request->all());
         //dd($request->get('bus_id'));
-        $destinationId = \Illuminate\Support\Facades\Crypt::decrypt($request->get('bus_id'));
+        $destinationId = ($request->get('bus_id'));
         //dd($destinationId);
         $busDestinationDetails = BusDestination::where('id', $destinationId)
             ->first();
-        //dd()
-        if (empty($destinationId)) {
-            return redirect()->back();
-        }
+        // dd($busDestinationDetails);
+//        if (empty($destinationId)) {
+//            return redirect()->back();
+//        }
 
         $request->session()->put('sessionTicketPrice', $busDestinationDetails);
         //dd($busDetails);
@@ -41,19 +41,25 @@ class PassengerController extends Controller
 
     public function sessionStorePassenger(Request $request)
     {
+        //dd($request->all());
         $validation = Validator::make($request->all(), [
-            'first_name' => ['required'],
-            'last_name' => ['required'],
+            "users.*.'first_name'" => 'required',
+            "users.*.'last_name'" => 'required',
+
         ], [
-            'first_name.required' => "First Name Is Required",
-            'last_name.required' => "Last Name Is Required",
+            "users.*.'first_name'.required" => 'First Name Is Required',
+            "users.*.'last_name'.required" => 'Last Name Is Required',
         ]);
 
-        //dd($validation->fails());
+        //dd($validation);
 
         if ($validation->fails()) {
-            return redirect()->back()->withErrors($validation)->withInput($request->all());
+            return redirect()->back()
+                ->withErrors($validation)
+                ->withInput();
         }
+
+//        if ($validation->passes()) {
 
         $request->session()->put('sessionPassengerData', $request->all());
         $sessionData = $request->session()->get('searchedResults');
@@ -65,8 +71,8 @@ class PassengerController extends Controller
         $tos = BusDestination::select('arrival_point')->groupby('arrival_point')->get();
         //dd($busDetails);
         return view('frontend.payment', compact('sessionPassengerData', 'busDetails', 'sessionData', 'min_date', 'max_date', 'froms', 'tos'));
-
     }
+    //}
 
 
 }

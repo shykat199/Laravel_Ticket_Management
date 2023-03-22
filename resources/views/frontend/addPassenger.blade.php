@@ -12,10 +12,12 @@
                         <!-- travelling route start -->
                         <div class="col-md-5 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
-                            <select name="arrival_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
+                            <select name="arrival_point" class="form-control select2" data-toggle="select2"
+                                    id="busCompanyy">
                                 <option selected>Destination Point</option>
                                 @foreach($tos as $to)
-                                    <option value="{{$to->arrival_point}}" {{isset($sessionData['starting_point']) ? 'selected':''}}>{{$to->arrival_point}}</option>
+                                    <option
+                                        value="{{$to->arrival_point}}" {{isset($sessionData['starting_point']) ? 'selected':''}}>{{$to->arrival_point}}</option>
                                 @endforeach
                             </select>
 
@@ -27,10 +29,12 @@
                             </button>
                         </div>
                         <div class="col-md-5 col-xl-2 d-flex align-items-end hero-input-with-icon">
-                            <select name="arrival_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
+                            <select name="arrival_point" class="form-control select2" data-toggle="select2"
+                                    id="busCompanyy">
                                 <option selected>Destination Point</option>
                                 @foreach($tos as $to)
-                                    <option value="{{$to->arrival_point}}" {{isset($sessionData['arrival_point']) ? 'selected':''}}>{{$to->arrival_point}}</option>
+                                    <option
+                                        value="{{$to->arrival_point}}" {{isset($sessionData['arrival_point']) ? 'selected':''}}>{{$to->arrival_point}}</option>
                                 @endforeach
                             </select>
                             <i class="fa fa-map-marker"></i>
@@ -351,17 +355,20 @@
                                                 <input type="text" name="users[0]['first_name']" class="form-control"
                                                        id="inputFirstName">
                                             </div>
-                                            @error('first_name')
+                                            @error("'first_name'")
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
+
                                             <div class="col-md-4">
                                                 <label for="inputLastName" class="form-label small">Last Name</label>
                                                 <input type="text" name="users[0]['last_name']" class="form-control"
                                                        id="inputLastName">
                                             </div>
-                                            @error('last_name')
+
+                                            @error("'last_name'")
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
+
                                             <div class="col-md-4">
                                                 <label for="ageNumber" class="form-label small">Age</label>
                                                 <input type="number" name="users[0]['age']" class="form-control"
@@ -478,7 +485,7 @@
         let count = 1;
         let passengerCount = "{!! isset($sessionData['totalPerson']) && isset($sessionData['totalKids'])
                                                             ? $sessionData['totalPerson']+
-                                                            $sessionData['totalKids']:'' !!}";
+                                                            $sessionData['totalKids']:$sessionData['totalPerson'] !!}";
 
 
         {{--let citizenship=[{!! json_encode(nationals())  !!}];--}}
@@ -515,19 +522,24 @@
                                             <label for="inputFirstName" class="form-label small">First Name</label>
                                             <input type="text" name="users[${count}]['first_name']" class="form-control" id="inputFirstName">
                                         </div>
-                                        @error('first_name')
+                                        @error("'first_name'")
                 <span class="text-danger">{{$message}}</span>
                                             @enderror
-                                        <div class="col-md-4">
-                                            <label for="inputLastName" class="form-label small">Last Name</label>
-                                            <input type="text" name="users[${count}]['last_name']" class="form-control" id="inputLastName">
+
+
+                <div class="col-md-4">
+                    <label for="inputLastName" class="form-label small">Last Name</label>
+                    <input type="text" name="users[${count}]['last_name']" class="form-control" id="inputLastName">
                                         </div>
-                                        @error('last_name')
+
+                                                                                @error("'last_name'")
                 <span class="text-danger">{{$message}}</span>
                                             @enderror
-                                        <div class="col-md-4">
-                                            <label for="ageNumber" class="form-label small">Age</label>
-                                            <input type="number" name="users[${count}]['age']" class="form-control" id="ageNumber">
+
+
+                <div class="col-md-4">
+                    <label for="ageNumber" class="form-label small">Age</label>
+                    <input type="number" name="users[${count}]['age']" class="form-control" id="ageNumber">
                                         </div>
                                         <div class="col-md-4 py-2">
                                             <div class="form-check d-flex align-items-center">
@@ -597,7 +609,6 @@
     </div>
 </div>`)
             }
-
 
             $('#1st-passenger').addClass('d-block').removeClass('d-none')
         })

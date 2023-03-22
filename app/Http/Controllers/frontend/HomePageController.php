@@ -81,7 +81,8 @@ class HomePageController extends Controller
                     ->where('bus_details.bus_seat', '!=',0)
                     ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
                     ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
-                    ->selectRaw('bus_details.*,bus_destinations.* , (COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0)) as available_seat')
+                    ->selectRaw('bus_details.*,bus_destinations.* ,
+                    (COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0)) as available_seat')
                     ->havingRaw("COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0) >= $total_passenger")
                     ->whereTime('bus_destinations.departure_time','>=',$currentTime)
                     ->orderBy('bus_destinations.departure_time','ASC')

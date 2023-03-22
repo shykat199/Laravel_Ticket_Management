@@ -306,7 +306,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title text-center">{{$searchResult->busDetails->bus_coach}}</h5>
                                         <h6 class="card-title text-center">{{$searchResult->busDetails->bus_type}}</h6>
-                                        <p class="card-title text-center">Seat- {{$searchResult->busDetails->bus_seat}}</p>
+                                        <p class="card-title text-center">Seat- {{$searchResult->available_seat}}</p>
                                         <p class="card-text text-center text-muted">{{$searchResult->busDetails->busCompany->bus_company}}</p>
                                     </div>
                                 </div>
@@ -382,7 +382,7 @@
                                     </ul>
                                     <form action="{{route('frontend.add.passenger.list')}}" method="get" >
 
-                                        <input type="hidden" name="bus_id" id="" value="{{\Illuminate\Support\Facades\Crypt::encrypt($searchResult->id)}}">
+                                        <input type="hidden" name="bus_id" id="" value="{{$searchResult->id}}">
                                         <button type="submit" class="btn btn-primary mt-3">Book Now</button>
                                     </form>
 
