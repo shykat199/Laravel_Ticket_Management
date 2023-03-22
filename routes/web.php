@@ -46,6 +46,7 @@ Route::middleware(['auth', 'prevent_back_history'])->prefix('admin/dashboard')->
         require base_path('routes/busDestination.php');
         require base_path('routes/service.php');
         require base_path('routes/user.php');
+        require base_path('routes/adminUserReservation.php');
 
         //Store Reservation
         Route::get('/user/dashboard', [ReservationController::class, 'UserDashboard'])->name('user.auth.dashboard');
@@ -71,6 +72,7 @@ Route::middleware(['auth', 'prevent_back_history'])->prefix('admin/dashboard')->
 Route::prefix('/ticket/book')->group(function () {
     //Home page
     Route::get('/home', [HomePageController::class, 'index'])->name('frontend.home');
+    Route::get('/blog', [HomePageController::class, 'index'])->name('frontend.blog');
 
     //Show Result
     Route::post('/show/search/result', [HomePageController::class, 'showResult'])->name('frontend.show.result');
@@ -83,7 +85,7 @@ Route::prefix('/ticket/book')->group(function () {
 
 
     //add passenger
-    Route::post('/add/passengers', [PassengerController::class, 'index'])->name('frontend.add.passenger.list');
+    Route::get('/add/passengers', [PassengerController::class, 'index'])->name('frontend.add.passenger.list');
     Route::post('/add/passengers/details', [PassengerController::class, 'sessionStorePassenger'])->name('frontend.add.passenger.session');
 
     //Payment Method
@@ -111,9 +113,9 @@ Route::prefix('/ticket/book')->group(function () {
 
 
 
-//Route::get('/delete/session',[ResultController::class,'deleteSession']);
-//Route::get('/delete/session/price',[ResultController::class,'deleteSessionBusTicket']);
-//Route::get('/delete/session/price',[ResultController::class,'deleteSessionBusTicket']);
+Route::get('/delete/session',[ResultController::class,'deleteSession']);
+Route::get('/delete/session/price',[ResultController::class,'deleteSessionBusTicket']);
+Route::get('/delete/session/price',[ResultController::class,'deleteSessionBusTicket']);
 
 //Route::get('/update/bus-ticket',[ReservationController::class,'updateBusTicket'])->name('update.bus.ticket');
 

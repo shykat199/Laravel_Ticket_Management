@@ -9,7 +9,7 @@ use App\Models\BusDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class BusDetailsController extends Controller
+class gBusDetailsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,22 +39,6 @@ class BusDetailsController extends Controller
         return view('admin.interface.busDetails.index', compact('allBusDetails', 'allCompanies', 'values'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(BusRequest $request)
     {
         $storeBus = BusDetails::create([
@@ -72,16 +56,6 @@ class BusDetailsController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\BusDetails $busDetails
-     * @return \Illuminate\Http\Response
-     */
-    public function show(BusDetails $busDetails)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

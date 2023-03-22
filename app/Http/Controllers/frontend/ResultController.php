@@ -28,5 +28,6 @@ class ResultController extends Controller
         $request->session()->forget('sessionTicketPrice');
         $request->session()->forget('sessionPassengerData');
         $request->session()->forget('paymentDetails');
+        $request->session()->forget('oldUrl');
     }
 }

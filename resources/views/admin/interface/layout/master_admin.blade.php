@@ -113,6 +113,23 @@
 
                 @if(Auth::user()->user_role==='admin')
 
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#adminReservation" aria-expanded="false"
+                               aria-controls="sidebarEcommerce" class="side-nav-link">
+                                <i class="uil-store"></i>
+                                <span>User Reservation </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="adminReservation">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{{route('admin.user.reservation')}}">All Reservations</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+
 
                         <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="#adminUser" aria-expanded="false"

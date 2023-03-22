@@ -12,9 +12,13 @@
                         <!-- travelling route start -->
                         <div class="col-md-5 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
-                            <input name="starting_point"
-                                   value="{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}"
-                                   type="text" class="form-control" id="inputtext1" placeholder="From">
+                            <select name="arrival_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
+                                <option selected>Destination Point</option>
+                                @foreach($tos as $to)
+                                    <option value="{{$to->arrival_point}}" {{isset($sessionData['starting_point']) ? 'selected':''}}>{{$to->arrival_point}}</option>
+                                @endforeach
+                            </select>
+
                             <i class="fa fa-map-marker"></i>
                         </div>
                         <div class="col-md-2 col-xl-1 d-flex align-items-end">
@@ -23,10 +27,12 @@
                             </button>
                         </div>
                         <div class="col-md-5 col-xl-2 d-flex align-items-end hero-input-with-icon">
-                            <input name="arrival_point"
-                                   value="{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}"
-                                   type="text"
-                                   class="form-control" id="inputtext2" placeholder="To">
+                            <select name="arrival_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
+                                <option selected>Destination Point</option>
+                                @foreach($tos as $to)
+                                    <option value="{{$to->arrival_point}}" {{isset($sessionData['arrival_point']) ? 'selected':''}}>{{$to->arrival_point}}</option>
+                                @endforeach
+                            </select>
                             <i class="fa fa-map-marker"></i>
                         </div>
                         <!-- travelling route end -->
@@ -313,6 +319,7 @@
                     <div class="col-8 processing-form">
 
                         <form action="{{route('frontend.add.passenger.session')}}" method="post">
+                            @method('POST')
                             @csrf
 
                             <div id="allData">
@@ -344,11 +351,17 @@
                                                 <input type="text" name="users[0]['first_name']" class="form-control"
                                                        id="inputFirstName">
                                             </div>
+                                            @error('first_name')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                             <div class="col-md-4">
                                                 <label for="inputLastName" class="form-label small">Last Name</label>
                                                 <input type="text" name="users[0]['last_name']" class="form-control"
                                                        id="inputLastName">
                                             </div>
+                                            @error('last_name')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                             <div class="col-md-4">
                                                 <label for="ageNumber" class="form-label small">Age</label>
                                                 <input type="number" name="users[0]['age']" class="form-control"
@@ -502,10 +515,16 @@
                                             <label for="inputFirstName" class="form-label small">First Name</label>
                                             <input type="text" name="users[${count}]['first_name']" class="form-control" id="inputFirstName">
                                         </div>
+                                        @error('first_name')
+                <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                         <div class="col-md-4">
                                             <label for="inputLastName" class="form-label small">Last Name</label>
                                             <input type="text" name="users[${count}]['last_name']" class="form-control" id="inputLastName">
                                         </div>
+                                        @error('last_name')
+                <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                         <div class="col-md-4">
                                             <label for="ageNumber" class="form-label small">Age</label>
                                             <input type="number" name="users[${count}]['age']" class="form-control" id="ageNumber">

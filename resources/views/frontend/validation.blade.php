@@ -12,9 +12,12 @@
                         <!-- travelling route start -->
                         <div class="col-md-5 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
-                            <input name="starting_point"
-                                   value="{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}"
-                                   type="text" class="form-control" id="inputtext1" placeholder="From">
+                            <select name="arrival_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
+                                <option selected>Destination Point</option>
+                                @foreach($tos as $to)
+                                    <option value="{{$to->arrival_point}}" {{isset($sessionData['starting_point']) ? 'selected':''}}>{{$to->arrival_point}}</option>
+                                @endforeach
+                            </select>
                             <i class="fa fa-map-marker"></i>
                         </div>
                         <div class="col-md-2 col-xl-1 d-flex align-items-end">
@@ -23,10 +26,12 @@
                             </button>
                         </div>
                         <div class="col-md-5 col-xl-2 d-flex align-items-end hero-input-with-icon">
-                            <input name="arrival_point"
-                                   value="{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}"
-                                   type="text"
-                                   class="form-control" id="inputtext2" placeholder="To">
+                            <select name="arrival_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
+                                <option selected>Destination Point</option>
+                                @foreach($tos as $to)
+                                    <option value="{{$to->arrival_point}}" {{isset($sessionData['arrival_point']) ? 'selected':''}}>{{$to->arrival_point}}</option>
+                                @endforeach
+                            </select>
                             <i class="fa fa-map-marker"></i>
                         </div>
                         <!-- travelling route end -->

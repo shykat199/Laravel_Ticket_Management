@@ -11,7 +11,7 @@
     @endif
 
     @if(\Illuminate\Support\Facades\Session::has('error'))
-        <div class="alert alert-success m-2" role="alert">
+        <div class="alert  alert-danger m-2" role="alert">
             <i class="dripicons-checkmark me-2"></i>
             <strong>{{\Illuminate\Support\Facades\Session::get('error')}}</strong>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"

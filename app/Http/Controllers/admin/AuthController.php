@@ -22,7 +22,10 @@ class AuthController extends Controller
 
         if (Auth::check() && Auth::user()) {
             if (Auth::user()->user_role === 'admin') {
-                return redirect()->route('admin.category.index');
+                return redirect()->route('admin.auth.dashboard');
+            }
+            if (Auth::user()->user_role === 'user') {
+                return redirect()->route('user.auth.dashboard');
             }
         }
 
@@ -32,7 +35,12 @@ class AuthController extends Controller
     public function registerPage()
     {
         if (Auth::check() && Auth::user()) {
-            return redirect()->route('admin.category.index');
+            if (Auth::user()->user_role === 'admin') {
+                return redirect()->route('admin.auth.dashboard');
+            }
+            if (Auth::user()->user_role === 'user') {
+                return redirect()->route('user.auth.dashboard');
+            }
         }
         return view('admin.auth.register');
     }

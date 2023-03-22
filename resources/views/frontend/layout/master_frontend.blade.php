@@ -67,10 +67,10 @@
             <div class="collapse navbar-collapse ticket-booking-nav2-text-design" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item pe-4">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="{{route('frontend.home')}}">Home</a>
                     </li>
                     <li class="nav-item pe-4">
-                        <a class="nav-link" href="#">Blog</a>
+                        <a class="nav-link" href="{{route('frontend.blog')}}">Blog</a>
                     </li>
                     <li class="nav-item pe-4">
                         <a class="nav-link pe-4" href="#">Gallery</a>
