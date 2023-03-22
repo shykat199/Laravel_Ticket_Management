@@ -159,7 +159,7 @@ class ReservationController extends Controller
     {
         $ticketDetails = Reservation::with('passengers', 'destinations.busDetails.busCompany')->select('reservations.*')
             ->where('reservations.user_id', Auth::id())
-            ->latest()->get();
+            ->latest()->limit(1)->get();
 
         $allBuyTicket = Reservation::select('reservations.*')
             ->where('reservations.user_id', Auth::id())->count();
@@ -196,7 +196,7 @@ class ReservationController extends Controller
         $dltReservation = Reservation::find($id)->delete();
 
         if ($dltReservation) {
-            return to_route('userDashboardTicketDetails')->with('success', 'Your Ticket Has Deleted Successfully');
+            return to_route('auth.user.dashboard.ticket')->with('success', 'Your Ticket Has Deleted Successfully');
         }
 
     }

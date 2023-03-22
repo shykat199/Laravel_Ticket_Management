@@ -7,8 +7,9 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Models\User;
-use GuzzleHttp\Psr7\Request;
+
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
@@ -21,7 +22,10 @@ class AuthController extends Controller
 
         if (Auth::check() && Auth::user()) {
             if (Auth::user()->user_role === 'admin') {
-                return redirect()->route('admin.category.index');
+                return redirect()->route('admin.auth.dashboard');
+            }
+            if (Auth::user()->user_role === 'user') {
+                return redirect()->route('user.auth.dashboard');
             }
         }
 
@@ -31,7 +35,12 @@ class AuthController extends Controller
     public function registerPage()
     {
         if (Auth::check() && Auth::user()) {
-            return redirect()->route('admin.category.index');
+            if (Auth::user()->user_role === 'admin') {
+                return redirect()->route('admin.auth.dashboard');
+            }
+            if (Auth::user()->user_role === 'user') {
+                return redirect()->route('user.auth.dashboard');
+            }
         }
         return view('admin.auth.register');
     }
@@ -63,34 +72,40 @@ class AuthController extends Controller
         ])) {
             if (Auth::user()->user_role === 'admin') {
                 return to_route('admin.auth.dashboard')->with('success', 'Successfully Login');
-            }
-            else if (Auth::user()->user_role === 'user') {
+            } else if (Auth::user()->user_role === 'user') {
 
                 return to_route('user.auth.dashboard')->with('success', 'Successfully Login');
-            }else{
+            } else {
                 return "Invalid User";
             }
         } else {
             return Redirect::back()->with('error', 'Wrong Credential, Try Again...');
         }
     }
-    public function ajaxLogin(Request $request){
 
-        if (\request()->ajax()){
+    public function ajaxLogin(Request $request)
+    {
+
+        if (\request()->ajax()) {
             $check = $request->all();
             // dd($check);
             if (Auth::attempt([
                 'email' => $check['email'],
                 'password' => $check['password'],
-            ])){
+            ])) {
+                if (Auth::user()->user_role === "admin") {
+                    return response()->json([
+                        'status' => 1,
+                    ]);
+                } elseif (Auth::user()->user_role === "user") {
+                    return response()->json([
+                        'status' => 2
+                    ]);
+                }
+            } else {
                 return response()->json([
-                    'status'=>true,
-                ]);
-
-            }else{
-                return response()->json([
-                    'status'=>false,
-                    'mesg'=>"Wrong User Crediential",
+                    'status' => false,
+                    'msg' => "Wrong User Credential",
 
                 ]);
             }

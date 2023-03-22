@@ -44,8 +44,6 @@
                 <td>{{$destination->departure_time}}</td>
 
                 <td>
-                    <a href="{{route('blog.show',$destination->id)}}" class="btn btn-warning "><i
-                            class="fa-solid fa-eye"></i></a>
                     <a href="{{route('post.admin.bus_destination.edit',$destination->id)}}" class="btn btn-primary "><i
                             class=" fa-solid fa-pen-to-square"></i></a>
                     <a href="{{route('delete.admin.bus_destination',$destination->id)}}" class="btn btn-danger"><i
