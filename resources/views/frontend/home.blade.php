@@ -14,8 +14,8 @@
                 </div>
                 <div
                     class="col-12 col-sm-12 col-md-6 col-lg-6 ticket-booking-home-header-search-ticket-form d-flex flex-column justify-content-end">
-                    <form class="row g-3 pt-3 pb-5 px-2" action="{{route('frontend.show.result')}}" method="post">
-                        @csrf
+
+                    <form class="row g-3 pt-3 pb-5 px-2" action="{{route('frontend.show.result')}}" method="get">
                         <!-- travelling route start -->
                         <div class="col-md-5 hero-input-with-icon">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
@@ -92,7 +92,7 @@
 
                             {{--                            </select> --}}
 
-                            <i class="fa fa-caret-down"></i>
+
                             @error('totalPerson')
                             <span class="invalid-feedback d-block" role="alert" >{{$message}}</span>
                             @enderror
@@ -113,7 +113,7 @@
 
                             {{--                            </select> --}}
 
-                            <i class="fa fa-caret-down"></i>
+
                         </div>
 
                         <!-- travelling person end -->

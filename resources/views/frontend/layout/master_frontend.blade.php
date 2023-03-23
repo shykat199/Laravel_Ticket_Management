@@ -29,8 +29,13 @@
           BOOK<span class="ticket-booking-logo-text-decrease">YOUR</span>TRAIN
         </a>
         <div class="d-flex upper-nav-btn">
-          <button class="btn btn-outline-success me-2 ticket-booking-nav-button-style" type="submit">Sign Up</button>
-          <button class="btn btn-outline-success ticket-booking-nav-button-style" type="submit">Login</button>
+            @if(Auth::check())
+                <a href="{{route('admin.logout')}}" class="btn btn-outline-success me-2 ticket-booking-nav-button-style" type="submit">LogOut</a>
+            @elseif(Auth::guest())
+                <a href="{{route('admin.login')}}" class="btn btn-outline-success me-2 ticket-booking-nav-button-style" type="submit">Sign Up</a>
+                <a href="{{route('admin.register_page')}}" class="btn btn-outline-success ticket-booking-nav-button-style" type="submit">Login</a>
+            @endif
+
         </div>
       </div>
     </nav>
@@ -48,7 +53,7 @@
                         <a class="nav-link active" aria-current="page" href="{{route('frontend.home')}}">Home</a>
                     </li>
                     <li class="nav-item pe-4">
-                        <a class="nav-link" href="{{route('frontend.blog')}}">Blog</a>
+                        <a class="nav-link" href="{{route('all.posts')}}">Blog</a>
                     </li>
                     <li class="nav-item pe-4">
                         <a class="nav-link pe-4" href="#">Gallery</a>
@@ -213,7 +218,7 @@
                             </a>
                         </li>
                         <li class="py-2 text-light">
-                            <a href="javascript:void(0)">
+                            <a href="{{route('frontend.aboutUs')}}">
                                 About Us
                             </a>
                         </li>

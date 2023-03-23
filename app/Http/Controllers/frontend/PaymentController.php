@@ -16,29 +16,30 @@ class PaymentController extends Controller
 
     public function storePaymentDetails(Request $request)
     {
-//        $request->validate([
-//            'f_name' => ['required'],
-//            'l_name' => ['required'],
-//            'dob' => ['required'],
-//            'email' => ['required'],
-//            'gander' => ['required'],
-//            'c_number' => ['required'],
-//            'c_name' => ['required'],
-//            'ex_month' => ['required'],
-//            'ex_year' => ['required'],
-//            'c_vvv' => ['required'],
-//        ], [
-//            'f_name.required' => "Please Fill This Field.",
-//            'l_name.required' => "Please Fill This Field.",
-//            'dob.required' => "Please Fill This Field.",
-//            'email.required' => "Please Fill This Field.",
-//            'gander.required' => "Please Fill This Field.",
-//            'c_number.required' => "Please Fill This Field.",
-//            'ex_month.required' => "Please Fill This Field.",
-//            'c_name.required' => "Please Fill This Field.",
-//            'ex_year.required' => "Please Fill This Field.",
-//            'c_vvv.required' => "Please Fill This Field.",
-//        ]);
+        //dd($request->all());
+        $request->validate([
+            'f_name' => ['required'],
+            'l_name' => ['required'],
+            'dob' => ['required'],
+            'email' => ['required'],
+            'gander' => ['required'],
+            'c_number' => ['required'],
+            'c_name' => ['required'],
+            'ex_month' => ['required'],
+            'ex_year' => ['required'],
+            'c_vvv' => ['required'],
+        ], [
+            'f_name.required' => "Please Fill This Field.",
+            'l_name.required' => "Please Fill This Field.",
+            'dob.required' => "Please Fill This Field.",
+            'email.required' => "Please Fill This Field.",
+            'gander.required' => "Please Fill This Field.",
+            'c_number.required' => "Please Fill This Field.",
+            'ex_month.required' => "Please Fill This Field.",
+            'c_name.required' => "Please Fill This Field.",
+            'ex_year.required' => "Expire Field Field.",
+            'c_vvv.required' => "Cvv Field Required.",
+        ]);
 
         //return $request->all();
         $request->session()->put('paymentDetails', $request->all());

@@ -26,23 +26,10 @@
                     </div>
                     <div class="row single-blog-details-content-left-middle-part">
                         <h2>
-                            Summer Trips from 2023
+                           {{$singlePost->post_title}}
                         </h2>
                         <p>
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci accusamus aperiam,
-                            atque eum sint architecto nihil ullam, nesciunt ipsum suscipit assumenda nisi, eaque
-                            doloremque! Non nobis corporis, perspiciatis esse id consequatur aspernatur deleniti
-                            accusamus, corrupti dolorum cumque ipsa repellat mollitia natus illo dolore laudantium
-                            at perferendis vel atque sapiente sequi. Facere tempore est nemo ad vel iure
-                            perspiciatis voluptate in dolores quaerat aut libero dolor, fugiat mollitia quidem
-                            quibusdam temporibus veniam omnis assumenda deleniti, excepturi modi repudiandae
-                            accusamus repellat. Omnis ullam culpa aspernatur esse assumenda placeat officiis eos sed
-                            ratione, magni, molestias corporis veniam vel recusandae perferendis corrupti illo
-                            excepturi quisquam. Adipisci quasi recusandae quia aut nisi nam doloremque saepe, ipsa
-                            dolores nesciunt soluta at voluptas suscipit esse numquam, facilis nobis cumque earum
-                            ipsum vero eos. Consectetur iure beatae velit, nihil consequuntur similique quis
-                            repellendus quam. Placeat soluta a saepe laboriosam quibusdam voluptate quasi ab beatae
-                            praesentium, quis eligendi natus.
+                            {{strip_tags($singlePost->post_description) }}
                         </p>
                     </div>
                 </div>
@@ -50,30 +37,15 @@
                     <div class="single-blog-details-content-right-upper-part
                     ">
                         <h4>Category </h4>
-                        <div class="single-blog-details-content-right-upper-part-image-part">
-                            <div class="single-blog-details-category-content">
-                                <a href="javascript:void(0)" class="single-blog-details-category">
-                                    <img src="{{ asset('frontend/assets/images/new-train-destition.jpg') }}"
-                                        class="card-img-top" alt="card image">
-                                    <p>New Train Destination</p>
-                                </a>
-                            </div>
-                            <div class="single-blog-details-category-content">
-                                <a href="javascript:void(0)" class="single-blog-details-category">
-                                    <img src="{{ asset('frontend/assets/images/top-travel-destination.jpg') }}"
-                                        class="card-img-top" alt="card image">
-                                    <p>Top Travel Destination</p>
-                                </a>
-                            </div>
-                            <div class="single-blog-details-category-content">
-                                <a href="javascript:void(0)" class="single-blog-details-category">
-                                    <img src="{{ asset('frontend/assets/images/top-ten-train-station.jpg') }}"
-                                        class="card-img-top" alt="card image">
-                                    <p>Top Ten Train Route</p>
-                                </a>
-                            </div>
-
+                        @foreach($allCategories as $category)
+                            <div class="single-blog-details-content-right-upper-part-image-part">
+                                <div class="single-blog-details-category-content">
+                                    <a href="javascript:void(0)" class="single-blog-details-category">
+                                        <p class="text-dark">{{$category->category_name}}</p>
+                                    </a>
+                                </div>
                         </div>
+                        @endforeach
 
                     </div>
                     <div class="single-blog-details-content-right-last-part">

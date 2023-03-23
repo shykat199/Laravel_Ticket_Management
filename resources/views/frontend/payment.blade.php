@@ -12,11 +12,12 @@
                         <!-- travelling route start -->
                         <div class="col-md-5 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
-                            <select name="arrival_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
-                                <option selected>Destination Point</option>
-                                @foreach($tos as $to)
-                                    <option value="{{$to->arrival_point}}" {{isset($sessionData['starting_point']) ? 'selected':''}}>{{$to->arrival_point}}</option>
+                            <select name="starting_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
+                                <option selected>Starting Point</option>
+                                @foreach($froms as $from)
+                                    <option value="{{$from->starting_point}}" {{isset($sessionData['starting_point']) && $from->starting_point===$sessionData['starting_point'] ? 'selected':''}}>{{$from->starting_point}}</option>
                                 @endforeach
+
                             </select>
                             <i class="fa fa-map-marker"></i>
                         </div>
@@ -29,7 +30,7 @@
                             <select name="arrival_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
                                 <option selected>Destination Point</option>
                                 @foreach($tos as $to)
-                                    <option value="{{$to->arrival_point}}" {{isset($sessionData['arrival_point']) ? 'selected':''}}>{{$to->arrival_point}}</option>
+                                    <option value="{{$to->arrival_point}}" {{isset($sessionData['arrival_point']) && $to->arrival_point===$sessionData['arrival_point'] ? 'selected':''}}>{{$to->arrival_point}}</option>
                                 @endforeach
                             </select>
                             <i class="fa fa-map-marker"></i>
@@ -63,7 +64,7 @@
                                    value="{{isset($sessionData['totalPerson']) ? $sessionData['totalPerson']:''}}"
                                    type="number"
                                    class="form-control" id="inputtext5" placeholder="1 Adult">
-                            <i class="fa fa-caret-down"></i>
+
                         </div>
                         <div
                             class="col-md-3 col-xl-1 d-flex align-items-end hero-input-with-icon mt-4 hide-numberType-icon">
@@ -154,16 +155,21 @@
                                             </div>
                                             <div class="mt-4 d-flex align-items-center justify-content-between">
                                                 <div class="">
-                                                    <p class="text-light mb-0">{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</p>
-                                                    <p class="small-text text-light mb-0">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</p>
+                                                    <p class="text-light mb-0">
+                                                        {{--                                                        {{isset($busDetails->departure_time) ? $busDetails->departure_time:''}} --}}
+                                                        {{date("g:i a",strtotime(\Carbon\Carbon::parse($busDetails->departure_time)))}}</p>
+                                                    <p class="small-text text-light mb-0">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y'):''}}</p>
                                                 </div>
                                                 <div
                                                     class="d-flex flex-column align-items-center justify-content-center">
-                                                    <p class="small-text text-light">8:20</p>
+
                                                     <i class="fa fa-long-arrow-right mb-0 text-light"></i>
                                                 </div>
                                                 <div class="d-flex flex-column align-items-end">
-                                                    <p class="text-light mb-0">{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</p>
+                                                    <p class="text-light mb-0">
+                                                        {{--                                                        {{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}--}}
+                                                        {{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours($busDetails->arrival_time)))}}
+                                                    </p>
                                                     <p class="small-text text-light mb-0">Feb 13 TUE</p>
                                                 </div>
                                             </div>
@@ -176,46 +182,57 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row  card-body border-top py-4">
-                                        <div class="row ">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <h5 class="text-light fw-normal ps-0 mb-0">
-                                                    <i class="fa fa-arrow-circle-left pe-2">
-                                                    </i>
-                                                    Back
-                                                </h5>
-                                                <i class="fa fa-th-large text-light"></i>
-                                            </div>
-                                            <div class="pt-4">
+
+                                    @if(isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:'')
+
+                                        <div class="row  card-body border-top py-4">
+                                            <div class="row ">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">Coach</p>
-                                                    <p class="small text-light  mb-0">{{isset($busDetails->busDetails->bus_coach) ? $busDetails->busDetails->bus_coach:''}}</p>
+                                                    <h5 class="text-light fw-normal ps-0 mb-0">
+                                                        <i class="fa fa-arrow-circle-left pe-2">
+                                                        </i>
+                                                        Back
+                                                    </h5>
+                                                    <i class="fa fa-th-large text-light"></i>
                                                 </div>
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">Company</p>
-                                                    <p class="small text-light  mb-0">{{isset($busDetails->busDetails->busCompany->bus_company) ? $busDetails->busDetails->busCompany->bus_company:''}}</p>
+                                                <div class="pt-4">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <p class="small-text text-gray mb-0">Coach</p>
+                                                        <p class="small text-light  mb-0">{{isset($busDetails->busDetails->bus_coach) ? $busDetails->busDetails->bus_coach:''}}</p>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <p class="small-text text-gray mb-0">Company</p>
+                                                        <p class="small text-light  mb-0">{{isset($busDetails->busDetails->busCompany->bus_company) ? $busDetails->busDetails->busCompany->bus_company:''}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-4 d-flex align-items-center justify-content-between">
+                                                    <div class="">
+                                                        {{--                                                        class="text-light mb-0">{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}--}}
+                                                        <p class="text-light mb-0"> {{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours()))}}</p>
+                                                        <p class="small-text text-light mb-0">{{isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y'):''}}</p>
+                                                    </div>
+                                                    <div
+                                                        class="d-flex flex-column align-items-center justify-content-center">
+
+                                                        <i class="fa fa-long-arrow-right mb-0 text-light"></i>
+                                                    </div>
+                                                    <div class="d-flex flex-column align-items-end">
+                                                        <p class="text-light mb-0">{{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours($busDetails->arrival_time)))}}</p>
+                                                        <p class="small-text text-light mb-0">Feb 13 TUE</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="pt-4">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <p class="small text-light mb-0">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</p>
+                                                        <p class="small text-light  mb-0">{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}</p>
+                                                    </div>
+
                                                 </div>
                                             </div>
-
-
-                                            <div class="mt-4 d-flex align-items-center justify-content-between">
-                                                <div class="">
-                                                    <p class="text-light mb-0">{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</p>
-                                                    <p class="small-text text-light mb-0">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</p>
-                                                </div>
-                                                <div
-                                                    class="d-flex flex-column align-items-center justify-content-center">
-                                                    <p class="small-text text-light">8:20</p>
-                                                    <i class="fa fa-long-arrow-right mb-0 text-light"></i>
-                                                </div>
-                                                <div class="d-flex flex-column align-items-end">
-                                                    <p class="text-light mb-0">{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</p>
-                                                    <p class="small-text text-light mb-0">Feb 13 TUE</p>
-                                                </div>
-                                            </div>
-
                                         </div>
-                                    </div>
+                                    @endif
+
                                     <div class="row  card-body border-top  py-4">
                                         <div class="row ">
                                             <div class="d-flex align-items-center justify-content-between">
@@ -228,9 +245,12 @@
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <p class="small-text text-gray mb-0">{{isset($sessionData['totalPerson']) ? $sessionData['totalPerson']:''}}
                                                         Adult</p>
-                                                    <p class="small text-light  mb-0">
-                                                        ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails->ticket_price * $sessionData['totalPerson'] : '' }}
-                                                    </p>
+                                                    @if(isset($busDetails->ticket_price) && $busDetails->ticket_price!== null)
+                                                        <p class="small text-light  mb-0">
+                                                            ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails->ticket_price * $sessionData['totalPerson'] : '' }}
+                                                        </p>
+                                                    @endif
+
                                                 </div>
                                                 @if(isset($sessionData['totalKids']))
                                                     <div class="d-flex align-items-center justify-content-between">
@@ -275,11 +295,14 @@
                                                 <div
                                                     class="d-flex align-items-center justify-content-between text-danger">
                                                     <h5>Total</h5>
-                                                    <h5>
-                                                        ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
+                                                    @if(isset($busDetails->ticket_price) && $busDetails->ticket_price!==null)
+                                                        <h5>
+                                                            ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
                                                             ($busDetails->ticket_price * $sessionData['totalPerson'])+
                                                             ($busDetails->ticket_price * $sessionData['totalKids']) : '' }}
-                                                    </h5>
+                                                        </h5>
+                                                    @endif
+
                                                 </div>
                                             </div>
                                         </div>
@@ -289,8 +312,12 @@
                                                 <div
                                                     class="d-flex align-items-center justify-content-between text-danger">
                                                     <h5>Total</h5>
-                                                    <h5>
-                                                        ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails->ticket_price * $sessionData['totalPerson'] : '' }}</h5>
+                                                    @if(isset($busDetails->ticket_price) && $busDetails->ticket_price!==null)
+
+                                                        <h5>
+                                                            ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails->ticket_price * $sessionData['totalPerson'] : '' }}
+                                                        </h5>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -299,8 +326,9 @@
                             </div>
                         </div>
                     </div>
-                    <form class="col-8 personal-form-container" action="{{route('frontend.ticket.store.payment-details')}}" method="post">
-                        @csrf
+                    <form class="col-8 personal-form-container"
+                          action="{{route('frontend.ticket.store.payment-details')}}" method="get">
+
                         <div id="allData">
                             <div class="row personal-form-content shadow-sm">
                                 <div class="col-12 border border-secondary-subtle  rounded-0  all-ticket-card-left">
@@ -311,7 +339,7 @@
                                     </div>
                                 </div>
 
-                                <div class="collapse show personal-form" id="collapseExample" >
+                                <div class="collapse show personal-form" id="collapseExample">
 
                                     <div
                                         class="row border border-bottom-0 border-secondary-subtle rounded-0  all-ticket-card-left pt-3">
@@ -331,7 +359,8 @@
                                         @enderror
                                         <div class="col-md-4 personal-form-input-with-icon">
                                             <label for="birth-date" class="form-label small">Birth Date</label>
-                                            <input type="date" name="dob" class="form-control" id="birth-date" placeholder="">
+                                            <input type="date" name="dob" class="form-control" id="birth-date"
+                                                   placeholder="">
                                             <i class="fa fa-calendar"></i>
                                         </div>
                                         @error('dob')
@@ -367,15 +396,16 @@
                                     </div>
 
 
-                            </div>
-                            <div class="row personal-form-content pt-4">
-                                <div class="col-12 border border-secondary-subtle  rounded-0  all-ticket-card-left">
-                                    <div class="d-flex justify-content-between align-items-center py-4 first-passenger">
-                                        <h5 class="d-flex align-items-center mb-0">
-                                            Your card information
-                                        </h5>
-                                    </div>
                                 </div>
+                                <div class="row personal-form-content pt-4">
+                                    <div class="col-12 border border-secondary-subtle  rounded-0  all-ticket-card-left">
+                                        <div
+                                            class="d-flex justify-content-between align-items-center py-4 first-passenger">
+                                            <h5 class="d-flex align-items-center mb-0">
+                                                Your card information
+                                            </h5>
+                                        </div>
+                                    </div>
 
 
                                     <div
@@ -385,73 +415,97 @@
                                             <input type="text" name="c_number" class="form-control" id="cardNumber"
                                                    placeholder="xxxx-xxxx-xxxx-xxxx">
                                         </div>
+                                        @error('c_number')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+
                                         <div class="col-md-6">
                                             <label for="CardHolderName" class="form-label small">Card Holder
                                                 Name</label>
                                             <input type="text" name="c_name" class="form-control" id="CardHolderName">
                                         </div>
+                                        @error('c_name')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
                                     </div>
                                     <div
                                         class="row border border-top-0 border-secondary-subtle rounded-0  all-ticket-card-left py-4">
                                         <div class="col-md-3">
                                             <label for="documentType" class="form-label small">Expiration Date</label>
-                                            <select id="documentType" name="ex_month" class="form-select small text-secondary">
-                                                <option selected>Month</option>
+                                            <select id="documentType" name="ex_month"
+                                                    class="form-select small text-secondary">
+                                                <option selected value="">Month</option>
                                                 @foreach(months() as $month)
                                                     <option value="{{$month}}">{{$month}}</option>
                                                 @endforeach
 
                                             </select>
+                                            @error('ex_month')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                         </div>
+
                                         <div class="col-md-3 ">
                                             <label for="documentType" class="form-label small pb-3"></label>
-                                            <select id="documentType" name="ex_year" class="form-select small text-secondary">
-                                                <option selected>Year</option>
+                                            <select id="documentType" name="ex_year"
+                                                    class="form-select small text-secondary">
+                                                <option selected value="">Year</option>
                                                 @foreach(years() as $year)
                                                     <option value="{{$year}}">{{$year}}</option>
                                                 @endforeach
 
                                             </select>
+                                            @error('ex_year')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                         </div>
+
                                         <div class="col-md-3">
                                             <label for="documentType" class="form-label small">CVV</label>
-                                            <input type="text" name="c_vvv" class="form-control" id="CardHolderName" placeholder="Cvv">
+                                            <input type="number" name="c_vvv" class="form-control" id="CardHolderName"
+                                                   placeholder="Cvv">
+
+                                            @error('c_vvv')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                         </div>
+
                                     </div>
 
+                                </div>
                             </div>
-                        </div>
-                        <div class="row attention-part pt-5">
-                            <div class="col-1">
-                                <i class="fa fa-arrow-right"></i>
+                            <div class="row attention-part pt-5">
+                                <div class="col-1">
+                                    <i class="fa fa-arrow-right"></i>
+                                </div>
+                                <div class="col-11 pt-3 ps-5">
+                                    <h6 class="text-danger">
+                                        Attention! Please read important information!
+                                    </h6>
+                                    <p class="small text-secondary">Lorem ipsum dolor sit, amet consectetur adipisicing
+                                        elit. Eveniet omnis dolor
+                                        explicabo voluptas. Dolore omnis repellat fuga eaque repellendus labore
+                                        dignissimos
+                                        optio nostrum quisquam unde iusto, in voluptatum molestias accusamus.</p>
+                                </div>
                             </div>
-                            <div class="col-11 pt-3 ps-5">
-                                <h6 class="text-danger">
-                                    Attention! Please read important information!
-                                </h6>
-                                <p class="small text-secondary">Lorem ipsum dolor sit, amet consectetur adipisicing
-                                    elit. Eveniet omnis dolor
-                                    explicabo voluptas. Dolore omnis repellat fuga eaque repellendus labore dignissimos
-                                    optio nostrum quisquam unde iusto, in voluptatum molestias accusamus.</p>
-                            </div>
-                        </div>
 
-                        <div class="row d-flex align-items-center pt-4">
-                            <div class="col-8 form-check d-flex align-items-center">
-                                <input class="form-check-input rounded-0 p-3" type="checkbox" id="gridCheck">
-                                <label class="form-check-label text-secondary ps-3" for="gridCheck">
-                                    By continuing, you agree to the <span class="fs-6 text-danger fw-semibold">
+                            <div class="row d-flex align-items-center pt-4">
+                                <div class="col-8 form-check d-flex align-items-center">
+                                    <input class="form-check-input rounded-0 p-3" type="checkbox" id="gridCheck">
+                                    <label class="form-check-label text-secondary ps-3" for="gridCheck">
+                                        By continuing, you agree to the <span class="fs-6 text-danger fw-semibold">
                                         Terms and Conditions
                                     </span>
-                                </label>
+                                    </label>
+                                </div>
+                                <button type="submit" class="col-4 py-2 btn btn-danger">BUY
+                                    TICKET
+                                </button>
                             </div>
-                            <button type="submit" class="col-4 py-2 btn btn-danger">BUY
-                                TICKET
-                            </button>
-                        </div>
                     </form>
-                    </div>
                 </div>
+            </div>
             </div>
             </div>
         </section>

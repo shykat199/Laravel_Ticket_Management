@@ -9,7 +9,7 @@ use App\Models\BusDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class gBusDetailsController extends Controller
+class BusDetailsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,8 +22,17 @@ class gBusDetailsController extends Controller
 
         //return $values;
 
-        $allBusDetails = BusDetails::with('busCompany')->get();
-        //dd($allBusDetails);
+        //$allBusDetails=$allBusDetails->load('busCompany');
+//        $allBusDetails = BusDetails::with('busCompany')
+//            ->whereRaw('bus_companies.status = 1')
+//            ->get();
+
+        $allBusDetails = BusDetails::leftJoin('bus_companies','bus_details.company_id','=','bus_companies.id')
+            ->selectRaw('bus_details.*,bus_companies.status,bus_companies.bus_company')
+            ->whereRaw('bus_companies.status = 1')->get();
+        //return $allBusDetails;
+
+       // dd($allBusDetails);
 
         $busType = DB::select(DB::raw('SHOW COLUMNS FROM bus_details WHERE Field = "bus_type"'))[0]->Type;
         preg_match('/^enum\((.*)\)$/', $busType, $matches);

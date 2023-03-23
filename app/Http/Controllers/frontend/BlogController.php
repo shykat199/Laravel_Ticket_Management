@@ -3,19 +3,26 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\BlogPost;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
     public function allBlogs(){
 
-        return view('frontend.allBlogs');
+        $allBlogs=BlogPost::with('category')->where('status',1)->get();
+        //dd($allBlogs);
+        return view('frontend.allBlogs',compact('allBlogs'));
     }
 
 
-    public function singleBlogs(){
+    public function singleBlogs($id){
 
-        return view('frontend.singleBlog');
+        $singlePost=BlogPost::find($id);
+        $allCategories=Category::all();
+
+        return view('frontend.singleBlog',compact('singlePost','allCategories'));
     }
 
 }

@@ -79,10 +79,10 @@ Route::prefix('/ticket/book')->group(function () {
     Route::get('/all-blogs', [BlogController::class, 'allBlogs'])->name('all.posts');
 
     //Single Blog Page Details
-    Route::get('/all-blogs/single-blog', [BlogController::class, 'singleBlogs'])->name('single.posts');
+    Route::get('/all-blogs/single-blog/{id}', [BlogController::class, 'singleBlogs'])->name('single.posts');
 
     //Show Result
-    Route::post('/show/search/result', [HomePageController::class, 'showResult'])->name('frontend.show.result');
+    Route::get('/show/search/result', [HomePageController::class, 'showResult'])->name('frontend.show.result');
 
     //About Us
     Route::get('/about_us', [AboutUsPageController::class, 'index'])->name('frontend.aboutUs');
@@ -93,11 +93,11 @@ Route::prefix('/ticket/book')->group(function () {
 
     //add passenger
     Route::get('/add/passengers', [PassengerController::class, 'index'])->name('frontend.add.passenger.list');
-    Route::post('/add/passengers/details', [PassengerController::class, 'sessionStorePassenger'])->name('frontend.add.passenger.session');
+    Route::get('/add/passengers/details', [PassengerController::class, 'sessionStorePassenger'])->name('frontend.add.passenger.session');
 
     //Payment Method
     Route::get('/payment', [PaymentController::class, 'index'])->name('frontend.ticket.payment');
-    Route::post('/store/payment-details', [PaymentController::class, 'storePaymentDetails'])->name('frontend.ticket.store.payment-details');
+    Route::get('/store/payment-details', [PaymentController::class, 'storePaymentDetails'])->name('frontend.ticket.store.payment-details');
     // Route::get('/payment', [PaymentController::class, 'index'])->name('frontend.ticket.payment');
 
     //validation ticket

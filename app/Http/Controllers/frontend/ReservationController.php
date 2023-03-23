@@ -27,8 +27,7 @@ class ReservationController extends Controller
         } elseif (Auth::user()->user_role === "admin") {
 
             return to_route('user.loginPage');
-        }
-        else {
+        } else {
 
             $paymentDetails = $request->session()->get('paymentDetails');
             $sessionData = $request->session()->get('searchedResults');
@@ -126,28 +125,32 @@ class ReservationController extends Controller
 
             //dd($storeReservation);
             //seat in bus
-            $storeReservation = $storeReservation->load('destinations');
-            // Seat number of that coach
-            $busSeat = BusDetails::select('bus_seat', 'id')
-                ->where('id', $storeReservation->destinations->bus_details_id)
-                ->first();
+//            $storeReservation = $storeReservation->load('destinations');
+//            // Seat number of that coach
+//            $busSeat = BusDetails::select('bus_seat', 'id')
+//                ->where('id', $storeReservation->destinations->bus_details_id)
+//                ->first();
 
             //dd($busSeat);
 
 
-            $totalSeatOccupy = $storeReservation->total_passenger;
-            // dd($totalSeatOccupy);
-
-            $ticketLeft = $busSeat->bus_seat - $totalSeatOccupy;
-
-            $updateBusSeat = BusDetails::where('id', $busSeat->id)->update([
-                'bus_seat' => $ticketLeft
-            ]);
+//            $totalSeatOccupy = $storeReservation->total_passenger;
+//            // dd($totalSeatOccupy);
+//
+//            $ticketLeft = $busSeat->bus_seat - $totalSeatOccupy;
+//
+//            $updateBusSeat = BusDetails::where('id', $busSeat->id)->update([
+//                'bus_seat' => $ticketLeft
+//            ]);
 
             $request->session()->forget('searchedResults');
             $request->session()->forget('sessionTicketPrice');
             $request->session()->forget('sessionPassengerData');
             $request->session()->forget('paymentDetails');
+
+//           if ($forgeSessionData && $forgetSessionTicket && $forgetSessionData && $forgetSearch){
+//               return  to_route('frontend.home');
+//           }
 
             return to_route('user.auth.dashboard')->with('success', 'Successfully Reservation Placed');
 
@@ -157,6 +160,7 @@ class ReservationController extends Controller
 
     public function UserDashboard()
     {
+
         $ticketDetails = Reservation::with('passengers', 'destinations.busDetails.busCompany')->select('reservations.*')
             ->where('reservations.user_id', Auth::id())
             ->latest()->limit(1)->get();

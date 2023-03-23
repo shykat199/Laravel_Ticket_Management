@@ -19,8 +19,7 @@ class PassengerController extends Controller
         //dd($request->get('bus_id'));
         $destinationId = ($request->get('bus_id'));
         //dd($destinationId);
-        $busDestinationDetails = BusDestination::where('id', $destinationId)
-            ->first();
+        $busDestinationDetails = BusDestination::where('id', $destinationId)->first();
         // dd($busDestinationDetails);
 //        if (empty($destinationId)) {
 //            return redirect()->back();
@@ -43,15 +42,18 @@ class PassengerController extends Controller
     {
         //dd($request->all());
         $validation = Validator::make($request->all(), [
-            "users.*.'first_name'" => 'required',
+//            "users" => ['required', "array:'first_name','last_name'"],
+            "users.*" => 'array',
             "users.*.'last_name'" => 'required',
+            "users.*.'first_name'" => 'required',
 
         ], [
             "users.*.'first_name'.required" => 'First Name Is Required',
-            "users.*.'last_name'.required" => 'Last Name Is Required',
+            "users.*.'last_name'.required" => 'First Name Is Required',
+//            'users.*.last_name.required' => 'Last Name Is Required',
         ]);
 
-        //dd($validation);
+        //dd($validation, $validation->fails());
 
         if ($validation->fails()) {
             return redirect()->back()

@@ -12,11 +12,14 @@
                         <!-- travelling route start -->
                         <div class="col-md-5 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
-                            <select name="arrival_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
-                                <option selected>Destination Point</option>
-                                @foreach($tos as $to)
-                                    <option value="{{$to->arrival_point}}" {{isset($sessionData['starting_point']) ? 'selected':''}}>{{$to->arrival_point}}</option>
+                            <select name="starting_point" class="form-control select2" data-toggle="select2"
+                                    id="busCompanyy">
+                                <option selected>Starting Point</option>
+                                @foreach($froms as $from)
+                                    <option
+                                        value="{{$from->starting_point}}" {{isset($sessionData['starting_point']) && $from->starting_point===$sessionData['starting_point'] ? 'selected':''}}>{{$from->starting_point}}</option>
                                 @endforeach
+
                             </select>
                             <i class="fa fa-map-marker"></i>
                         </div>
@@ -26,10 +29,12 @@
                             </button>
                         </div>
                         <div class="col-md-5 col-xl-2 d-flex align-items-end hero-input-with-icon">
-                            <select name="arrival_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
+                            <select name="arrival_point" class="form-control select2" data-toggle="select2"
+                                    id="busCompanyy">
                                 <option selected>Destination Point</option>
                                 @foreach($tos as $to)
-                                    <option value="{{$to->arrival_point}}" {{isset($sessionData['arrival_point']) ? 'selected':''}}>{{$to->arrival_point}}</option>
+                                    <option
+                                        value="{{$to->arrival_point}}" {{isset($sessionData['arrival_point']) && $to->arrival_point===$sessionData['arrival_point'] ? 'selected':''}}>{{$to->arrival_point}}</option>
                                 @endforeach
                             </select>
                             <i class="fa fa-map-marker"></i>
@@ -63,7 +68,7 @@
                                    value="{{isset($sessionData['totalPerson']) ? $sessionData['totalPerson']:''}}"
                                    type="number"
                                    class="form-control" id="inputtext5" placeholder="1 Adult">
-                            <i class="fa fa-caret-down"></i>
+
                         </div>
                         <div
                             class="col-md-3 col-xl-1 d-flex align-items-end hero-input-with-icon mt-4 hide-numberType-icon">
@@ -71,7 +76,7 @@
                                    value="{{isset($sessionData['totalKids']) ? $sessionData['totalKids']:''}}"
                                    type="number"
                                    class="form-control" id="inputtext4" placeholder="0 Kids">
-                            <i class="fa fa-caret-down"></i>
+
                         </div>
 
                         <!-- travelling person end -->
@@ -155,16 +160,20 @@
                                             </div>
                                             <div class="mt-4 d-flex align-items-center justify-content-between">
                                                 <div class="">
-                                                    <p class="text-light mb-0">{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</p>
-                                                    <p class="small-text text-light mb-0">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</p>
+                                                    <p class="text-light mb-0">
+                                                        {{--                                                        {{isset($busDetails->departure_time) ? $busDetails->departure_time:''}} --}}
+                                                        {{date("g:i a",strtotime(\Carbon\Carbon::parse($busDetails->departure_time)))}}</p>
+                                                    <p class="small-text text-light mb-0">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y'):''}}</p>
                                                 </div>
                                                 <div
                                                     class="d-flex flex-column align-items-center justify-content-center">
-                                                    <p class="small-text text-light">8:20</p>
+
                                                     <i class="fa fa-long-arrow-right mb-0 text-light"></i>
                                                 </div>
                                                 <div class="d-flex flex-column align-items-end">
-                                                    <p class="text-light mb-0">{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</p>
+                                                    <p class="text-light mb-0">
+                                                        {{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours($busDetails->arrival_time)))}}
+                                                    </p>
                                                     <p class="small-text text-light mb-0">Feb 13 TUE</p>
                                                 </div>
                                             </div>
@@ -178,54 +187,54 @@
                                         </div>
                                     </div>
 
-                                    <div class="row  card-body border-top py-4">
-                                        <div class="row ">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <h5 class="text-light fw-normal ps-0 mb-0">
-                                                    <i class="fa fa-arrow-circle-left pe-2">
-                                                    </i>
-                                                    Back
-                                                </h5>
-                                                <i class="fa fa-th-large text-light"></i>
-                                            </div>
-                                            <div class="pt-4">
+                                    @if(isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:'')
+
+                                        <div class="row  card-body border-top py-4">
+                                            <div class="row ">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">Coach</p>
-                                                    <p class="small text-light  mb-0">{{isset($busDetails->busDetails->bus_coach) ? $busDetails->busDetails->bus_coach:''}}</p>
+                                                    <h5 class="text-light fw-normal ps-0 mb-0">
+                                                        <i class="fa fa-arrow-circle-left pe-2">
+                                                        </i>
+                                                        Back
+                                                    </h5>
+                                                    <i class="fa fa-th-large text-light"></i>
                                                 </div>
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">Company</p>
-                                                    <p class="small text-light  mb-0">{{isset($busDetails->busDetails->busCompany->bus_company) ? $busDetails->busDetails->busCompany->bus_company:''}}</p>
+                                                <div class="pt-4">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <p class="small-text text-gray mb-0">Coach</p>
+                                                        <p class="small text-light  mb-0">{{isset($busDetails->busDetails->bus_coach) ? $busDetails->busDetails->bus_coach:''}}</p>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <p class="small-text text-gray mb-0">Company</p>
+                                                        <p class="small text-light  mb-0">{{isset($busDetails->busDetails->busCompany->bus_company) ? $busDetails->busDetails->busCompany->bus_company:''}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-4 d-flex align-items-center justify-content-between">
+                                                    <div class="">
+                                                        <p class="text-light mb-0"> {{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours()))}}</p>
+                                                        <p class="small-text text-light mb-0">{{isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y'):''}}</p>
+                                                    </div>
+                                                    <div
+                                                        class="d-flex flex-column align-items-center justify-content-center">
+
+                                                        <i class="fa fa-long-arrow-right mb-0 text-light"></i>
+                                                    </div>
+                                                    <div class="d-flex flex-column align-items-end">
+                                                        <p class="text-light mb-0">{{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours($busDetails->arrival_time)))}}</p>
+                                                        <p class="small-text text-light mb-0">Feb 13 TUE</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="pt-4">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <p class="small text-light mb-0">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</p>
+                                                        <p class="small text-light  mb-0">{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}</p>
+                                                    </div>
+
                                                 </div>
                                             </div>
-
-
-                                            <div class="mt-4 d-flex align-items-center justify-content-between">
-                                                <div class="">
-                                                    <p class="text-light mb-0">{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</p>
-                                                    <p class="small-text text-light mb-0">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</p>
-                                                </div>
-                                                <div
-                                                    class="d-flex flex-column align-items-center justify-content-center">
-                                                    <p class="small-text text-light">8:20</p>
-                                                    <i class="fa fa-long-arrow-right mb-0 text-light"></i>
-                                                </div>
-                                                <div class="d-flex flex-column align-items-end">
-                                                    <p class="text-light mb-0">{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</p>
-                                                    <p class="small-text text-light mb-0">Feb 13 TUE</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="pt-4">
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small text-light  mb-0">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</p>
-                                                    <p class="small text-light mb-0">{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}</p>
-                                                </div>
-
-                                            </div>
-
                                         </div>
-                                    </div>
+                                    @endif
                                     <div class="row  card-body border-top  py-4">
                                         <div class="row ">
                                             <div class="d-flex align-items-center justify-content-between">
@@ -342,9 +351,9 @@
                                                         <div class="col-4 all-ticket-card-middle-left-colum">
 
                                                             <p class="small-text text-light mb-0"></p>
-                                                            <h5>{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</h5>
+                                                            <h5>{{date("g:i a",strtotime(\Carbon\Carbon::parse($busDetails->departure_time)))}}</p></h5>
                                                             <small
-                                                                class="small-text">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</small>
+                                                                class="small-text">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y'):''}}</small>
 
                                                             <p class="small text-light  mb-0"></p>
                                                             <h6 class="small">{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}</h6>
@@ -352,13 +361,11 @@
                                                         </div>
                                                         <div
                                                             class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
-                                                            <p class="text-muted small text-center">07:25</p>
-                                                            <p class="text-center"><i
-                                                                    class="fa fa-long-arrow-right text-muted"></i>
+                                                            <p class="text-center"><i class="fa fa-long-arrow-right text-muted"></i>
                                                             </p>
                                                         </div>
                                                         <div class="col-4 all-ticket-card-middle-right-colum">
-                                                            <h5>{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</h5>
+                                                            <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours($busDetails->arrival_time)))}}</h5>
                                                             <small class="small-text">Feb 15 SUN</small>
                                                             <h6 class="small">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</h6>
 
@@ -366,21 +373,20 @@
                                                     </div>
                                                     <div class="row mt-4">
                                                         <div class="col-4 all-ticket-card-middle-left-colum">
-                                                            <h5>{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</h5>
+                                                            <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours()))}}</h5>
                                                             <small
-                                                                class="small-text">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</small>
+                                                                class="small-text">{{isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y'):''}}</small>
                                                             <h6 class="small">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</h6>
 
                                                         </div>
                                                         <div
                                                             class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
-                                                            <p class="text-muted small text-center">11:30</p>
                                                             <p class="text-center"><i
                                                                     class="fa fa-long-arrow-left text-muted"></i>
                                                             </p>
                                                         </div>
                                                         <div class="col-4 all-ticket-card-middle-right-colum">
-                                                            <h5>{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</h5>
+                                                            <h5> {{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours($busDetails->arrival_time)))}}</h5>
                                                             <small class="small-text">Feb 19 THU</small>
                                                             <h6 class="small">{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}</h6>
 
@@ -417,56 +423,63 @@
                                                 @php
                                                     $idx=1;
                                                 @endphp
-                                                @foreach($sessionPassengerData['users'] as $key=>$data)
-                                                    <div class="row border-top">
-                                                        <div class="col-12 py-3 passenger-details">
-                                                            <h6>Adult {{$idx++}}</h6>
-                                                            <ul class="passenger-details-list">
-                                                                <li class="pt-2">
-                                                                    <strong class="lavel">Name</strong>
-                                                                    <span
-                                                                        class="text-muted">{{$data["'first_name'"]}} {{$data["'last_name'"]}}</span>
-                                                                </li>
-                                                                <li class="pt-2">
-                                                                    <strong class="lavel">Age</strong>
-                                                                    <span class="text-muted">{{$data["'age'"]}}</span>
-                                                                </li>
-                                                                <li class="pt-2">
-                                                                    <strong class="lavel">Document</strong>
-                                                                    <span
-                                                                        class="text-muted">{{$data["'document_type'"]}} of {{$data["'citizenship'"]}} {{$data["'document_number'"]}}</span>
-                                                                </li>
-                                                                <li class="pt-2">
-                                                                    <strong class="lavel">Baggage</strong>
-                                                                    <span
-                                                                        class="text-muted d-flex d-block justify-content-between">
+                                                @if(isset($sessionPassengerData['users']) && $sessionPassengerData!==null)
+                                                    @foreach( $sessionPassengerData['users'] as $key=>$data)
+                                                        <div class="row border-top">
+                                                            <div class="col-12 py-3 passenger-details">
+                                                                <h6>Adult {{$idx++}}</h6>
+                                                                <ul class="passenger-details-list">
+                                                                    <li class="pt-2">
+                                                                        <strong class="lavel">Name</strong>
+                                                                        <span
+                                                                            class="text-muted">{{$data["'first_name'"]}} {{$data["'last_name'"]}}</span>
+                                                                    </li>
+                                                                    <li class="pt-2">
+                                                                        <strong class="lavel">Age</strong>
+                                                                        <span
+                                                                            class="text-muted">{{$data["'age'"]}}</span>
+                                                                    </li>
+                                                                    <li class="pt-2">
+                                                                        <strong class="lavel">Document</strong>
+                                                                        <span
+                                                                            class="text-muted">{{$data["'document_type'"]}} of {{$data["'citizenship'"]}} {{$data["'document_number'"]}}</span>
+                                                                    </li>
+                                                                    <li class="pt-2">
+                                                                        <strong class="lavel">Baggage</strong>
+                                                                        <span
+                                                                            class="text-muted d-flex d-block justify-content-between">
                                                                     {{$data["'additional_baggage'"]}}
                                                             </span>
-                                                                </li>
-                                                                <li class="pt-2">
-                                                                    <strong class="lavel"></strong>
-                                                                    <span
-                                                                        class="text-muted d-flex d-block justify-content-between">
+                                                                    </li>
+                                                                    <li class="pt-2">
+                                                                        <strong class="lavel"></strong>
+                                                                        <span
+                                                                            class="text-muted d-flex d-block justify-content-between">
                                                                        <strong>Equipment</strong> {{$data["'equipment'"]}}
                                                                         <br>
                                                                         <strong>Animal</strong>  {{$data["'animal_type'"]}}
                                                                 </span>
-                                                                </li>
-                                                            </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                @endforeach
+                                                    @endforeach
+                                                @endif
+
 
                                             </div>
                                             <div
                                                 class="col-3 border border-start-0 border-secondary-subtle  rounded-0 pt-3">
-                                                <div
-                                                    class="all-ticket-card-right-content  d-flex justify-content-end me-3">
-                                                    <p class="text-danger fs-1">${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
+                                                @if(isset($busDetails->ticket_price) && $busDetails->ticket_price!==null)
+                                                    <div
+                                                        class="all-ticket-card-right-content  d-flex justify-content-end me-3">
+                                                        <p class="text-danger fs-1">${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
                                                             ($busDetails->ticket_price * $sessionData['totalPerson'])+
                                                             ($busDetails->ticket_price * $sessionData['totalKids']) :  ($busDetails->ticket_price * $sessionData['totalPerson']) }}
-                                                    </p>
-                                                </div>
+                                                        </p>
+                                                    </div>
+                                                @endif
+
 
                                             </div>
                                         </div>
@@ -561,32 +574,42 @@
                                 </div>
 
                                 @if(!\Illuminate\Support\Facades\Auth::check())
-                                    <button type="button" class="py-2 btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                    <button type="button" class="py-2 btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModalCenter">
                                         BUY TICKET
                                     </button>
-                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog " role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Please Login form here</h5>
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Please Login
+                                                        form here</h5>
 
                                                 </div>
                                                 <form action="#" method="POST">
                                                     <div class="modal-body">
 
-                                                            <div class="form-group">
-                                                                <label for="user_email">Email address</label>
-                                                                <input type="email"  name="email" class="form-control" id="user_email" aria-describedby="emailHelp" placeholder="Enter email">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="user_pwd">Password</label>
-                                                                <input type="password" name="password" class="form-control" id="user_pwd" placeholder="Password">
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <label for="user_email">Email address</label>
+                                                            <input type="email" name="email" class="form-control"
+                                                                   id="user_email" aria-describedby="emailHelp"
+                                                                   placeholder="Enter email">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="user_pwd">Password</label>
+                                                            <input type="password" name="password" class="form-control"
+                                                                   id="user_pwd" placeholder="Password">
+                                                        </div>
 
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" id="but_submit" class="btn btn-primary">Log In</button>
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close
+                                                        </button>
+                                                        <button type="button" id="but_submit" class="btn btn-primary">
+                                                            Log In
+                                                        </button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -616,27 +639,29 @@
     <!-- main end -->
 
     <script>
-        $(document).ready(function(){
-            $("#but_submit").click(function(e){
+        $(document).ready(function () {
+            $("#but_submit").click(function (e) {
                 e.preventDefault();
-                var email = $("#user_email").val().trim();
-                var password = $("#user_pwd").val().trim();
-                console.log(password)
-                if( email != "" && password != "" ){
+                let email = $("#user_email").val().trim();
+                let password = $("#user_pwd").val().trim();
+                console.log(password);
+
+                if (email !== "" && password !== "") {
+
                     $.ajax({
-                        url:'{{route('user.login.ajax')}}',
-                        type:'POST',
-                        data:{
-                            email:email,
-                            password:password,
-                            '_token':'{{csrf_token()}}'
+                        url: '{{route('user.login.ajax')}}',
+                        type: 'POST',
+                        data: {
+                            email: email,
+                            password: password,
+                            '_token': '{{csrf_token()}}'
                         },
-                        success:function(response){
+                        success: function (response) {
                             console.log(response)
                             let msg = "";
-                            if(response.status){
+                            if (response.status) {
                                 window.location.reload();
-                            }else{
+                            } else {
                                 console.log(msg);
                             }
                         }

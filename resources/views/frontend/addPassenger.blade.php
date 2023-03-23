@@ -12,13 +12,14 @@
                         <!-- travelling route start -->
                         <div class="col-md-5 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
-                            <select name="arrival_point" class="form-control select2" data-toggle="select2"
+                            <select name="starting_point" class="form-control select2" data-toggle="select2"
                                     id="busCompanyy">
-                                <option selected>Destination Point</option>
-                                @foreach($tos as $to)
+                                <option selected>Starting Point</option>
+                                @foreach($froms as $from)
                                     <option
-                                        value="{{$to->arrival_point}}" {{isset($sessionData['starting_point']) ? 'selected':''}}>{{$to->arrival_point}}</option>
+                                        value="{{$from->starting_point}}" {{isset($sessionData['starting_point']) && $from->starting_point===$sessionData['starting_point'] ? 'selected':''}}>{{$from->starting_point}}</option>
                                 @endforeach
+
                             </select>
 
                             <i class="fa fa-map-marker"></i>
@@ -34,7 +35,7 @@
                                 <option selected>Destination Point</option>
                                 @foreach($tos as $to)
                                     <option
-                                        value="{{$to->arrival_point}}" {{isset($sessionData['arrival_point']) ? 'selected':''}}>{{$to->arrival_point}}</option>
+                                        value="{{$to->arrival_point}}" {{isset($sessionData['arrival_point']) && $to->arrival_point===$sessionData['arrival_point'] ? 'selected':''}}>{{$to->arrival_point}}</option>
                                 @endforeach
                             </select>
                             <i class="fa fa-map-marker"></i>
@@ -68,7 +69,7 @@
                                    value="{{isset($sessionData['totalPerson']) ? $sessionData['totalPerson']:''}}"
                                    type="number"
                                    class="form-control" id="inputtext5" placeholder="1 Adult">
-                            <i class="fa fa-caret-down"></i>
+
                         </div>
                         <div
                             class="col-md-3 col-xl-1 d-flex align-items-end hero-input-with-icon mt-4 hide-numberType-icon">
@@ -76,7 +77,7 @@
                                    value="{{isset($sessionData['totalKids']) ? $sessionData['totalKids']:''}}"
                                    type="number"
                                    class="form-control" id="inputtext4" placeholder="0 Kids">
-                            <i class="fa fa-caret-down"></i>
+
                         </div>
 
                         <!-- travelling person end -->
@@ -159,16 +160,20 @@
                                             </div>
                                             <div class="mt-4 d-flex align-items-center justify-content-between">
                                                 <div class="">
-                                                    <p class="text-light mb-0">{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</p>
-                                                    <p class="small-text text-light mb-0">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</p>
+                                                    <p class="text-light mb-0">
+{{--                                                        {{isset($busDetails->departure_time) ? $busDetails->departure_time:''}} --}}
+                                                        {{date("g:i a",strtotime(\Carbon\Carbon::parse($busDetails->departure_time)))}}</p>
+                                                    <p class="small-text text-light mb-0">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y'):''}}</p>
                                                 </div>
                                                 <div
                                                     class="d-flex flex-column align-items-center justify-content-center">
-                                                    <p class="small-text text-light">8:20</p>
                                                     <i class="fa fa-long-arrow-right mb-0 text-light"></i>
                                                 </div>
                                                 <div class="d-flex flex-column align-items-end">
-                                                    <p class="text-light mb-0">{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</p>
+                                                    <p class="text-light mb-0">
+{{--                                                        {{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}--}}
+                                                        {{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours($busDetails->arrival_time)))}}
+                                                    </p>
                                                     <p class="small-text text-light mb-0">Feb 13 TUE</p>
                                                 </div>
                                             </div>
@@ -206,16 +211,16 @@
                                                 </div>
                                                 <div class="mt-4 d-flex align-items-center justify-content-between">
                                                     <div class="">
-                                                        <p class="text-light mb-0">{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</p>
-                                                        <p class="small-text text-light mb-0">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</p>
+{{--                                                        class="text-light mb-0">{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}--}}
+                                                        <p class="text-light mb-0"> {{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours()))}}</p>
+                                                        <p class="small-text text-light mb-0">{{isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y'):''}}</p>
                                                     </div>
                                                     <div
                                                         class="d-flex flex-column align-items-center justify-content-center">
-                                                        <p class="small-text text-light">8:20</p>
                                                         <i class="fa fa-long-arrow-right mb-0 text-light"></i>
                                                     </div>
                                                     <div class="d-flex flex-column align-items-end">
-                                                        <p class="text-light mb-0">{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</p>
+                                                        <p class="text-light mb-0">{{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours($busDetails->arrival_time)))}}</p>
                                                         <p class="small-text text-light mb-0">Feb 13 TUE</p>
                                                     </div>
                                                 </div>
@@ -322,9 +327,7 @@
 
                     <div class="col-8 processing-form">
 
-                        <form action="{{route('frontend.add.passenger.session')}}" method="post">
-                            @method('POST')
-                            @csrf
+                        <form action="{{route('frontend.add.passenger.session')}}" method="get">
 
                             <div id="allData">
                                 <div class="row available-all-ticket-content">
@@ -355,7 +358,9 @@
                                                 <input type="text" name="users[0]['first_name']" class="form-control"
                                                        id="inputFirstName">
                                             </div>
-                                            @error("'first_name'")
+
+
+                                            @error('users.*')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
 
@@ -365,7 +370,7 @@
                                                        id="inputLastName">
                                             </div>
 
-                                            @error("'last_name'")
+                                            @error('users.*')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
 
@@ -481,11 +486,19 @@
     </main>
     <!-- main end -->
     <script>
-
+        {{--        @if (isset($sessionData['totalPerson']) && isset($sessionData['totalKids']))--}}
+        {{--            $sessionData['totalPerson'] + $sessionData['totalKids']--}}
+        {{--        @elseif(isset($sessionData['totalPerson']))--}}
+        {{--            $sessionData['totalPerson']--}}
+        {{--        @else--}}
+        {{--            --}}
+        {{--        @endif--}}
         let count = 1;
-        let passengerCount = "{!! isset($sessionData['totalPerson']) && isset($sessionData['totalKids'])
+        let passengerCount = "{!! (isset($sessionData['totalPerson']) && isset($sessionData['totalKids']))
                                                             ? $sessionData['totalPerson']+
-                                                            $sessionData['totalKids']:$sessionData['totalPerson'] !!}";
+                                                            $sessionData['totalKids']:
+                                                            (isset($sessionData['totalPerson']) ? $sessionData['totalPerson'] :
+                                                            '') !!}";
 
 
         {{--let citizenship=[{!! json_encode(nationals())  !!}];--}}
@@ -522,7 +535,7 @@
                                             <label for="inputFirstName" class="form-label small">First Name</label>
                                             <input type="text" name="users[${count}]['first_name']" class="form-control" id="inputFirstName">
                                         </div>
-                                        @error("'first_name'")
+                                        @error('users.*')
                 <span class="text-danger">{{$message}}</span>
                                             @enderror
 
@@ -532,7 +545,7 @@
                     <input type="text" name="users[${count}]['last_name']" class="form-control" id="inputLastName">
                                         </div>
 
-                                                                                @error("'last_name'")
+@error('users.*')
                 <span class="text-danger">{{$message}}</span>
                                             @enderror
 

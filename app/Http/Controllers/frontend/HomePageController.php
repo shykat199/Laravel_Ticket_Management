@@ -71,6 +71,7 @@ class HomePageController extends Controller
 
             //dd($currentTime);
             if ($request->get('starting_point') && $request->get('arrival_point')) {
+
                 $searchResults = $searchResults
                     ->join('bus_details', 'bus_destinations.bus_details_id','=' ,'bus_details.id')
                     //->leftJoin('reservations','bus_destinations.id','=','reservations.bus_destination_id')

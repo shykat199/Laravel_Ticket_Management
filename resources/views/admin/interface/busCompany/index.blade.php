@@ -129,7 +129,8 @@
             $('input[name=toggle]').change(function () {
                 let mode = $(this).prop('checked');
                 let id = $(this).val();
-
+                // console.log(mode);
+                // console.log(id);
                 let productObj = {};
                 productObj.mode = $(this).prop('checked');
                 productObj.company_id = $(this).val();

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BlogPostRequest;
 use App\Models\BlogPost;
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -147,6 +148,46 @@ class BlogController extends Controller
         } else {
             return to_route('blog.index')->with('error', 'Some Things Wrong');
 
+        }
+
+    }
+
+    public function updateStatus(Request $request): ?\Illuminate\Http\JsonResponse
+    {
+
+        if (\request()->ajax()) {
+
+            if ($request->get('mode') === 'true') {
+
+                $mode = $request->get('mode');
+                $id = $request->get('id');
+                $upBlogStatus = \DB::table('posts')
+                    ->where('id', '=', $id)
+                    ->update([
+                        'status' => 1
+                    ]);
+
+                return response()->json([
+                    'status' => true,
+                ]);
+            } else {
+                $mode = $request->get('mode');
+                $id = $request->get('id');
+                $upBlogStatus = \DB::table('posts')
+                    ->where('id', '=', $id)
+                    ->update([
+                        'status' => 0
+                    ]);
+
+                return response()->json([
+                    'status' => true,
+                ]);
+            }
+
+        } else {
+            return response()->json([
+                'status' => false,
+            ]);
         }
 
     }
