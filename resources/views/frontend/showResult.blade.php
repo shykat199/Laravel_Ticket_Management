@@ -120,8 +120,8 @@
         <!-- all ticket start-->
         <section class="all-ticket mt-5">
             <div class="container  pt-5">
-                <div class="row">
-                    <div class="col-4 all-ticket-left-colum">
+                <div class="row g-5">
+                    <div class="col-md-4 order-2 order-md-1 all-ticket-left-colum">
                         <div class="row">
                             <div class="row all-ticket-left-colum-upper-part mb-2">
                                 <div class="card all-ticket-left-colum-upper-part rounded-0">
@@ -129,54 +129,54 @@
                                         class="text-center text-light pt-4 fw-normal all-ticket-left-colum-upper-part-title">
                                         Filter by
                                     </h4>
-                                    <div class="row  card-body pt-4">
-                                        <div class="row ">
+                                    <div class="custom-card-body pt-4">
+                                        <div class="">
                                             <h5 class="text-light fw-normal ps-0">Coach Type</h5>
                                             <div class="form-check form-switch py-2">
                                                 <input class="form-check-input small text-danger  ps-0" type="checkbox"
                                                        role="switch" id="flexSwitchCheckDefault">
-                                                <label class="form-check-label text-light small ps-2"
+                                                <label class="form-check-label text-light small"
                                                        for="flexSwitchCheckDefault">Third class sleeping</label>
                                             </div>
                                             <div class="form-check form-switch pb-2">
-                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
+                                                <input class="form-check-input small" type="checkbox" role="switch"
                                                        id="flexSwitchCheckDefault">
-                                                <label class="form-check-label text-light small ps-2"
+                                                <label class="form-check-label text-light small"
                                                        for="flexSwitchCheckDefault">Second class sleeping</label>
                                             </div>
                                             <div class="form-check form-switch pb-2">
-                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
+                                                <input class="form-check-input small " type="checkbox" role="switch"
                                                        id="flexSwitchCheckDefault">
-                                                <label class="form-check-label text-light small ps-2"
+                                                <label class="form-check-label text-light small"
                                                        for="flexSwitchCheckDefault">First class sleeping</label>
                                             </div>
                                             <div class="form-check form-switch pb-2">
-                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
+                                                <input class="form-check-input small" type="checkbox" role="switch"
                                                        id="flexSwitchCheckDefault">
-                                                <label class="form-check-label text-light small ps-2"
+                                                <label class="form-check-label text-light small"
                                                        for="flexSwitchCheckDefault">Comfortable</label>
                                             </div>
                                             <div class="form-check form-switch pb-2">
-                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
+                                                <input class="form-check-input small" type="checkbox" role="switch"
                                                        id="flexSwitchCheckDefault">
-                                                <label class="form-check-label text-light small ps-2"
+                                                <label class="form-check-label text-light small"
                                                        for="flexSwitchCheckDefault">Third class non reserved </label>
                                             </div>
                                             <div class="form-check form-switch pb-2">
-                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
+                                                <input class="form-check-input small" type="checkbox" role="switch"
                                                        id="flexSwitchCheckDefault">
-                                                <label class="form-check-label text-light small ps-2"
+                                                <label class="form-check-label text-light small"
                                                        for="flexSwitchCheckDefault">Sedentary carriage</label>
                                             </div>
                                             <div class="form-check form-switch pb-2">
-                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
+                                                <input class="form-check-input small" type="checkbox" role="switch"
                                                        id="flexSwitchCheckDefault" checked>
-                                                <label class="form-check-label text-light small ps-2"
+                                                <label class="form-check-label text-light small"
                                                        for="flexSwitchCheckDefault">All</label>
                                             </div>
                                         </div>
-                                        <div class="row mt-3">
-                                            <div class="row ">
+                                        <div class="mt-3">
+                                            <div class="">
                                                 <h5 class="text-light fw-normal ps-0 mb-0">Departure / Arrive time</h5>
                                                 <div>
                                                     <label for="customRange1" class="form-label"></label>
@@ -185,8 +185,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row mt-3">
-                                            <div class="row ">
+                                        <div class="mt-3">
+                                            <div class="">
                                                 <h5 class="text-light fw-normal ps-0 mb-0">Price</h5>
                                                 <div>
                                                     <label for="customRange1" class="form-label"></label>
@@ -204,8 +204,8 @@
                                 </h4>
                                 @foreach(recentTickets() as $tickets)
                                     <div class=" card rounded-0 recent-ticket-card mt-4">
-                                        <div class="row  card-body pt-4">
-                                            <div class="row ">
+                                        <div class="py-4">
+                                            <div class="row">
                                                 <div class="col-6">
                                                     <h6 class="mb-0">{{$tickets->starting_point}}</h6>
 
@@ -215,16 +215,16 @@
 
                                                 </div>
                                             </div>
-                                            <div class="row mt-4">
+                                            <div class="row d-flex align-items-center mt-4">
                                                 <div class="col-6">
                                                     <ul class="d-flex">
-                                                        <li class="pe-2 text-muted small">
+                                                        <li class="text-muted">
                                                             <i class="fa fa-wifi" aria-hidden="true"></i>
                                                         </li>
-                                                        <li class="pe-2 text-muted small">
+                                                        <li class="text-muted ">
                                                             <i class="fa fa-moon-o" aria-hidden="true"></i>
                                                         </li>
-                                                        <li class="pe-2 text-muted small">
+                                                        <li class="text-muted">
                                                             <i class="fa fa-coffee" aria-hidden="true"></i>
                                                         </li>
 
@@ -232,8 +232,8 @@
                                                 </div>
 
                                                 <div class="col-6">
-                                                    <p class="small-text text-muted text-end">from
-                                                        <span class="fs-3 text-danger">
+                                                    <p class="small-text text-muted text-end mb-0 d-flex justify-content-end">from
+                                                        <span class="ticket-price text-danger">
                                                         ${{$tickets->ticket_price}}
                                                     </span>
                                                     </p>
@@ -249,17 +249,17 @@
                                 <h4 class="">
                                     Recent Posts
                                 </h4>
-                                <div class="all-ticket-left-colum-lower-part pt-4">
+                                <div class=" pt-4">
 
                                     @foreach(blogPosts() as $post)
 
                                         <a href="javascript:void(0)" class="row py-4">
-                                            <div class="col-4 image-container">
+                                            <div class="col-4  image-container">
                                                 <img class="img-fluid"
                                                      src="{{\Illuminate\Support\Facades\Storage::url($post->post_image)}}"
                                                      alt="blog post">
                                             </div>
-                                            <div class="col-8">
+                                            <div class="col-8 px-0">
                                                 <h6>{{$post->post_title}}</h6>
                                                 <p class="fst-italic">{{$post->created_at->format('d M Y')}}</p>
                                             </div>
@@ -270,17 +270,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-8 available-all-ticket">
-                        <div class="d-flex justify-content-between">
-                            <p>10 of 12 found</p>
+                    <div class="col-md-8 order-1 order-md-2 available-all-ticket">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <p class="result-found">10 of 12 found</p>
                             <div>
-                                <select class="small text-muted border-1" aria-label="Default select example">
+                                <select class="result-select text-muted border-1 " aria-label="Default select example">
                                     <option selected class="">Short by time</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
                                 </select>
-                                <select class="small text-muted border-1" aria-label="Default select example">
+                                <select class="result-select text-muted border-1" aria-label="Default select example">
                                     <option selected>Show 5 tickets on page</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -292,31 +292,31 @@
                         @foreach($searchResults as $searchResult)
 
                             <div class="row available-all-ticket-content pt-3">
-                                <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                                <div class="col-md-3 card rounded-0 pt-4 all-ticket-card-left">
                                     <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
-                                    <div class="card-body">
+                                    <div class="my-4">
                                         <h5 class="card-title text-center">{{$searchResult->busDetails->bus_coach}}</h5>
                                         <h6 class="card-title text-center">{{$searchResult->busDetails->bus_type}}</h6>
                                         <p class="card-title text-center">Seat- {{$searchResult->busDetails->bus_seat}}</p>
                                         <p class="card-text text-center text-muted">{{$searchResult->busDetails->busCompany->bus_company}}</p>
                                     </div>
                                 </div>
-                                <div class="col-6 card rounded-0 all-ticket-card-middle">
-                                    <div class="row  card-body">
-                                        <div class="row">
-                                            <div class="col-4 all-ticket-card-middle-left-colum">
+                                <div class="col-md-6 card rounded-0 all-ticket-card-middle">
+                                    <div class="card-body px-0">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="all-ticket-card-middle-left-colum">
                                                 <h5>{{$searchResult->departure_time}}</h5>
                                                 <small class="small-text">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y') :''}}</small>
                                                 <h6 class="small">{{$searchResult->starting_point}}</h6>
 
                                             </div>
                                             <div
-                                                class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+                                                class="d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
 
                                                 <p class="text-center"><i class="fa fa-long-arrow-right text-muted"></i>
                                                 </p>
                                             </div>
-                                            <div class="col-4 all-ticket-card-middle-right-colum">
+                                            <div class=" all-ticket-card-middle-right-colum">
 
                                                 <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time)))}}</h5>
                                                 <small class="small-text">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->addHour($searchResult->arrival_time)->format('d-m-Y') :''}}</small>
@@ -326,20 +326,20 @@
                                         </div>
 
                                         @if($sessionData['returnOfDate'])
-                                            <div class="row mt-4">
-                                                <div class="col-4 all-ticket-card-middle-left-colum">
+                                            <div class="d-flex align-items-center justify-content-between mt-4">
+                                                <div class="all-ticket-card-middle-left-colum">
                                                     <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time )))}}</h5>
                                                     <small class="small-text">{{isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y') :''}}</small>
                                                     <h6 class="small">{{$searchResult->arrival_point}}</h6>
 {{--                                                    <small class="small-text">Peen Station,NY</small>--}}
                                                 </div>
                                                 <div
-                                                    class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+                                                    class="d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
 {{--                                                    <p class="text-muted small text-center">11:30</p>--}}
                                                     <p class="text-center"><i class="fa fa-long-arrow-left text-muted"></i>
                                                     </p>
                                                 </div>
-                                                <div class="col-4 all-ticket-card-middle-right-colum">
+                                                <div class="all-ticket-card-middle-right-colum">
                                                     <h5>{{$searchResult->departure_time }}</h5>
                                                     <small class="small-text">{{isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->addHour($searchResult->arrival_time)->format('d-m-Y') :''}}</small>
                                                     <h6 class="small">{{$searchResult->starting_point}}</h6>
@@ -352,22 +352,22 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
+                                <div class="col-md-3 card rounded-0 all-ticket-card-right pt-4">
                                     <div class="all-ticket-card-right-content">
-                                        <p class="text-muted small"><span>${{$searchResult->ticket_price}} </span>/person</p>
+                                        <p class="text-muted"><span>${{$searchResult->ticket_price}} </span>/person</p>
 
                                     </div>
                                     <ul class="d-flex">
-                                        <li class="pe-2 text-muted small">
+                                        <li class="text-muted">
                                             <i class="fa fa-wifi" aria-hidden="true"></i>
                                         </li>
-                                        <li class="pe-2 text-muted small">
+                                        <li class="text-muted">
                                             <i class="fa fa-moon-o" aria-hidden="true"></i>
                                         </li>
-                                        <li class="pe-2 text-muted small">
+                                        <li class="text-muted">
                                             <i class="fa fa-coffee" aria-hidden="true"></i>
                                         </li>
-                                        <li class="pe-2 text-muted small">
+                                        <li class="text-muted">
                                             <i class="fa fa-rocket" aria-hidden="true"></i>
                                         </li>
                                     </ul>

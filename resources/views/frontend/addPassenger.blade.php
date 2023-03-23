@@ -118,8 +118,8 @@
         <!-- all processing start-->
         <section class="all-processing mt-5">
             <div class="container  pt-5">
-                <div class="row">
-                    <div class="col-4 all-processing-left-colum">
+                <div class="row g-5">
+                    <div class="col-md-4 order-2 order-md-1 all-processing-left-colum">
                         <div class="row">
                             <div class="row all-processing-left-colum-upper-part mb-2">
                                 <div class="card all-processing-left-colum-upper-part rounded-0">
@@ -127,8 +127,8 @@
                                         class="text-center text-light py-4 fw-normal all-processing-left-colum-upper-part-title">
                                         Summary
                                     </h4>
-                                    <div class="row  card-body border-top   py-4">
-                                        <div class="row ">
+                                    <div class="card-body border-top px-0 py-4">
+                                        <div class="">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <h5 class="text-light fw-normal ps-0 mb-0">
                                                     <i class="fa fa-arrow-circle-right pe-2">
@@ -157,9 +157,9 @@
                                                     <p class="small-text text-light">8:20</p>
                                                     <i class="fa fa-long-arrow-right mb-0 text-light"></i>
                                                 </div>
-                                                <div class="d-flex flex-column align-items-end">
-                                                    <p class="text-light mb-0">{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</p>
-                                                    <p class="small-text text-light mb-0">Feb 13 TUE</p>
+                                                <div class="">
+                                                    <p class="text-light text-end mb-0">{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</p>
+                                                    <p class="small-text text-light text-end mb-0">Feb 13 TUE</p>
                                                 </div>
                                             </div>
                                             <div class="pt-4">
@@ -174,8 +174,8 @@
 
                                     @if(isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:'')
 
-                                        <div class="row  card-body border-top py-4">
-                                            <div class="row ">
+                                        <div class="card-body border-top px-0 py-4">
+                                            <div class="">
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <h5 class="text-light fw-normal ps-0 mb-0">
                                                         <i class="fa fa-arrow-circle-left pe-2">
@@ -205,8 +205,8 @@
                                                         <i class="fa fa-long-arrow-right mb-0 text-light"></i>
                                                     </div>
                                                     <div class="d-flex flex-column align-items-end">
-                                                        <p class="text-light mb-0">{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</p>
-                                                        <p class="small-text text-light mb-0">Feb 13 TUE</p>
+                                                        <p class="text-light text-end mb-0">{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</p>
+                                                        <p class="small-text text-light text-end mb-0">Feb 13 TUE</p>
                                                     </div>
                                                 </div>
 
@@ -222,8 +222,8 @@
                                     @endif
 
 
-                                    <div class="row  card-body border-top  py-4">
-                                        <div class="row ">
+                                    <div class="card-body border-top px-0 py-4">
+                                        <div class="">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <h5 class="text-light fw-normal ps-0 mb-0">
                                                     <i class="fa fa-user pe-3"></i>Passengers
@@ -251,8 +251,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="row  card-body border-top border-bottom  py-4">
-                                        <div class="row ">
+                                    <div class="card-body border-top border-bottom  px-0 py-4">
+                                        <div class="">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <h5 class="text-light fw-normal ps-0 mb-0">
                                                     <i class="fa fa-suitcase pe-2" aria-hidden="true"></i>
@@ -279,8 +279,8 @@
 
 
                                     @if(isset($sessionData['totalKids']))
-                                        <div class="row  card-body py-4">
-                                            <div class="row ">
+                                        <div class="card-body px-0 py-4">
+                                            <div class="">
                                                 <div
                                                     class="d-flex align-items-center justify-content-between text-danger">
                                                     <h5>Total</h5>
@@ -293,8 +293,8 @@
                                             </div>
                                         </div>
                                     @else
-                                        <div class="row  card-body py-4">
-                                            <div class="row ">
+                                        <div class="card-body px-0 py-4">
+                                            <div class="">
                                                 <div
                                                     class="d-flex align-items-center justify-content-between text-danger">
                                                     <h5>Total</h5>
@@ -310,7 +310,7 @@
                         </div>
                     </div>
 
-                    <div class="col-8 processing-form">
+                    <div class="col-md-8 order-1 order-md-2 processing-form">
 
                         <form action="{{route('frontend.add.passenger.session')}}" method="post">
                             @csrf

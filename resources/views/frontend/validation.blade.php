@@ -119,8 +119,8 @@
         <!-- all processing start-->
         <section class="all-processing mt-5">
             <div class="container  pt-5">
-                <div class="row">
-                    <div class="col-4 all-processing-left-colum">
+                <div class="row gy-5">
+                    <div class="col-md-4 order-2 order-md-1 all-processing-left-colum">
                         <div class="row">
                             <div class="row all-processing-left-colum-upper-part mb-2">
                                 <div class="card all-processing-left-colum-upper-part rounded-0">
@@ -128,8 +128,8 @@
                                         class="text-center text-light py-4 fw-normal all-processing-left-colum-upper-part-title">
                                         Summary
                                     </h4>
-                                    <div class="row  card-body border-top   py-4">
-                                        <div class="row ">
+                                    <div class="card-body border-top px-0 py-4">
+                                        <div class="">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <h5 class="text-light fw-normal ps-0 mb-0">
                                                     <i class="fa fa-arrow-circle-right pe-2">
@@ -141,88 +141,116 @@
                                             <div class="pt-4">
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <p class="small-text text-gray mb-0">Coach</p>
-                                                    <p class="small text-light  mb-0">{{isset($busDetails->busDetails->bus_coach) ? $busDetails->busDetails->bus_coach:''}}</p>
+                                                    <p class="small text-light  mb-0">
+                                                        {{ isset($busDetails->busDetails->bus_coach) ? $busDetails->busDetails->bus_coach : '' }}
+                                                    </p>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <p class="small-text text-gray mb-0">Company</p>
-                                                    <p class="small text-light  mb-0">{{isset($busDetails->busDetails->busCompany->bus_company) ? $busDetails->busDetails->busCompany->bus_company:''}}</p>
+                                                    <p class="small text-light  mb-0">
+                                                        {{ isset($busDetails->busDetails->busCompany->bus_company) ? $busDetails->busDetails->busCompany->bus_company : '' }}
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div class="mt-4 d-flex align-items-center justify-content-between">
                                                 <div class="">
-                                                    <p class="text-light mb-0">{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</p>
-                                                    <p class="small-text text-light mb-0">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</p>
+                                                    <p class="text-light mb-0">
+                                                        {{ isset($busDetails->departure_time) ? $busDetails->departure_time : '' }}
+                                                    </p>
+                                                    <p class="small-text text-light mb-0">
+                                                        {{ isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney'] : '' }}
+                                                    </p>
                                                 </div>
-                                                <div
-                                                    class="d-flex flex-column align-items-center justify-content-center">
+                                                <div class="d-flex flex-column align-items-center justify-content-center">
                                                     <p class="small-text text-light">8:20</p>
                                                     <i class="fa fa-long-arrow-right mb-0 text-light"></i>
                                                 </div>
-                                                <div class="d-flex flex-column align-items-end">
-                                                    <p class="text-light mb-0">{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</p>
-                                                    <p class="small-text text-light mb-0">Feb 13 TUE</p>
+                                                <div class="">
+                                                    <p class="text-light text-end mb-0">
+                                                        {{ isset($busDetails->arrival_time) ? $busDetails->arrival_time : '' }}
+                                                    </p>
+                                                    <p class="small-text text-light text-end mb-0">Feb 13 TUE</p>
                                                 </div>
                                             </div>
                                             <div class="pt-4">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small text-light mb-0">{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}</p>
-                                                    <p class="small text-light  mb-0">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</p>
+                                                    <p class="small text-light mb-0">
+                                                        {{ isset($sessionData['starting_point']) ? $sessionData['starting_point'] : '' }}
+                                                    </p>
+                                                    <p class="small text-light  mb-0">
+                                                        {{ isset($sessionData['arrival_point']) ? $sessionData['arrival_point'] : '' }}
+                                                    </p>
                                                 </div>
 
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="row  card-body border-top py-4">
-                                        <div class="row ">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <h5 class="text-light fw-normal ps-0 mb-0">
-                                                    <i class="fa fa-arrow-circle-left pe-2">
-                                                    </i>
-                                                    Back
-                                                </h5>
-                                                <i class="fa fa-th-large text-light"></i>
-                                            </div>
-                                            <div class="pt-4">
+                                    @if (isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate'] : '')
+                                        <div class="card-body border-top px-0 py-4">
+                                            <div class="">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">Coach</p>
-                                                    <p class="small text-light  mb-0">{{isset($busDetails->busDetails->bus_coach) ? $busDetails->busDetails->bus_coach:''}}</p>
+                                                    <h5 class="text-light fw-normal ps-0 mb-0">
+                                                        <i class="fa fa-arrow-circle-left pe-2">
+                                                        </i>
+                                                        Back
+                                                    </h5>
+                                                    <i class="fa fa-th-large text-light"></i>
                                                 </div>
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">Company</p>
-                                                    <p class="small text-light  mb-0">{{isset($busDetails->busDetails->busCompany->bus_company) ? $busDetails->busDetails->busCompany->bus_company:''}}</p>
+                                                <div class="pt-4">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <p class="small-text text-gray mb-0">Coach</p>
+                                                        <p class="small text-light  mb-0">
+                                                            {{ isset($busDetails->busDetails->bus_coach) ? $busDetails->busDetails->bus_coach : '' }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <p class="small-text text-gray mb-0">Company</p>
+                                                        <p class="small text-light  mb-0">
+                                                            {{ isset($busDetails->busDetails->busCompany->bus_company) ? $busDetails->busDetails->busCompany->bus_company : '' }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-4 d-flex align-items-center justify-content-between">
+                                                    <div class="">
+                                                        <p class="text-light mb-0">
+                                                            {{ isset($busDetails->departure_time) ? $busDetails->departure_time : '' }}
+                                                        </p>
+                                                        <p class="small-text text-light mb-0">
+                                                            {{ isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney'] : '' }}
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="d-flex flex-column align-items-center justify-content-center">
+                                                        <p class="small-text text-light">8:20</p>
+                                                        <i class="fa fa-long-arrow-right mb-0 text-light"></i>
+                                                    </div>
+                                                    <div class="d-flex flex-column align-items-end">
+                                                        <p class="text-light text-end mb-0">
+                                                            {{ isset($busDetails->arrival_time) ? $busDetails->arrival_time : '' }}
+                                                        </p>
+                                                        <p class="small-text text-light text-end mb-0">Feb 13 TUE</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="pt-4">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <p class="small text-light mb-0">
+                                                            {{ isset($sessionData['arrival_point']) ? $sessionData['arrival_point'] : '' }}
+                                                        </p>
+                                                        <p class="small text-light  mb-0">
+                                                            {{ isset($sessionData['starting_point']) ? $sessionData['starting_point'] : '' }}
+                                                        </p>
+                                                    </div>
+
                                                 </div>
                                             </div>
-
-
-                                            <div class="mt-4 d-flex align-items-center justify-content-between">
-                                                <div class="">
-                                                    <p class="text-light mb-0">{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</p>
-                                                    <p class="small-text text-light mb-0">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</p>
-                                                </div>
-                                                <div
-                                                    class="d-flex flex-column align-items-center justify-content-center">
-                                                    <p class="small-text text-light">8:20</p>
-                                                    <i class="fa fa-long-arrow-right mb-0 text-light"></i>
-                                                </div>
-                                                <div class="d-flex flex-column align-items-end">
-                                                    <p class="text-light mb-0">{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</p>
-                                                    <p class="small-text text-light mb-0">Feb 13 TUE</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="pt-4">
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small text-light  mb-0">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</p>
-                                                    <p class="small text-light mb-0">{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}</p>
-                                                </div>
-
-                                            </div>
-
                                         </div>
-                                    </div>
-                                    <div class="row  card-body border-top  py-4">
-                                        <div class="row ">
+                                    @endif
+
+
+                                    <div class="card-body border-top px-0 py-4">
+                                        <div class="">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <h5 class="text-light fw-normal ps-0 mb-0">
                                                     <i class="fa fa-user pe-3"></i>Passengers
@@ -231,26 +259,30 @@
                                             </div>
                                             <div class="pt-4">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">{{isset($sessionData['totalPerson']) ? $sessionData['totalPerson']:''}}
+                                                    <p class="small-text text-gray mb-0">
+                                                        {{ isset($sessionData['totalPerson']) ? $sessionData['totalPerson'] : '' }}
                                                         Adult</p>
                                                     <p class="small text-light  mb-0">
-                                                        ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails->ticket_price * $sessionData['totalPerson'] : '' }}
+                                                        ${{ isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails->ticket_price * $sessionData['totalPerson'] : '' }}
                                                     </p>
                                                 </div>
-                                                @if(isset($sessionData['totalKids']))
+                                                @if (isset($sessionData['totalKids']))
                                                     <div class="d-flex align-items-center justify-content-between">
-                                                        <p class="small-text text-gray mb-0">{{isset($sessionData['totalKids']) ? $sessionData['totalKids']:''}}
+                                                        <p class="small-text text-gray mb-0">
+                                                            {{ isset($sessionData['totalKids']) ? $sessionData['totalKids'] : '' }}
                                                             Children</p>
                                                         <p class="small text-light  mb-0">
-                                                            ${{isset($busDetails->ticket_price) && isset($sessionData['totalKids']) ? $busDetails->ticket_price * $sessionData['totalKids'] : '' }}</p>
+                                                            ${{ isset($busDetails->ticket_price) && isset($sessionData['totalKids']) ? $busDetails->ticket_price * $sessionData['totalKids'] : '' }}
+                                                        </p>
                                                     </div>
                                                 @endif
 
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row  card-body border-top border-bottom  py-4">
-                                        <div class="row ">
+
+                                    <div class="card-body border-top border-bottom  px-0 py-4">
+                                        <div class="">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <h5 class="text-light fw-normal ps-0 mb-0">
                                                     <i class="fa fa-suitcase pe-2" aria-hidden="true"></i>
@@ -276,38 +308,38 @@
                                     </div>
 
 
-                                    @if(isset($sessionData['totalKids']))
-                                        <div class="row  card-body py-4">
-                                            <div class="row ">
-                                                <div
-                                                    class="d-flex align-items-center justify-content-between text-danger">
+                                    @if (isset($sessionData['totalKids']))
+                                        <div class="card-body px-0 py-4">
+                                            <div class="">
+                                                <div class="d-flex align-items-center justify-content-between text-danger">
                                                     <h5>Total</h5>
                                                     <h5>
-                                                        ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
-                                                            ($busDetails->ticket_price * $sessionData['totalPerson'])+
-                                                            ($busDetails->ticket_price * $sessionData['totalKids']) : '' }}
+                                                        ${{ isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) && isset($sessionData['totalKids'])
+                                                            ? $busDetails->ticket_price * $sessionData['totalPerson'] + $busDetails->ticket_price * $sessionData['totalKids']
+                                                            : '' }}
                                                     </h5>
                                                 </div>
                                             </div>
                                         </div>
                                     @else
-                                        <div class="row  card-body py-4">
-                                            <div class="row ">
-                                                <div
-                                                    class="d-flex align-items-center justify-content-between text-danger">
+                                        <div class="card-body px-0 py-4">
+                                            <div class="">
+                                                <div class="d-flex align-items-center justify-content-between text-danger">
                                                     <h5>Total</h5>
                                                     <h5>
-                                                        ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails->ticket_price * $sessionData['totalPerson'] : '' }}</h5>
+                                                        ${{ isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails->ticket_price * $sessionData['totalPerson'] : '' }}
+                                                    </h5>
                                                 </div>
                                             </div>
                                         </div>
                                     @endif
+
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <form class="col-8" action="{{route('reservation.done')}}" method="post">
+                    <form class="col-md-8 order-1 order-md-2 " action="{{route('reservation.done')}}" method="post">
                         @csrf
                         <div class=" vailidation-container">
                             <div id="allData">
@@ -332,9 +364,9 @@
                                             </div>
                                             <div
                                                 class="col-6 card border-secondary-subtle rounded-0 validation-train-card-middle">
-                                                <div class="row  card-body">
-                                                    <div class="row">
-                                                        <div class="col-4 all-ticket-card-middle-left-colum">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <div class="all-ticket-card-middle-left-colum">
 
                                                             <p class="small-text text-light mb-0"></p>
                                                             <h5>{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</h5>
@@ -346,21 +378,21 @@
 
                                                         </div>
                                                         <div
-                                                            class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+                                                            class="d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
                                                             <p class="text-muted small text-center">07:25</p>
                                                             <p class="text-center"><i
                                                                     class="fa fa-long-arrow-right text-muted"></i>
                                                             </p>
                                                         </div>
-                                                        <div class="col-4 all-ticket-card-middle-right-colum">
+                                                        <div class="all-ticket-card-middle-right-colum">
                                                             <h5>{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</h5>
                                                             <small class="small-text">Feb 15 SUN</small>
                                                             <h6 class="small">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</h6>
 
                                                         </div>
                                                     </div>
-                                                    <div class="row mt-4">
-                                                        <div class="col-4 all-ticket-card-middle-left-colum">
+                                                    <div class="d-flex align-items-center justify-content-between mt-4">
+                                                        <div class="all-ticket-card-middle-left-colum">
                                                             <h5>{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}</h5>
                                                             <small
                                                                 class="small-text">{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']:''}}</small>
@@ -368,13 +400,13 @@
 
                                                         </div>
                                                         <div
-                                                            class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+                                                            class="d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
                                                             <p class="text-muted small text-center">11:30</p>
                                                             <p class="text-center"><i
                                                                     class="fa fa-long-arrow-left text-muted"></i>
                                                             </p>
                                                         </div>
-                                                        <div class="col-4 all-ticket-card-middle-right-colum">
+                                                        <div class="all-ticket-card-middle-right-colum">
                                                             <h5>{{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}</h5>
                                                             <small class="small-text">Feb 19 THU</small>
                                                             <h6 class="small">{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}</h6>

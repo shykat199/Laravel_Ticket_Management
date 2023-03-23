@@ -125,7 +125,8 @@
                 </a>
                 <a href="javascript:void(0)" class="col all-blog-single-card ">
                     <div class="card border-0 h-100 shadow-lg">
-                        <img src="{{ asset('frontend/assets/images/newyork.jpg') }}" class="card-img-top" alt="card image">
+                        <img src="{{ asset('frontend/assets/images/newyork.jpg') }}" class="card-img-top"
+                            alt="card image">
                         <div class="card-body">
                             <h5 class="card-title">New York Trips 2023</h5>
                             <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium
@@ -198,22 +199,19 @@
                     </div>
                 </a>
             </div>
-            <nav class="custome-pagination" aria-label="Page navigation example">
-                <ul class="pagination justify-content-center pt-5 mt-5 custome-pagination-list">
-                    <li class="page-item custom-page-item mx-3">
-                        <a class="page-link pagination-item  rounded-pill" href="#" aria-label="Previous">
+            <!-- Pagination -->
+            <nav aria-label="Page navigation example ">
+                <ul class="pagination pt-5 justify-content-center custom-design-for-pagination">
+                    <li class=" page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <li class="page-item custom-page-item mx-3 "><a class="page-link pagination-item rounded-pill"
-                            href="#">1</a>
-                    </li>
-                    <li class="page-item mx-3"><a class="page-link pagination-item rounded-pill" href="#">2</a>
-                    </li>
-                    <li class="page-item mx-3"><a class="page-link  pagination-item rounded-pill" href="#">3</a>
-                    </li>
-                    <li class="page-item mx-3">
-                        <a class="page-link rounded-pill pagination-item" href="#" aria-label="Next">
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -223,6 +221,4 @@
 
     </section>
     <!-- all blog card end -->
-
-  
 @endsection
