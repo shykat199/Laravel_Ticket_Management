@@ -3362,6 +3362,12 @@ body {
 
             .vailidation-container {
                 .vailidation-content {
+                    .validation-content-select-ticket{
+                        @media (min-width: 768px) {
+                            display: flex;
+                            justify-content:  space-between;
+                        }
+                    }
                     .validation-train-card-left {
                         .all-ticket-card-left-icon {
                             font-size: 50px;

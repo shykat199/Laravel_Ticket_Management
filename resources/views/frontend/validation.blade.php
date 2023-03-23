@@ -12,9 +12,12 @@
                         <!-- travelling route start -->
                         <div class="col-md-5 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
-                            <input name="starting_point"
-                                   value="{{isset($sessionData['starting_point']) ? $sessionData['starting_point']:''}}"
-                                   type="text" class="form-control" id="inputtext1" placeholder="From">
+                            <select name="arrival_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
+                                <option selected>Destination Point</option>
+                                @foreach($tos as $to)
+                                    <option value="{{$to->arrival_point}}" {{isset($sessionData['starting_point']) ? 'selected':''}}>{{$to->arrival_point}}</option>
+                                @endforeach
+                            </select>
                             <i class="fa fa-map-marker"></i>
                         </div>
                         <div class="col-md-2 col-xl-1 d-flex align-items-end">
@@ -23,10 +26,12 @@
                             </button>
                         </div>
                         <div class="col-md-5 col-xl-2 d-flex align-items-end hero-input-with-icon">
-                            <input name="arrival_point"
-                                   value="{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}"
-                                   type="text"
-                                   class="form-control" id="inputtext2" placeholder="To">
+                            <select name="arrival_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
+                                <option selected>Destination Point</option>
+                                @foreach($tos as $to)
+                                    <option value="{{$to->arrival_point}}" {{isset($sessionData['arrival_point']) ? 'selected':''}}>{{$to->arrival_point}}</option>
+                                @endforeach
+                            </select>
                             <i class="fa fa-map-marker"></i>
                         </div>
                         <!-- travelling route end -->
@@ -353,9 +358,9 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <div class="d-flex justify-content-between border-0 rounded-0">
+                                        <div class="border-0 rounded-0 validation-content-select-ticket">
                                             <div
-                                                class="col-3 card rounded-0 border-secondary-subtle border-end-0 pt-4 validation-train-card-left">
+                                                class="col-md-3 card rounded-0 border-secondary-subtle pt-4 validation-train-card-left">
                                                 <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
                                                 <div class="card-body">
                                                     <h5 class="card-title text-center">{{isset($busDetails->busDetails->bus_coach) ? $busDetails->busDetails->bus_coach:''}}</h5>
@@ -363,7 +368,7 @@
                                                 </div>
                                             </div>
                                             <div
-                                                class="col-6 card border-secondary-subtle rounded-0 validation-train-card-middle">
+                                                class="col-md-6 card border-secondary-subtle rounded-0 validation-train-card-middle">
                                                 <div class="card-body">
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <div class="all-ticket-card-middle-left-colum">
@@ -417,7 +422,7 @@
                                                 </div>
                                             </div>
                                             <div
-                                                class="col-3 card border-secondary-subtle rounded-0 border-start-0 validation-train-card-right pt-4">
+                                                class="col-md-3 card border-secondary-subtle rounded-0 validation-train-card-right pt-4">
                                                 <div
                                                     class="all-ticket-card-right-content  d-flex justify-content-end me-3">
                                                     <p class="text-muted small">
@@ -440,7 +445,7 @@
                                     <div class="col-12">
                                         <div class="d-flex border-0 rounded-0 ">
                                             <div class="col-9 border border-secondary-subtle  rounded-0 px-3">
-                                                    {{--{{dd($sessionPassengerData['users'])}}--}}
+                                                {{--{{dd($sessionPassengerData['users'])}}--}}
                                                 @php
                                                     $idx=1;
                                                 @endphp
@@ -586,36 +591,36 @@
                                                             ($busDetails->ticket_price * $sessionData['totalKids']) : '' }}
                                     </span></h5>
                                 </div>
-                                @if(\Auth::check())
-                                    <button type="button" class="py-2 btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                                        BUY
-                                        TICKET
-                                    </button>
 
+                                @if(!\Illuminate\Support\Facades\Auth::check())
+                                    <button type="button" class="py-2 btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                        BUY TICKET
+                                    </button>
                                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-dialog " role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Please Login form here</h5>
 
                                                 </div>
-                                                <div class="modal-body">
-                                                    <form>
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Email address</label>
-                                                            <input type="email"  name="email" class="form-control" id="user_email" aria-describedby="emailHelp" placeholder="Enter email">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="exampleInputPassword1">Password</label>
-                                                            <input type="password" name="password" class="form-control" id="user_pwd" placeholder="Password">
-                                                        </div>
-                                                        <button type="submit" id="but_submit" class="btn btn-primary mt-2">Log In</button>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                                </div>
+                                                <form action="#" method="POST">
+                                                    <div class="modal-body">
+
+                                                            <div class="form-group">
+                                                                <label for="user_email">Email address</label>
+                                                                <input type="email"  name="email" class="form-control" id="user_email" aria-describedby="emailHelp" placeholder="Enter email">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="user_pwd">Password</label>
+                                                                <input type="password" name="password" class="form-control" id="user_pwd" placeholder="Password">
+                                                            </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" id="but_submit" class="btn btn-primary">Log In</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -644,18 +649,22 @@
 
     <script>
         $(document).ready(function(){
-            $("#but_submit").click(function(){
-                let email = $("#user_email").val().trim();
-                let password = $("#user_pwd").val().trim();
-                console.log(email);
-                if( email !== "" && password !== "" ){
+            $("#but_submit").click(function(e){
+                e.preventDefault();
+                var email = $("#user_email").val().trim();
+                var password = $("#user_pwd").val().trim();
+                console.log(password)
+                if( email != "" && password != "" ){
                     $.ajax({
                         url:'{{route('user.login.ajax')}}',
-                        type:'post',
-                        data:{email:email,
-                            password:password
+                        type:'POST',
+                        data:{
+                            email:email,
+                            password:password,
+                            '_token':'{{csrf_token()}}'
                         },
                         success:function(response){
+                            console.log(response)
                             let msg = "";
                             if(response.status){
                                 window.location.reload();

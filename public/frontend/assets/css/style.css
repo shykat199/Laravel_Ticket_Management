@@ -2853,6 +2853,12 @@ body a {
 .all-processing .container .row .all-processing-left-colum .row .all-ticket-left-colum-lower-part .all-ticket-left-colum-lower-part a:hover p {
   color: red;
 }
+@media (min-width: 768px) {
+  .all-processing .container .row .vailidation-container .vailidation-content .validation-content-select-ticket {
+    display: flex;
+    justify-content: space-between;
+  }
+}
 .all-processing .container .row .vailidation-container .vailidation-content .validation-train-card-left .all-ticket-card-left-icon {
   font-size: 50px;
 }

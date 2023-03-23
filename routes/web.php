@@ -22,7 +22,7 @@ Route::prefix('dashboard')->group(function () {
 
     Route::get('/login', [AuthController::class, 'loginPage'])->name('admin.login_page');
     Route::post('/login', [AuthController::class, 'login'])->name('admin.login');
-    Route::post('/login/ajax/login', [AuthController::class, 'ajaxLogin'])->name('user.login.ajax');
+    Route::post('ajax-login', [AuthController::class, 'ajaxLogin'])->name('user.login.ajax');
     Route::get('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     Route::get('/register', [AuthController::class, 'registerPage'])->name('admin.register_page');
     Route::post('/register', [AuthController::class, 'register'])->name('admin.register');
@@ -47,6 +47,7 @@ Route::middleware(['auth', 'prevent_back_history'])->prefix('admin/dashboard')->
         require base_path('routes/busDestination.php');
         require base_path('routes/service.php');
         require base_path('routes/user.php');
+        require base_path('routes/adminUserReservation.php');
 
         //Store Reservation
         Route::get('/user/dashboard', [ReservationController::class, 'UserDashboard'])->name('user.auth.dashboard');
@@ -59,7 +60,7 @@ Route::middleware(['auth', 'prevent_back_history'])->prefix('admin/dashboard')->
 
 
         //User Details Dashboard
-        Route::get('/user/dashboard/ticket-details', [ReservationController::class, 'userDashboardTicketDetails'])->name('user.dashboard.ticket-details');
+        //Route::get('/user/dashboard/ticket-details', [ReservationController::class, 'userDashboardTicketDetails'])->name('user.dashboard.ticket-details');
         Route::get('/user/profile', [ReservationController::class, 'userProfile'])->name('user.dashboard.profile');
         Route::get('/user/profile/delete/{id}', [ReservationController::class, 'dltReservation'])->name('dlt.user.reservation');
 
@@ -72,6 +73,7 @@ Route::middleware(['auth', 'prevent_back_history'])->prefix('admin/dashboard')->
 Route::prefix('/ticket/book')->group(function () {
     //Home page
     Route::get('/home', [HomePageController::class, 'index'])->name('frontend.home');
+    Route::get('/blog', [HomePageController::class, 'index'])->name('frontend.blog');
 
     //All Blog Page
     Route::get('/all-blogs', [BlogController::class, 'allBlogs'])->name('all.posts');
@@ -90,7 +92,7 @@ Route::prefix('/ticket/book')->group(function () {
 
 
     //add passenger
-    Route::post('/add/passengers', [PassengerController::class, 'index'])->name('frontend.add.passenger.list');
+    Route::get('/add/passengers', [PassengerController::class, 'index'])->name('frontend.add.passenger.list');
     Route::post('/add/passengers/details', [PassengerController::class, 'sessionStorePassenger'])->name('frontend.add.passenger.session');
 
     //Payment Method
@@ -118,9 +120,9 @@ Route::prefix('/ticket/book')->group(function () {
 
 
 
-//Route::get('/delete/session',[ResultController::class,'deleteSession']);
-//Route::get('/delete/session/price',[ResultController::class,'deleteSessionBusTicket']);
-//Route::get('/delete/session/price',[ResultController::class,'deleteSessionBusTicket']);
+Route::get('/delete/session',[ResultController::class,'deleteSession']);
+Route::get('/delete/session/price',[ResultController::class,'deleteSessionBusTicket']);
+Route::get('/delete/session/price',[ResultController::class,'deleteSessionBusTicket']);
 
 //Route::get('/update/bus-ticket',[ReservationController::class,'updateBusTicket'])->name('update.bus.ticket');
 

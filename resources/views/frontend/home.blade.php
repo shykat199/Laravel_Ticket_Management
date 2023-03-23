@@ -14,24 +14,21 @@
                 </div>
                 <div
                     class="col-12 col-sm-12 col-md-6 col-lg-6 ticket-booking-home-header-search-ticket-form d-flex flex-column justify-content-end">
-                    <form class="row g-3 pt-3 pb-5 px-2" action="{{ route('frontend.show.result') }}" method="post">
+                    <form class="row g-3 pt-3 pb-5 px-2" action="{{route('frontend.show.result')}}" method="post">
                         @csrf
                         <!-- travelling route start -->
                         <div class="col-md-5 hero-input-with-icon">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
-                            {{--                            <input type="text" name="starting_point" class="form-control" id="inputtext1" --}}
-                            {{--                                   placeholder="From"> --}}
-                            <select name="starting_point" class="form-control select2" data-toggle="select2"
-                                id="busCompanyy">
-                                <option selected>Starting Point</option>
-                                @foreach ($froms as $from)
-                                    <option value="{{ $from->starting_point }}">{{ $from->starting_point }}</option>
+                            <select name="starting_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
+                                <option selected value="">Starting Point</option>
+                                @foreach($froms as $from)
+                                    <option value="{{$from->starting_point}}">{{$from->starting_point}}</option>
                                 @endforeach
 
                             </select>
                             <i class="fa fa-map-marker"></i>
                             @error('starting_point')
-                                <span class="text-danger">{{ $message }}</span>
+                            <span class="invalid-feedback d-block" role="alert" >{{$message}}</span>
                             @enderror
                         </div>
 
@@ -42,17 +39,16 @@
                         </div>
 
                         <div class="col-md-5 d-flex align-items-end hero-input-with-icon">
-                            <select name="arrival_point" class="form-control select2" data-toggle="select2"
-                                id="busCompanyy">
-                                <option selected>Destination Point</option>
-                                @foreach ($tos as $to)
-                                    <option value="{{ $to->arrival_point }}">{{ $to->arrival_point }}</option>
+                            <select name="arrival_point" class="form-control select2" data-toggle="select2" id="busCompanyy">
+                                <option selected value="">Destination Point</option>
+                                @foreach($tos as $to)
+                                    <option value="{{$to->arrival_point}}">{{$to->arrival_point}}</option>
                                 @endforeach
 
                             </select>
                             <i class="fa fa-map-marker"></i>
                             @error('arrival_point')
-                                <span class="text-danger">{{ $message }}</span>
+                            <span class="invalid-feedback d-block" role="alert" >{{$message}}</span>
                             @enderror
                         </div>
 
@@ -66,7 +62,7 @@
                                 placeholder="MM/DD/YY">
 
                             @error('dateOfJourney')
-                                <span class="text-danger">{{ $message }}</span>
+                            <span class="invalid-feedback d-block" role="alert" >{{$message}}</span>
                             @enderror
                         </div>
 
@@ -98,7 +94,7 @@
 
                             <i class="fa fa-caret-down"></i>
                             @error('totalPerson')
-                                <span class="text-danger">{{ $message }}</span>
+                            <span class="invalid-feedback d-block" role="alert" >{{$message}}</span>
                             @enderror
                         </div>
 

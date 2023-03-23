@@ -29,11 +29,6 @@
                             {!! $aboutUs[0]->value !!}
                         </p>
                     </div>
-                    <div class="col-6 who-we-are-content-paragraph">
-                        <p>
-                            {!! $aboutUs[0]->value !!}
-                        </p>
-                    </div>
                 </div>
                 <p class="text-center fst-italic text-muted">
                     "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam non nisi unde? Magni, <br>

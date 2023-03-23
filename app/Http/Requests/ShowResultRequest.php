@@ -27,7 +27,7 @@ class ShowResultRequest extends FormRequest
             'starting_point'=>['required'],
             'arrival_point'=>['required'],
             'dateOfJourney'=>['required'],
-            'totalPerson'=>['required'],
+            'totalPerson'=>['required','max:5','min:1'],
         ];
     }
     public function messages(): array
@@ -35,7 +35,7 @@ class ShowResultRequest extends FormRequest
         return [
             'starting_point.required'=>'Please Select Starting Point',
             'arrival_point.required'=>'Please Select Arrival Point',
-            'dateOfJourney.required'=>'Please Select Starting Point',
+            'dateOfJourney.required'=>'Please Select Date',
             'totalPerson.required'=>'Please Select At-last 1 Person',
         ];
     }
