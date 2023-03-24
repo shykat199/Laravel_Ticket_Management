@@ -74,7 +74,7 @@ class AuthController extends Controller
                 return to_route('admin.auth.dashboard')->with('success', 'Successfully Login');
             } else if (Auth::user()->user_role === 'user') {
 
-                return to_route('admin.auth.dashboard')->with('success', 'Successfully Login');
+                return to_route('user.auth.dashboard')->with('success', 'Successfully Login');
             } else {
                 return "Invalid User";
             }

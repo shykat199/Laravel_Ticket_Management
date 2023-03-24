@@ -7,13 +7,13 @@
             <div class="row gy-4 ticket-booking-home-header-hero-content">
                 <div
                     class="col-12 ticket-booking-home-header-search-ticket-form d-flex flex-column justify-content-end">
-                    <form class="row g-3 pt-3 pb-5 px-2" action="{{route('frontend.show.result')}}" method="post">
-                        @csrf
+                    <form class="row g-3 pt-3 pb-5 px-2" action="{{route('frontend.show.result')}}" method="get">
+
                         <!-- travelling route start -->
                         <div class="col-md-5 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext1" class="form-label pb-2">Travelling Route</label>
                             <select name="starting_point" class="form-control select2" data-toggle="select2"
-                                    id="busCompanyy">
+                                    id="busFrom">
                                 <option selected>Starting Point</option>
                                 @foreach($froms as $from)
                                     <option
@@ -25,13 +25,13 @@
                             <i class="fa fa-map-marker"></i>
                         </div>
                         <div class="col-md-2 col-xl-1 d-flex align-items-end">
-                            <button type="submit" class="form-control">
+                            <button type="submit" class="form-control btnSwap">
                                 <i class="fa fa-refresh"></i>
                             </button>
                         </div>
                         <div class="col-md-5 col-xl-2 d-flex align-items-end hero-input-with-icon">
                             <select name="arrival_point" class="form-control select2" data-toggle="select2"
-                                    id="busCompanyy">
+                                    id="busTo">
                                 <option selected>Destination Point</option>
                                 @foreach($tos as $to)
                                     <option
@@ -59,7 +59,7 @@
                                    max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
                                    type="datetime-local"
                                    class="form-control" id="inputtext4" placeholder="One Way">
-                            <i class="fa fa-calendar"></i>
+
                         </div>
                         <!-- travelling date end -->
                         <!-- travelling person start -->
@@ -161,7 +161,6 @@
                                             <div class="mt-4 d-flex align-items-center justify-content-between">
                                                 <div class="">
                                                     <p class="text-light mb-0">
-{{--                                                        {{isset($busDetails->departure_time) ? $busDetails->departure_time:''}} --}}
                                                         {{date("g:i a",strtotime(\Carbon\Carbon::parse($busDetails->departure_time)))}}</p>
                                                     <p class="small-text text-light mb-0">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y'):''}}</p>
                                                 </div>
@@ -171,10 +170,12 @@
                                                 </div>
                                                 <div class="d-flex flex-column align-items-end">
                                                     <p class="text-light mb-0">
-{{--                                                        {{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}--}}
+                                                        {{--                                                        {{isset($busDetails->arrival_time) ? $busDetails->arrival_time:''}}--}}
                                                         {{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours($busDetails->arrival_time)))}}
                                                     </p>
-                                                    <p class="small-text text-light mb-0">Feb 13 TUE</p>
+                                                    @if(isset($sessionData['dateOfJourney']) && $sessionData['dateOfJourney']==!null)
+                                                        <p class="small-text text-light mb-0">{{ Carbon\Carbon::parse((\Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('Y-m-d') . ' ' .(\Carbon\Carbon::parse($busDetails->departure_time)->format('H:i'))))->addHours($busDetails->arrival_time)->format('d-m-Y') }}</p>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="pt-4">
@@ -211,7 +212,7 @@
                                                 </div>
                                                 <div class="mt-4 d-flex align-items-center justify-content-between">
                                                     <div class="">
-{{--                                                        class="text-light mb-0">{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}--}}
+                                                        {{--                                                        class="text-light mb-0">{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}--}}
                                                         <p class="text-light mb-0"> {{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours()))}}</p>
                                                         <p class="small-text text-light mb-0">{{isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y'):''}}</p>
                                                     </div>
@@ -221,7 +222,8 @@
                                                     </div>
                                                     <div class="d-flex flex-column align-items-end">
                                                         <p class="text-light mb-0">{{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours($busDetails->arrival_time)))}}</p>
-                                                        <p class="small-text text-light mb-0">Feb 13 TUE</p>
+                                                        <p class="small-text text-light mb-0">{{ Carbon\Carbon::parse((\Carbon\Carbon::parse($sessionData['returnOfDate'])->format('Y-m-d') . ' ' .(\Carbon\Carbon::parse($busDetails->departure_time)->format('H:i'))))->addHours($busDetails->arrival_time)->format('d-m-Y') }}</p>
+
                                                     </div>
                                                 </div>
 
@@ -325,7 +327,17 @@
                         </div>
                     </div>
 
+
+
                     <div class="col-8 processing-form">
+                        @if(\Illuminate\Support\Facades\Session::has('error'))
+                            <div class="alert  alert-danger m-2" role="alert">
+                                <i class="dripicons-checkmark me-2"></i>
+                                <strong>{{\Illuminate\Support\Facades\Session::get('error')}}</strong>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"
+                                        style="float: right"></button>
+                            </div>
+                        @endif
 
                         <form action="{{route('frontend.add.passenger.session')}}" method="get">
 
@@ -644,6 +656,34 @@
 
             }
         });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+            integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $(document).on('click', '.btnSwap', function (e) {
+            e.preventDefault();
+
+            /* Store the list of depatures and arrivals as they are */
+            let $departures = $('#busFrom option');
+            let $arrivals = $('#busTo option');
+
+            /* Store the selected values */
+            let departure = $('#busFrom option:checked').text();
+            let arrival = $('#busTo option:checked').text();
+
+            /* Swap the option lists */
+            $('#busTo').append($departures);
+            $('#busFrom').append($arrivals);
+
+            /* Re-set the selected values */
+            $('#busTo option:contains(' + departure + ')').prop('selected', true);
+            $('#busFrom option:contains(' + arrival + ')').prop('selected', true);
+
+        });
+
     </script>
 
 @endsection

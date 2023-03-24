@@ -18,7 +18,7 @@ class HomePageController extends Controller
 {
     public function index(Request $request)
     {
-        $blogPost = BlogPost::select('post_title', 'post_description', 'post_image', 'created_at')
+        $blogPost = BlogPost::select('post_title', 'post_description', 'post_image', 'created_at','id')
             ->offset(0)
             ->orderBy('id', 'DESC')
             ->limit(4)

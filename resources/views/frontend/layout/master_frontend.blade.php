@@ -359,7 +359,7 @@
                         <span class="fs-4 fw-semibold ps-3">BOOK<span class="fw-lighter">YOUR</span>TRAIN</span>
                     </li>
                     <li>
-                        <i class="fa fa-chevron-up footer-lower-part-angle-up"></i>
+                        <a href="" style="color: gray"><i class="fa fa-chevron-up footer-lower-part-angle-up"></i></a>
                     </li>
                     <li class="">&copy 2015 BESTWEBSOFT</li>
                 </ul>
@@ -375,8 +375,11 @@
     <script src="{{asset("frontend/assets/js/slick.min.js")}}"></script>
     <script src="{{asset("frontend/assets/js/script.js")}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+        $(document).ready(function (){
 
+        })
     </script>
 </body>
 

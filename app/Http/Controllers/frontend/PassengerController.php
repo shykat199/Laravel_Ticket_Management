@@ -41,6 +41,8 @@ class PassengerController extends Controller
     public function sessionStorePassenger(Request $request)
     {
         //dd($request->all());
+
+
         $validation = Validator::make($request->all(), [
 //            "users" => ['required', "array:'first_name','last_name'"],
             "users.*" => 'array',
@@ -60,19 +62,30 @@ class PassengerController extends Controller
                 ->withErrors($validation)
                 ->withInput();
         }
-
-//        if ($validation->passes()) {
-
         $request->session()->put('sessionPassengerData', $request->all());
-        $sessionData = $request->session()->get('searchedResults');
+//        if ($validation->passes()) {
         $sessionPassengerData = $request->session()->get('sessionPassengerData');
-        $busDetails = $request->session()->get('sessionTicketPrice');
-        $min_date = Carbon::today();
-        $max_date = Carbon::now()->addWeek();
-        $froms = BusDestination::select('starting_point')->groupby('starting_point')->get();
-        $tos = BusDestination::select('arrival_point')->groupby('arrival_point')->get();
-        //dd($busDetails);
-        return view('frontend.payment', compact('sessionPassengerData', 'busDetails', 'sessionData', 'min_date', 'max_date', 'froms', 'tos'));
+        //dd($sessionPassengerData);
+        if (isset($sessionPassengerData) && !empty($sessionPassengerData)) {
+
+
+            $sessionData = $request->session()->get('searchedResults');
+            $sessionPassengerData = $request->session()->get('sessionPassengerData');
+            $busDetails = $request->session()->get('sessionTicketPrice');
+            $min_date = Carbon::today();
+            $max_date = Carbon::now()->addWeek();
+            $froms = BusDestination::select('starting_point')->groupby('starting_point')->get();
+            $tos = BusDestination::select('arrival_point')->groupby('arrival_point')->get();
+            //dd($busDetails);
+            $min_date = Carbon::today();
+            $max_date = Carbon::now()->addWeek();
+            return view('frontend.payment', compact('sessionPassengerData', 'busDetails', 'sessionData', 'min_date', 'max_date', 'froms', 'tos'));
+        } else {
+            return redirect()->back()->with('error', 'Atleast One Passenger Should Be Selected');
+
+        }
+
+
     }
     //}
 

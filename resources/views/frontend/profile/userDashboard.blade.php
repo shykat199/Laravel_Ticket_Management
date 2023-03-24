@@ -1,8 +1,8 @@
-@extends('admin.interface.layout.master_admin')
-@section('admin.title')
+@extends('frontend.profile.layout.user_masterDashboard')
+@section('user.title')
     Your Reservation Details
 @endsection
-@section('admin.content')
+@section('user.content')
     <!-- Start icContent-->
     <div class="container-fluid">
 

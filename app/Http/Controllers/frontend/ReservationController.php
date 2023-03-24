@@ -20,14 +20,14 @@ class ReservationController extends Controller
 //            $previousUrl = url()->previous();
 //            dd($previousUrl);
 
-        if (Auth::guest()) {
-
-            return to_route('user.loginPage');
-
-        } elseif (Auth::user()->user_role === "admin") {
-
-            return to_route('user.loginPage');
-        } else {
+//        if (Auth::guest()) {
+//
+//            return to_route('user.loginPage');
+//
+//        } elseif (Auth::user()->user_role === "admin") {
+//
+//            return to_route('user.loginPage');
+//        } else {
 
             $paymentDetails = $request->session()->get('paymentDetails');
             $sessionData = $request->session()->get('searchedResults');
@@ -156,7 +156,7 @@ class ReservationController extends Controller
 
 
         }
-    }
+   // }
 
     public function UserDashboard()
     {
@@ -186,7 +186,7 @@ class ReservationController extends Controller
     {
 
         $ticketDetails = Reservation::with('passengers', 'destinations.busDetails.busCompany')->select('reservations.*')
-            ->where('reservations.user_id', Auth::id())
+            ->where('reservations.user_id','=', Auth::id())
             ->get();
 
         // dd($ticketDetails);

@@ -24,8 +24,8 @@
                     Who we are
                 </h4>
                 <div class="row gx-4 py-4 px-5 who-we-are-content">
-                    <div class="col-6 who-we-are-content-paragraph">
-                        <p>
+                    <div class="col-12 who-we-are-content-paragraph" style="text-align: justify;">
+                        <p class="text-center text-justify" >
                             {!! $aboutUs[0]->value !!}
                         </p>
                     </div>
