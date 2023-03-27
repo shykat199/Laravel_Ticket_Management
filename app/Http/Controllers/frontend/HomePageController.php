@@ -61,7 +61,7 @@ class HomePageController extends Controller
 
             $searchResults = new BusDestination();
 
-            $searchResults=$searchResults->with('busDetails.busCompany');
+            $searchResults = $searchResults->with('busDetails.busCompany');
 //            dd($searchResults);
 
             $total_passenger = isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
@@ -71,8 +71,8 @@ class HomePageController extends Controller
 
             //Filter Bus According To Bus Company
 
-            $allBusCompanies=BusCompany::join('bus_details','bus_details.company_id','=','bus_companies.id')
-                ->join('bus_destinations','bus_destinations.bus_details_id','=','bus_details.id')
+            $allBusCompanies = BusCompany::join('bus_details', 'bus_details.company_id', '=', 'bus_companies.id')
+                ->join('bus_destinations', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
                 ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
                 ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
                 ->where('bus_details.bus_seat', '!=', 0)
@@ -83,7 +83,7 @@ class HomePageController extends Controller
                 ->get();
             //dd($allBusCompanies);
 
-             //Filter Bus According To Coach Type
+            //Filter Bus According To Coach Type
             if ($request->ajax()) {
                 if ($request->get('ac')) {
                     $searchResults = $searchResults->join('bus_details', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
@@ -135,9 +135,10 @@ class HomePageController extends Controller
             // Filter Bus Ticket From Slider Price
 
             if ($request->ajax()) {
+
                 if ($request->get('priceRange')) {
                     $startingPrice = 500;
-                    $endPrice = (int)$request->priceRange;
+                    $endPrice = (int)$request->get('priceRange');
                     $searchResults = $searchResults->join('bus_details', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
                         ->leftJoin('reservations', function ($query) {
                             $query->on('reservations.bus_destination_id', '=', 'bus_destinations.id');
@@ -147,7 +148,7 @@ class HomePageController extends Controller
                         ->where('bus_details.status', '!=', 0)
                         ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
                         ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
-                        ->whereBetween('bus_destinations.ticket_price',[$startingPrice,$endPrice])
+                        ->whereBetween('bus_destinations.ticket_price', [$startingPrice, $endPrice])
                         ->selectRaw('bus_details.*,bus_destinations.* ,
                                     (COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0)) as available_seat')
                         ->havingRaw("COALESCE(bus_details,0) - COALESCE(SUM(reservations.total_passenger),0)" >= $total_passenger)
@@ -158,27 +159,29 @@ class HomePageController extends Controller
 
                     $html = '';
 
-                    if (!empty($searchResults)){
-                        foreach ($searchResults as $searchResult){
-                            $html .='<div class="row available-all-ticket-content pt-3">
+                    if (count($searchResults)>0) {
+                        //dd(123);
+                        foreach ($searchResults as $searchResult) {
+                            $html .= '
+                                <div class="row available-all-ticket-content pt-3">
                                     <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
                                         <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
                                         <div class="card-body">
-                                            <h5 class="card-title text-center">'.$searchResult->busDetails->bus_coach.'</h5>
-                                            <h6 class="card-title text-center">'.$searchResult->busDetails->bus_type.'</h6>
+                                            <h5 class="card-title text-center">' . $searchResult->busDetails->bus_coach . '</h5>
+                                            <h6 class="card-title text-center">' . $searchResult->busDetails->bus_type . '</h6>
                                             <p class="card-title text-center">
-                                                Seat- '.$searchResult->available_seat.'</p>
-                                            <p class="card-text text-center text-muted">'.$searchResult->busDetails->busCompany->bus_company.'</p>
+                                                Seat- ' . $searchResult->available_seat . '</p>
+                                            <p class="card-text text-center text-muted">' . $searchResult->busDetails->busCompany->bus_company . '</p>
                                         </div>
                                     </div>
                                     <div class="col-6 card rounded-0 all-ticket-card-middle">
                                         <div class="row  card-body">
                                             <div class="row">
                                                 <div class="col-4 all-ticket-card-middle-left-colum">
-                                                    <h5>'.date("g:i a",strtotime(\Carbon\Carbon::parse($searchResult->departure_time))).'</h5>
+                                                    <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time))) . '</h5>
                                                     <small
-                                                        class="small-text">'.(isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y') :'').'</small>
-                                                    <h6 class="small">'.$searchResult->starting_point.'</h6>
+                                                        class="small-text">' . (isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y') : '') . '</small>
+                                                    <h6 class="small">' . $searchResult->starting_point . '</h6>
 
                                                 </div>
                                                 <div
@@ -190,20 +193,20 @@ class HomePageController extends Controller
                                                 </div>
                                                 <div class="col-4 all-ticket-card-middle-right-colum">
 
-                                                    <h5>'.date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time))).'</h5>
+                                                    <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time))) . '</h5>
                                                     <small
-                                                        class="small-text">'.(isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->addHour($searchResult->arrival_time)->format('d-m-Y') :'').'</small>
-                                                    <h6 class="small"> '.$searchResult->arrival_point.'</h6>
+                                                        class="small-text">' . (isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->addHour($searchResult->arrival_time)->format('d-m-Y') : '') . '</small>
+                                                    <h6 class="small"> ' . $searchResult->arrival_point . '</h6>
                                                 </div>
                                             </div>';
 
-                                            if(@$sessionData['returnOfDate']){
-                                                $html .='<div class="row mt-4">
+                            if (@$sessionData['returnOfDate']) {
+                                $html .= '<div class="row mt-4">
                                                     <div class="col-4 all-ticket-card-middle-left-colum">
-                                                        <h5>'.date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours())).'</h5>
+                                                        <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours())) . '</h5>
                                                         <small
-                                                            class="small-text">'.(isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y') :'').'</small>
-                                                        <h6 class="small">'.$searchResult->arrival_point.'</h6>
+                                                            class="small-text">' . (isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y') : '') . '</small>
+                                                        <h6 class="small">' . $searchResult->arrival_point . '</h6>
 
                                                     </div>
                                                     <div
@@ -215,21 +218,21 @@ class HomePageController extends Controller
                                                     </div>
                                                     <div class="col-4 all-ticket-card-middle-right-colum">
 
-                                                        <h5>'.date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time))).'</h5>
+                                                        <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time))) . '</h5>
                                                         <small
-                                                            class="small-text">'.(isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->addHour($searchResult->arrival_time)->format('d-m-Y') :'').'</small>
-                                                        <h6 class="small">'.$searchResult->starting_point.'</h6>
+                                                            class="small-text">' . (isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->addHour($searchResult->arrival_time)->format('d-m-Y') : '') . '</small>
+                                                        <h6 class="small">' . $searchResult->starting_point . '</h6>
 
                                                     </div>
                                                 </div>';
-                                            }
+                            }
 
-                                    $html .='</div>
+                            $html .= '</div>
                                     </div>
 
                                     <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
                                         <div class="all-ticket-card-right-content">
-                                            <p class="text-muted small"><span>$'.$searchResult->ticket_price.' </span>/person
+                                            <p class="text-muted small"><span>$' . $searchResult->ticket_price . ' </span>/person
                                             </p>
 
                                         </div>
@@ -247,8 +250,8 @@ class HomePageController extends Controller
                                                 <i class="fa fa-rocket" aria-hidden="true"></i>
                                             </li>
                                         </ul>
-                                        <form action="'.route('frontend.add.passenger.list').'" method="get">
-                                            <input type="hidden" name="bus_id" id="" value="'.$searchResult->id.'">
+                                        <form action="' . route('frontend.add.passenger.list') . '" method="get">
+                                            <input type="hidden" name="bus_id" id="" value="' . $searchResult->id . '">
                                             <button type="submit" class="btn btn-primary mt-3">Book Now</button>
                                         </form>
 
@@ -257,9 +260,20 @@ class HomePageController extends Controller
                         }
                     }
 
+                    else{
+                        //dd(1);
+                        $html .= '<div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                                        <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
+                                        <div class="card-body">
+                                            <h2>No Data Found</h2>
+                                        </div>
+                                    </div>';
+                    }
+
+
                     return response()->json([
-                        'status'=>true,
-                        'html'=>$html
+                        'status' => true,
+                        'html' => $html
                     ]);
 
                 } elseif ($request->get('nonAc')) {
@@ -287,7 +301,6 @@ class HomePageController extends Controller
 
             }
 
-
             //dd($currentTime);
             if ($request->get('starting_point') && $request->get('arrival_point')) {
 
@@ -310,10 +323,6 @@ class HomePageController extends Controller
                     ->groupBy('bus_destinations.bus_details_id')
                     ->get();
 
-                //return $searchResults;
-
-                //dd($searchResults);
-                //dd($searchResults);
                 $request->session()->put('searchedResults', $request->all());
             } else {
                 //return back
@@ -326,7 +335,7 @@ class HomePageController extends Controller
             //dd($sessionData);
             $froms = BusDestination::select('starting_point')->groupby('starting_point')->get();
             $tos = BusDestination::select('arrival_point')->groupby('arrival_point')->get();
-            return view('frontend.showResult', compact('searchResults', 'sessionData', 'min_date', 'max_date', 'froms', 'tos','allBusCompanies'));
+            return view('frontend.showResult', compact('searchResults', 'sessionData', 'min_date', 'max_date', 'froms', 'tos', 'allBusCompanies'));
             //dd($searchResult);
         }
     }

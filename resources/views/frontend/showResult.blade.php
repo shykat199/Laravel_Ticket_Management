@@ -417,7 +417,7 @@
 
 
                         <!-- Pagination -->
-                        <nav aria-label="Page navigation example ">
+                        <nav aria-label="Page navigation example">
                             <ul class="pagination pt-5 justify-content-center custom-design-for-pagination">
                                 <li class=" page-item">
                                     <a class="page-link" href="#" aria-label="Previous">
@@ -459,6 +459,7 @@
             let totalPerson = $('#totalPerson').val();
             let priceRange = e.target.value;
             $('#rangeOutput').text(priceRange);
+
             $.get('{{ route('frontend.show.result') }}', {
 
                     priceRange: priceRange,
@@ -504,12 +505,10 @@
             let dateOfJourney = $('#dateOfJourney').val();
             let totalPerson = $('#totalPerson').val();
 
-            // console.log(ac,'ac');
-            // //console.log(nonAc,'nonAc');
+
             console.log(dateOfJourney, 'dateOfJourney');
             console.log(totalPerson, 'totalPerson');
-            //document.('available-all-ticket-content').innerHTML="";
-            //console.log(allFilterData);
+
 
             $('#available-all-ticket-content').html('');
 
@@ -526,101 +525,9 @@
                 function (response, status) {
 
                     console.log(status, 'status');
-                    let data = response[0];
-                    //let a=data.bus_coach;
-                    console.log(data);
-
-                    // $( "#available-all-ticket-content" ).each(function( index ) {
-                    //     console.log( index + ": " + $( this ).text() );
-                    // });
-
-                    for (let key in data) {
-                        if (data.hasOwnProperty(key)) {
-                            $('#available-all-ticket-content').append(`
-
-                    <div id="available-all-ticket-content">
-
-                    <div  class="row available-all-ticket-content pt-3">
-                        <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
-                            <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
-                            <div class="card-body">
-                                <h5 class="card-title text-center">${data.bus_coach}</h5>
-                                        <h6 class="card-title text-center">${data.bus_type}</h6>
-                                        <p class="card-title text-center">Seat- ${data.bus_seat}</p>
-                                        <p class="card-text text-center text-muted">${data.bus_type}</p>
-                                    </div>
-                                </div>
-                                `)
-                        }
-                    }
-
-
-                    //const allFilterData=document.getElementById('available-all-ticket-content').innerHTML;
-                    // console.log(allFilterData);
-
                 })
         });
-        // $('.ac').change(function (){
-        //    let ac= $('input[name="Ac"]').val();
-        //    //let nonAc= $('input[name="Non-Ac"]').val();
-        //    let arrival_point= $('#busTo').val();
-        //    let starting_point=$('#busFrom').val();
-        //    let dateOfJourney=$('#dateOfJourney').val();
-        //    let totalPerson=$('#totalPerson').val();
-        //
-        //    // console.log(ac,'ac');
-        //    // //console.log(nonAc,'nonAc');
-        //     console.log(dateOfJourney,'dateOfJourney');
-        //    // console.log(totalPerson,'totalPerson');
-        //    // document.getElementById('available-all-ticket-content').innerHTML="";
-        //     //console.log(allFilterData);
-        //
-        //     $.get('http://127.0.0.1:8000/show/search/result',
-        //         {
-        //             ac: ac,
-        //             starting_point:starting_point,
-        //             arrival_point:arrival_point,
-        //             dateOfJourney:dateOfJourney,
-        //             totalPerson:totalPerson,
-        //
-        //         },
-        //         function (response,status){
-        //             // console.log(status,'status');
-        //             // console.log(response,'data');
-        //             // const allFilterData=doctment.getElementById('available-all-ticket-content').innerHTML;
-        //             // console.log(allFilterData);
-        //
-        //         })
-        // })
 
-        // $('.nonAc').change(function (){
-        //
-        //     let nonAc= $('input[name="Non-Ac"]').val();
-        //     let arrival_point= $('#busTo').val();
-        //     let starting_point=$('#busFrom').val();
-        //     let dateOfJourney=$('#dateOfJourney').val();
-        //     let totalPerson=$('#totalPerson').val();
-        //
-        //
-        //     console.log(nonAc,'nonAc');
-        //     console.log(dateOfJourney,'dateOfJourney');
-        //     console.log(totalPerson,'totalPerson');
-        //
-        //     //document.getElementById('available-all-ticket-content').innerHTML="";
-        //     $.get('http://127.0.0.1:8000/show/search/result',
-        //         {
-        //             nonAc: nonAc,
-        //             starting_point:starting_point,
-        //             arrival_point:arrival_point,
-        //             dateOfJourney:dateOfJourney,
-        //             totalPerson:totalPerson,
-        //
-        //         },
-        //         function (response,status){
-        //             console.log(status,'status');
-        //             console.log(response,'data');
-        //         })
-        // })
     </script>
 
 @endsection
