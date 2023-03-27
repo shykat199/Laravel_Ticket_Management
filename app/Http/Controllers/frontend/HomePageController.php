@@ -135,7 +135,6 @@ class HomePageController extends Controller
             // Filter Bus Ticket From Slider Price
 
             if ($request->ajax()) {
-
                 if ($request->get('priceRange')) {
                     $startingPrice = 500;
                     $endPrice = (int)$request->priceRange;
@@ -157,9 +156,112 @@ class HomePageController extends Controller
                         ->orderBy('bus_destinations.departure_time', 'ASC')
                         ->get();
 
-                    return response()->json($searchResults);
-                    //return $searchResults;
-//                    dd($searchResults);
+                    $html = '';
+
+                    if (!empty($searchResults)){
+                        foreach ($searchResults as $searchResult){
+                            $html .='<div class="row available-all-ticket-content pt-3">
+                                    <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                                        <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center">'.$searchResult->busDetails->bus_coach.'</h5>
+                                            <h6 class="card-title text-center">'.$searchResult->busDetails->bus_type.'</h6>
+                                            <p class="card-title text-center">
+                                                Seat- '.$searchResult->available_seat.'</p>
+                                            <p class="card-text text-center text-muted">'.$searchResult->busDetails->busCompany->bus_company.'</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 card rounded-0 all-ticket-card-middle">
+                                        <div class="row  card-body">
+                                            <div class="row">
+                                                <div class="col-4 all-ticket-card-middle-left-colum">
+                                                    <h5>'.date("g:i a",strtotime(\Carbon\Carbon::parse($searchResult->departure_time))).'</h5>
+                                                    <small
+                                                        class="small-text">'.(isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y') :'').'</small>
+                                                    <h6 class="small">'.$searchResult->starting_point.'</h6>
+
+                                                </div>
+                                                <div
+                                                    class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+
+                                                    <p class="text-center"><i
+                                                            class="fa fa-long-arrow-right text-muted"></i>
+                                                    </p>
+                                                </div>
+                                                <div class="col-4 all-ticket-card-middle-right-colum">
+
+                                                    <h5>'.date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time))).'</h5>
+                                                    <small
+                                                        class="small-text">'.(isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->addHour($searchResult->arrival_time)->format('d-m-Y') :'').'</small>
+                                                    <h6 class="small"> '.$searchResult->arrival_point.'</h6>
+                                                </div>
+                                            </div>';
+
+                                            if(@$sessionData['returnOfDate']){
+                                                $html .='<div class="row mt-4">
+                                                    <div class="col-4 all-ticket-card-middle-left-colum">
+                                                        <h5>'.date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours())).'</h5>
+                                                        <small
+                                                            class="small-text">'.(isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y') :'').'</small>
+                                                        <h6 class="small">'.$searchResult->arrival_point.'</h6>
+
+                                                    </div>
+                                                    <div
+                                                        class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+
+                                                        <p class="text-center"><i
+                                                                class="fa fa-long-arrow-left text-muted"></i>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-4 all-ticket-card-middle-right-colum">
+
+                                                        <h5>'.date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time))).'</h5>
+                                                        <small
+                                                            class="small-text">'.(isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->addHour($searchResult->arrival_time)->format('d-m-Y') :'').'</small>
+                                                        <h6 class="small">'.$searchResult->starting_point.'</h6>
+
+                                                    </div>
+                                                </div>';
+                                            }
+
+                                    $html .='</div>
+                                    </div>
+
+                                    <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
+                                        <div class="all-ticket-card-right-content">
+                                            <p class="text-muted small"><span>$'.$searchResult->ticket_price.' </span>/person
+                                            </p>
+
+                                        </div>
+                                        <ul class="d-flex">
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-wifi" aria-hidden="true"></i>
+                                            </li>
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-moon-o" aria-hidden="true"></i>
+                                            </li>
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-coffee" aria-hidden="true"></i>
+                                            </li>
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-rocket" aria-hidden="true"></i>
+                                            </li>
+                                        </ul>
+                                        <form action="'.route('frontend.add.passenger.list').'" method="get">
+                                            <input type="hidden" name="bus_id" id="" value="'.$searchResult->id.'">
+                                            <button type="submit" class="btn btn-primary mt-3">Book Now</button>
+                                        </form>
+
+                                    </div>
+                                </div>';
+                        }
+                    }
+
+                    return response()->json([
+                        'status'=>true,
+                        'html'=>$html
+                    ]);
+
                 } elseif ($request->get('nonAc')) {
                     $searchResults = $searchResults->join('bus_details', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
                         ->leftJoin('reservations', function ($query) {

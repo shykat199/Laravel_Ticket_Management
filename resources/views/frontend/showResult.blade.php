@@ -314,7 +314,6 @@
                         <div id="available-all-ticket-content">
 
                             @foreach($searchResults as $searchResult)
-
                                 <div class="row available-all-ticket-content pt-3">
                                     <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
                                         <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
@@ -470,8 +469,8 @@
 
                 },
                 function (response, status) {
-                    console.log(response, 'Data');
-                    console.log(status, 'Data');
+                    $('.all-ticket').find('nav').remove();
+                    $('#available-all-ticket-content').html(response.html)
                 });
 
 
