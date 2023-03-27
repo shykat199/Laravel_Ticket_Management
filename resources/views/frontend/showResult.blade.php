@@ -52,7 +52,7 @@
                                    type="datetime-local"
                                    min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
                                    max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
-                                   class="form-control" id="inputtext3" placeholder="MM/DD/YY">
+                                   class="form-control" id="dateOfJourney" placeholder="MM/DD/YY">
 
                         </div>
                         <div class="col-md-3 col-xl-2 d-flex align-items-end hero-input-with-icon mt-4">
@@ -71,7 +71,7 @@
                             <input name="totalPerson"
                                    value="{{isset($sessionData['totalPerson']) ? $sessionData['totalPerson']:''}}"
                                    type="number"
-                                   class="form-control" id="inputtext5" placeholder="1 Adult">
+                                   class="form-control" id="totalPerson" placeholder="1 Adult">
 
                         </div>
                         <div
@@ -137,81 +137,90 @@
                 <div class="row">
                     <div class="col-4 all-ticket-left-colum">
                         <div class="row">
-                            <div class="row all-ticket-left-colum-upper-part mb-2">
-                                <div class="card all-ticket-left-colum-upper-part rounded-0">
-                                    <h4
-                                        class="text-center text-light pt-4 fw-normal all-ticket-left-colum-upper-part-title">
-                                        Filter by
-                                    </h4>
-                                    <div class="row  card-body pt-4">
-                                        <div class="row ">
-                                            <h5 class="text-light fw-normal ps-0">Coach Type</h5>
-                                            <div class="form-check form-switch py-2">
-                                                <input class="form-check-input small text-danger  ps-0" type="checkbox"
-                                                       role="switch" id="flexSwitchCheckDefault">
-                                                <label class="form-check-label text-light small ps-2"
-                                                       for="flexSwitchCheckDefault">Third class sleeping</label>
-                                            </div>
-                                            <div class="form-check form-switch pb-2">
-                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
-                                                       id="flexSwitchCheckDefault">
-                                                <label class="form-check-label text-light small ps-2"
-                                                       for="flexSwitchCheckDefault">Second class sleeping</label>
-                                            </div>
-                                            <div class="form-check form-switch pb-2">
-                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
-                                                       id="flexSwitchCheckDefault">
-                                                <label class="form-check-label text-light small ps-2"
-                                                       for="flexSwitchCheckDefault">First class sleeping</label>
-                                            </div>
-                                            <div class="form-check form-switch pb-2">
-                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
-                                                       id="flexSwitchCheckDefault">
-                                                <label class="form-check-label text-light small ps-2"
-                                                       for="flexSwitchCheckDefault">Comfortable</label>
-                                            </div>
-                                            <div class="form-check form-switch pb-2">
-                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
-                                                       id="flexSwitchCheckDefault">
-                                                <label class="form-check-label text-light small ps-2"
-                                                       for="flexSwitchCheckDefault">Third class non reserved </label>
-                                            </div>
-                                            <div class="form-check form-switch pb-2">
-                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
-                                                       id="flexSwitchCheckDefault">
-                                                <label class="form-check-label text-light small ps-2"
-                                                       for="flexSwitchCheckDefault">Sedentary carriage</label>
-                                            </div>
-                                            <div class="form-check form-switch pb-2">
-                                                <input class="form-check-input small ps-0" type="checkbox" role="switch"
-                                                       id="flexSwitchCheckDefault" checked>
-                                                <label class="form-check-label text-light small ps-2"
-                                                       for="flexSwitchCheckDefault">All</label>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="row ">
-                                                <h5 class="text-light fw-normal ps-0 mb-0">Departure / Arrive time</h5>
-                                                <div>
-                                                    <label for="customRange1" class="form-label"></label>
-                                                    <input type="range" class="form-range" id="customRange1">
 
+                            <form action="{{route('frontend.show.result.page')}}" method="get">
+                                <div class="row all-ticket-left-colum-upper-part mb-2">
+                                    <div class="card all-ticket-left-colum-upper-part rounded-0">
+                                        <h4
+                                            class="text-center text-light pt-4 fw-normal all-ticket-left-colum-upper-part-title">
+                                            Filter by
+                                        </h4>
+                                        <div class="row  card-body pt-4">
+                                            <div class="row ">
+                                                <h5 class="text-light fw-normal ps-0">Coach Type</h5>
+                                                <div class="form-check form-switch pb-2">
+                                                    <input name="Ac" class="form-check-input small ps-0 ac" value="Ac"
+                                                           type="checkbox" role="switch"
+                                                           id="flexSwitchCheckDefault">
+                                                    <label class="form-check-label text-light small ps-2"
+                                                           for="flexSwitchCheckDefault">Ac</label>
+                                                </div>
+                                                <div class="form-check form-switch pb-2">
+                                                    <input name="Non-Ac" class="form-check-input small ps-0 nonAc"
+                                                           value="Non-Ac" type="checkbox" role="switch"
+                                                           id="flexSwitchCheckDefault">
+                                                    <label class="form-check-label text-light small ps-2"
+                                                           for="flexSwitchCheckDefault">Non Ac</label>
+                                                </div>
+                                                <div class="form-check form-switch pb-2">
+                                                    <input name="all" class="form-check-input small ps-0" value="all"
+                                                           type="checkbox" role="switch"
+                                                           id="flexSwitchCheckDefault" checked>
+                                                    <label class="form-check-label text-light small ps-2"
+                                                           for="flexSwitchCheckDefault">All</label>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="row ">
-                                                <h5 class="text-light fw-normal ps-0 mb-0">Price</h5>
-                                                <div>
-                                                    <label for="customRange1" class="form-label"></label>
-                                                    <input type="range" class="form-range" id="customRange1">
 
+                                            <div class="row ">
+                                                <h5 class="text-light fw-normal ps-0">Bus Company</h5>
+                                                @foreach($allBusCompanies as $busCompany)
+                                                    <div class="form-check form-switch pb-2">
+                                                        <input name="Ac" class="form-check-input small ps-0 ac"
+                                                               value="Ac" type="checkbox" role="switch"
+                                                               id="flexSwitchCheckDefault">
+                                                        <label class="form-check-label text-light small ps-2"
+                                                               for="flexSwitchCheckDefault">{{$busCompany->bus_company}}</label>
+                                                    </div>
+                                                @endforeach
+
+
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="row ">
+                                                    <h5 class="text-light fw-normal ps-0 mb-0">Departure / Arrive
+                                                        time</h5>
+                                                    <div>
+                                                        <label for="customRange1" class="form-label"></label>
+
+                                                        <input type="range" class="w-100" id="customRange1">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="row ">
+                                                    <h5 class="text-light fw-normal ps-0 mb-0">Price</h5>
+                                                    <div>
+                                                        <ul class=" mt-2 d-flex align-items-center justify-content-between">
+                                                            <li class="text-white">500 $</li>
+                                                            <li class="text-white">2500 $</li>
+                                                        </ul>
+
+                                                        <input type="range" name="priceRange" class="w-100 mt-2"
+                                                               id="customRange1" min="500" max="2500">
+                                                        <output id="rangeOutput" class="text-white d-block text-left">
+                                                            0
+                                                        </output>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+
+                            </form>
+
+
                             <div class="row all-ticket-left-colum-middle-part mb-3 mt-5">
                                 <h4 class="">
                                     Recent Tickets
@@ -302,107 +311,110 @@
                                 </select>
                             </div>
                         </div>
+                        <div id="available-all-ticket-content">
 
-                        @foreach($searchResults as $searchResult)
+                            @foreach($searchResults as $searchResult)
 
-                            <div class="row available-all-ticket-content pt-3">
-                                <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
-                                    <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
-                                    <div class="card-body">
-                                        <h5 class="card-title text-center">{{$searchResult->busDetails->bus_coach}}</h5>
-                                        <h6 class="card-title text-center">{{$searchResult->busDetails->bus_type}}</h6>
-                                        <p class="card-title text-center">Seat- {{$searchResult->available_seat}}</p>
-                                        <p class="card-text text-center text-muted">{{$searchResult->busDetails->busCompany->bus_company}}</p>
-                                    </div>
-                                </div>
-                                <div class="col-6 card rounded-0 all-ticket-card-middle">
-                                    <div class="row  card-body">
-                                        <div class="row">
-                                            <div class="col-4 all-ticket-card-middle-left-colum">
-                                                <h5>{{date("g:i a",strtotime(\Carbon\Carbon::parse($searchResult->departure_time)))}}</h5>
-                                                <small
-                                                    class="small-text">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y') :''}}</small>
-                                                <h6 class="small">{{$searchResult->starting_point}}</h6>
-
-                                            </div>
-                                            <div
-                                                class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
-
-                                                <p class="text-center"><i class="fa fa-long-arrow-right text-muted"></i>
-                                                </p>
-                                            </div>
-                                            <div class="col-4 all-ticket-card-middle-right-colum">
-
-                                                <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time)))}}</h5>
-                                                <small
-                                                    class="small-text">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->addHour($searchResult->arrival_time)->format('d-m-Y') :''}}</small>
-                                                <h6 class="small"> {{$searchResult->arrival_point}}</h6>
-
-                                                {{--                                                <small class="small-text">Union Station,CA</small>--}}
-                                            </div>
+                                <div class="row available-all-ticket-content pt-3">
+                                    <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                                        <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center">{{$searchResult->busDetails->bus_coach}}</h5>
+                                            <h6 class="card-title text-center">{{$searchResult->busDetails->bus_type}}</h6>
+                                            <p class="card-title text-center">
+                                                Seat- {{$searchResult->available_seat}}</p>
+                                            <p class="card-text text-center text-muted">{{$searchResult->busDetails->busCompany->bus_company}}</p>
                                         </div>
-
-                                        @if($sessionData['returnOfDate'])
-                                            <div class="row mt-4">
+                                    </div>
+                                    <div class="col-6 card rounded-0 all-ticket-card-middle">
+                                        <div class="row  card-body">
+                                            <div class="row">
                                                 <div class="col-4 all-ticket-card-middle-left-colum">
-                                                    <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours()))}}</h5>
+                                                    <h5>{{date("g:i a",strtotime(\Carbon\Carbon::parse($searchResult->departure_time)))}}</h5>
                                                     <small
-                                                        class="small-text">{{isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y') :''}}</small>
-                                                    <h6 class="small">{{$searchResult->arrival_point}}</h6>
-                                                    {{--                                                    <small class="small-text">Peen Station,NY</small>--}}
+                                                        class="small-text">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y') :''}}</small>
+                                                    <h6 class="small">{{$searchResult->starting_point}}</h6>
+
                                                 </div>
                                                 <div
                                                     class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
-                                                    {{--                                                    <p class="text-muted small text-center">11:30</p>--}}
+
                                                     <p class="text-center"><i
-                                                            class="fa fa-long-arrow-left text-muted"></i>
+                                                            class="fa fa-long-arrow-right text-muted"></i>
                                                     </p>
                                                 </div>
                                                 <div class="col-4 all-ticket-card-middle-right-colum">
-                                                    {{--                                                    <h5>{{$searchResult->departure_time }}</h5>--}}
+
                                                     <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time)))}}</h5>
                                                     <small
-                                                        class="small-text">{{isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->addHour($searchResult->arrival_time)->format('d-m-Y') :''}}</small>
-                                                    <h6 class="small">{{$searchResult->starting_point}}</h6>
-                                                    {{--                                                    <small class="small-text">Peen Station,NY</small>--}}
+                                                        class="small-text">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->addHour($searchResult->arrival_time)->format('d-m-Y') :''}}</small>
+                                                    <h6 class="small"> {{$searchResult->arrival_point}}</h6>
+
+                                                    {{--                                                <small class="small-text">Union Station,CA</small>--}}
                                                 </div>
                                             </div>
-                                        @endif
+
+                                            @if($sessionData['returnOfDate'])
+                                                <div class="row mt-4">
+                                                    <div class="col-4 all-ticket-card-middle-left-colum">
+                                                        <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours()))}}</h5>
+                                                        <small
+                                                            class="small-text">{{isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y') :''}}</small>
+                                                        <h6 class="small">{{$searchResult->arrival_point}}</h6>
+                                                        {{--                                                    <small class="small-text">Peen Station,NY</small>--}}
+                                                    </div>
+                                                    <div
+                                                        class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+                                                        {{--                                                    <p class="text-muted small text-center">11:30</p>--}}
+                                                        <p class="text-center"><i
+                                                                class="fa fa-long-arrow-left text-muted"></i>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-4 all-ticket-card-middle-right-colum">
+                                                        {{--                                                    <h5>{{$searchResult->departure_time }}</h5>--}}
+                                                        <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time)))}}</h5>
+                                                        <small
+                                                            class="small-text">{{isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->addHour($searchResult->arrival_time)->format('d-m-Y') :''}}</small>
+                                                        <h6 class="small">{{$searchResult->starting_point}}</h6>
+                                                        {{--                                                    <small class="small-text">Peen Station,NY</small>--}}
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
+                                        <div class="all-ticket-card-right-content">
+                                            <p class="text-muted small"><span>${{$searchResult->ticket_price}} </span>/person
+                                            </p>
+
+                                        </div>
+                                        <ul class="d-flex">
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-wifi" aria-hidden="true"></i>
+                                            </li>
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-moon-o" aria-hidden="true"></i>
+                                            </li>
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-coffee" aria-hidden="true"></i>
+                                            </li>
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-rocket" aria-hidden="true"></i>
+                                            </li>
+                                        </ul>
+
+                                        <form action="{{route('frontend.add.passenger.list')}}" method="get">
+
+                                            <input type="hidden" name="bus_id" id="" value="{{$searchResult->id}}">
+                                            <button type="submit" class="btn btn-primary mt-3">Book Now</button>
+                                        </form>
 
                                     </div>
                                 </div>
-
-                                <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
-                                    <div class="all-ticket-card-right-content">
-                                        <p class="text-muted small"><span>${{$searchResult->ticket_price}} </span>/person
-                                        </p>
-
-                                    </div>
-                                    <ul class="d-flex">
-                                        <li class="pe-2 text-muted small">
-                                            <i class="fa fa-wifi" aria-hidden="true"></i>
-                                        </li>
-                                        <li class="pe-2 text-muted small">
-                                            <i class="fa fa-moon-o" aria-hidden="true"></i>
-                                        </li>
-                                        <li class="pe-2 text-muted small">
-                                            <i class="fa fa-coffee" aria-hidden="true"></i>
-                                        </li>
-                                        <li class="pe-2 text-muted small">
-                                            <i class="fa fa-rocket" aria-hidden="true"></i>
-                                        </li>
-                                    </ul>
-
-                                    <form action="{{route('frontend.add.passenger.list')}}" method="get">
-
-                                        <input type="hidden" name="bus_id" id="" value="{{$searchResult->id}}">
-                                        <button type="submit" class="btn btn-primary mt-3">Book Now</button>
-                                    </form>
-
-                                </div>
-                            </div>
-                        @endforeach
-
+                            @endforeach
+                        </div>
 
 
                         <!-- Pagination -->
@@ -440,6 +452,30 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
+        $(document).on('change', '#customRange1', function (e) {
+            //console.log(e.target.value);
+            let arrival_point = $('#busTo').val();
+            let starting_point = $('#busFrom').val();
+            let dateOfJourney = $('#dateOfJourney').val();
+            let totalPerson = $('#totalPerson').val();
+            let priceRange = e.target.value;
+            $('#rangeOutput').text(priceRange);
+            $.get('{{ route('frontend.show.result') }}', {
+
+                    priceRange: priceRange,
+                    starting_point: starting_point,
+                    arrival_point: arrival_point,
+                    dateOfJourney: dateOfJourney,
+                    totalPerson: totalPerson,
+
+                },
+                function (response, status) {
+                    console.log(response, 'Data');
+                    console.log(status, 'Data');
+                });
+
+
+        })
         $(document).on('click', '.btnSwap', function (e) {
             e.preventDefault();
 
@@ -458,9 +494,134 @@
             /* Re-set the selected values */
             $('#busTo option:contains(' + departure + ')').prop('selected', true);
             $('#busFrom option:contains(' + arrival + ')').prop('selected', true);
-
         });
 
+
+        $(document).on('click', '.ac', function () {
+            let ac = $('input[name="Ac"]').val();
+            //let nonAc= $('input[name="Non-Ac"]').val();
+            let arrival_point = $('#busTo').val();
+            let starting_point = $('#busFrom').val();
+            let dateOfJourney = $('#dateOfJourney').val();
+            let totalPerson = $('#totalPerson').val();
+
+            // console.log(ac,'ac');
+            // //console.log(nonAc,'nonAc');
+            console.log(dateOfJourney, 'dateOfJourney');
+            console.log(totalPerson, 'totalPerson');
+            //document.('available-all-ticket-content').innerHTML="";
+            //console.log(allFilterData);
+
+            $('#available-all-ticket-content').html('');
+
+
+            $.get('{{ route('frontend.show.result') }}',
+                {
+                    ac: ac,
+                    starting_point: starting_point,
+                    arrival_point: arrival_point,
+                    dateOfJourney: dateOfJourney,
+                    totalPerson: totalPerson,
+
+                },
+                function (response, status) {
+
+                    console.log(status, 'status');
+                    let data = response[0];
+                    //let a=data.bus_coach;
+                    console.log(data);
+
+                    // $( "#available-all-ticket-content" ).each(function( index ) {
+                    //     console.log( index + ": " + $( this ).text() );
+                    // });
+
+                    for (let key in data) {
+                        if (data.hasOwnProperty(key)) {
+                            $('#available-all-ticket-content').append(`
+
+                    <div id="available-all-ticket-content">
+
+                    <div  class="row available-all-ticket-content pt-3">
+                        <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                            <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
+                            <div class="card-body">
+                                <h5 class="card-title text-center">${data.bus_coach}</h5>
+                                        <h6 class="card-title text-center">${data.bus_type}</h6>
+                                        <p class="card-title text-center">Seat- ${data.bus_seat}</p>
+                                        <p class="card-text text-center text-muted">${data.bus_type}</p>
+                                    </div>
+                                </div>
+                                `)
+                        }
+                    }
+
+
+                    //const allFilterData=document.getElementById('available-all-ticket-content').innerHTML;
+                    // console.log(allFilterData);
+
+                })
+        });
+        // $('.ac').change(function (){
+        //    let ac= $('input[name="Ac"]').val();
+        //    //let nonAc= $('input[name="Non-Ac"]').val();
+        //    let arrival_point= $('#busTo').val();
+        //    let starting_point=$('#busFrom').val();
+        //    let dateOfJourney=$('#dateOfJourney').val();
+        //    let totalPerson=$('#totalPerson').val();
+        //
+        //    // console.log(ac,'ac');
+        //    // //console.log(nonAc,'nonAc');
+        //     console.log(dateOfJourney,'dateOfJourney');
+        //    // console.log(totalPerson,'totalPerson');
+        //    // document.getElementById('available-all-ticket-content').innerHTML="";
+        //     //console.log(allFilterData);
+        //
+        //     $.get('http://127.0.0.1:8000/show/search/result',
+        //         {
+        //             ac: ac,
+        //             starting_point:starting_point,
+        //             arrival_point:arrival_point,
+        //             dateOfJourney:dateOfJourney,
+        //             totalPerson:totalPerson,
+        //
+        //         },
+        //         function (response,status){
+        //             // console.log(status,'status');
+        //             // console.log(response,'data');
+        //             // const allFilterData=doctment.getElementById('available-all-ticket-content').innerHTML;
+        //             // console.log(allFilterData);
+        //
+        //         })
+        // })
+
+        // $('.nonAc').change(function (){
+        //
+        //     let nonAc= $('input[name="Non-Ac"]').val();
+        //     let arrival_point= $('#busTo').val();
+        //     let starting_point=$('#busFrom').val();
+        //     let dateOfJourney=$('#dateOfJourney').val();
+        //     let totalPerson=$('#totalPerson').val();
+        //
+        //
+        //     console.log(nonAc,'nonAc');
+        //     console.log(dateOfJourney,'dateOfJourney');
+        //     console.log(totalPerson,'totalPerson');
+        //
+        //     //document.getElementById('available-all-ticket-content').innerHTML="";
+        //     $.get('http://127.0.0.1:8000/show/search/result',
+        //         {
+        //             nonAc: nonAc,
+        //             starting_point:starting_point,
+        //             arrival_point:arrival_point,
+        //             dateOfJourney:dateOfJourney,
+        //             totalPerson:totalPerson,
+        //
+        //         },
+        //         function (response,status){
+        //             console.log(status,'status');
+        //             console.log(response,'data');
+        //         })
+        // })
     </script>
 
 @endsection

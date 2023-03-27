@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="{{asset("frontend/assets/css/slick.css")}}"/>
     <link rel="stylesheet" href="{{asset("frontend/assets/css/style.css")}}"/>
     <script src="{{asset("frontend/assets/js/jquery-3.6.3.min.js")}}"></script>
+
+    @stack('css')
     <style>
         img {
             max-width: 100%;
@@ -376,11 +378,13 @@
     <script src="{{asset("frontend/assets/js/script.js")}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   @stack('script')
     <script>
         $(document).ready(function (){
 
         })
     </script>
+
 </body>
 
 </html>

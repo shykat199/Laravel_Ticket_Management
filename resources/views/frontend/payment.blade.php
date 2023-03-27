@@ -46,13 +46,14 @@
                         <!-- travelling date start -->
                         <div class="col-md-3 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext3" class="form-label pb-2">Travelling Date</label>
-                            @if(isset($sessionData['dateOfJourney']) && $sessionData['dateOfJourney'] !==null))
-                            <input name="dateOfJourney"
-                                   value="{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']: $sessionData['dateOfJourney']}}"
-                                   type="datetime-local"
-                                   min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
-                                   max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
-                                   class="form-control" id="inputtext3" placeholder="MM/DD/YY">
+                            @if(isset($sessionData['dateOfJourney']) && $sessionData['dateOfJourney'] !==null)
+                                )
+                                <input name="dateOfJourney"
+                                       value="{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']: $sessionData['dateOfJourney']}}"
+                                       type="datetime-local"
+                                       min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
+                                       max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
+                                       class="form-control" id="inputtext3" placeholder="MM/DD/YY">
                             @endif
 
 
@@ -378,9 +379,8 @@
                                         @enderror
                                         <div class="col-md-4 personal-form-input-with-icon">
                                             <label for="birth-date" class="form-label small">Birth Date</label>
-                                            <input type="date" name="dob" class="form-control"
-                                                   max="{{ $min_date->format('Y-m-d\TH:i:s') }}"
-                                                   id="birth-date"
+                                            <input type="text" name="dob" class="form-control"
+                                                   id="datepicker"
                                                    placeholder="">
 
                                         </div>
@@ -565,4 +565,23 @@
     </script>
 
 @endsection
+
+@push('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
+@endpush
+
+@push('script')
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+
+        $("#datepicker").datepicker({maxDate: '0'});
+
+        // let today, datepicker;
+        // today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+        // datepicker = $('#datepicker').datepicker({
+        //     maxDate: today
+        // });
+    </script>
+@endpush
 
