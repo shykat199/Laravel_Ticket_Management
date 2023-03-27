@@ -137,9 +137,8 @@ class HomePageController extends Controller
             if ($request->ajax()) {
 
                 if ($request->get('priceRange')) {
-
-                    //return $request->all();
-
+                    $startingPrice = 500;
+                    $endPrice = (int)$request->priceRange;
                     $searchResults = $searchResults->join('bus_details', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
                         ->leftJoin('reservations', function ($query) {
                             $query->on('reservations.bus_destination_id', '=', 'bus_destinations.id');
@@ -149,11 +148,10 @@ class HomePageController extends Controller
                         ->where('bus_details.status', '!=', 0)
                         ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
                         ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
-                        ->where('bus_details.bus_type', '=', $request->get('ac'))
+                        ->whereBetween('bus_destinations.ticket_price',[$startingPrice,$endPrice])
                         ->selectRaw('bus_details.*,bus_destinations.* ,
                                     (COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0)) as available_seat')
                         ->havingRaw("COALESCE(bus_details,0) - COALESCE(SUM(reservations.total_passenger),0)" >= $total_passenger)
-//                        ->whereBetween('bus_destinations.ticket_price',[$request->get('priceRange'),"COALESCE(max(bus_destinations.ticket_price),0)"])
                         ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
                         ->groupBy('bus_destinations.bus_details_id')
                         ->orderBy('bus_destinations.departure_time', 'ASC')
