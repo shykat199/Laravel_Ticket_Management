@@ -1,6 +1,58 @@
 @extends('frontend.layout.master_frontend')
 @section('show.frontend')
 
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/css/ion.rangeSlider.min.css">
+    <style>
+        .range-price li{
+            width: calc(50% - 5px);
+
+        }
+
+        .range-price li input{
+            width: 100%;
+            height: 35px;
+            padding: 0 10px;
+            border: 1px solid #fff;
+        }
+
+
+        .irs--round .irs-bar {
+            background-color: #00C2C0;
+        }
+
+        .irs--round .irs-handle {
+            background-color: #00C2C0;
+            border-color: #00C2C0;
+            box-shadow: 0px 0px 0px 5px rgba(0, 194, 192, 0.2);
+        }
+
+        .irs--round .irs-handle.state_hover,
+        .irs--round .irs-handle:hover {
+            background-color: #00C2C0;
+        }
+
+        .irs--round .irs-handle {
+            width: 16px;
+            height: 16px;
+            top: 29px
+        }
+
+        .irs--round .irs-from,
+        .irs--round .irs-to,
+        .irs--round .irs-single {
+            background-color: transparent;
+            color: #fff;
+        }
+
+        .irs--round .irs-from:before,
+        .irs--round .irs-to:before,
+        .irs--round .irs-single:before,
+        .irs--round .irs-min,
+        .irs--round .irs-max {
+            display: none;
+        }
+    </style>
     <!-- header hero start -->
     <section class="result-header-hero">
         <div class="container ticket-booking-home-header-hero-container">
@@ -174,13 +226,15 @@
                                             <div class="row ">
                                                 <h5 class="text-light fw-normal ps-0">Bus Company</h5>
                                                 @foreach($allBusCompanies as $busCompany)
-                                                    <div class="form-check form-switch pb-2">
-                                                        <input name="Ac" class="form-check-input small ps-0 ac"
-                                                               value="Ac" type="checkbox" role="switch"
-                                                               id="flexSwitchCheckDefault">
+
+                                                    <div class="form-check form-checkbox-success mb-2">
+                                                        <input type="checkbox" name="busCompany[]"
+                                                               value="{{$busCompany->bus_company}}"
+                                                               class="form-check-input" id="customCheckcolor2">
                                                         <label class="form-check-label text-light small ps-2"
-                                                               for="flexSwitchCheckDefault">{{$busCompany->bus_company}}</label>
+                                                               for="customCheckcolor2">{{$busCompany->bus_company}}</label>
                                                     </div>
+
                                                 @endforeach
 
 
@@ -201,16 +255,39 @@
                                                 <div class="row ">
                                                     <h5 class="text-light fw-normal ps-0 mb-0">Price</h5>
                                                     <div>
-                                                        <ul class=" mt-2 d-flex align-items-center justify-content-between">
-                                                            <li class="text-white">500 $</li>
-                                                            <li class="text-white">2500 $</li>
+                                                        {{--                                                        <ul class=" mt-2 d-flex align-items-center justify-content-between">--}}
+                                                        {{--                                                            <li class="text-white">500 $</li>--}}
+                                                        {{--                                                            <li class="text-white">2500 $</li>--}}
+                                                        {{--                                                        </ul>--}}
+
+                                                        {{--                                                        <input type="range" name="priceRange" class="w-100 mt-2"--}}
+                                                        {{--                                                               id="customRange1" min="500" max="2500">--}}
+                                                        {{--                                                        <output id="rangeOutput" class="text-white d-block text-left">--}}
+                                                        {{--                                                            0--}}
+                                                        {{--                                                        </output>--}}
+
+                                                        <input  type="range" class="js-range-slider" name="priceRange"
+                                                               value=""
+                                                               data-skin="round"
+                                                               data-type="double"
+                                                               data-min="0"
+                                                               data-max="1000"
+                                                               data-grid="false"
+                                                                id="customRange1"
+                                                        />
+                                                        <ul class="d-flex range-price align-items-center justify-content-between mt-2">
+                                                            <li>
+                                                                <label class="text-white">Max Price</label>
+                                                                <input name="maxPrice" type="number" maxlength="4" value="0"
+                                                                       class="from"/>
+                                                            </li>
+                                                            <li>
+                                                                <label class="text-white">Min Price</label>
+                                                                <input name="minPrice" type="number" maxlength="4" value="1000"
+                                                                       class="to"/>
+                                                            </li>
                                                         </ul>
 
-                                                        <input type="range" name="priceRange" class="w-100 mt-2"
-                                                               id="customRange1" min="500" max="2500">
-                                                        <output id="rangeOutput" class="text-white d-block text-left">
-                                                            0
-                                                        </output>
                                                     </div>
                                                 </div>
                                             </div>
@@ -449,6 +526,62 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
             integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/js/ion.rangeSlider.min.js"></script>
+    <script>
+        let $range = $(".js-range-slider"),
+            $from = $(".from"),
+            $to = $(".to"),
+            range,
+            min = $range.data('min'),
+            max = $range.data('max'),
+            from,
+            to;
+
+        let updateValues = function () {
+            $from.prop("value", from);
+            $to.prop("value", to);
+        };
+
+        $range.ionRangeSlider({
+            onChange: function (data) {
+                from = data.from;
+                to = data.to;
+                updateValues();
+            }
+        });
+
+        range = $range.data("ionRangeSlider");
+        let updateRange = function () {
+            range.update({
+                from: from,
+                to: to
+            });
+        };
+
+        $from.on("input", function () {
+            from = +$(this).prop("value");
+            if (from < min) {
+                from = min;
+            }
+            if (from > to) {
+                from = to;
+            }
+            updateValues();
+            updateRange();
+        });
+
+        $to.on("input", function () {
+            to = +$(this).prop("value");
+            if (to > max) {
+                to = max;
+            }
+            if (to < from) {
+                to = from;
+            }
+            updateValues();
+            updateRange();
+        });
+    </script>
 
     <script>
         $(document).on('change', '#customRange1', function (e) {

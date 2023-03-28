@@ -12,6 +12,7 @@ use App\Models\SightSetting;
 use App\Models\Testmonial;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PhpParser\Builder;
 
 
@@ -333,6 +334,10 @@ class HomePageController extends Controller
             $min_date = Carbon::today();
             $max_date = Carbon::now()->addWeek();
             //dd($sessionData);
+
+//            $maxTicketPrice=DB::table('bus_destinations')
+//                ->selectRaw('bus_destinations.starting_point','bus_destinations.arrival_point')
+
             $froms = BusDestination::select('starting_point')->groupby('starting_point')->get();
             $tos = BusDestination::select('arrival_point')->groupby('arrival_point')->get();
             return view('frontend.showResult', compact('searchResults', 'sessionData', 'min_date', 'max_date', 'froms', 'tos', 'allBusCompanies'));
