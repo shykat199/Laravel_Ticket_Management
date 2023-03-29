@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-8 single-blog-details-content-left">
                     <div class="row single-blog-details-content-left-upper-part">
-                        <img src="{{ asset('frontend/assets/images/top-summer-detination.jpg') }}"
+                        <img src="{{ \Illuminate\Support\Facades\Storage::url($singlePost->post_image) }}"
                             alt="blog details image">
                     </div>
                     <div class="row single-blog-details-content-left-middle-part">

@@ -59,7 +59,10 @@ class BusDestinationController extends Controller
      */
     public function store(BusDestinationStoreRequest $request)
     {
-        $departure_time = Carbon::parse($request->get('departure_time'))->format('g:i A');
+       // dd($request->all());
+
+        $departure_time = Carbon::parse($request->get('departure_time'))->format('H:i:s');
+        //dd($departure_time);
         // $arrival_time = Carbon::parse($request->get('arrival_time'))->format('g:i A');
         //dd($departure_time, $arrival_time);
 

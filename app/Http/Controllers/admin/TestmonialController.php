@@ -41,16 +41,7 @@ class TestmonialController extends Controller
         return view('admin.interface.testimonial.inactiveindex', compact('allTestimonialsAdmin', 'allTestimonialsUser'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function create()
-    {
 
-
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -72,8 +63,9 @@ class TestmonialController extends Controller
 
         $storeTestimonial = Testmonial::create([
             'feedback_text' => $request->get('feedback_text'),
+            'name'=>$request->get('name'),
             'image' => $name,
-            'user_id' => Auth::user()->id,
+
         ]);
 
         if ($storeTestimonial) {
@@ -81,6 +73,72 @@ class TestmonialController extends Controller
         } else {
             return \Redirect::back()->with('error', 'Something Wrong.');
         }
+    }
+
+    public function inActiveUpdate(Request $request){
+
+        //dd($request->get('testimonial_id'));
+        $id=$request->get('testimonial_id');
+        $testmonial=Testmonial::find($id);
+        //dd($testmonial->image);
+        $iamge = $testmonial->image;
+        $name = null;
+        if ($request->hasFile('image')) {
+            $name = Uuid::uuid() . '.' . $request->file('image')->getClientOriginalExtension();
+            Storage::delete('/public/image/' . $iamge);
+            $image = Storage::put('/public/image/' . $name, file_get_contents($request->file('image')));
+
+            $testmonial = $testmonial->update([
+                'feedback_text' => $request->get('feedback_text'),
+                'image' => $name,
+                'name'=>$request->get('name'),
+
+            ]);
+        } else {
+            $testmonial = $testmonial->update([
+                'feedback_text' => $request->get('feedback_text'),
+                'name'=>$request->get('name'),
+            ]);
+        }
+
+        if ($testmonial) {
+            return to_route('admin.testimonial.inactive')->with('success', 'Feedback Updated Successfully.');
+        } else {
+            return \Redirect::back()->with('error', 'Something Wrong.');
+        }
+    }
+
+    public function activeUpdate(Request $request){
+
+        //dd($request->get('testimonial_id'));
+        $id=$request->get('testimonial_id');
+        $testmonial=Testmonial::find($id);
+        //dd($testmonial->image);
+        $iamge = $testmonial->image;
+        $name = null;
+        if ($request->hasFile('image')) {
+            $name = Uuid::uuid() . '.' . $request->file('image')->getClientOriginalExtension();
+            Storage::delete('/public/image/' . $iamge);
+            $image = Storage::put('/public/image/' . $name, file_get_contents($request->file('image')));
+
+            $testmonial = $testmonial->update([
+                'feedback_text' => $request->get('feedback_text'),
+                'image' => $name,
+                'name'=>$request->get('name'),
+            ]);
+        } else {
+            $testmonial = $testmonial->update([
+                'feedback_text' => $request->get('feedback_text'),
+                'name'=>$request->get('name'),
+            ]);
+        }
+
+        if ($testmonial) {
+            return to_route('admin.testimonial.active')->with('success', 'Feedback Updated Successfully.');
+        } else {
+            return \Redirect::back()->with('error', 'Something Wrong.');
+        }
+
     }
 
     public function inactiveToActive(Request $request)
@@ -102,6 +160,8 @@ class TestmonialController extends Controller
         }
 
     }
+
+
 
     public function activeToInactive(Request $request)
     {

@@ -4,12 +4,12 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/css/ion.rangeSlider.min.css">
     <style>
-        .range-price li{
+        .range-price li {
             width: calc(50% - 5px);
 
         }
 
-        .range-price li input{
+        .range-price li input {
             width: 100%;
             height: 35px;
             padding: 0 10px;
@@ -200,24 +200,26 @@
                                         <div class="row  card-body pt-4">
                                             <div class="row ">
                                                 <h5 class="text-light fw-normal ps-0">Coach Type</h5>
+
                                                 <div class="form-check form-switch pb-2">
                                                     <input name="Ac" class="form-check-input small ps-0 ac" value="Ac"
-                                                           type="checkbox" role="switch"
+                                                           type="checkbox"
                                                            id="flexSwitchCheckDefault">
                                                     <label class="form-check-label text-light small ps-2"
                                                            for="flexSwitchCheckDefault">Ac</label>
                                                 </div>
                                                 <div class="form-check form-switch pb-2">
-                                                    <input name="Non-Ac" class="form-check-input small ps-0 nonAc"
-                                                           value="Non-Ac" type="checkbox" role="switch"
+                                                    <input name="nonAc" class="form-check-input small ps-0 nonAc"
+                                                           value="Non-Ac" type="checkbox"
                                                            id="flexSwitchCheckDefault">
                                                     <label class="form-check-label text-light small ps-2"
                                                            for="flexSwitchCheckDefault">Non Ac</label>
                                                 </div>
                                                 <div class="form-check form-switch pb-2">
-                                                    <input name="all" class="form-check-input small ps-0" value="all"
-                                                           type="checkbox" role="switch"
-                                                           id="flexSwitchCheckDefault" checked>
+                                                    <input name="all" class="form-check-input small ps-0 all"
+                                                           value="all"
+                                                           type="checkbox"
+                                                           id="flexSwitchCheckDefault">
                                                     <label class="form-check-label text-light small ps-2"
                                                            for="flexSwitchCheckDefault">All</label>
                                                 </div>
@@ -230,7 +232,8 @@
                                                     <div class="form-check form-checkbox-success mb-2">
                                                         <input type="checkbox" name="busCompany[]"
                                                                value="{{$busCompany->bus_company}}"
-                                                               class="form-check-input" id="customCheckcolor2">
+                                                               class="form-check-input customCheckcolor2"
+                                                               id="customCheckcolor2.{{$busCompany->bus_company}}">
                                                         <label class="form-check-label text-light small ps-2"
                                                                for="customCheckcolor2">{{$busCompany->bus_company}}</label>
                                                     </div>
@@ -239,18 +242,7 @@
 
 
                                             </div>
-                                            <div class="row mt-3">
-                                                <div class="row ">
-                                                    <h5 class="text-light fw-normal ps-0 mb-0">Departure / Arrive
-                                                        time</h5>
-                                                    <div>
-                                                        <label for="customRange1" class="form-label"></label>
 
-                                                        <input type="range" class="w-100" id="customRange1">
-
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="row mt-3">
                                                 <div class="row ">
                                                     <h5 class="text-light fw-normal ps-0 mb-0">Price</h5>
@@ -266,24 +258,29 @@
                                                         {{--                                                            0--}}
                                                         {{--                                                        </output>--}}
 
-                                                        <input  type="range" class="js-range-slider" name="priceRange"
+                                                        <input type="range" class="js-range-slider" name="priceRange"
                                                                value=""
                                                                data-skin="round"
                                                                data-type="double"
-                                                               data-min="0"
-                                                               data-max="1000"
+                                                               data-min="{{$minTicketPrice[0]->minPrice}}"
+                                                               data-max="{{$maxTicketPrice[0]->maxPrice}}"
                                                                data-grid="false"
-                                                                id="customRange1"
+                                                               id="customRange1"
                                                         />
+
                                                         <ul class="d-flex range-price align-items-center justify-content-between mt-2">
                                                             <li>
-                                                                <label class="text-white">Max Price</label>
-                                                                <input name="maxPrice" type="number" maxlength="4" value="0"
-                                                                       class="from"/>
+                                                                <label class="text-white">Min Price</label>
+                                                                <input name="maxPrice" type="number"
+                                                                       id="busMinTicketPrice" maxlength="4"
+                                                                       value="{{$minTicketPrice[0]->minPrice}}"
+                                                                       class="from" onchange="myFun()"/>
                                                             </li>
                                                             <li>
-                                                                <label class="text-white">Min Price</label>
-                                                                <input name="minPrice" type="number" maxlength="4" value="1000"
+                                                                <label class="text-white">Max Price</label>
+                                                                <input name="minPrice" type="number"
+                                                                       id="busMaxTicketPrice" maxlength="4"
+                                                                       value="{{$maxTicketPrice[0]->maxPrice}}"
                                                                        class="to"/>
                                                             </li>
                                                         </ul>
@@ -294,7 +291,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </form>
 
 
@@ -430,7 +426,9 @@
                                                 </div>
                                             </div>
 
-                                            @if($sessionData['returnOfDate'])
+
+
+                                            @if(isset($sessionData['returnOfDate']))
                                                 <div class="row mt-4">
                                                     <div class="col-4 all-ticket-card-middle-left-colum">
                                                         <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours()))}}</h5>
@@ -591,11 +589,16 @@
             let dateOfJourney = $('#dateOfJourney').val();
             let totalPerson = $('#totalPerson').val();
             let priceRange = e.target.value;
-            $('#rangeOutput').text(priceRange);
+            // console.log(priceRange);
+            let busMinTicketPrice = $('#busMinTicketPrice').val();
+            let busMaxTicketPrice = $('#busMaxTicketPrice').val();
+
 
             $.get('{{ route('frontend.show.result') }}', {
 
-                    priceRange: priceRange,
+
+                    busMinTicketPrice: busMinTicketPrice,
+                    busMaxTicketPrice: busMaxTicketPrice,
                     starting_point: starting_point,
                     arrival_point: arrival_point,
                     dateOfJourney: dateOfJourney,
@@ -603,12 +606,155 @@
 
                 },
                 function (response, status) {
-                    $('.all-ticket').find('nav').remove();
+                    //$('.all-ticket').find('nav').remove();
                     $('#available-all-ticket-content').html(response.html)
                 });
 
 
         })
+
+        let value = [];
+        $(document).on('click', '.all', function (e) {
+
+            value.push(e.target.value);
+            let arrival_point = $('#busTo').val();
+            let starting_point = $('#busFrom').val();
+            let dateOfJourney = $('#dateOfJourney').val();
+            let totalPerson = $('#totalPerson').val();
+            //console.log(value);
+            $.get('{{ route('frontend.show.result') }}',
+                {
+                    value: value,
+                    starting_point: starting_point,
+                    arrival_point: arrival_point,
+                    dateOfJourney: dateOfJourney,
+                    totalPerson: totalPerson,
+
+                },
+                function (response, status) {
+                    // $('.all-ticket').remove();
+                    $('#available-all-ticket-content').html(response.html)
+                });
+        });
+
+        let ac = [];
+        $(document).on('click', '.ac', function (e) {
+
+            ac.push(e.target.value);
+            //let nonAc= $('input[name="Non-Ac"]').val();
+            let arrival_point = $('#busTo').val();
+            let starting_point = $('#busFrom').val();
+            let dateOfJourney = $('#dateOfJourney').val();
+            let totalPerson = $('#totalPerson').val();
+            //console.log(ac);
+
+            $.get('{{ route('frontend.show.result') }}',
+                {
+                    ac: ac,
+                    starting_point: starting_point,
+                    arrival_point: arrival_point,
+                    dateOfJourney: dateOfJourney,
+                    totalPerson: totalPerson,
+
+                },
+                function (response, status) {
+                    //$('.all-ticket').find('nav').remove();
+                    $('#available-all-ticket-content').html(response.html)
+                });
+        });
+
+        let nonAc = [];
+        $(document).on('click', '.nonAc', function (e) {
+            nonAc.push(e.target.value);
+            //let nonAc= $('input[name="Non-Ac"]').val();
+            let arrival_point = $('#busTo').val();
+            let starting_point = $('#busFrom').val();
+            let dateOfJourney = $('#dateOfJourney').val();
+            let totalPerson = $('#totalPerson').val();
+
+            //console.log(nonAc);
+
+            $.get('{{ route('frontend.show.result') }}',
+                {
+                    nonAc: nonAc,
+                    starting_point: starting_point,
+                    arrival_point: arrival_point,
+                    dateOfJourney: dateOfJourney,
+                    totalPerson: totalPerson,
+
+                },
+                function (response, status) {
+                    //$('.all-ticket').find('nav').remove();
+                    $('#available-all-ticket-content').html(response.html)
+                });
+        });
+
+        let busCompany = [];
+        $(document).on('click', '.customCheckcolor2', function (e) {
+
+            // $('.customCheckcolor2').change(function () {
+            //     this.checked
+            //         ? alert ("Checked")
+            //         : alert ("Unchecked");
+            // });
+            //let busCompany= [e.target.value];
+
+            if (this.checked) {
+
+                busCompany.push(e.target.value);
+                let arrival_point = $('#busTo').val();
+                let starting_point = $('#busFrom').val();
+                let dateOfJourney = $('#dateOfJourney').val();
+                let totalPerson = $('#totalPerson').val();
+                console.log(busCompany);
+
+
+                $.get('{{ route('frontend.show.result') }}',
+                    {
+                        busCompany: busCompany,
+                        starting_point: starting_point,
+                        arrival_point: arrival_point,
+                        dateOfJourney: dateOfJourney,
+                        totalPerson: totalPerson,
+
+                    },
+                    function (response, status) {
+
+                        //$('.all-ticket').find('nav').remove();
+                        $('#available-all-ticket-content').html(response.html)
+                    });
+            }else {
+
+                busCompany.pop(e.target.value);
+                //busCompany.push(e.target.value);
+                let arrival_point = $('#busTo').val();
+                let starting_point = $('#busFrom').val();
+                let dateOfJourney = $('#dateOfJourney').val();
+                let totalPerson = $('#totalPerson').val();
+                console.log(busCompany);
+
+
+                $.get('{{ route('frontend.show.result') }}',
+                    {
+                        busCompany: busCompany,
+                        starting_point: starting_point,
+                        arrival_point: arrival_point,
+                        dateOfJourney: dateOfJourney,
+                        totalPerson: totalPerson,
+
+                    },
+                    function (response, status) {
+
+                        //$('.all-ticket').find('nav').remove();
+                        $('#available-all-ticket-content').html(response.html)
+                    });
+
+            }
+
+
+        });
+
+
         $(document).on('click', '.btnSwap', function (e) {
             e.preventDefault();
 
@@ -629,37 +775,6 @@
             $('#busFrom option:contains(' + arrival + ')').prop('selected', true);
         });
 
-
-        $(document).on('click', '.ac', function () {
-            let ac = $('input[name="Ac"]').val();
-            //let nonAc= $('input[name="Non-Ac"]').val();
-            let arrival_point = $('#busTo').val();
-            let starting_point = $('#busFrom').val();
-            let dateOfJourney = $('#dateOfJourney').val();
-            let totalPerson = $('#totalPerson').val();
-
-
-            console.log(dateOfJourney, 'dateOfJourney');
-            console.log(totalPerson, 'totalPerson');
-
-
-            $('#available-all-ticket-content').html('');
-
-
-            $.get('{{ route('frontend.show.result') }}',
-                {
-                    ac: ac,
-                    starting_point: starting_point,
-                    arrival_point: arrival_point,
-                    dateOfJourney: dateOfJourney,
-                    totalPerson: totalPerson,
-
-                },
-                function (response, status) {
-
-                    console.log(status, 'status');
-                })
-        });
 
     </script>
 

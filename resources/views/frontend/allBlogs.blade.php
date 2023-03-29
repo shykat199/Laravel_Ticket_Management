@@ -24,9 +24,9 @@
                         <div class="card border-0 h-100 shadow-lg">
                             <img src="{{ \Illuminate\Support\Facades\Storage::url($blog->post_image) }}" class="card-img-top" alt="card image">
                             <div class="card-body">
-                                <h5 class="card-title">{{$blog->post_title}}</h5>
+                                <h5 class="card-title">{{Str::limit($blog->post_title,60,'....')}}</h5>
                                 <h6 class="text-danger">Category : {{$blog->category->category_name}}</h6   >
-                                <p class="card-text">{{strip_tags($blog->post_description)}}</p>
+                                <p class="card-text">{{Str::limit(strip_tags($blog->post_description),190,'...')}}</p>
                                 <div class="d-flex justify-content-between align-items-center writter-info">
                                     <h6 class="mb-0">by <span> Admin</span></h6>
                                     <p class="mb-0">{{\Carbon\Carbon::parse($blog->created_at)->format('d M Y')}}</p>
@@ -35,29 +35,38 @@
                         </div>
                     </a>
                 @endforeach
-
-
-
+{{--                    @if($allBlogs->hasPages())--}}
+{{--                        <div class="pagination-wrapper">--}}
+{{--                            {{ $allBlogs->links() }}--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
             </div>
             <nav class="custome-pagination" aria-label="Page navigation example">
                 <ul class="pagination justify-content-center pt-5 mt-5 custome-pagination-list">
-                    <li class="page-item custom-page-item mx-3">
-                        <a class="page-link pagination-item  rounded-pill" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item custom-page-item mx-3 "><a class="page-link pagination-item rounded-pill"
-                            href="#">1</a>
-                    </li>
-                    <li class="page-item mx-3"><a class="page-link pagination-item rounded-pill" href="#">2</a>
-                    </li>
-                    <li class="page-item mx-3"><a class="page-link  pagination-item rounded-pill" href="#">3</a>
-                    </li>
-                    <li class="page-item mx-3">
-                        <a class="page-link rounded-pill pagination-item" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
+{{--                    <li class="page-item custom-page-item mx-3">--}}
+{{--                        <a class="page-link pagination-item  rounded-pill" href="#" aria-label="Previous">--}}
+{{--                            <span aria-hidden="true">&laquo;</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="page-item custom-page-item mx-3 "><a class="page-link pagination-item rounded-pill"--}}
+{{--                            href="#">1</a>--}}
+{{--                    </li>--}}
+{{--                    <li class="page-item mx-3"><a class="page-link pagination-item rounded-pill" href="#">2</a>--}}
+{{--                    </li>--}}
+{{--                    <li class="page-item mx-3"><a class="page-link  pagination-item rounded-pill" href="#">3</a>--}}
+{{--                    </li>--}}
+{{--                    <li class="page-item mx-3">--}}
+{{--                        <a class="page-link rounded-pill pagination-item" href="#" aria-label="Next">--}}
+{{--                            <span aria-hidden="true">&raquo;</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+
+                    @if($allBlogs->hasPages())
+                        <div class="pagination-wrapper">
+                            {{ $allBlogs->links() }}
+                        </div>
+                    @endif
+
                 </ul>
             </nav>
         </div>

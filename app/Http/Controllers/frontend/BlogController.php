@@ -11,7 +11,7 @@ class BlogController extends Controller
 {
     public function allBlogs(){
 
-        $allBlogs=BlogPost::with('category')->where('status',1)->get();
+        $allBlogs=BlogPost::with('category')->paginate(3);
         //dd($allBlogs);
         return view('frontend.allBlogs',compact('allBlogs'));
     }

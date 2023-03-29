@@ -57,6 +57,7 @@
             $idx=1;
         @endphp
         @foreach($allCompanies as $company)
+
             <tr>
                 <td>{{$idx++}}</td>
                 <td class="company_name" data-id="{{$company->id}}">{{$company->bus_company}}</td>

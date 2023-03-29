@@ -5,7 +5,7 @@
             <div class="row gy-4 ticket-booking-home-header-hero-content">
                 <div
                     class="col-12 col-sm-12 col-md-6 col-lg-6 d-flex flex-column justify-content-center ticket-booking-home-header-hero-title">
-                    <h2>WELCOME TO BOOK <span>YOUR</span> TRAIN</h2>
+                    <h2>WELCOME TO BOOK <span>YOUR</span> BUS</h2>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-10 col-lg-10">
                             <p>We saves your time both while purchasing, the check-in and during the travel</p>
@@ -330,7 +330,7 @@
                                     <div class="col-6 latest-post-card-body latest-post-card-body-1st-row">
 
                                         <div class="card-body">
-                                            <h5 class="card-title">{{ $post->post_title }}</h5>
+                                            <h5 class="card-title">{!! Str::limit($post->post_title, 20, '...') !!}</h5>
                                             <p class="fs-6">
                                                 {!! Str::limit($post->post_description, 50, '...') !!}
 
@@ -402,40 +402,30 @@
                             aria-label="Slide 3" class="bg-dark"></button>
                 </div>
                 <div class="carousel-inner">
-                    @foreach ($testmonials as $testmonial)
-                        <div class="carousel-item active">
+
+                    @foreach ($testmonials as $key => $testmonial)
+
+                        @if ($key % 2 == 0)
+                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                             <div class="row">
-                                <div class="col-12 col-md-6">
-                                    <div class="row pt-5">
-                                        <div class="col-4 d-flex align-items-center  justify-content-end">
-                                            <img class="img-fluid home-carousal-image"
-                                                 src="{{ asset('storage/image/' . $testmonial->image) }}" alt="avatar">
-                                        </div>
-                                        <div class="col-8 d-flex  flex-column  justify-content-center">
-                                            <h4>{{ $testmonial->name }}</h4>
-                                            <small class="text-muted fst-italic text-justify">"
-                                                {{ strip_tags($testmonial->feedback_text) }}
-                                                "</small>
-                                        </div>
-                                        "
-                                    </div>
+                        @endif
+                        <div class="col-6">
+                            <div class="row pt-5">
+                                <div class="col-4 d-flex align-items-center  justify-content-end">
+                                    <img class="img-fluid home-carousal-image" src="{{ asset('storage/image/' . $testmonial->image) }}" alt="avatar">
                                 </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="row pt-5">
-                                        <div class="col-4 d-flex align-items-center  justify-content-end">
-                                            <img class="img-fluid home-carousal-image"
-                                                 src="{{ asset('storage/image/' . $testmonial->image) }}" alt="avatar">
-                                        </div>
-                                        <div class="col-8 d-flex  flex-column  justify-content-center">
-                                            <h4>{{ $testmonial->name }}</h4>
-                                            <small class="text-muted fst-italic text-justify">"
-                                                {{ strip_tags($testmonial->feedback_text) }}
-                                                "</small>
-                                        </div>
-                                    </div>
+                                <div class="col-8 d-flex  flex-column  justify-content-center">
+                                    <h4>{{ $testmonial->name }}</h4>
+                                    <small class="text-muted fst-italic">"{{ strip_tags($testmonial->feedback_text) }}"</small>
                                 </div>
                             </div>
                         </div>
+
+                    @if ($key % 2 != 0)
+
+                            </div>
+                        </div>
+                        @endif
                     @endforeach
 
                 </div>

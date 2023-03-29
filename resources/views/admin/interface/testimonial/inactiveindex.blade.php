@@ -21,6 +21,11 @@
                     <form action="{{route('admin.testimonial.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
 
+                        <div class="mb-3">
+                            <label for="simpleinput" class="form-label">Name</label>
+                            <input type="text" name="name" id="simpleinput" class="form-control">
+                        </div>
+
                         <label class="form-label" for="validationCustom01">Feedback Text</label>
                         <textarea class="ckeditor form-control" name="feedback_text"></textarea>
 
@@ -55,7 +60,7 @@
         <tr>
             <th>#Id</th>
             <th>User Name</th>
-            <th>User Role</th>
+
             <th>Feedback</th>
 
             <th>Image</th>
@@ -73,9 +78,8 @@
         @foreach($allTestimonialsUser as $userTestimonial)
             <tr>
                 <td>{{$idx++}}</td>
-                <td class="testimonial_name" data-id="{{$userTestimonial->id}}">{{$userTestimonial->users->name}}</td>
-                <td class="testimonial_name"
-                    data-id="{{$userTestimonial->id}}">{{strtoupper($userTestimonial->users->user_role)}}</td>
+                <td class="testimonial_name" data-id="{{$userTestimonial->id}}">{{$userTestimonial->name}}</td>
+
 
                 <td class="testimonial_text"
                     data-iddd="{{$userTestimonial->feedback_text}}">{{\Illuminate\Support\Str::limit($userTestimonial->feedback_text,30,'....')}}</td>
@@ -110,15 +114,20 @@
                     <form action="{{route('admin.testimonial.toactive')}}" method="post">
                         @csrf
                         <div class="float-left mb-1">
-                            <input type="hidden" name="testimonial_id" id="testimonial_id">
+                            <input type="hidden" name="testimonial_id" class="testimonial_id">
                             <button type="submit" class="btn btn-success">Active Testimonial</button>
                         </div>
                     </form>
 
 
-                    <form action="{{route('admin.testimonial.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('admin.testimonial.inActive.update')}}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="testimonial_id" id="testimonial_id">
+                        <input type="hidden" name="testimonial_id" value="" class="testimonial_id">
+
+                        <div class="mb-3">
+                            <label for="simpleinput" class="form-label">Name</label>
+                            <input type="text" name="name" id="name" class="form-control">
+                        </div>
 
                         <label class="form-label" for="validationCustom01">Feedback Text</label>
                         <textarea class="ckeditor form-control" id="text" name="feedback_text">
@@ -161,9 +170,10 @@
                 let testimonial_id = currentRow.find('.testimonial_name').data('id');  //id
                 let testimonial_text = currentRow.find('.testimonial_text').data('iddd'); //text
                 let testimonial_image = currentRow.find('.testimonial_image').data('idd'); //image
-                //console.log(testimonial_text);
+                console.log(col1);
 
-                $("#testimonial_id").val(testimonial_id);
+                $(".testimonial_id").val(testimonial_id);
+                $("#name").val(col1);
                 //$("#text").val(testimonial_text);
                 CKEDITOR.instances.text.setData(testimonial_text);
                 $("#image1").attr("src", '{{asset('storage/image')}}/' + testimonial_image);
