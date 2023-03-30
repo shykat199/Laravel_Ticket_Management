@@ -17,10 +17,10 @@ class BusCompanyController extends Controller
      */
     public function index()
     {
-        $allCompanies=new BusCompany();
-        $allCompanies = $allCompanies->leftJoin('bus_details','bus_details.company_id','bus_companies.id')
-        ->select('bus_companies.*',DB::raw('count(bus_details.id) as total'))
-        ->groupBy('bus_companies.id')->get();
+        $allCompanies = new BusCompany();
+        $allCompanies = $allCompanies->leftJoin('bus_details', 'bus_details.company_id', 'bus_companies.id')
+            ->select('bus_companies.*', DB::raw('count(bus_details.id) as total'))
+            ->groupBy('bus_companies.id')->get();
         //dd($allCompanies);
         return view('admin.interface.busCompany.index', compact('allCompanies'));
     }
@@ -97,7 +97,17 @@ class BusCompanyController extends Controller
      */
     public function destroy(string $id)
     {
-        $dltCompany = BusCompany::where('id', $id)->delete();
+
+        $busCompany = BusCompany::join('bus_details', 'bus_companies.id', '=', 'bus_details..company_id')
+            ->where('bus_companies.id', '=', $id)->get();
+        //dd($busCompany);
+
+        if (count($busCompany) > 0) {
+            return \redirect()->back()->with('error', 'Bus Can not be deleted.');
+
+        } else {
+            $dltCompany = BusCompany::where('id', $id)->delete();
+        }
 
         if ($dltCompany) {
             return to_route('admin.company.index')->with('success', 'Company Deleted Successfully');

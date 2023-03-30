@@ -12,6 +12,7 @@ use App\Models\SightSetting;
 use App\Models\Testmonial;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Builder;
 
@@ -25,7 +26,7 @@ class HomePageController extends Controller
             ->orderBy('id', 'DESC')
             ->limit(4)
             ->get();
-        $eAdvantages = Advantage::where('advantages.status','=','1')->get(['advantage_text']);
+        $eAdvantages = Advantage::where('advantages.status', '=', '1')->get(['advantage_text']);
 
         //$testmonials=Testmonial::all();
         $testmonials = Testmonial::leftJoin('users', 'users.id', 'testmonials.user_id')
@@ -50,6 +51,9 @@ class HomePageController extends Controller
     {
         //dd($request->all());
 
+        $inputDate = Carbon::parse($request->get('dateOfJourney'))->format('d-m-Y');
+        $currentDate = Carbon::now()->format('d-m-Y');
+        //dd($inputDate);
 
         //Store In Session
         $request->session()->put('searchedResults', $request->all());
@@ -72,18 +76,35 @@ class HomePageController extends Controller
 
             //Filter Bus According To Bus Company
 
-            $allBusCompanies = BusCompany::join('bus_details', 'bus_details.company_id', '=', 'bus_companies.id')
-                ->join('bus_destinations', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
-                ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
-                ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
-                ->where('bus_details.bus_seat', '!=', 0)
-                ->where('bus_details.status', '!=', 0)
-                ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
-                ->groupBy('bus_companies.bus_company')
-                ->orderBy('bus_destinations.departure_time', 'ASC')
+            if ($inputDate > $currentDate) {
+                $allBusCompanies = BusCompany::join('bus_details', 'bus_details.company_id', '=', 'bus_companies.id')
+                    ->join('bus_destinations', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
+                    ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
+                    ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
+                    ->where('bus_details.bus_seat', '!=', 0)
+                    ->where('bus_details.status', '!=', 0)
+//                    ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
+                    ->groupBy('bus_companies.bus_company')
+                    ->orderBy('bus_destinations.departure_time', 'ASC')
 //                ->select('bus_details.*','bus_destinations.*')
-                ->get();
-            //dd($allBusCompanies);
+                    ->get();
+                //dd($allBusCompanies);
+            }else{
+                $allBusCompanies = BusCompany::join('bus_details', 'bus_details.company_id', '=', 'bus_companies.id')
+                    ->join('bus_destinations', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
+                    ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
+                    ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
+                    ->where('bus_details.bus_seat', '!=', 0)
+                    ->where('bus_details.status', '!=', 0)
+                    ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
+                    ->groupBy('bus_companies.bus_company')
+                    ->orderBy('bus_destinations.departure_time', 'ASC')
+//                ->select('bus_details.*','bus_destinations.*')
+                    ->get();
+                //dd($allBusCompanies);
+            }
+
+
 
             //Filter Bus According To Coach Type
             if ($request->ajax()) {
@@ -936,7 +957,6 @@ class HomePageController extends Controller
                     }
 
 
-
                     return response()->json([
                         'status' => true,
                         'html' => $html
@@ -947,32 +967,92 @@ class HomePageController extends Controller
             }
 
             //dd($currentTime);
-            if ($request->get('starting_point') && $request->get('arrival_point')) {
 
-                $searchResults = $searchResults
-                    ->join('bus_details', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
-                    //->leftJoin('reservations','bus_destinations.id','=','reservations.bus_destination_id')
-                    ->leftJoin('reservations', function ($q) {
-                        $q->on('reservations.bus_destination_id', '=', 'bus_destinations.id');
-                        $q->whereDate('reservations.created_at', Carbon::now()->format('Y-m-d'));
-                    })
-                    ->where('bus_details.bus_seat', '!=', 0)
-                    ->where('bus_details.status', '!=', 0)
-                    ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
-                    ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
-                    ->selectRaw('bus_details.*,bus_destinations.* ,
+            //dd(Carbon::now()->format('d-m-Y'));
+            //dd($currentDate);
+            if ($inputDate > $currentDate) {
+
+                if ($request->get('starting_point') && $request->get('arrival_point')) {
+
+                    $searchResults = $searchResults
+                        ->join('bus_details', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
+                        //->leftJoin('reservations','bus_destinations.id','=','reservations.bus_destination_id')
+                        ->leftJoin('reservations', function ($q) {
+                            $q->on('reservations.bus_destination_id', '=', 'bus_destinations.id');
+                            $q->whereDate('reservations.created_at','=',Carbon::now()->format('Y-m-d'));
+                        })
+                        ->where('bus_details.bus_seat', '!=', 0)
+                        ->where('bus_details.status', '!=', 0)
+                        ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
+                        ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
+                        ->selectRaw('bus_details.*,bus_destinations.* ,
                     (COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0)) as available_seat')
-                    ->havingRaw("COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0) >= $total_passenger")
-                    ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
-                    ->orderBy('bus_destinations.ticket_price', 'ASC')
-                    ->orderBy('bus_destinations.departure_time', 'ASC')
-                    ->groupBy('bus_destinations.bus_details_id')
-                    ->get();
+                        ->havingRaw("COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0) >= $total_passenger")
+//                        ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
+                        ->orderBy('bus_destinations.ticket_price', 'ASC')
+                        ->orderBy('bus_destinations.departure_time', 'ASC')
+                        ->groupBy('bus_destinations.bus_details_id')
+                        ->get();
 
-                $request->session()->put('searchedResults', $request->all());
+                    $request->session()->put('searchedResults', $request->all());
+                }
             } else {
-                //return back
+
+                if ($request->get('starting_point') && $request->get('arrival_point')) {
+
+                    $searchResults = $searchResults
+                        ->join('bus_details', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
+                        //->leftJoin('reservations','bus_destinations.id','=','reservations.bus_destination_id')
+                        ->leftJoin('reservations', function ($q) {
+                            $q->on('reservations.bus_destination_id', '=', 'bus_destinations.id');
+                            $q->whereDate('reservations.created_at', Carbon::now()->format('Y-m-d'));
+                        })
+                        ->where('bus_details.bus_seat', '!=', 0)
+                        ->where('bus_details.status', '!=', 0)
+                        ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
+                        ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
+                        ->selectRaw('bus_details.*,bus_destinations.* ,
+                    (COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0)) as available_seat')
+                        ->havingRaw("COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0) >= $total_passenger")
+                        ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
+                        ->orderBy('bus_destinations.ticket_price', 'ASC')
+                        ->orderBy('bus_destinations.departure_time', 'ASC')
+                        ->groupBy('bus_destinations.bus_details_id')
+                        ->get();
+
+                    $request->session()->put('searchedResults', $request->all());
+                }
+
             }
+
+
+
+//            if ($request->get('starting_point') && $request->get('arrival_point')) {
+//
+//                $searchResults = $searchResults
+//                    ->join('bus_details', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
+//                    //->leftJoin('reservations','bus_destinations.id','=','reservations.bus_destination_id')
+//                    ->leftJoin('reservations', function ($q) {
+//                        $q->on('reservations.bus_destination_id', '=', 'bus_destinations.id');
+//                        $q->whereDate('reservations.created_at', Carbon::now()->format('Y-m-d'));
+//                    })
+//                    ->where('bus_details.bus_seat', '!=', 0)
+//                    ->where('bus_details.status', '!=', 0)
+//                    ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
+//                    ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
+//                    ->selectRaw('bus_details.*,bus_destinations.* ,
+//                    (COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0)) as available_seat')
+//                    ->havingRaw("COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0) >= $total_passenger")
+//                    ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
+//                    ->orderBy('bus_destinations.ticket_price', 'ASC')
+//                    ->orderBy('bus_destinations.departure_time', 'ASC')
+//                    ->groupBy('bus_destinations.bus_details_id')
+//                    ->get();
+//
+//                $request->session()->put('searchedResults', $request->all());
+//            } else {
+//                //return back
+//            }
 
 
             $sessionData = $request->session()->get('searchedResults');
@@ -980,20 +1060,46 @@ class HomePageController extends Controller
             $max_date = Carbon::now()->addWeek();
             //dd($sessionData);
 
-            $maxTicketPrice = DB::table('bus_destinations')
-                ->selectRaw('bus_destinations.starting_point,bus_destinations.arrival_point,(COALESCE(MAX(bus_destinations.ticket_price),0)) as maxPrice')
-                ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
-                ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
-                ->groupBy('bus_destinations.starting_point')
-                ->get();
+            if ($inputDate > $currentDate) {
+                $maxTicketPrice = DB::table('bus_destinations')
+                    ->selectRaw('bus_destinations.starting_point,bus_destinations.arrival_point,(COALESCE(MAX(bus_destinations.ticket_price),0)) as maxPrice')
+                    ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
+                    ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
+//                    ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
+                    ->groupBy('bus_destinations.starting_point')
+                    ->get();
+            }else{
+                $maxTicketPrice = DB::table('bus_destinations')
+                    ->selectRaw('bus_destinations.starting_point,bus_destinations.arrival_point,(COALESCE(MAX(bus_destinations.ticket_price),0)) as maxPrice')
+                    ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
+                    ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
+                    ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
+                    ->groupBy('bus_destinations.starting_point')
+                    ->get();
+            }
+
+
             //dd($maxTicketPrice);
 
-            $minTicketPrice = DB::table('bus_destinations')
-                ->selectRaw('bus_destinations.starting_point,bus_destinations.arrival_point,(COALESCE(MIN(bus_destinations.ticket_price),0)) as minPrice')
-                ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
-                ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
-                ->groupBy('bus_destinations.starting_point')
-                ->get();
+            if ($inputDate > $currentDate) {
+                $minTicketPrice = DB::table('bus_destinations')
+                    ->selectRaw('bus_destinations.starting_point,bus_destinations.arrival_point,(COALESCE(MIN(bus_destinations.ticket_price),0)) as minPrice')
+                    ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
+                    ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
+                    ->groupBy('bus_destinations.starting_point')
+                    ->get();
+            }else{
+                $minTicketPrice = DB::table('bus_destinations')
+                    ->selectRaw('bus_destinations.starting_point,bus_destinations.arrival_point,(COALESCE(MIN(bus_destinations.ticket_price),0)) as minPrice')
+                    ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
+                    ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
+                    ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
+                    ->groupBy('bus_destinations.starting_point')
+                    ->get();
+            }
+
+
+
             //dd($minTicketPrice);
 
             $froms = BusDestination::select('starting_point')->groupby('starting_point')->get();

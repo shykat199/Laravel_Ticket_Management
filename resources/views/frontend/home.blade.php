@@ -372,7 +372,6 @@
             <div class="container">
                 <div class="d-flex justify-content-between pt-4 mb-5">
                     <h3 class="text-light">E-TICKETS ADVANTAGE</h3>
-                    <button type="button" class="btn btn-outline-light text-light fw-semibold">Learn More</button>
                 </div>
                 <div class="pt-4 row ticket-booking-home-e-ticket-middle">
                     @foreach ($eAdvantages as $eAdvantage)

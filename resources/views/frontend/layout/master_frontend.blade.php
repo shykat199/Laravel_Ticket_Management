@@ -13,6 +13,7 @@
     <script src="{{asset("frontend/assets/js/jquery-3.6.3.min.js")}}"></script>
 
     @stack('css')
+
     <style>
         img {
             max-width: 100%;

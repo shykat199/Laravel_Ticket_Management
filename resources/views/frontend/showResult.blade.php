@@ -247,16 +247,6 @@
                                                 <div class="row ">
                                                     <h5 class="text-light fw-normal ps-0 mb-0">Price</h5>
                                                     <div>
-                                                        {{--                                                        <ul class=" mt-2 d-flex align-items-center justify-content-between">--}}
-                                                        {{--                                                            <li class="text-white">500 $</li>--}}
-                                                        {{--                                                            <li class="text-white">2500 $</li>--}}
-                                                        {{--                                                        </ul>--}}
-
-                                                        {{--                                                        <input type="range" name="priceRange" class="w-100 mt-2"--}}
-                                                        {{--                                                               id="customRange1" min="500" max="2500">--}}
-                                                        {{--                                                        <output id="rangeOutput" class="text-white d-block text-left">--}}
-                                                        {{--                                                            0--}}
-                                                        {{--                                                        </output>--}}
 
                                                         <input type="range" class="js-range-slider" name="priceRange"
                                                                value=""
@@ -371,12 +361,6 @@
                             <p>10 of 12 found</p>
                             <div>
                                 <select class="small text-muted border-1" aria-label="Default select example">
-                                    <option selected class="">Short by time</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                                <select class="small text-muted border-1" aria-label="Default select example">
                                     <option selected>Show 5 tickets on page</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -384,6 +368,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div id="available-all-ticket-content">
 
                             @foreach($searchResults as $searchResult)
@@ -422,10 +407,8 @@
                                                         class="small-text">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->addHour($searchResult->arrival_time)->format('d-m-Y') :''}}</small>
                                                     <h6 class="small"> {{$searchResult->arrival_point}}</h6>
 
-                                                    {{--                                                <small class="small-text">Union Station,CA</small>--}}
                                                 </div>
                                             </div>
-
 
 
                                             @if(isset($sessionData['returnOfDate']))

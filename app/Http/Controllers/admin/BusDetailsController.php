@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BusRequest;
 use App\Models\BusCompany;
+use App\Models\BusDestination;
 use App\Models\BusDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -140,8 +141,19 @@ class BusDetailsController extends Controller
      */
     public function destroy(string $id)
     {
-        $bus = BusDetails::where('id', $id)->first();
-        $dltBus = $bus->delete();
+
+//        $busDestination=BusDestination::join('bus_destinations','bus_details.id','=','bus_destinations.bus_details_id')
+//        ->
+//        ;
+        $busDestination = BusDetails::join('bus_destinations','bus_details.id','=','bus_destinations.bus_details_id')
+            ->where('bus_destinations.id', '=', $id)->get();
+        //dd($busDestination);
+        if (count($busDestination)>0){
+            return redirect()->back()->with('error','Bus Coach Can Not Be Deleted');
+        }else{
+            $bus = BusDetails::where('id', $id)->first();
+            $dltBus = $bus->delete();
+        }
 
         if ($dltBus) {
             return to_route('admin.bus_details.index')->with('success', 'Bus Deleted Successfully.');
