@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sight_settings', function (Blueprint $table) {
-            $table->id();
-            $table->string('key',15)->nullable();
-            $table->text('value')->nullable();
-            $table->string('logo')->nullable();
-            $table->timestamps();
+        Schema::table('sight_settings', function (Blueprint $table) {
+
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sight_settings');
+        Schema::table('sight_settings', function (Blueprint $table) {
+            //
+        });
     }
 };

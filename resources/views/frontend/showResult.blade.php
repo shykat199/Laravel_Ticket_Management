@@ -252,7 +252,7 @@
                                                                value=""
                                                                data-skin="round"
                                                                data-type="double"
-                                                               data-min="{{$minTicketPrice[0]->minPrice}}"
+                                                               data-min="{{isset($minTicketPrice[0]->minPrice)? $minTicketPrice[0]->minPrice:''}}"
                                                                data-max="{{$maxTicketPrice[0]->maxPrice}}"
                                                                data-grid="false"
                                                                id="customRange1"
@@ -263,7 +263,7 @@
                                                                 <label class="text-white">Min Price</label>
                                                                 <input name="maxPrice" type="number"
                                                                        id="busMinTicketPrice" maxlength="4"
-                                                                       value="{{$minTicketPrice[0]->minPrice}}"
+                                                                       value="{{isset($minTicketPrice[0]->minPrice)?$minTicketPrice[0]->minPrice:''}}"
                                                                        class="from" onchange="myFun()"/>
                                                             </li>
                                                             <li>
@@ -376,21 +376,23 @@
                                     <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
                                         <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
                                         <div class="card-body">
-                                            <h5 class="card-title text-center">{{$searchResult->busDetails->bus_coach}}</h5>
-                                            <h6 class="card-title text-center">{{$searchResult->busDetails->bus_type}}</h6>
+                                            <h5 class="card-title text-center">{{$searchResult->bus_coach}}</h5>
+                                            <h6 class="card-title text-center">{{$searchResult->bus_type}}</h6>
                                             <p class="card-title text-center">
                                                 Seat- {{$searchResult->available_seat}}</p>
-                                            <p class="card-text text-center text-muted">{{$searchResult->busDetails->busCompany->bus_company}}</p>
+                                            {{--                                            {{dd($searchResult->bus_company)}}--}}
+                                            <p class="card-text text-center text-muted">{{$searchResult->bus_company}}</p>
                                         </div>
+
                                     </div>
                                     <div class="col-6 card rounded-0 all-ticket-card-middle">
                                         <div class="row  card-body">
                                             <div class="row">
                                                 <div class="col-4 all-ticket-card-middle-left-colum">
-                                                    <h5>{{date("g:i a",strtotime(\Carbon\Carbon::parse($searchResult->departure_time)))}}</h5>
+                                                    <h5>{{ date("g:i a",strtotime(\Carbon\Carbon::parse(isset($searchResult->dateOfJourneyDepartureTime)?$searchResult->dateOfJourneyDepartureTime:$searchResult->departure_time)))}}</h5>
                                                     <small
                                                         class="small-text">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y') :''}}</small>
-                                                    <h6 class="small">{{$searchResult->starting_point}}</h6>
+                                                    <h6 class="small">{{isset($searchResult->dateOfJourneyStartingPoint)?$searchResult->dateOfJourneyStartingPoint:$searchResult->starting_point}}</h6>
 
                                                 </div>
                                                 <div
@@ -402,38 +404,48 @@
                                                 </div>
                                                 <div class="col-4 all-ticket-card-middle-right-colum">
 
-                                                    <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time)))}}</h5>
-                                                    <small
-                                                        class="small-text">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->addHour($searchResult->arrival_time)->format('d-m-Y') :''}}</small>
-                                                    <h6 class="small"> {{$searchResult->arrival_point}}</h6>
+
+                                                    <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse(isset($searchResult->dateOfJourneyDepartureTime)?$searchResult->dateOfJourneyDepartureTime:$searchResult->departure_time)->addHours(isset($searchResult->dateOfJourneyArrivalTime)?$searchResult->dateOfJourneyArrivalTime:$searchResult->arrival_time)))}}</h5>
+                                                    <small class="small-text">
+
+                                                        {{isset($sessionData['dateOfJourney']) ? (\Carbon\Carbon::parse(\Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y').' '.(isset($searchResult->dateOfJourneyDepartureTime) ? $searchResult->dateOfJourneyDepartureTime : $searchResult->departure_time))
+                                                             ->addHour(isset($searchResult->dateOfJourneyArrivalTime)?$searchResult->dateOfJourneyArrivalTime:$searchResult->arrival_time)->format('d-m-Y')):''}}
+                                                    </small>
+                                                    <h6 class="small"> {{isset($searchResult->dateOfJourneyArrivalPoint)?$searchResult->dateOfJourneyArrivalPoint:$searchResult->arrival_point}}</h6>
 
                                                 </div>
                                             </div>
 
 
                                             @if(isset($sessionData['returnOfDate']))
+
                                                 <div class="row mt-4">
                                                     <div class="col-4 all-ticket-card-middle-left-colum">
-                                                        <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours()))}}</h5>
+                                                        <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->dateOfReturnDepartureTime)))}}</h5>
+
                                                         <small
                                                             class="small-text">{{isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y') :''}}</small>
-                                                        <h6 class="small">{{$searchResult->arrival_point}}</h6>
-                                                        {{--                                                    <small class="small-text">Peen Station,NY</small>--}}
+
+                                                        <h6 class="small">{{$searchResult->dateOfReturnStartingPoint}}</h6>
                                                     </div>
                                                     <div
                                                         class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
-                                                        {{--                                                    <p class="text-muted small text-center">11:30</p>--}}
                                                         <p class="text-center"><i
-                                                                class="fa fa-long-arrow-left text-muted"></i>
+                                                                class="fa fa-long-arrow-right text-muted"></i>
                                                         </p>
                                                     </div>
+
+
                                                     <div class="col-4 all-ticket-card-middle-right-colum">
-                                                        {{--                                                    <h5>{{$searchResult->departure_time }}</h5>--}}
-                                                        <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours($searchResult->arrival_time)))}}</h5>
-                                                        <small
-                                                            class="small-text">{{isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->addHour($searchResult->arrival_time)->format('d-m-Y') :''}}</small>
-                                                        <h6 class="small">{{$searchResult->starting_point}}</h6>
-                                                        {{--                                                    <small class="small-text">Peen Station,NY</small>--}}
+                                                        <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->dateOfReturnDepartureTime)->addHours($searchResult->dateOfReturnArrivalTime)))}}</h5>
+                                                        <small class="small-text">{{
+                                                                 isset($sessionData['returnOfDate']) ? (\Carbon\Carbon::parse (\Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y').' '.
+                                                                  (isset($searchResult->dateOfReturnDepartureTime) ? $searchResult->dateOfReturnDepartureTime : $searchResult->departure_time))->addHour(
+                                                                      isset($searchResult->dateOfReturnArrivalTime) ? $searchResult->dateOfReturnArrivalTime : $searchResult->arrival_time
+                                                                  )->format('d-m-Y')):''
+
+                                                             }} </small>
+                                                        <h6 class="small">{{$searchResult->dateOfReturnArrivalPoint}}</h6>
                                                     </div>
                                                 </div>
                                             @endif
@@ -443,9 +455,9 @@
 
                                     <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
                                         <div class="all-ticket-card-right-content">
-                                            <p class="text-muted small"><span>${{$searchResult->ticket_price}} </span>/person
+                                            <p class="text-muted small">
+                                                <span>${{isset($searchResult->dateOfJourneyTicketPrice) ? $searchResult->dateOfJourneyTicketPrice : $searchResult->ticket_price}} </span>/person
                                             </p>
-
                                         </div>
                                         <ul class="d-flex">
                                             <li class="pe-2 text-muted small">
@@ -462,10 +474,18 @@
                                             </li>
                                         </ul>
 
+                                        @if(isset($sessionData['returnOfDate']))
+                                            <div class="all-ticket-card-right-content mt-2">
+                                                <p class="text-muted small">
+                                                    <span>${{isset($searchResult->dateOfReturnTicketPrice) ? $searchResult->dateOfReturnTicketPrice : $searchResult->dateOfReturnTicketPrice}} </span>/person
+                                                </p>
+                                            </div>
+                                        @endif
+
                                         <form action="{{route('frontend.add.passenger.list')}}" method="get">
 
                                             <input type="hidden" name="bus_id" id="" value="{{$searchResult->id}}">
-                                            <button type="submit" class="btn btn-primary mt-3">Book Now</button>
+                                            <button type="submit" class="btn btn-primary mt-2 mb-2">Book Now</button>
                                         </form>
 
                                     </div>
@@ -706,7 +726,7 @@
                         //$('.all-ticket').find('nav').remove();
                         $('#available-all-ticket-content').html(response.html)
                     });
-            }else {
+            } else {
 
                 busCompany.pop(e.target.value);
                 //busCompany.push(e.target.value);

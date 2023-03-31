@@ -5,7 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SightSettingRequest;
 use App\Models\SightSetting;
+use Faker\Provider\Uuid;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SightSettingController extends Controller
 {
@@ -27,8 +29,19 @@ class SightSettingController extends Controller
      */
     public function create()
     {
-        return view('admin.interface.setting.create');
+        $data['settings'] = SightSetting::pluck('value', 'key')->toArray();
+//        dd($data);
+        return view('admin.interface.setting.create',$data);
     }
+
+
+    public function settingsView()
+    {
+        $data['settings'] = SightSetting::pluck('key', 'value')->toArray();
+
+        return view('admin.interface.setting.create', $data);
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -36,18 +49,41 @@ class SightSettingController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(SightSettingRequest $request)
+    public function store(Request $request)
     {
-        $createSetting = SightSetting::create([
-            'key' => $request->get('key'),
-            'value' => $request->get('value'),
-        ]);
+        //dd($request->all());
 
-        if ($createSetting) {
-            return to_route('admin.setting.index')->with('success', 'New Setting Added.');
-        } else {
-            return \Redirect::back()->with('error', 'Something Wrong....');
-        }
+        $data = $request->except(['_method', '_token']);
+//        dd($data);
+            foreach ($data as $key => $value) {
+
+                if ($key === 'logo') {
+
+                    if ($request->hasFile('logo')) {
+                        $logo= SightSetting::where('key','=','logo')->pluck('value');
+                        //dd($logo);
+                        Storage::delete('/public/logo/' . $logo[0]);
+                        $name = Uuid::uuid() . '.' . $request->file('logo')->getClientOriginalExtension();
+                        $image = Storage::put('/public/logo/' . $name, file_get_contents($request->file('logo')));
+                        $createSetting = SightSetting::updateOrCreate([
+                            'key' => $key,
+                        ], [
+                            'value' => $name,
+                        ]);
+                    }
+                } else {
+                    $createSetting = SightSetting::updateOrCreate([
+                        'key' => $key,
+                    ], [
+                        'value' => $value,
+                    ]);
+                }
+
+            }
+//        }
+
+            return to_route('admin.setting.create')->with('success', 'New Setting Added.');
+
     }
 
     /**
@@ -81,11 +117,11 @@ class SightSettingController extends Controller
      */
     public function update(Request $request)
     {
-        $settingId=$request->get('setting_id');
+        $settingId = $request->get('setting_id');
         //dd($settingId);
-        $setting=SightSetting::findOrFail($settingId)->first();
+        $setting = SightSetting::findOrFail($settingId)->first();
 
-        $upSetting=$setting->update([
+        $upSetting = $setting->update([
             'key' => $request->get('key'),
             'value' => $request->get('value'),
         ]);
@@ -105,9 +141,9 @@ class SightSettingController extends Controller
      */
     public function destroy(string $id)
     {
-        $setting_id=SightSetting::where('id',$id)->first();
+        $setting_id = SightSetting::where('id', $id)->first();
         //dd($setting_id);
-        $settingDlt=$setting_id->delete();
+        $settingDlt = $setting_id->delete();
 
         if ($settingDlt) {
             return to_route('admin.setting.index')->with('success', 'Setting Deleted Successfully.');

@@ -25,23 +25,26 @@
 
 <body>
 <header class="header-area">
-     <nav class="navbar bg-dark navbar-expand-lg">
-      <div class="container">
-        <a class="navbar-brand ticket-booking-logo" href="{{route('frontend.home')}}">
-          <i class="fa fa-bus pe-2" aria-hidden="true"></i>
-{{--            <i class="fas fa-bus" aria-hidden="true"></i>--}}
-          BOOK<span class="ticket-booking-logo-text-decrease">YOUR</span>BUS
-        </a>
-        <div class="d-flex upper-nav-btn">
-            @if(Auth::check())
-                <a href="{{route('admin.logout')}}" class="btn btn-outline-success me-2 ticket-booking-nav-button-style" type="submit">LogOut</a>
-            @elseif(Auth::guest())
-                <a href="{{route('admin.login')}}" class="btn btn-outline-success me-2 ticket-booking-nav-button-style" type="submit">Sign Up</a>
-                <a href="{{route('admin.register_page')}}" class="btn btn-outline-success ticket-booking-nav-button-style" type="submit">Login</a>
-            @endif
+    <nav class="navbar bg-dark navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand ticket-booking-logo" href="{{route('frontend.home')}}">
+                <i class="fa fa-bus pe-2" aria-hidden="true"></i>
+                {{--            <i class="fas fa-bus" aria-hidden="true"></i>--}}
+                BOOK<span class="ticket-booking-logo-text-decrease">YOUR</span>BUS
+            </a>
+            <div class="d-flex upper-nav-btn">
+                @if(Auth::check())
+                    <a href="{{route('admin.logout')}}"
+                       class="btn btn-outline-success me-2 ticket-booking-nav-button-style" type="submit">LogOut</a>
+                @elseif(Auth::guest())
+                    <a href="{{route('admin.login')}}"
+                       class="btn btn-outline-success me-2 ticket-booking-nav-button-style" type="submit">Sign Up</a>
+                    <a href="{{route('admin.register_page')}}"
+                       class="btn btn-outline-success ticket-booking-nav-button-style" type="submit">Login</a>
+                @endif
 
+            </div>
         </div>
-      </div>
     </nav>
     <nav class="navbar navbar-expand-lg ticket-booking-nav2 py-4">
         <div class="container">
@@ -67,7 +70,6 @@
             </div>
         </div>
     </nav>
-
 
 
     @yield('show.frontend')
@@ -102,38 +104,41 @@
                     <div class="py-3">
                         <h6 class="text-light">Contact Us</h6>
                     </div>
+
                     <ul class="footer-2nd-colum-menu-list">
                         <li class="py-2">
-                            @if(contactUs('Phone'))
+                            @if(getSettingData('phone'))
                                 <a class="d-flex align-items-center">
                                     <i class="fa fa-phone-square"></i>
-                                    <span class="ps-3 fs-4">{{strip_tags(contactUs('Phone'))}}</span>
+                                    <span class="ps-3 fs-4">+{{strip_tags(getSettingData('phone')['phone'])}}</span>
                                 </a>
                             @endif
                         </li>
                         <li class="py-2">
-                            @if(contactUs('Skype'))
-                                <a class="d-flex align-items-center" href="{{strip_tags(contactUs('Skype'))}}">
+                            @if(getSettingData('skype'))
+                                <a class="d-flex align-items-center"
+                                   href="{{strip_tags(getSettingData('skype')['skype'])}}">
                                     <i class="fa fa-skype"></i>
-                                    <span class="ps-3 fs-6">{{strip_tags(contactUs('Skype'))}}</span>
+                                    <span class="ps-3 fs-6">{{strip_tags(getSettingData('skype')['skype'])}}</span>
                                 </a>
                             @endif
 
                         </li>
                         <li class="py-2">
-                            @if(contactUs('Gmail'))
-                                <a class="d-flex align-items-center" href="{{strip_tags(contactUs('Gmail'))}}">
+                            @if(getSettingData('email'))
+                                <a class="d-flex align-items-center"
+                                   href="{{strip_tags(getSettingData('email')['email'])}}">
                                     <i class="fa fa-envelope"></i>
-                                    <span class="ps-3 fs-6">{{strip_tags(contactUs('Gmail'))}}</span>
+                                    <span class="ps-3 fs-6">{{strip_tags(getSettingData('email')['email'])}}</span>
                                 </a>
                             @endif
 
                         </li>
                         <li class="py-3">
-                            @if(contactUs('Address'))
+                            @if(getSettingData('address'))
                                 <a class="d-flex">
                                     <i class="fa fa-map-marker"></i>
-                                    <span class="ps-3 fs-6">{{strip_tags(contactUs('Address'))}}</span>
+                                    <span class="ps-3 fs-6">{{strip_tags(getSettingData('address')['address'])}}</span>
                                 </a>
                             @endif
 
@@ -172,34 +177,18 @@
                             <div class="">
                                 <h6 class="fs-5">Follow Us</h6>
                                 <ul class="d-flex align-items-center pt-2">
+{{--                                    @dd(getSettingData(['facebook','youtube','twitter','linkedin']))--}}
+                                    @if(getSettingData(['facebook','youtube','twitter','linkedin']))
 
-                                    @if(contactUs('Linkedin'))
-                                        <li>
-                                            <a href="{{strip_tags(contactUs('Linkedin'))}}">
-                                                <i class="fa fa-linkedin"></i>
-                                            </a>
-                                        </li>
-                                    @endif
-                                    @if(contactUs('Facebook'))
-                                        <li class="ms-4">
-                                            <a href="{{strip_tags(contactUs('Facebook'))}}">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                        </li>
-                                    @endif
-                                    @if(contactUs('Twitter'))
-                                        <li class="ms-4">
-                                            <a href="{{strip_tags(contactUs('Twitter'))}}">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                        </li>
-                                    @endif
-                                    @if(contactUs('Youtube'))
-                                        <li class="ms-4">
-                                            <a href="{{strip_tags(contactUs('Youtube'))}}">
-                                                <i class="fa fa-youtube-play"></i>
-                                            </a>
-                                        </li>
+                                        @foreach(getSettingData(['facebook','youtube','twitter','linkedin']) as $data)
+{{--                                            @dd(getSettingData($data)[$data])--}}
+                                            <li>
+                                                <a href="{{strip_tags(getSettingData($data)[$data])}}">
+                                                    <i class="me-4 fa fa-{{$data}}"></i>
+                                                </a>
+                                            </li>
+                                        @endforeach
+
                                     @endif
 
                                 </ul>
@@ -232,10 +221,12 @@
     <script src="{{asset("frontend/assets/js/slick.min.js")}}"></script>
     <script src="{{asset("frontend/assets/js/script.js")}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-   @stack('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+            integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @stack('script')
     <script>
-        $(document).ready(function (){
+        $(document).ready(function () {
 
         })
     </script>

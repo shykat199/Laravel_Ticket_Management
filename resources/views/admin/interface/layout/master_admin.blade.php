@@ -37,20 +37,40 @@
 
 <body class="loading" data-layout-color="light" data-leftbar-theme="dark" data-layout-mode="fluid"
       data-rightbar-onstart="true">
+{{--{{dd(!empty(getSettingData('logo')['logo']))}}--}}
+
 <!-- Begin page -->
 <div class="wrapper">
     <!-- ========== Left Sidebar Start ========== -->
+
     <div class="leftside-menu">
 
         <!-- LOGO -->
-        <a href="index-2.html" class="logo text-center logo-light">
+        @if(!empty(getSettingData('logo')['logo'])))
+            <a href="index-2.html" class="logo text-center logo-light">
+                    <span class="logo-lg">
+                        <img src="{{ asset("storage/logo/".getSettingData('logo')['logo'])}}" alt="" height="80">
+                    </span>
+
+                <span class="logo-sm">
+                        <img src="{{asset("storage/logo/".getSettingData('logo')['logo'])}}" alt="" height="16">
+                    </span>
+            </a>
+        @else
+
+            <a href="index-2.html" class="logo text-center logo-light">
                     <span class="logo-lg">
                         <img src="{{asset("admin/assets/images/logo.png")}}" alt="" height="16">
                     </span>
-            <span class="logo-sm">
+
+                <span class="logo-sm">
                         <img src="{{asset("admin/assets/images/logo_sm.png")}}" alt="" height="16">
                     </span>
-        </a>
+            </a>
+
+        @endif
+
+
 
         <!-- LOGO -->
         <a href="index-2.html" class="logo text-center logo-dark">
@@ -64,6 +84,7 @@
         </a>
 
         <div class="h-100" id="leftside-menu-container" data-simplebar>
+{{--            {{dd(getSettingData('logo'))}}--}}
             <!--- Sidemenu -->
             <ul class="side-nav">
                 @if(Auth::user()->user_role==='admin')

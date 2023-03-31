@@ -269,16 +269,26 @@ function years()
     return $year_array;
 }
 
-function contactUs($input = null)
-{
 
-    $contactUs = SightSetting::get()->pluck('value', 'key');
 
-    if (empty($input)) {
-        return $contactUs;
-    } elseif (isset($contactUs[$input])) {
-        return $contactUs[$input];
+
+function getSettingData($input=null){
+
+    if (empty($input)){
+        $data=SightSetting::get()->pluck('key','value')->toArray();
     }
-    return null;
+    elseif (is_array($input)){
+
+        $data=SightSetting::whereIn('key',$input)->pluck('key','value')->toArray();
+
+    }else{
+
+        $item=SightSetting::where('key',$input)->first();
+
+        $data[$input]=empty($item) ?'':$item->value;
+
+    }
+    return $data;
+
 
 }

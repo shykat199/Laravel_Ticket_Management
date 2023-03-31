@@ -27,9 +27,9 @@
                     <div class="col-12 who-we-are-content-paragraph" style="text-align: justify;">
 
 
-                        @if(contactUs('About Us'))
+                        @if(getSettingData('aboutus'))
                             <p class="text-center text-justify">
-                                {{strip_tags(contactUs('About Us'))}}
+                                {{strip_tags(getSettingData('aboutus')['aboutus'])}}
                             </p>
                         @endif
 
