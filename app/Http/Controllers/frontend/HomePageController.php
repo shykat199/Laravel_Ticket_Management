@@ -48,8 +48,8 @@ class HomePageController extends Controller
     }
 
 
-
-    public function showResult(ShowResultRequest $request){
+    public function showResult(ShowResultRequest $request)
+    {
         //dd($request->all());
 
         $inputDate = Carbon::parse($request->get('dateOfJourney'))->format('d-m-Y');
@@ -98,8 +98,7 @@ class HomePageController extends Controller
                         ->get();
                     //dd($allBusCompanies);
 
-                }
-                else {
+                } else {
                     $allBusCompanies = BusCompany::join('bus_details', 'bus_details.company_id', '=', 'bus_companies.id')
                         ->join('bus_destinations', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
                         ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
@@ -136,9 +135,7 @@ class HomePageController extends Controller
                         ->get();
                     //dd($allBusCompanies);
 
-                }
-
-                else {
+                } else {
                     $allBusCompanies = BusCompany::join('bus_details', 'bus_details.company_id', '=', 'bus_companies.id')
                         ->join('bus_destinations', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
                         ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
@@ -159,33 +156,207 @@ class HomePageController extends Controller
             //Filter Bus According To Coach Type
             if ($request->ajax()) {
 
+                $ac = $request->get('ac');
+
                 if ($request->get('ac')) {
 
-                    $ac = $request->get('ac');
-                    $searchResults = $searchResults->join('bus_details', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
-                        ->leftJoin('reservations', function ($query) {
-                            $query->on('reservations.bus_destination_id', '=', 'bus_destinations.id');
-                            $query->whereDate('reservations.created_at', Carbon::now()->format('Y-m-d'));
-                        })
-                        ->where('bus_details.bus_seat', '!=', 0)
-                        ->where('bus_details.status', '!=', 0)
-                        ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
-                        ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
-                        ->whereIn('bus_details.bus_type', $ac)
-                        ->selectRaw('bus_details.*,bus_destinations.* ,
+//                    dd(Carbon::parse($request->get('returnOfDate'))->format('d-m-Y'));
+                    if (Carbon::parse($request->get('returnOfDate'))->format('d-m-Y')) {
+
+                        $searchResults = DB::table('bus_destinations as bd1')
+                            ->join('bus_details', 'bd1.bus_details_id', '=', 'bus_details.id')
+                            ->join('bus_destinations AS bd2', 'bd1.bus_details_id', '=', 'bd2.bus_details_id')
+                            ->join('bus_companies', 'bus_details.company_id', '=', 'bus_companies.id')
+                            ->leftJoin('reservations', function ($q) {
+                                $q->on('reservations.bus_destination_id', '=', 'bd1.id');
+                                $q->whereDate('reservations.created_at', Carbon::now()->format('Y-m-d'));
+                            })
+                            ->where('bd1.starting_point', '=', $request->get('starting_point'))
+                            ->where('bd1.arrival_point', '=', $request->get('arrival_point'))
+                            ->where('bd2.arrival_point', '=', $request->get('starting_point'))
+                            ->where('bd2.starting_point', '=', $request->get('arrival_point'))
+                            ->selectRaw('
+                            bd1.id as dateOfJourneyId,
+                            bd1.starting_point as dateOfJourneyStartingPoint,
+                            bd1.arrival_point as dateOfJourneyArrivalPoint,
+                            bd1.ticket_price as dateOfJourneyTicketPrice,
+                            bd1.departure_time as dateOfJourneyDepartureTime,
+                            bd1.arrival_time as dateOfJourneyArrivalTime,
+                            bd2.id as dateOfReturnId,
+                            bd2.starting_point as dateOfReturnStartingPoint,
+                            bd2.arrival_point as dateOfReturnArrivalPoint,
+                            bd2.ticket_price as dateOfReturnTicketPrice,
+                            bd2.departure_time as dateOfReturnDepartureTime,
+                            bd2.arrival_time as dateOfReturnArrivalTime,
+                            bus_details.*,bus_companies.*,
+                             (COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0)) as available_seat
+                            ')
+                            ->whereIn('bus_details.bus_type', $ac)
+                            ->where('bus_details.bus_seat', '!=', 0)
+                            ->where('bus_details.status', '!=', 0)
+                            ->havingRaw("COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0) >= $total_passenger")
+                            ->whereTime('bd1.departure_time', '>=', $currentTime)
+                            ->orderBy('bd1.ticket_price', 'ASC')
+                            ->orderBy('bd1.departure_time', 'ASC')
+                            ->groupBy('bd1.bus_details_id')
+                            ->get();
+//                        dd($searchResults);
+
+                        $html = '';
+
+                        if (count($searchResults) > 0) {
+//                            dd(123);
+                            foreach ($searchResults as $searchResult) {
+                                $html .= '
+                                <div class="row available-all-ticket-content pt-3">
+                                    <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                                        <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center">' . $searchResult->bus_coach . '</h5>
+                                            <h6 class="card-title text-center">' . $searchResult->bus_type . '</h6>
+                                            <p class="card-title text-center">
+                                                Seat- ' . $searchResult->available_seat . '</p>
+                                            <p class="card-text text-center text-muted">' . $searchResult->bus_company . '</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 card rounded-0 all-ticket-card-middle">
+                                        <div class="row  card-body">
+                                            <div class="row">
+                                                <div class="col-4 all-ticket-card-middle-left-colum">
+                                                    <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->dateOfJourneyDepartureTime))) . '</h5>
+                                                    <small
+                                                        class="small-text">' . (isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y') : '') . '</small>
+                                                    <h6 class="small">' . $searchResult->dateOfJourneyStartingPoint . '</h6>
+
+                                                </div>
+                                                <div
+                                                    class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+
+                                                    <p class="text-center"><i
+                                                            class="fa fa-long-arrow-right text-muted"></i>
+                                                    </p>
+                                                </div>
+                                                <div class="col-4 all-ticket-card-middle-right-colum">
+
+                                                    <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->dateOfJourneyDepartureTime)->addHours($searchResult->dateOfJourneyArrivalTime))) . '</h5>
+                                                    <small
+                                                        class="small-text">' . (isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->addHour($searchResult->dateOfJourneyArrivalTime)->format('d-m-Y') : '') . '</small>
+                                                    <h6 class="small"> ' . $searchResult->dateOfJourneyArrivalPoint . '</h6>
+                                                </div>
+                                            </div>';
+
+                                if (@Carbon::parse($request->get('returnOfDate'))->format('d-m-Y')) {
+                                    $html .= '<div class="row mt-4">
+                                                    <div class="col-4 all-ticket-card-middle-left-colum">
+                                                        <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->dateOfJourneyDepartureTime)->addHours())) . '</h5>
+                                                        <small
+                                                            class="small-text">' . (isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y') : '') . '</small>
+                                                        <h6 class="small">' . $searchResult->dateOfJourneyArrivalPoint . '</h6>
+
+                                                    </div>
+                                                    <div
+                                                        class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+
+                                                        <p class="text-center"><i
+                                                                class="fa fa-long-arrow-left text-muted"></i>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-4 all-ticket-card-middle-right-colum">
+
+                                                        <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->dateOfJourneyDepartureTime)->addHours($searchResult->dateOfJourneyArrivalTime))) . '</h5>
+                                                        <small
+                                                            class="small-text">' . (isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->addHour($searchResult->dateOfJourneyArrivalTime)->format('d-m-Y') : '') . '</small>
+                                                        <h6 class="small">' . $searchResult->dateOfJourneyStartingPoint . '</h6>
+
+                                                    </div>
+                                                </div>';
+                                }
+
+                                $html .= '</div>
+                                    </div>
+
+                                    <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
+                                        <div class="all-ticket-card-right-content">
+                                            <p class="text-muted small">
+                                            <span>$' . $searchResult->dateOfJourneyTicketPrice . ' </span>/person
+                                            </p>
+
+                                        </div>
+                                        <ul class="d-flex">
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-wifi" aria-hidden="true"></i>
+                                            </li>
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-moon-o" aria-hidden="true"></i>
+                                            </li>
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-coffee" aria-hidden="true"></i>
+                                            </li>
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-rocket" aria-hidden="true"></i>
+                                            </li>
+                                        </ul>';
+
+                                if (@Carbon::parse($request->get('returnOfDate'))->format('d-m-Y')) {
+                                    $html .= '
+                                    <div class="all-ticket-card-right-content mt-2">
+                                                <p class="text-muted small">
+                                                    <span> $' . isset($searchResult->dateOfReturnTicketPrice) ? $searchResult->dateOfReturnTicketPrice : $searchResult->dateOfReturnTicketPrice . '
+                                                     </span>/person
+                                                </p>
+                                    </div>';
+                                } else {
+                                    $html .= '
+                                            <div class="all-ticket-card-right-content mt-2">
+                                                <p class="text-muted small">
+                                                    <span>${{isset($searchResult->dateOfReturnTicketPrice) ? $searchResult->dateOfReturnTicketPrice : $searchResult->dateOfReturnTicketPrice}} </span>/person
+                                                </p>
+                                            </div>';
+                                }
+                                $html .= '
+                                        <form action="' . route('frontend.add.passenger.list') . '" method="get">
+                                            <input type="hidden" name="bus_id" id="" value="' . $searchResult->id . '">
+                                            <button type="submit" class="btn btn-primary mt-3">Book Now</button>
+                                        </form>
+                                    </div>
+                                </div>';
+                            }
+                        } else {
+                            //dd(1);
+                            $html .= '<div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                                        <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
+                                        <div class="card-body">
+                                            <h2>No Data Found</h2>
+                                        </div>
+                                    </div>';
+                        }
+
+                    } else {
+
+                        $searchResults = $searchResults->join('bus_details', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
+                            ->leftJoin('reservations', function ($query) {
+                                $query->on('reservations.bus_destination_id', '=', 'bus_destinations.id');
+                                $query->whereDate('reservations.created_at', Carbon::now()->format('Y-m-d'));
+                            })
+                            ->where('bus_details.bus_seat', '!=', 0)
+                            ->where('bus_details.status', '!=', 0)
+                            ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
+                            ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
+                            ->whereIn('bus_details.bus_type', $ac)
+                            ->selectRaw('bus_details.*,bus_destinations.* ,
                                     (COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0)) as available_seat')
-                        ->havingRaw("COALESCE(bus_details,0) - COALESCE(SUM(reservations.total_passenger),0)" >= $total_passenger)
-                        ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
-                        ->groupBy('bus_destinations.bus_details_id')
-                        ->orderBy('bus_destinations.departure_time', 'ASC')
-                        ->get();
+                            ->havingRaw("COALESCE(bus_details,0) - COALESCE(SUM(reservations.total_passenger),0)" >= $total_passenger)
+                            ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
+                            ->groupBy('bus_destinations.bus_details_id')
+                            ->orderBy('bus_destinations.departure_time', 'ASC')
+                            ->get();
 
-                    $html = '';
+                        $html = '';
 
-                    if (count($searchResults) > 0) {
-                        //dd(123);
-                        foreach ($searchResults as $searchResult) {
-                            $html .= '
+                        if (count($searchResults) > 0) {
+                            //dd(123);
+                            foreach ($searchResults as $searchResult) {
+                                $html .= '
                                 <div class="row available-all-ticket-content pt-3">
                                     <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
                                         <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
@@ -223,8 +394,8 @@ class HomePageController extends Controller
                                                 </div>
                                             </div>';
 
-                            if (@$sessionData['returnOfDate']) {
-                                $html .= '<div class="row mt-4">
+                                if (@$sessionData['returnOfDate']) {
+                                    $html .= '<div class="row mt-4">
                                                     <div class="col-4 all-ticket-card-middle-left-colum">
                                                         <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours())) . '</h5>
                                                         <small
@@ -248,9 +419,9 @@ class HomePageController extends Controller
 
                                                     </div>
                                                 </div>';
-                            }
+                                }
 
-                            $html .= '</div>
+                                $html .= '</div>
                                     </div>
 
                                     <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
@@ -280,17 +451,18 @@ class HomePageController extends Controller
 
                                     </div>
                                 </div>';
-                        }
-                    } else {
-                        //dd(1);
-                        $html .= '<div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                            }
+                        } else {
+                            //dd(1);
+                            $html .= '<div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
                                         <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
                                         <div class="card-body">
                                             <h2>No Data Found</h2>
                                         </div>
                                     </div>';
-                    }
+                        }
 
+                    }
 //                    dd(1);
                     return response()->json([
                         'status' => true,
@@ -300,35 +472,211 @@ class HomePageController extends Controller
 
             }
 
-
-
             if ($request->ajax()) {
+
                 if ($request->get('nonAc')) {
+
                     $nonAc = $request->get('nonAc');
-                    $searchResults = $searchResults->join('bus_details', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
-                        ->leftJoin('reservations', function ($query) {
-                            $query->on('reservations.bus_destination_id', '=', 'bus_destinations.id');
-                            $query->whereDate('reservations.created_at', Carbon::now()->format('Y-m-d'));
-                        })
-                        ->where('bus_details.bus_seat', '!=', 0)
-                        ->where('bus_details.status', '!=', 0)
-                        ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
-                        ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
-                        ->whereIn('bus_details.bus_type', $nonAc)
-                        ->selectRaw('bus_details.*,bus_destinations.* ,
+
+                    if (Carbon::parse($request->get('returnOfDate'))->format('d-m-Y')) {
+
+                        $searchResults = DB::table('bus_destinations as bd1')
+                            ->join('bus_details', 'bd1.bus_details_id', '=', 'bus_details.id')
+                            ->join('bus_destinations AS bd2', 'bd1.bus_details_id', '=', 'bd2.bus_details_id')
+                            ->join('bus_companies', 'bus_details.company_id', '=', 'bus_companies.id')
+                            ->leftJoin('reservations', function ($q) {
+                                $q->on('reservations.bus_destination_id', '=', 'bd1.id');
+                                $q->whereDate('reservations.created_at', Carbon::now()->format('Y-m-d'));
+                            })
+                            ->where('bd1.starting_point', '=', $request->get('starting_point'))
+                            ->where('bd1.arrival_point', '=', $request->get('arrival_point'))
+                            ->where('bd2.arrival_point', '=', $request->get('starting_point'))
+                            ->where('bd2.starting_point', '=', $request->get('arrival_point'))
+                            ->selectRaw('
+                            bd1.id as dateOfJourneyId,
+                            bd1.starting_point as dateOfJourneyStartingPoint,
+                            bd1.arrival_point as dateOfJourneyArrivalPoint,
+                            bd1.ticket_price as dateOfJourneyTicketPrice,
+                            bd1.departure_time as dateOfJourneyDepartureTime,
+                            bd1.arrival_time as dateOfJourneyArrivalTime,
+                            bd2.id as dateOfReturnId,
+                            bd2.starting_point as dateOfReturnStartingPoint,
+                            bd2.arrival_point as dateOfReturnArrivalPoint,
+                            bd2.ticket_price as dateOfReturnTicketPrice,
+                            bd2.departure_time as dateOfReturnDepartureTime,
+                            bd2.arrival_time as dateOfReturnArrivalTime,
+                            bus_details.*,bus_companies.*,
+                             (COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0)) as available_seat
+                            ')
+                            ->whereIn('bus_details.bus_type', $nonAc)
+                            ->where('bus_details.bus_seat', '!=', 0)
+                            ->where('bus_details.status', '!=', 0)
+                            ->havingRaw("COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0) >= $total_passenger")
+                            ->whereTime('bd1.departure_time', '>=', $currentTime)
+                            ->orderBy('bd1.ticket_price', 'ASC')
+                            ->orderBy('bd1.departure_time', 'ASC')
+                            ->groupBy('bd1.bus_details_id')
+                            ->get();
+//                        dd($searchResults);
+
+                        $html = '';
+
+                        if (count($searchResults) > 0) {
+//                            dd(123);
+                            foreach ($searchResults as $searchResult) {
+                                $html .= '
+                                <div class="row available-all-ticket-content pt-3">
+                                    <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                                        <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center">' . $searchResult->bus_coach . '</h5>
+                                            <h6 class="card-title text-center">' . $searchResult->bus_type . '</h6>
+                                            <p class="card-title text-center">
+                                                Seat- ' . $searchResult->available_seat . '</p>
+                                            <p class="card-text text-center text-muted">' . $searchResult->bus_company . '</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 card rounded-0 all-ticket-card-middle">
+                                        <div class="row  card-body">
+                                            <div class="row">
+                                                <div class="col-4 all-ticket-card-middle-left-colum">
+                                                    <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->dateOfJourneyDepartureTime))) . '</h5>
+                                                    <small
+                                                        class="small-text">' . (isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y') : '') . '</small>
+                                                    <h6 class="small">' . $searchResult->dateOfJourneyStartingPoint . '</h6>
+
+                                                </div>
+                                                <div
+                                                    class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+
+                                                    <p class="text-center"><i
+                                                            class="fa fa-long-arrow-right text-muted"></i>
+                                                    </p>
+                                                </div>
+                                                <div class="col-4 all-ticket-card-middle-right-colum">
+
+                                                    <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->dateOfJourneyDepartureTime)->addHours($searchResult->dateOfJourneyArrivalTime))) . '</h5>
+                                                    <small
+                                                        class="small-text">' . (isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->addHour($searchResult->dateOfJourneyArrivalTime)->format('d-m-Y') : '') . '</small>
+                                                    <h6 class="small"> ' . $searchResult->dateOfJourneyArrivalPoint . '</h6>
+                                                </div>
+                                            </div>';
+
+                                if (@Carbon::parse($request->get('returnOfDate'))->format('d-m-Y')) {
+                                    $html .= '<div class="row mt-4">
+                                                    <div class="col-4 all-ticket-card-middle-left-colum">
+                                                        <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->dateOfJourneyDepartureTime)->addHours())) . '</h5>
+                                                        <small
+                                                            class="small-text">' . (isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y') : '') . '</small>
+                                                        <h6 class="small">' . $searchResult->dateOfJourneyArrivalPoint . '</h6>
+
+                                                    </div>
+                                                    <div
+                                                        class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+
+                                                        <p class="text-center"><i
+                                                                class="fa fa-long-arrow-left text-muted"></i>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-4 all-ticket-card-middle-right-colum">
+
+                                                        <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->dateOfJourneyDepartureTime)->addHours($searchResult->dateOfJourneyArrivalTime))) . '</h5>
+                                                        <small
+                                                            class="small-text">' . (isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->addHour($searchResult->dateOfJourneyArrivalTime)->format('d-m-Y') : '') . '</small>
+                                                        <h6 class="small">' . $searchResult->dateOfJourneyStartingPoint . '</h6>
+
+                                                    </div>
+                                                </div>';
+                                }
+
+                                $html .= '</div>
+                                    </div>
+
+                                    <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
+                                        <div class="all-ticket-card-right-content">
+                                            <p class="text-muted small">
+                                            <span>$' . $searchResult->dateOfJourneyTicketPrice . ' </span>/person
+                                            </p>
+
+                                        </div>
+                                        <ul class="d-flex">
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-wifi" aria-hidden="true"></i>
+                                            </li>
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-moon-o" aria-hidden="true"></i>
+                                            </li>
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-coffee" aria-hidden="true"></i>
+                                            </li>
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-rocket" aria-hidden="true"></i>
+                                            </li>
+                                        </ul>';
+
+                                if (@Carbon::parse($request->get('returnOfDate'))->format('d-m-Y')) {
+                                    $html .= '
+                                    <div class="all-ticket-card-right-content mt-2">
+                                                <p class="text-muted small">
+                                                    <span> $' . isset($searchResult->dateOfReturnTicketPrice) ? $searchResult->dateOfReturnTicketPrice : $searchResult->dateOfReturnTicketPrice . '
+                                                     </span>/person
+                                                </p>
+                                    </div>';
+                                } else {
+                                    $html .= '
+                                            <div class="all-ticket-card-right-content mt-2">
+                                                <p class="text-muted small">
+                                                    <span>${{isset($searchResult->dateOfReturnTicketPrice) ? $searchResult->dateOfReturnTicketPrice : $searchResult->dateOfReturnTicketPrice}} </span>/person
+                                                </p>
+                                            </div>';
+                                }
+                                $html .= '
+                                        <form action="' . route('frontend.add.passenger.list') . '" method="get">
+                                            <input type="hidden" name="bus_id" id="" value="' . $searchResult->id . '">
+                                            <button type="submit" class="btn btn-primary mt-3">Book Now</button>
+                                        </form>
+                                    </div>
+                                </div>';
+                            }
+                        }
+
+                        else {
+                            //dd(1);
+                            $html .= '<div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                                        <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
+                                        <div class="card-body">
+                                            <h2>No Data Found</h2>
+                                        </div>
+                                    </div>';
+                        }
+
+                    }
+                    else {
+
+                        $searchResults = $searchResults->join('bus_details', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
+                            ->leftJoin('reservations', function ($query) {
+                                $query->on('reservations.bus_destination_id', '=', 'bus_destinations.id');
+                                $query->whereDate('reservations.created_at', Carbon::now()->format('Y-m-d'));
+                            })
+                            ->where('bus_details.bus_seat', '!=', 0)
+                            ->where('bus_details.status', '!=', 0)
+                            ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
+                            ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
+                            ->whereIn('bus_details.bus_type', $nonAc)
+                            ->selectRaw('bus_details.*,bus_destinations.* ,
                                     (COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0)) as available_seat')
-                        ->havingRaw("COALESCE(bus_details,0) - COALESCE(SUM(reservations.total_passenger),0)" >= $total_passenger)
-                        ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
-                        ->groupBy('bus_destinations.bus_details_id')
-                        ->orderBy('bus_destinations.departure_time', 'ASC')
-                        ->get();
+                            ->havingRaw("COALESCE(bus_details,0) - COALESCE(SUM(reservations.total_passenger),0)" >= $total_passenger)
+                            ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
+                            ->groupBy('bus_destinations.bus_details_id')
+                            ->orderBy('bus_destinations.departure_time', 'ASC')
+                            ->get();
 
-                    $html = '';
+                        $html = '';
 
-                    if (count($searchResults) > 0) {
-                        //dd(123);
-                        foreach ($searchResults as $searchResult) {
-                            $html .= '
+                        if (count($searchResults) > 0) {
+                            //dd(123);
+                            foreach ($searchResults as $searchResult) {
+                                $html .= '
                                 <div class="row available-all-ticket-content pt-3">
                                     <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
                                         <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
@@ -366,8 +714,8 @@ class HomePageController extends Controller
                                                 </div>
                                             </div>';
 
-                            if (@$sessionData['returnOfDate']) {
-                                $html .= '<div class="row mt-4">
+                                if (@$sessionData['returnOfDate']) {
+                                    $html .= '<div class="row mt-4">
                                                     <div class="col-4 all-ticket-card-middle-left-colum">
                                                         <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours())) . '</h5>
                                                         <small
@@ -391,9 +739,9 @@ class HomePageController extends Controller
 
                                                     </div>
                                                 </div>';
-                            }
+                                }
 
-                            $html .= '</div>
+                                $html .= '</div>
                                     </div>
 
                                     <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
@@ -423,15 +771,17 @@ class HomePageController extends Controller
 
                                     </div>
                                 </div>';
-                        }
-                    } else {
-                        //dd(1);
-                        $html .= '<div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                            }
+                        } else {
+                            //dd(1);
+                            $html .= '<div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
                                         <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
                                         <div class="card-body">
                                             <h2>No Data Found</h2>
                                         </div>
                                     </div>';
+                        }
+
                     }
 
 //                    dd('2');
@@ -443,36 +793,208 @@ class HomePageController extends Controller
 
             }
 
-
             if ($request->ajax()) {
                 if ($request->get('value')) {
 
-                    $searchResults = $searchResults
-                        ->join('bus_details', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
-                        //->leftJoin('reservations','bus_destinations.id','=','reservations.bus_destination_id')
-                        ->leftJoin('reservations', function ($q) {
-                            $q->on('reservations.bus_destination_id', '=', 'bus_destinations.id');
-                            $q->whereDate('reservations.created_at', Carbon::now()->format('Y-m-d'));
-                        })
-                        ->where('bus_details.bus_seat', '!=', 0)
-                        ->where('bus_details.status', '!=', 0)
-                        ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
-                        ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
-                        ->selectRaw('bus_details.*,bus_destinations.* ,
+                    if (Carbon::parse($request->get('returnOfDate'))->format('d-m-Y')) {
+
+                        $searchResults = DB::table('bus_destinations as bd1')
+                            ->join('bus_details', 'bd1.bus_details_id', '=', 'bus_details.id')
+                            ->join('bus_destinations AS bd2', 'bd1.bus_details_id', '=', 'bd2.bus_details_id')
+                            ->join('bus_companies', 'bus_details.company_id', '=', 'bus_companies.id')
+                            ->leftJoin('reservations', function ($q) {
+                                $q->on('reservations.bus_destination_id', '=', 'bd1.id');
+                                $q->whereDate('reservations.created_at', Carbon::now()->format('Y-m-d'));
+                            })
+                            ->where('bd1.starting_point', '=', $request->get('starting_point'))
+                            ->where('bd1.arrival_point', '=', $request->get('arrival_point'))
+                            ->where('bd2.arrival_point', '=', $request->get('starting_point'))
+                            ->where('bd2.starting_point', '=', $request->get('arrival_point'))
+                            ->selectRaw('
+                            bd1.id as dateOfJourneyId,
+                            bd1.starting_point as dateOfJourneyStartingPoint,
+                            bd1.arrival_point as dateOfJourneyArrivalPoint,
+                            bd1.ticket_price as dateOfJourneyTicketPrice,
+                            bd1.departure_time as dateOfJourneyDepartureTime,
+                            bd1.arrival_time as dateOfJourneyArrivalTime,
+                            bd2.id as dateOfReturnId,
+                            bd2.starting_point as dateOfReturnStartingPoint,
+                            bd2.arrival_point as dateOfReturnArrivalPoint,
+                            bd2.ticket_price as dateOfReturnTicketPrice,
+                            bd2.departure_time as dateOfReturnDepartureTime,
+                            bd2.arrival_time as dateOfReturnArrivalTime,
+                            bus_details.*,bus_companies.*,
+                             (COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0)) as available_seat
+                            ')
+
+                            ->where('bus_details.bus_seat', '!=', 0)
+                            ->where('bus_details.status', '!=', 0)
+                            ->havingRaw("COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0) >= $total_passenger")
+                            ->whereTime('bd1.departure_time', '>=', $currentTime)
+                            ->orderBy('bd1.ticket_price', 'ASC')
+                            ->orderBy('bd1.departure_time', 'ASC')
+                            ->groupBy('bd1.bus_details_id')
+                            ->get();
+//                        dd($searchResults);
+
+                        $html = '';
+
+                        if (count($searchResults) > 0) {
+//                            dd(123);
+                            foreach ($searchResults as $searchResult) {
+                                $html .= '
+                                <div class="row available-all-ticket-content pt-3">
+                                    <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                                        <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center">' . $searchResult->bus_coach . '</h5>
+                                            <h6 class="card-title text-center">' . $searchResult->bus_type . '</h6>
+                                            <p class="card-title text-center">
+                                                Seat- ' . $searchResult->available_seat . '</p>
+                                            <p class="card-text text-center text-muted">' . $searchResult->bus_company . '</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 card rounded-0 all-ticket-card-middle">
+                                        <div class="row  card-body">
+                                            <div class="row">
+                                                <div class="col-4 all-ticket-card-middle-left-colum">
+                                                    <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->dateOfJourneyDepartureTime))) . '</h5>
+                                                    <small
+                                                        class="small-text">' . (isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y') : '') . '</small>
+                                                    <h6 class="small">' . $searchResult->dateOfJourneyStartingPoint . '</h6>
+
+                                                </div>
+                                                <div
+                                                    class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+
+                                                    <p class="text-center"><i
+                                                            class="fa fa-long-arrow-right text-muted"></i>
+                                                    </p>
+                                                </div>
+                                                <div class="col-4 all-ticket-card-middle-right-colum">
+
+                                                    <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->dateOfJourneyDepartureTime)->addHours($searchResult->dateOfJourneyArrivalTime))) . '</h5>
+                                                    <small
+                                                        class="small-text">' . (isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->addHour($searchResult->dateOfJourneyArrivalTime)->format('d-m-Y') : '') . '</small>
+                                                    <h6 class="small"> ' . $searchResult->dateOfJourneyArrivalPoint . '</h6>
+                                                </div>
+                                            </div>';
+
+                                if (@Carbon::parse($request->get('returnOfDate'))->format('d-m-Y')) {
+                                    $html .= '<div class="row mt-4">
+                                                    <div class="col-4 all-ticket-card-middle-left-colum">
+                                                        <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->dateOfJourneyDepartureTime)->addHours())) . '</h5>
+                                                        <small
+                                                            class="small-text">' . (isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y') : '') . '</small>
+                                                        <h6 class="small">' . $searchResult->dateOfJourneyArrivalPoint . '</h6>
+
+                                                    </div>
+                                                    <div
+                                                        class="col-4 d-flex flex-column justify-content-center all-ticket-card-middle-middle-colum">
+
+                                                        <p class="text-center"><i
+                                                                class="fa fa-long-arrow-left text-muted"></i>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-4 all-ticket-card-middle-right-colum">
+
+                                                        <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->dateOfJourneyDepartureTime)->addHours($searchResult->dateOfJourneyArrivalTime))) . '</h5>
+                                                        <small
+                                                            class="small-text">' . (isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->addHour($searchResult->dateOfJourneyArrivalTime)->format('d-m-Y') : '') . '</small>
+                                                        <h6 class="small">' . $searchResult->dateOfJourneyStartingPoint . '</h6>
+
+                                                    </div>
+                                                </div>';
+                                }
+
+                                $html .= '</div>
+                                    </div>
+
+                                    <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
+                                        <div class="all-ticket-card-right-content">
+                                            <p class="text-muted small">
+                                            <span>$' . $searchResult->dateOfJourneyTicketPrice . ' </span>/person
+                                            </p>
+
+                                        </div>
+                                        <ul class="d-flex">
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-wifi" aria-hidden="true"></i>
+                                            </li>
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-moon-o" aria-hidden="true"></i>
+                                            </li>
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-coffee" aria-hidden="true"></i>
+                                            </li>
+                                            <li class="pe-2 text-muted small">
+                                                <i class="fa fa-rocket" aria-hidden="true"></i>
+                                            </li>
+                                        </ul>';
+
+                                if (@Carbon::parse($request->get('returnOfDate'))->format('d-m-Y')) {
+                                    $html .= '
+                                    <div class="all-ticket-card-right-content mt-2">
+                                                <p class="text-muted small">
+                                                    <span> $' . isset($searchResult->dateOfReturnTicketPrice) ? $searchResult->dateOfReturnTicketPrice : $searchResult->dateOfReturnTicketPrice . '
+                                                     </span>/person
+                                                </p>
+                                    </div>';
+                                } else {
+                                    $html .= '
+                                            <div class="all-ticket-card-right-content mt-2">
+                                                <p class="text-muted small">
+                                                    <span>${{isset($searchResult->dateOfReturnTicketPrice) ? $searchResult->dateOfReturnTicketPrice : $searchResult->dateOfReturnTicketPrice}} </span>/person
+                                                </p>
+                                            </div>';
+                                }
+                                $html .= '
+                                        <form action="' . route('frontend.add.passenger.list') . '" method="get">
+                                            <input type="hidden" name="bus_id" id="" value="' . $searchResult->id . '">
+                                            <button type="submit" class="btn btn-primary mt-3">Book Now</button>
+                                        </form>
+                                    </div>
+                                </div>';
+                            }
+                        }
+
+                        else {
+                            //dd(1);
+                            $html .= '<div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                                        <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
+                                        <div class="card-body">
+                                            <h2>No Data Found</h2>
+                                        </div>
+                                    </div>';
+                        }
+
+                    }else{
+
+                        $searchResults = $searchResults
+                            ->join('bus_details', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
+                            ->leftJoin('reservations', function ($q) {
+                                $q->on('reservations.bus_destination_id', '=', 'bus_destinations.id');
+                                $q->whereDate('reservations.created_at', Carbon::now()->format('Y-m-d'));
+                            })
+                            ->where('bus_details.bus_seat', '!=', 0)
+                            ->where('bus_details.status', '!=', 0)
+                            ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
+                            ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
+                            ->selectRaw('bus_details.*,bus_destinations.* ,
                     (COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0)) as available_seat')
-                        ->havingRaw("COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0) >= $total_passenger")
-                        ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
-                        ->orderBy('bus_destinations.ticket_price', 'ASC')
-                        ->orderBy('bus_destinations.departure_time', 'ASC')
-                        ->groupBy('bus_destinations.bus_details_id')
-                        ->get();
+                            ->havingRaw("COALESCE(bus_details.bus_seat,0) - COALESCE(SUM(reservations.total_passenger),0) >= $total_passenger")
+                            ->whereTime('bus_destinations.departure_time', '>=', $currentTime)
+                            ->orderBy('bus_destinations.ticket_price', 'ASC')
+                            ->orderBy('bus_destinations.departure_time', 'ASC')
+                            ->groupBy('bus_destinations.bus_details_id')
+                            ->get();
 
-                    $html = '';
+                        $html = '';
 
-                    if (count($searchResults) > 0) {
-                        //dd(123);
-                        foreach ($searchResults as $searchResult) {
-                            $html .= '
+                        if (count($searchResults) > 0) {
+                            //dd(123);
+                            foreach ($searchResults as $searchResult) {
+                                $html .= '
                                 <div class="row available-all-ticket-content pt-3">
                                     <div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
                                         <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
@@ -510,8 +1032,8 @@ class HomePageController extends Controller
                                                 </div>
                                             </div>';
 
-                            if (@$sessionData['returnOfDate']) {
-                                $html .= '<div class="row mt-4">
+                                if (@$sessionData['returnOfDate']) {
+                                    $html .= '<div class="row mt-4">
                                                     <div class="col-4 all-ticket-card-middle-left-colum">
                                                         <h5>' . date("g:i a", strtotime(\Carbon\Carbon::parse($searchResult->departure_time)->addHours())) . '</h5>
                                                         <small
@@ -535,9 +1057,9 @@ class HomePageController extends Controller
 
                                                     </div>
                                                 </div>';
-                            }
+                                }
 
-                            $html .= '</div>
+                                $html .= '</div>
                                     </div>
 
                                     <div class="col-3 card rounded-0 border-start-0 all-ticket-card-right pt-4">
@@ -567,16 +1089,20 @@ class HomePageController extends Controller
 
                                     </div>
                                 </div>';
-                        }
-                    } else {
-                        //dd(1);
-                        $html .= '<div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
+                            }
+                        } else {
+                            //dd(1);
+                            $html .= '<div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
                                         <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
                                         <div class="card-body">
                                             <h2>No Data Found</h2>
                                         </div>
                                     </div>';
+                        }
+
                     }
+
+
 
 
                     return response()->json([
@@ -590,17 +1116,13 @@ class HomePageController extends Controller
             //Filter Bus According To Bus Company
             if ($request->ajax()) {
                 //dd($request->all());
+
                 if ($request->get('busCompany')) {
 
-//                    if($request->get('returnOfDate')){
-//                        dd('1');
-//                    }else{
-//                        dd('2');
-//                    }
-
                     $allBusComapny = $request->get('busCompany');
-                    //dd($allBusComapny);
+
                     if (!empty($allBusComapny)) {
+
 
                         $searchResults = $searchResults->join('bus_details', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
                             ->join('bus_companies', 'bus_details.company_id', '=', 'bus_companies.id')
@@ -722,8 +1244,7 @@ class HomePageController extends Controller
                                     </div>
                                 </div>';
                             }
-                        }
-                        else {
+                        } else {
                             //dd(1);
                             $html .= '<div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
                                         <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
@@ -890,8 +1411,10 @@ class HomePageController extends Controller
             if ($request->ajax()) {
 
                 if ($request->get('busMinTicketPrice') || $request->get('busMaxTicketPrice')) {
+
                     $startingPrice = $request->get('busMinTicketPrice');
                     $endPrice = (int)$request->get('busMaxTicketPrice');
+
                     $searchResults = $searchResults->join('bus_details', 'bus_destinations.bus_details_id', '=', 'bus_details.id')
                         ->leftJoin('reservations', function ($query) {
                             $query->on('reservations.bus_destination_id', '=', 'bus_destinations.id');
@@ -1011,7 +1534,9 @@ class HomePageController extends Controller
                                     </div>
                                 </div>';
                         }
-                    } else {
+                    }
+
+                    else {
                         //dd(1);
                         $html .= '<div class="col-3 card rounded-0 border-end-0 pt-4 all-ticket-card-left">
                                         <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
@@ -1034,7 +1559,7 @@ class HomePageController extends Controller
 
             if ($inputDate > $currentDate) {
 
-                if ($request->get('returnOfDate')){
+                if ($request->get('returnOfDate')) {
 
                     $searchResults = DB::table('bus_destinations as bd1')
                         ->join('bus_details', 'bd1.bus_details_id', '=', 'bus_details.id')
@@ -1072,12 +1597,12 @@ class HomePageController extends Controller
                         ->orderBy('bd1.departure_time', 'ASC')
                         ->groupBy('bd1.bus_details_id')
                         ->get();
-                   // dd($searchResults);
+                    // dd($searchResults);
 
 
                 }
 
-                else{
+                else {
 
                     if ($request->get('starting_point') && $request->get('arrival_point')) {
 
@@ -1087,7 +1612,7 @@ class HomePageController extends Controller
                                 $q->on('reservations.bus_destination_id', '=', 'bus_destinations.id');
                                 $q->whereDate('reservations.created_at', '=', Carbon::now()->format('Y-m-d'));
                             })
-                            ->join('bus_companies','bus_details.company_id','=','bus_companies.id')
+                            ->join('bus_companies', 'bus_details.company_id', '=', 'bus_companies.id')
                             ->where('bus_details.bus_seat', '!=', 0)
                             ->where('bus_details.status', '!=', 0)
                             ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
@@ -1190,7 +1715,7 @@ class HomePageController extends Controller
 
             if ($inputDate > $currentDate) {
 
-                if ($request->get('returnOfDate')){
+                if ($request->get('returnOfDate')) {
 
                     $maxTicketPrice = DB::table('bus_destinations as bd1')
                         ->join('bus_destinations AS bd2', 'bd1.bus_details_id', '=', 'bd2.bus_details_id')
@@ -1204,9 +1729,7 @@ class HomePageController extends Controller
                         ->get();
                     //dd($maxTicketPrice);
 
-                }
-
-                else{
+                } else {
 
                     $maxTicketPrice = DB::table('bus_destinations')
                         ->selectRaw('bus_destinations.starting_point,bus_destinations.arrival_point,(COALESCE(MAX(bus_destinations.ticket_price),0)) as maxPrice')
@@ -1217,11 +1740,9 @@ class HomePageController extends Controller
                         ->get();
                 }
 
-            }
+            } else {
 
-            else {
-
-                if ($request->get('returnOfDate')){
+                if ($request->get('returnOfDate')) {
 
                     $maxTicketPrice = DB::table('bus_destinations as bd1')
                         ->join('bus_destinations AS bd2', 'bd1.bus_details_id', '=', 'bd2.bus_details_id')
@@ -1234,9 +1755,7 @@ class HomePageController extends Controller
                         ->groupBy('bd1.starting_point')
                         ->get();
 
-                }
-
-                else{
+                } else {
                     $maxTicketPrice = DB::table('bus_destinations')
                         ->selectRaw('bus_destinations.starting_point,bus_destinations.arrival_point,(COALESCE(MAX(bus_destinations.ticket_price),0)) as maxPrice')
                         ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))
@@ -1257,9 +1776,7 @@ class HomePageController extends Controller
                     ->where('bus_destinations.arrival_point', '=', $request->get('arrival_point'))
                     ->groupBy('bus_destinations.starting_point')
                     ->get();
-            }
-
-            else {
+            } else {
                 $minTicketPrice = DB::table('bus_destinations')
                     ->selectRaw('bus_destinations.starting_point,bus_destinations.arrival_point,(COALESCE(MIN(bus_destinations.ticket_price),0)) as minPrice')
                     ->where('bus_destinations.starting_point', '=', $request->get('starting_point'))

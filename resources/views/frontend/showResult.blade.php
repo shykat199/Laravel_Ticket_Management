@@ -649,6 +649,8 @@
             let starting_point = $('#busFrom').val();
             let dateOfJourney = $('#dateOfJourney').val();
             let totalPerson = $('#totalPerson').val();
+            let personReturnDate = $('#inputtext4').val();
+            //console.log(retur);
             //console.log(ac);
 
             $.get('{{ route('frontend.show.result') }}',
@@ -658,6 +660,7 @@
                     arrival_point: arrival_point,
                     dateOfJourney: dateOfJourney,
                     totalPerson: totalPerson,
+                    personReturnDate:personReturnDate
 
                 },
                 function (response, status) {
@@ -674,6 +677,7 @@
             let starting_point = $('#busFrom').val();
             let dateOfJourney = $('#dateOfJourney').val();
             let totalPerson = $('#totalPerson').val();
+            let personReturnDate = $('#inputtext4').val();
 
             //console.log(nonAc);
 
@@ -684,6 +688,7 @@
                     arrival_point: arrival_point,
                     dateOfJourney: dateOfJourney,
                     totalPerson: totalPerson,
+                    personReturnDate:personReturnDate
 
                 },
                 function (response, status) {
@@ -761,7 +766,7 @@
         $(document).on('click', '.btnSwap', function (e) {
             e.preventDefault();
 
-            /* Store the list of depatures and arrivals as they are */
+
             let $departures = $('#busFrom option');
             let $arrivals = $('#busTo option');
 
