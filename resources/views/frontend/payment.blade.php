@@ -154,42 +154,41 @@
                                                 </h5>
                                                 <i class="fa fa-th-large text-light"></i>
                                             </div>
+
                                             <div class="pt-4">
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <p class="small-text text-gray mb-0">Coach</p>
-                                                    <p class="small text-light  mb-0">{{isset($busDetails->busDetails->bus_coach) ? $busDetails->busDetails->bus_coach:''}}</p>
+                                                    {{--                                                    @dd(isset($busDetails[0][0]) ? $busDetails[0][0] : '')--}}
+                                                    {{--                                                    @dd($busDetails)--}}
+                                                    <p class="small text-light  mb-0">{{isset($busDetails[0][0]) ? $busDetails[0][0]->load('busDetails.busCompany')->busDetails->bus_coach : $busDetails[1][0]->load('busDetails.busCompany')->busDetails->bus_coach}}</p>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <p class="small-text text-gray mb-0">Company</p>
-                                                    <p class="small text-light  mb-0">{{isset($busDetails->busDetails->busCompany->bus_company) ? $busDetails->busDetails->busCompany->bus_company:''}}</p>
+                                                    <p class="small text-light  mb-0">{{isset($busDetails[0][0])?$busDetails[0][0]->load('busDetails.busCompany')->busDetails->busCompany->bus_company :$busDetails[1][0]->load('busDetails.busCompany')->busDetails->busCompany->bus_company}}</p>
                                                 </div>
                                             </div>
                                             <div class="mt-4 d-flex align-items-center justify-content-between">
                                                 <div class="">
                                                     <p class="text-light mb-0">
-
-                                                        @if(isset($busDetails->departure_time) && $busDetails->departure_time!==null)
-                                                            {{date("g:i a",strtotime(\Carbon\Carbon::parse($busDetails->departure_time)))}}</p>
-
-                                                    @endif
+                                                        {{--                                                        @dd($busDetails)--}}
+                                                        {{--                                                        @dd($busDetails[0]->departure_time)--}}
+                                                        {{date("g:i a",strtotime(\Carbon\Carbon::parse(isset($busDetails[0][0]) ? $busDetails[0][0]->departure_time : $busDetails[1][0]->departure_time)))}}</p>
                                                     <p class="small-text text-light mb-0">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y'):''}}</p>
                                                 </div>
                                                 <div
                                                     class="d-flex flex-column align-items-center justify-content-center">
-
                                                     <i class="fa fa-long-arrow-right mb-0 text-light"></i>
                                                 </div>
                                                 <div class="d-flex flex-column align-items-end">
                                                     <p class="text-light mb-0">
-                                                        @if(isset($busDetails->departure_time) && $busDetails->departure_time!== null)
-                                                            {{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours($busDetails->arrival_time)))}}
 
-                                                        @endif
+                                                        {{date("g:i a", strtotime(\Carbon\Carbon::parse(isset($busDetails[0][0]) ? $busDetails[0][0]->departure_time : $busDetails[1][0]->departure_time)->addHours(isset($busDetails[0][0])?$busDetails[0][0]->arrival_time : $busDetails[1][0]->arrival_time)))}}
+
                                                     </p>
-                                                    @if(isset($sessionData['dateOfJourney']) && $sessionData['dateOfJourney']!==null)
-                                                        <p class="small-text text-light mb-0">{{ Carbon\Carbon::parse((\Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('Y-m-d') . ' ' .(\Carbon\Carbon::parse($busDetails->departure_time)->format('H:i'))))->addHours($busDetails->arrival_time)->format('d-m-Y') }}</p>
 
-                                                    @endif
+                                                    <p class="small-text text-light mb-0">{{ Carbon\Carbon::parse((\Carbon\Carbon::parse(isset($sessionData['dateOfJourney'])?$sessionData['dateOfJourney']:'')->format('Y-m-d') . ' ' .(\Carbon\Carbon::parse(isset($busDetails[0][0])?$busDetails[0][0]->departure_time :$busDetails[1][0]->departure_time)->format('H:i'))))
+                                                    ->addHours(isset($busDetails[0][0])?$busDetails[0][0]->arrival_time :$busDetails[1][0]->arrival_time)->format('d-m-Y') }}</p>
+
 
                                                 </div>
                                             </div>
@@ -203,7 +202,7 @@
                                         </div>
                                     </div>
 
-                                    @if(isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:'')
+                                    @if(isset($sessionData['returnOfDate'])?$sessionData['returnOfDate']:'')
 
                                         <div class="row  card-body border-top py-4">
                                             <div class="row ">
@@ -216,29 +215,31 @@
                                                     <i class="fa fa-th-large text-light"></i>
                                                 </div>
                                                 <div class="pt-4">
+                                                    {{--                                                    @dd($busDetails)--}}
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <p class="small-text text-gray mb-0">Coach</p>
-                                                        <p class="small text-light  mb-0">{{isset($busDetails->busDetails->bus_coach) ? $busDetails->busDetails->bus_coach:''}}</p>
+                                                        <p class="small text-light  mb-0">{{isset($busDetails[1][0]) ? $busDetails[1][0]->busDetails->bus_coach :''}}</p>
                                                     </div>
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <p class="small-text text-gray mb-0">Company</p>
-                                                        <p class="small text-light  mb-0">{{isset($busDetails->busDetails->busCompany->bus_company) ? $busDetails->busDetails->busCompany->bus_company:''}}</p>
+                                                        <p class="small text-light  mb-0">{{isset($busDetails[1][0]) ? $busDetails[1][0]->busDetails->busCompany->bus_company :''}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="mt-4 d-flex align-items-center justify-content-between">
                                                     <div class="">
                                                         {{--                                                        class="text-light mb-0">{{isset($busDetails->departure_time) ? $busDetails->departure_time:''}}--}}
-                                                        <p class="text-light mb-0"> {{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours()))}}</p>
+                                                        <p class="text-light mb-0"> {{date("g:i a", strtotime(\Carbon\Carbon::parse(isset($busDetails[1][0])?$busDetails[1][0]->departure_time :'')))}}</p>
                                                         <p class="small-text text-light mb-0">{{isset($sessionData['returnOfDate']) ? \Carbon\Carbon::parse($sessionData['returnOfDate'])->format('d-m-Y'):''}}</p>
                                                     </div>
                                                     <div
                                                         class="d-flex flex-column align-items-center justify-content-center">
-
                                                         <i class="fa fa-long-arrow-right mb-0 text-light"></i>
                                                     </div>
                                                     <div class="d-flex flex-column align-items-end">
-                                                        <p class="text-light mb-0">{{date("g:i a", strtotime(\Carbon\Carbon::parse($busDetails->departure_time)->addHours($busDetails->arrival_time)))}}</p>
-                                                        <p class="small-text text-light mb-0">{{ Carbon\Carbon::parse((\Carbon\Carbon::parse($sessionData['returnOfDate'])->format('Y-m-d') . ' ' .(\Carbon\Carbon::parse($busDetails->departure_time)->format('H:i'))))->addHours($busDetails->arrival_time)->format('d-m-Y') }}</p>
+                                                        <p class="text-light mb-0">{{date("g:i a", strtotime(\Carbon\Carbon::parse(isset($busDetails[1][0])?$busDetails[1][0]->departure_time:'')->addHours(isset($busDetails[1][0])?$busDetails[1][0]->arrival_time:'')))}}</p>
+                                                        {{--                                                        @dd($busDetails)--}}
+                                                        <p class="small-text text-light mb-0">{{ Carbon\Carbon::parse((\Carbon\Carbon::parse($sessionData['returnOfDate'])->format('Y-m-d') . ' ' .(\Carbon\Carbon::parse(isset($busDetails[1][0])?$busDetails[1][0]->departure_time :'')->format('H:i'))))->addHours(isset($busDetails[1][0])?$busDetails[1][0]->arrival_time:'')->format('d-m-Y') }}</p>
+
                                                     </div>
                                                 </div>
 
@@ -253,6 +254,7 @@
                                         </div>
                                     @endif
 
+
                                     <div class="row  card-body border-top  py-4">
                                         <div class="row ">
                                             <div class="d-flex align-items-center justify-content-between">
@@ -263,13 +265,37 @@
                                             </div>
                                             <div class="pt-4">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">{{isset($sessionData['totalPerson']) ? $sessionData['totalPerson']:''}}
-                                                        Adult</p>
-                                                    @if(isset($busDetails->ticket_price) && $busDetails->ticket_price!== null)
+
+                                                    <div>
+                                                        <p class="small-text text-gray mb-0">{{isset($sessionData['totalPerson']) ? $sessionData['totalPerson']:''}}
+                                                            Adult</p>
+
+                                                        {{--                                                        @dd(isset($sessionData['returnOfDate'])?$sessionData['returnOfDate']:'')--}}
+
+                                                        @if(isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:'')
+                                                            <p class="small-text text-gray mb-0">
+                                                                Return Ticket Price
+                                                            </p>
+                                                        @endif
+                                                    </div>
+
+                                                    <div>
+
                                                         <p class="small text-light  mb-0">
-                                                            ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails->ticket_price * $sessionData['totalPerson'] : '' }}
+                                                            {{--                                                            @dd($busDetails)--}}
+                                                            ${{isset($busDetails[0][0]->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails[0][0]->ticket_price * $sessionData['totalPerson'] : $busDetails[1][0]->ticket_price * $sessionData['totalPerson'] }}
                                                         </p>
-                                                    @endif
+
+                                                        {{--                                                        @dd($busDetails)--}}
+
+                                                        @if(isset($sessionData['returnOfDate'])?$sessionData['returnOfDate']:'')
+                                                            <p class="small text-light  mb-0">
+                                                                {{--                                                                @dd($busDetails[1][0]->ticket_price)--}}
+                                                                ${{isset($busDetails[1][0]->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails[1][0]->ticket_price * $sessionData['totalPerson'] : '' }}
+                                                            </p>
+                                                        @endif
+
+                                                    </div>
 
                                                 </div>
                                                 @if(isset($sessionData['totalKids']))
@@ -284,64 +310,49 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row  card-body border-top border-bottom  py-4">
-                                        <div class="row ">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <h5 class="text-light fw-normal ps-0 mb-0">
-                                                    <i class="fa fa-suitcase pe-2" aria-hidden="true"></i>
-                                                    Baggage
-                                                </h5>
-                                                <i class="fa fa-th-large text-light"></i>
-                                            </div>
-                                            <div class="pt-4">
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">1 Excess</p>
-                                                    <p class="small text-light  mb-0">$0</p>
-                                                </div>
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">0 Animals/Birds</p>
-                                                    <p class="small text-light  mb-0">$0</p>
-                                                </div>
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <p class="small-text text-gray mb-0">0 Equipment</p>
-                                                    <p class="small text-light  mb-0">$0</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
+
                                     @if(isset($sessionData['totalKids']))
                                         <div class="row  card-body py-4">
                                             <div class="row ">
                                                 <div
                                                     class="d-flex align-items-center justify-content-between text-danger">
                                                     <h5>Total</h5>
-                                                    @if(isset($busDetails->ticket_price) && $busDetails->ticket_price!==null)
-                                                        <h5>
-                                                            ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
-                                                            ($busDetails->ticket_price * $sessionData['totalPerson'])+
-                                                            ($busDetails->ticket_price * $sessionData['totalKids']) : '' }}
-                                                        </h5>
-                                                    @endif
-
+                                                    <h5>
+                                                        ${{isset($busDetails[0][0]->ticket_price) && isset($sessionData['totalPerson']) && isset($sessionData['totalKids']) ?
+                                                            ($busDetails[0][0]->ticket_price * $sessionData['totalPerson'])+
+                                                            ($busDetails[0][0]->ticket_price * $sessionData['totalKids']) : '' }}
+                                                    </h5>
                                                 </div>
                                             </div>
                                         </div>
+
+
                                     @else
                                         <div class="row  card-body py-4">
                                             <div class="row ">
                                                 <div
                                                     class="d-flex align-items-center justify-content-between text-danger">
                                                     <h5>Total</h5>
-                                                    @if(isset($busDetails->ticket_price) && $busDetails->ticket_price!==null)
-
+                                                    @if(isset($sessionData['returnOfDate']))
+                                                        {{--                                                        @dd($busDetails[0][0]->ticket_price)--}}
                                                         <h5>
-                                                            ${{isset($busDetails->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails->ticket_price * $sessionData['totalPerson'] : '' }}
+                                                            ${{isset($busDetails[0][0]->ticket_price) && isset($sessionData['totalPerson']) ? ($busDetails[0][0]->ticket_price * $sessionData['totalPerson'])+
+                                                            (isset($busDetails[1][0])? $busDetails[1][0]->ticket_price * $sessionData['totalPerson']:'') : '' }}
                                                         </h5>
+
+                                                    @else
+                                                        <h5>
+                                                            ${{isset($busDetails[0][0]->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails[0][0]->ticket_price * $sessionData['totalPerson'] : $busDetails[1][0]->ticket_price * $sessionData['totalPerson'] }}
+                                                        </h5>
+
                                                     @endif
+
                                                 </div>
                                             </div>
                                         </div>
                                     @endif
+
                                 </div>
                             </div>
                         </div>

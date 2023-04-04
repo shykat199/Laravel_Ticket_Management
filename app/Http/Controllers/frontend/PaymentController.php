@@ -48,6 +48,7 @@ class PaymentController extends Controller
         $sessionData = $request->session()->get('searchedResults');
         $sessionPassengerData = $request->session()->get('sessionPassengerData');
         $busDetails = $request->session()->get('sessionTicketPrice');
+        //dd($busDetails);
         $min_date = Carbon::today();
         $max_date = Carbon::now()->addWeek();
         $froms = BusDestination::select('starting_point')->groupby('starting_point')->get();

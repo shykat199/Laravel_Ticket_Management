@@ -286,7 +286,8 @@
 
                             <div class="row all-ticket-left-colum-middle-part mb-3 mt-5">
                                 <h4 class="">
-                                    Recent Tickets
+{{--                                    Recent Tickets--}}
+                                    Available Tickets
                                 </h4>
                                 @foreach(recentTickets() as $tickets)
                                     <div class=" card rounded-0 recent-ticket-card mt-4">
@@ -357,17 +358,6 @@
                         </div>
                     </div>
                     <div class="col-8 available-all-ticket">
-                        <div class="d-flex justify-content-between">
-                            <p>10 of 12 found</p>
-                            <div>
-                                <select class="small text-muted border-1" aria-label="Default select example">
-                                    <option selected>Show 5 tickets on page</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
-                        </div>
 
                         <div id="available-all-ticket-content">
 
@@ -380,7 +370,6 @@
                                             <h6 class="card-title text-center">{{$searchResult->bus_type}}</h6>
                                             <p class="card-title text-center">
                                                 Seat- {{$searchResult->available_seat}}</p>
-                                            {{--                                            {{dd($searchResult->bus_company)}}--}}
                                             <p class="card-text text-center text-muted">{{$searchResult->bus_company}}</p>
                                         </div>
 
@@ -485,6 +474,12 @@
                                         <form action="{{route('frontend.add.passenger.list')}}" method="get">
 
                                             <input type="hidden" name="bus_id" id="" value="{{$searchResult->id}}">
+
+{{--                                            @dd($searchResult->id)--}}
+
+                                            @if(isset($sessionData['returnOfDate']))
+                                                <input type="hidden" name="busReturnId" id="" value="{{$searchResult->dateOfReturnId}}">
+                                            @endif
                                             <button type="submit" class="btn btn-primary mt-2 mb-2">Book Now</button>
                                         </form>
 
@@ -511,6 +506,14 @@
                                     </a>
                                 </li>
                             </ul>
+
+{{--                            @if($searchResults->hasPages())--}}
+
+{{--                                <div class="pagination-wrapper">--}}
+{{--                                    {{ $searchResults->links() }}--}}
+{{--                                </div>--}}
+{{--                            @endif--}}
+
                         </nav>
                     </div>
 
@@ -700,13 +703,6 @@
         let busCompany = [];
         $(document).on('click', '.customCheckcolor2', function (e) {
 
-            // $('.customCheckcolor2').change(function () {
-            //     this.checked
-            //         ? alert ("Checked")
-            //         : alert ("Unchecked");
-            // });
-            //let busCompany= [e.target.value];
-
             if (this.checked) {
 
                 busCompany.push(e.target.value);
@@ -714,6 +710,7 @@
                 let starting_point = $('#busFrom').val();
                 let dateOfJourney = $('#dateOfJourney').val();
                 let totalPerson = $('#totalPerson').val();
+                let personReturnDate = $('#inputtext4').val();
                 console.log(busCompany);
 
 
@@ -724,6 +721,7 @@
                         arrival_point: arrival_point,
                         dateOfJourney: dateOfJourney,
                         totalPerson: totalPerson,
+                        personReturnDate:personReturnDate,
 
                     },
                     function (response, status) {
@@ -731,7 +729,8 @@
                         //$('.all-ticket').find('nav').remove();
                         $('#available-all-ticket-content').html(response.html)
                     });
-            } else {
+            }
+            else {
 
                 busCompany.pop(e.target.value);
                 //busCompany.push(e.target.value);

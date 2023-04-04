@@ -19,18 +19,34 @@ class PassengerController extends Controller
         //dd($request->get('bus_id'));
         $destinationId = ($request->get('bus_id'));
         //dd($destinationId);
-        $busDestinationDetails = BusDestination::where('id', $destinationId)->first();
-        // dd($busDestinationDetails);
-//        if (empty($destinationId)) {
-//            return redirect()->back();
-//        }
+        $destinationReturnId = ($request->get('busReturnId'));
+        //dd($destinationReturnId);
+        //dd($destinationId);
+        $busDestinationDetails = BusDestination::with('busDetails.busCompany')->where('id', $destinationId)->get();
+        $busReturnDetails=BusDestination::with('busDetails.busCompany')->where('id', $destinationReturnId)->get();
+          //dd($busReturnDetails);
 
-        $request->session()->put('sessionTicketPrice', $busDestinationDetails);
+        if ($busReturnDetails){
+//            dd(1);
+            $request->session()->put('sessionTicketPrice', [$busReturnDetails,$busDestinationDetails]);
+        }
+        else{
+            $request->session()->put('sessionTicketPrice', $busDestinationDetails);
+        }
+
+
         //dd($busDetails);
         $sessionData = $request->session()->get('searchedResults');
+//        dd($sessionData);
         //$busDetails=BusDestination::where('id',)
         $busDetails = $request->session()->get('sessionTicketPrice');
-        //dd($busDetails);
+//        dd($busDetails);
+//        foreach ($busDetails as $bus){
+//            dd($busDetails[0]->load('busDetails.busCompany'));
+//        }
+
+//        dd($busReturnDetails->load('busDetails.busCompany'));
+
         $min_date = Carbon::today();
         $max_date = Carbon::now()->addWeek();
         $froms = BusDestination::select('starting_point')->groupby('starting_point')->get();
@@ -72,6 +88,7 @@ class PassengerController extends Controller
             $sessionData = $request->session()->get('searchedResults');
             $sessionPassengerData = $request->session()->get('sessionPassengerData');
             $busDetails = $request->session()->get('sessionTicketPrice');
+            //dd($busDetails);
             $min_date = Carbon::today();
             $max_date = Carbon::now()->addWeek();
             $froms = BusDestination::select('starting_point')->groupby('starting_point')->get();
@@ -80,7 +97,8 @@ class PassengerController extends Controller
             $min_date = Carbon::today();
             $max_date = Carbon::now()->addWeek();
             return view('frontend.payment', compact('sessionPassengerData', 'busDetails', 'sessionData', 'min_date', 'max_date', 'froms', 'tos'));
-        } else {
+        }
+        else {
             return redirect()->back()->with('error', 'Atleast One Passenger Should Be Selected');
 
         }
