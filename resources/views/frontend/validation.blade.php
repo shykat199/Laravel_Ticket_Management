@@ -46,14 +46,14 @@
                         <!-- travelling date start -->
                         <div class="col-md-3 col-xl-2 hero-input-with-icon mt-4">
                             <label for="inputtext3" class="form-label pb-2">Travelling Date</label>
-                            @if(isset($sessionData['dateOfJourney']) && $sessionData['dateOfJourney']!== null)
+{{--                            @dd($sessionData)--}}
                                 <input name="dateOfJourney"
-                                       value="{{isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']: $sessionData['dateOfJourney']}}"
+                                       value="{{!empty($sessionData) && isset($sessionData['dateOfJourney']) ? $sessionData['dateOfJourney']: (isset($sessionData)?$sessionData['dateOfJourney']:'')}}"
                                        type="datetime-local"
                                        min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
                                        max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
                                        class="form-control" id="inputtext3" placeholder="MM/DD/YY">
-                            @endif
+
 
 
                         </div>
@@ -159,20 +159,22 @@
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <p class="small-text text-gray mb-0">Coach</p>
 
-                                                    <p class="small text-light  mb-0">{{isset($busDetails[0][0]) && !empty($busDetails[0][0]) ? $busDetails[0][0]->load('busDetails.busCompany')->busDetails->bus_coach : $busDetails[1][0]->load('busDetails.busCompany')->busDetails->bus_coach}}</p>
+                                                    <p class="small text-light  mb-0">{{!empty($busDetails) && isset($busDetails[0][0]) ? $busDetails[0][0]->load('busDetails.busCompany')->busDetails->bus_coach : (isset($busDetails[1][0])? $busDetails[1][0]->load('busDetails.busCompany')->busDetails->bus_coach :'')}}</p>
+
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <p class="small-text text-gray mb-0">Company</p>
-                                                    <p class="small text-light  mb-0">{{isset($busDetails[0][0])?$busDetails[0][0]->load('busDetails.busCompany')->busDetails->busCompany->bus_company :$busDetails[1][0]->load('busDetails.busCompany')->busDetails->busCompany->bus_company}}</p>
+                                                    <p class="small text-light  mb-0">{{!empty($busDetails) && isset($busDetails[0][0])  ? $busDetails[0][0]->load('busDetails.busCompany')->busDetails->busCompany->bus_company : (isset($busDetails)?$busDetails[1][0]->load('busDetails.busCompany')->busDetails->busCompany->bus_company:'')}}</p>
                                                 </div>
                                             </div>
                                             <div class="mt-4 d-flex align-items-center justify-content-between">
                                                 <div class="">
                                                     <p class="text-light mb-0">
-                                                        {{--                                                        @dd($busDetails)--}}
-                                                        {{--                                                        @dd($busDetails[0]->departure_time)--}}
-                                                        {{date("g:i a",strtotime(\Carbon\Carbon::parse(isset($busDetails[0][0]) ? $busDetails[0][0]->departure_time : $busDetails[1][0]->departure_time)))}}</p>
-                                                    <p class="small-text text-light mb-0">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y'):''}}</p>
+                                                        @if(!empty($busDetails))
+                                                            {{date("g:i a",strtotime(\Carbon\Carbon::parse(!empty($busDetails) && isset($busDetails[0][0]) ? $busDetails[0][0]->departure_time : (isset($busDetails) ? $busDetails[1][0]->departure_time:''))))}}</p>
+
+                                                       @endif
+                                                        <p class="small-text text-light mb-0">{{!empty($sessionData) && isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y'):''}}</p>
                                                 </div>
                                                 <div
                                                     class="d-flex flex-column align-items-center justify-content-center">
@@ -180,15 +182,16 @@
                                                 </div>
                                                 <div class="d-flex flex-column align-items-end">
                                                     <p class="text-light mb-0">
+                                                        @if(!empty($busDetails))
+                                                            {{date("g:i a", strtotime(\Carbon\Carbon::parse(!empty($busDetails) && isset($busDetails[0][0]) ? $busDetails[0][0]->departure_time : (isset($busDetails)?$busDetails[1][0]->departure_time:''))->addHours(isset($busDetails[0][0]) ? $busDetails[0][0]->arrival_time : (isset($busDetails)?$busDetails[1][0]->arrival_time:''))))}}
 
-                                                        {{date("g:i a", strtotime(\Carbon\Carbon::parse(isset($busDetails[0][0]) ? $busDetails[0][0]->departure_time : $busDetails[1][0]->departure_time)->addHours(isset($busDetails[0][0])?$busDetails[0][0]->arrival_time : $busDetails[1][0]->arrival_time)))}}
 
                                                     </p>
 
-                                                    <p class="small-text text-light mb-0">{{ Carbon\Carbon::parse((\Carbon\Carbon::parse(isset($sessionData['dateOfJourney'])?$sessionData['dateOfJourney']:'')->format('Y-m-d') . ' ' .(\Carbon\Carbon::parse(isset($busDetails[0][0])?$busDetails[0][0]->departure_time :$busDetails[1][0]->departure_time)->format('H:i'))))
-                                                    ->addHours(isset($busDetails[0][0])?$busDetails[0][0]->arrival_time :$busDetails[1][0]->arrival_time)->format('d-m-Y') }}</p>
+                                                    <p class="small-text text-light mb-0">{{ Carbon\Carbon::parse((\Carbon\Carbon::parse(isset($sessionData['dateOfJourney'])?$sessionData['dateOfJourney']:'')->format('Y-m-d') . ' ' .(\Carbon\Carbon::parse(!empty($busDetails) && isset($busDetails[0][0])?$busDetails[0][0]->departure_time :(isset($busDetails)? $busDetails[1][0]->departure_time:''))->format('H:i'))))
+                                                    ->addHours(!empty($busDetails) && isset($busDetails[0][0])?$busDetails[0][0]->arrival_time :(isset($busDetails)?$busDetails[1][0]->arrival_time:''))->format('d-m-Y') }}</p>
 
-
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="pt-4">
@@ -271,7 +274,7 @@
 
                                                         {{--                                                        @dd(isset($sessionData['returnOfDate'])?$sessionData['returnOfDate']:'')--}}
 
-                                                        @if(isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:'')
+                                                        @if(!empty($sessionData) && isset($sessionData['returnOfDate']) ? $sessionData['returnOfDate']:'')
                                                             <p class="small-text text-gray mb-0">
                                                                 Return Ticket Price
                                                             </p>
@@ -281,8 +284,8 @@
                                                     <div>
 
                                                         <p class="small text-light  mb-0">
-                                                            {{--                                                            @dd($busDetails)--}}
-                                                            ${{isset($busDetails[0][0]->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails[0][0]->ticket_price * $sessionData['totalPerson'] : $busDetails[1][0]->ticket_price * $sessionData['totalPerson'] }}
+
+                                                            ${{!empty($busDetails) && isset($busDetails[0][0]) && isset($sessionData['totalPerson']) ? $busDetails[0][0]->ticket_price * $sessionData['totalPerson'] : (isset($busDetails) ? $busDetails[1][0]->ticket_price * $sessionData['totalPerson']:'') }}
                                                         </p>
 
                                                         {{--                                                        @dd($busDetails)--}}
@@ -342,7 +345,7 @@
 
                                                     @else
                                                         <h5>
-                                                            ${{isset($busDetails[0][0]->ticket_price) && isset($sessionData['totalPerson']) ? $busDetails[0][0]->ticket_price * $sessionData['totalPerson'] : $busDetails[1][0]->ticket_price * $sessionData['totalPerson'] }}
+                                                            ${{!empty($busDetails) && isset($busDetails[0][0]) && isset($sessionData['totalPerson']) ? $busDetails[0][0]->ticket_price * $sessionData['totalPerson'] : (isset($busDetails)? $busDetails[1][0]->ticket_price * $sessionData['totalPerson']:'') }}
                                                         </h5>
 
                                                     @endif
@@ -377,8 +380,8 @@
                                                 <i class="fa fa-universal-access all-ticket-card-left-icon text-center"></i>
                                                 <div class="card-body">
 
-                                                    <h5 class="card-title text-center">{{isset($busDetails[0][0]) ? $busDetails[0][0]->busDetails->bus_coach : $busDetails[1][0]->busDetails->bus_coach}}</h5>
-                                                    <p class="card-text text-center text-muted">{{isset($busDetails[0][0])?$busDetails[0][0]->busDetails->busCompany->bus_company:$busDetails[1][0]->busDetails->busCompany->bus_company}}</p>
+                                                    <h5 class="card-title text-center">{{ !empty($busDetails) && isset($busDetails[0][0]) ? $busDetails[0][0]->busDetails->bus_coach : (isset($busDetails)?$busDetails[1][0]->busDetails->bus_coach:'')}}</h5>
+                                                    <p class="card-text text-center text-muted">{{!empty($busDetails) && isset($busDetails[0][0])?$busDetails[0][0]->busDetails->busCompany->bus_company:(isset($busDetails)?$busDetails[1][0]->busDetails->busCompany->bus_company:'')}}</p>
                                                 </div>
                                             </div>
                                             <div
@@ -388,14 +391,10 @@
                                                         <div class="col-4 all-ticket-card-middle-left-colum">
 
                                                             <p class="small-text text-light mb-0"></p>
+                                                            @if(!empty($busDetails))
+                                                                <h5>{{date("g:i a",strtotime(\Carbon\Carbon::parse(!empty($busDetails) && isset($busDetails[0][0])?$busDetails[0][0]->departure_time:(isset($busDetails)?$busDetails[1][0]->departure_time:''))))}}</p></h5>
 
-
-
-
-                                                                <h5>{{date("g:i a",strtotime(\Carbon\Carbon::parse(isset($busDetails[0][0])?$busDetails[0][0]->departure_time:$busDetails[1][0]->departure_time)))}}</p></h5>
-
-
-
+                                                            @endif
                                                             <small
                                                                 class="small-text">{{isset($sessionData['dateOfJourney']) ? \Carbon\Carbon::parse($sessionData['dateOfJourney'])->format('d-m-Y'):''}}
                                                             </small>
@@ -411,18 +410,16 @@
                                                             </p>
                                                         </div>
                                                         <div class="col-4 all-ticket-card-middle-right-colum">
+                                                            @if(!empty($busDetails))
+                                                                <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse(!empty($busDetails) && isset($busDetails[0][0])?$busDetails[0][0]->departure_time: (isset($busDetails)?$busDetails[1][0]->departure_time:''))->addHours(!empty($busDetails) && isset($busDetails[0][0]) ? $busDetails[0][0]->arrival_time :  (isset($busDetails)?$busDetails[1][0]->arrival_time:''))))}}</h5>
 
-
-                                                                <h5>{{date("g:i a", strtotime(\Carbon\Carbon::parse(isset($busDetails[0][0])?$busDetails[0][0]->departure_time: $busDetails[1][0]->departure_time)->addHours(isset($busDetails[0][0]) ? $busDetails[0][0]->arrival_time :  $busDetails[1][0]->arrival_time)))}}</h5>
-
-
-                                                            <small class="small-text">{{Carbon\Carbon::parse((\Carbon\Carbon::parse(isset($sessionData['dateOfJourney'])?$sessionData['dateOfJourney']:'')->format('Y-m-d') . ' ' .(\Carbon\Carbon::parse(isset($busDetails[0][0]->departure_time)?$busDetails[0][0]->departure_time:$busDetails[1][0]->departure_time)->format('H:i'))))->addHours(isset($busDetails[0][0]->arrival_time)?$busDetails[0][0]->arrival_time:$busDetails[1][0]->arrival_time)->format('d-m-Y')}}</small>
+                                                            <small class="small-text">{{Carbon\Carbon::parse((\Carbon\Carbon::parse(isset($sessionData['dateOfJourney'])?$sessionData['dateOfJourney']:'')->format('Y-m-d') . ' ' .(\Carbon\Carbon::parse(!empty($busDetails) && isset($busDetails[0][0]->departure_time)?$busDetails[0][0]->departure_time:(isset($busDetails)?$busDetails[1][0]->departure_time:''))->format('H:i'))))->addHours(!empty($busDetails) && isset($busDetails[0][0]->arrival_time)?$busDetails[0][0]->arrival_time:(isset($busDetails)?$busDetails[1][0]->arrival_time:''))->format('d-m-Y')}}</small>
 
                                                                 @if(isset($sessionData['arrival_point']) && $sessionData['arrival_point']!==null)
                                                                     <h6 class="small">{{isset($sessionData['arrival_point']) ? $sessionData['arrival_point']:''}}</h6>
 
                                                                 @endif
-
+                                                            @endif
                                                         </div>
                                                     </div>
 
@@ -470,7 +467,7 @@
 {{--                                                        @dd($busDetails)--}}
 
                                                         <p class="text-muted small">
-                                                            <span>${{isset($busDetails[0][0]->ticket_price) ? $busDetails[0][0]->ticket_price:$busDetails[1][0]->ticket_price}} </span>/person
+                                                            <span>${{!empty($busDetails) && isset($busDetails[0][0]->ticket_price) ? $busDetails[0][0]->ticket_price:(isset($busDetails)? $busDetails[1][0]->ticket_price:'')}} </span>/person
                                                         </p>
 
                                                         @if(isset($sessionData['returnOfDate'])?$sessionData['returnOfDate']:'')
@@ -586,51 +583,59 @@
                                                 <div class="row">
                                                     <div class="col-12 py-3 passenger-details">
                                                         <h6>Personal information</h6>
-                                                        <ul class="passenger-details-list">
-                                                            <li class="pt-2">
-                                                                <strong class="lavel">Name</strong>
-                                                                <span
-                                                                    class="text-muted">{{$paymentDetails['f_name']}} {{$paymentDetails['l_name']}}</span>
-                                                            </li>
-                                                            <li class="pt-2">
-                                                                <strong class="lavel">Date of Birth</strong>
-                                                                <span
-                                                                    class="text-muted">{{$paymentDetails['dob']}}</span>
-                                                            </li>
-                                                            <li class="pt-2">
-                                                                <strong class="lavel">Email</strong>
-                                                                <span
-                                                                    class="text-muted">{{$paymentDetails['email']}}</span>
-                                                            </li>
 
-                                                        </ul>
+                                                        @if(!empty($paymentDetails))
+                                                            <ul class="passenger-details-list">
+                                                                <li class="pt-2">
+                                                                    <strong class="lavel">Name</strong>
+                                                                    <span
+                                                                        class="text-muted">{{$paymentDetails['f_name']}} {{$paymentDetails['l_name']}}</span>
+                                                                </li>
+                                                                <li class="pt-2">
+                                                                    <strong class="lavel">Date of Birth</strong>
+                                                                    <span
+                                                                        class="text-muted">{{$paymentDetails['dob']}}</span>
+                                                                </li>
+                                                                <li class="pt-2">
+                                                                    <strong class="lavel">Email</strong>
+                                                                    <span
+                                                                        class="text-muted">{{$paymentDetails['email']}}</span>
+                                                                </li>
+
+                                                            </ul>
+                                                        @endif
+
                                                     </div>
                                                 </div>
                                                 <div class="row border-top">
                                                     <div class="col-12 py-3 passenger-details">
                                                         <h6>Card information</h6>
-                                                        <ul class="passenger-details-list">
-                                                            <li class="pt-2">
-                                                                <strong class="lavel">Card number</strong>
-                                                                <span
-                                                                    class="text-muted">{{$paymentDetails['c_number']}}</span>
-                                                            </li>
-                                                            <li class="pt-2">
-                                                                <strong class="lavel">Card holder Name</strong>
-                                                                <span
-                                                                    class="text-muted">{{$paymentDetails['c_name']}}</span>
-                                                            </li>
-                                                            <li class="pt-2">
-                                                                <strong class="lavel">Expiration Date</strong>
-                                                                <span
-                                                                    class="text-muted">{{$paymentDetails['ex_month']}} {{$paymentDetails['ex_year']}}</span>
-                                                            </li>
-                                                            <li class="pt-2">
-                                                                <strong class="lavel">CVV</strong>
-                                                                <span
-                                                                    class="text-muted">{{$paymentDetails['c_vvv']}}</span>
-                                                            </li>
-                                                        </ul>
+
+                                                        @if(!empty($paymentDetails))
+                                                            <ul class="passenger-details-list">
+                                                                <li class="pt-2">
+                                                                    <strong class="lavel">Card number</strong>
+                                                                    <span
+                                                                        class="text-muted">{{$paymentDetails['c_number']}}</span>
+                                                                </li>
+                                                                <li class="pt-2">
+                                                                    <strong class="lavel">Card holder Name</strong>
+                                                                    <span
+                                                                        class="text-muted">{{$paymentDetails['c_name']}}</span>
+                                                                </li>
+                                                                <li class="pt-2">
+                                                                    <strong class="lavel">Expiration Date</strong>
+                                                                    <span
+                                                                        class="text-muted">{{$paymentDetails['ex_month']}} {{$paymentDetails['ex_year']}}</span>
+                                                                </li>
+                                                                <li class="pt-2">
+                                                                    <strong class="lavel">CVV</strong>
+                                                                    <span
+                                                                        class="text-muted">{{$paymentDetails['c_vvv']}}</span>
+                                                                </li>
+                                                            </ul>
+                                                        @endif
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -647,20 +652,20 @@
 
                                     <h5>Total Cost
 
-                                        @if(isset($sessionData['returnOfDate'])?$sessionData['returnOfDate']:'')
+                                        @if(!empty($sessionData) && isset($sessionData['returnOfDate'])?$sessionData['returnOfDate']:'')
                                         <span class="text-danger fs-1">
-                                                ${{isset($busDetails[0][0]->ticket_price) && isset($sessionData['totalPerson']) || isset($sessionData['totalKids']) ?
+                                                ${{!empty($busDetails) && isset($busDetails[0][0]->ticket_price) && isset($sessionData['totalPerson']) || isset($sessionData['totalKids']) ?
                                                             ($busDetails[0][0]->ticket_price * $sessionData['totalPerson'])+
                                                             ($busDetails[0][0]->ticket_price * $sessionData['totalKids'])+
-                                                            (isset($busDetails[1][0]->ticket_price)?$busDetails[1][0]->ticket_price:''):''}}
+                                                            (isset($busDetails)?$busDetails[1][0]->ticket_price:(isset($busDetails)?$busDetails[1][0]->ticket_price:'')):''}}
 
                                         </span>
 
                                         @else
                                             <span class="text-danger fs-1">
-                                                ${{isset($busDetails[0][0]->ticket_price) && isset($sessionData['totalPerson']) || isset($sessionData['totalKids']) ?
+                                                ${{!empty($busDetails) && isset($busDetails[0][0]) && isset($sessionData['totalPerson']) || isset($sessionData['totalKids']) ?
                                                             ($busDetails[0][0]->ticket_price * $sessionData['totalPerson'])+
-                                                            ($busDetails[0][0]->ticket_price * $sessionData['totalKids']):$busDetails[1][0]->ticket_price}}
+                                                            ($busDetails[0][0]->ticket_price * $sessionData['totalKids']):(isset($busDetails) ? $busDetails[1][0]->ticket_price:'')}}
                                             </span>
                                         @endif
                                     </h5>
