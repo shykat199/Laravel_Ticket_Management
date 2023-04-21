@@ -19,7 +19,9 @@ class BusDestinationController extends Controller
      */
     public function index()
     {
+        //$allBusDestination = BusDestination::with(['busDetails.busCompany'])->latest()->get();
         $allBusDestination = BusDestination::with(['busDetails.busCompany'])->latest()->get();
+       // dd($allBusDestination);
         return view('admin.interface.busDestination.index', compact('allBusDestination'));
     }
 
@@ -31,7 +33,7 @@ class BusDestinationController extends Controller
     public function create()
     {
         // return BusDestination::with('busCompany')->get();
-        $allBusCompany = BusCompany::all();
+        $allBusCompany = BusCompany::where('status',1)->get();
 
         return view('admin.interface.busDestination.create', compact('allBusCompany'));
     }
@@ -39,7 +41,9 @@ class BusDestinationController extends Controller
     public function getBusCoach(Request $request)
     {
         $busCoach = \DB::table('bus_details')
-            ->where('company_id', $request->get('company_id'))->get();
+            ->where('company_id', $request->get('company_id'))
+            ->where('status',1)
+            ->get();
 
         if (count($busCoach) > 0) {
             return response()->json($busCoach);
@@ -55,7 +59,10 @@ class BusDestinationController extends Controller
      */
     public function store(BusDestinationStoreRequest $request)
     {
-        $departure_time = Carbon::parse($request->get('departure_time'))->format('g:i A');
+       // dd($request->all());
+
+        $departure_time = Carbon::parse($request->get('departure_time'))->format('H:i:s');
+        //dd($departure_time);
         // $arrival_time = Carbon::parse($request->get('arrival_time'))->format('g:i A');
         //dd($departure_time, $arrival_time);
 

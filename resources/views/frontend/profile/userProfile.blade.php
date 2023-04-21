@@ -1,19 +1,10 @@
-@extends('admin.interface.layout.master_admin')
-@section('admin.title')
+@extends('frontend.profile.layout.user_masterDashboard')
+@section('user.title')
     Your Profile
 @endsection
-@section('admin.content')
+@section('user.content')
     <!-- Start Content-->
     <div class="container-fluid">
-{{--        @foreach($ticketDetails as $list)--}}
-
-{{--            <h1>Bus Ticket=</h1>{{$list->destinations->busDetails->bus_seat}}--}}
-{{--            <h1>Occupied Ticket=</h1>{{$list->total_passenger}}--}}
-
-{{--            <h2>Ticket Left</h2>{{$list->destinations->busDetails->bus_seat - $list->total_passenger}}--}}
-
-{{--        @endforeach--}}
-
 
         <div class="row">
             <div class="col-md-12">

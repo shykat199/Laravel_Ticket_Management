@@ -2,7 +2,7 @@
 @section('auth.content')
 
     @if(\Illuminate\Support\Facades\Session::has('success'))
-        <div class="alert alert-success m-2" role="alert">
+        <div class="alert alert-danger m-2" role="alert">
             <i class="dripicons-checkmark me-2"></i>
             <strong>{{\Illuminate\Support\Facades\Session::get('success')}}</strong>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"

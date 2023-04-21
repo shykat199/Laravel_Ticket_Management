@@ -37,25 +37,22 @@
 
 <body class="loading" data-layout-color="light" data-leftbar-theme="dark" data-layout-mode="fluid"
       data-rightbar-onstart="true">
-{{--{{dd(!empty(getSettingData('logo')['logo']))}}--}}
-
 <!-- Begin page -->
 <div class="wrapper">
     <!-- ========== Left Sidebar Start ========== -->
-
     <div class="leftside-menu">
 
         <!-- LOGO -->
         @if(!empty(getSettingData('logo')['logo'])))
-            <a href="index-2.html" class="logo text-center logo-light">
+        <a href="index-2.html" class="logo text-center logo-light">
                     <span class="logo-lg">
                         <img src="{{ asset("storage/logo/".getSettingData('logo')['logo'])}}" alt="" height="80">
                     </span>
 
-                <span class="logo-sm">
+            <span class="logo-sm">
                         <img src="{{asset("storage/logo/".getSettingData('logo')['logo'])}}" alt="" height="16">
                     </span>
-            </a>
+        </a>
         @else
 
             <a href="index-2.html" class="logo text-center logo-light">
@@ -70,8 +67,6 @@
 
         @endif
 
-
-
         <!-- LOGO -->
         <a href="index-2.html" class="logo text-center logo-dark">
                     <span class="logo-lg">
@@ -84,7 +79,6 @@
         </a>
 
         <div class="h-100" id="leftside-menu-container" data-simplebar>
-{{--            {{dd(getSettingData('logo'))}}--}}
             <!--- Sidemenu -->
             <ul class="side-nav">
                 @if(Auth::user()->user_role==='admin')
@@ -103,225 +97,25 @@
 
 
                 <li class="side-nav-title side-nav-item">All Section</li>
-
-
-                {{--                    <li class="side-nav-item">--}}
-                {{--                        <a data-bs-toggle="collapse" href="#userDashboard" aria-expanded="false"--}}
-                {{--                           aria-controls="sidebarEcommerce" class="side-nav-link">--}}
-                {{--                            <i class="uil-store"></i>--}}
-                {{--                            <span> User Dashboard </span>--}}
-                {{--                            <span class="menu-arrow"></span>--}}
-                {{--                        </a>--}}
-                {{--                        <div class="collapse" id="userDashboard">--}}
-                {{--                            <ul class="side-nav-second-level">--}}
-                {{--                                <li>--}}
-                {{--                                    <a href="{{route('user.auth.dashboard')}}">User Dashboard</a>--}}
-                {{--                                </li>--}}
-                {{--                                <li>--}}
-                {{--                                    <a href="{{route('auth.user.dashboard.profile')}}">User Profile</a>--}}
-                {{--                                </li>--}}
-                {{--                                <li>--}}
-                {{--                                    <a href="{{route('auth.user.dashboard.ticket')}}">User Reservation</a>--}}
-                {{--                                </li>--}}
-
-                {{--                            </ul>--}}
-                {{--                        </div>--}}
-                {{--                    </li>--}}
-
-                @if(Auth::user()->user_role==='admin')
-                    <li class="side-nav-item">
-                        <a data-bs-toggle="collapse" href="#adminReservation" aria-expanded="false"
-                           aria-controls="sidebarEcommerce" class="side-nav-link">
-                            <i class="uil-store"></i>
-                            <span>User Reservation </span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <div class="collapse" id="adminReservation">
-                            <ul class="side-nav-second-level">
-                                <li>
-                                    <a href="{{route('admin.user.reservation')}}">All Reservations</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </li>
+                @if(Auth::user()->user_role==='user')
 
                     <li class="side-nav-item">
-                        <a data-bs-toggle="collapse" href="#adminUser" aria-expanded="false"
+                        <a data-bs-toggle="collapse" href="#userDashboard" aria-expanded="false"
                            aria-controls="sidebarEcommerce" class="side-nav-link">
                             <i class="uil-store"></i>
-                            <span>All User Section </span>
+                            <span> User Dashboard </span>
                             <span class="menu-arrow"></span>
                         </a>
-                        <div class="collapse" id="adminUser">
+                        <div class="collapse" id="userDashboard">
                             <ul class="side-nav-second-level">
                                 <li>
-                                    <a href="{{route('admin.user.index')}}">All User</a>
+                                    <a href="{{route('user.auth.dashboard')}}">User Dashboard</a>
                                 </li>
                                 <li>
-                                    <a href="{{route('admin.index')}}">All Admin</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li class="side-nav-item">
-                        <a data-bs-toggle="collapse" href="#busComapany" aria-expanded="false"
-                           aria-controls="sidebarEcommerce" class="side-nav-link">
-                            <i class="uil-store"></i>
-                            <span> Bus Company Section </span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <div class="collapse" id="busComapany">
-                            <ul class="side-nav-second-level">
-                                <li>
-                                    <a href="{{route('admin.company.index')}}">Bus Company</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li class="side-nav-item">
-                        <a data-bs-toggle="collapse" href="#busDetails" aria-expanded="false"
-                           aria-controls="sidebarEcommerce" class="side-nav-link">
-                            <i class="uil-store"></i>
-                            <span> Bus Details Section</span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <div class="collapse" id="busDetails">
-                            <ul class="side-nav-second-level">
-                                <li>
-                                    <a href="{{route('admin.bus_details.index')}}">Bus Details</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li class="side-nav-item">
-                        <a data-bs-toggle="collapse" href="#busDestination" aria-expanded="false"
-                           aria-controls="sidebarEcommerce" class="side-nav-link">
-                            <i class="uil-store"></i>
-                            <span> Bus Destination Section</span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <div class="collapse" id="busDestination">
-                            <ul class="side-nav-second-level">
-                                <li>
-                                    <a href="{{route('admin.bus_destination.index')}}">All Bus Destination</a>
+                                    <a href="{{route('auth.user.dashboard.profile')}}">User Profile</a>
                                 </li>
                                 <li>
-                                    <a href="{{route('admin.bus_destination.create')}}">Add New Destination</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li class="side-nav-item">
-                        <a data-bs-toggle="collapse" href="#category" aria-expanded="false"
-                           aria-controls="sidebarEcommerce" class="side-nav-link">
-                            <i class="uil-store"></i>
-                            <span> Category Section </span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <div class="collapse" id="category">
-                            <ul class="side-nav-second-level">
-                                <li>
-                                    <a href="{{route('admin.category.index')}}">Category</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li class="side-nav-item">
-                        <a data-bs-toggle="collapse" href="#blog" aria-expanded="false"
-                           aria-controls="sidebarEcommerce" class="side-nav-link">
-                            <i class="uil-store"></i>
-                            <span> Blog Section </span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <div class="collapse" id="blog">
-                            <ul class="side-nav-second-level">
-                                <li>
-                                    <a href="{{route('blog.index')}}">All Posts</a>
-                                </li>
-                                <li>
-                                    <a href="{{route('blog.create')}}">Add New Posts</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li class="side-nav-item">
-                        <a data-bs-toggle="collapse" href="#testimonial" aria-expanded="false"
-                           aria-controls="sidebarEcommerce" class="side-nav-link">
-                            <i class="uil-store"></i>
-                            <span> Testimonial Section </span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <div class="collapse" id="testimonial">
-                            <ul class="side-nav-second-level">
-                                <li>
-                                    <a href="{{route('admin.testimonial.active')}}">Active Testimonial</a>
-                                </li>
-                                <li>
-                                    <a href="{{route('admin.testimonial.inactive')}}">InActive Testimonial</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li class="side-nav-item">
-                        <a data-bs-toggle="collapse" href="#team" aria-expanded="false"
-                           aria-controls="sidebarEcommerce" class="side-nav-link">
-                            <i class="uil-store"></i>
-                            <span> Team Section </span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <div class="collapse" id="team">
-                            <ul class="side-nav-second-level">
-                                <li>
-                                    <a href="{{route('admin.team.index')}}">Team Member</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li class="side-nav-item">
-                        <a data-bs-toggle="collapse" href="#advantage" aria-expanded="false"
-                           aria-controls="sidebarEcommerce" class="side-nav-link">
-                            <i class="uil-store"></i>
-                            <span>Advantage Section</span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <div class="collapse" id="advantage">
-                            <ul class="side-nav-second-level">
-                                <li>
-                                    <a href="{{route('admin.advantage.index')}}">Sight Advantage</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li class="side-nav-item">
-                        <a data-bs-toggle="collapse" href="#service" aria-expanded="false"
-                           aria-controls="sidebarEcommerce" class="side-nav-link">
-                            <i class="uil-store"></i>
-                            <span>All Service Section</span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <div class="collapse" id="service">
-                            <ul class="side-nav-second-level">
-                                <li>
-                                    <a href="{{route('admin.service.index')}}">Service Section</a>
+                                    <a href="{{route('auth.user.dashboard.ticket')}}">User Reservation</a>
                                 </li>
 
                             </ul>
@@ -329,12 +123,6 @@
                     </li>
 
                 @endif
-
-                {{--                @if(Auth::user()->user_role==='admin')--}}
-
-                {{--                    --}}
-
-                {{--                @endif--}}
 
 
             </ul>
@@ -359,14 +147,6 @@
             <div class="navbar-custom">
                 <ul class="list-unstyled topbar-menu float-end mb-0">
 
-
-
-
-
-
-
-
-
                     <li class="dropdown notification-list">
                         <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#"
                            role="button" aria-haspopup="false"
@@ -386,13 +166,6 @@
                             <div class=" dropdown-header noti-title">
                                 <h6 class="text-overflow m-0">Welcome !</h6>
                             </div>
-
-                            <!-- item-->
-                            <a href="{{route('admin.setting.index')}}" class="dropdown-item notify-item">
-                                <i class="mdi mdi-account-edit me-1"></i>
-                                <span>Settings</span>
-                            </a>
-
 
                             <!-- item-->
                             <a href="{{route('admin.logout')}}" class="dropdown-item notify-item">
@@ -417,8 +190,23 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box">
-
-                            <h4 class="page-title">@yield('admin.title')</h4>
+                            <div class="page-title-right">
+                                <form class="d-flex">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-light" id="dash-daterange">
+                                        <span class="input-group-text bg-primary border-primary text-white">
+                                                    <i class="mdi mdi-calendar-range font-13"></i>
+                                                </span>
+                                    </div>
+                                    <a href="javascript: void(0);" class="btn btn-primary ms-2">
+                                        <i class="mdi mdi-autorenew"></i>
+                                    </a>
+                                    <a href="javascript: void(0);" class="btn btn-primary ms-1">
+                                        <i class="mdi mdi-filter-variant"></i>
+                                    </a>
+                                </form>
+                            </div>
+                            <h4 class="page-title">@yield('user.title')</h4>
                         </div>
                     </div>
                 </div>
@@ -431,15 +219,8 @@
                                 aria-label="Close" style="float: right"></button>
                     </div>
                 @endif
-                @if(\Illuminate\Support\Facades\Session::has('error'))
-                    <div class="alert alert-danger m-2" role="alert">
-                        <i class="dripicons-checkmark me-2"></i><strong>{{\Illuminate\Support\Facades\Session::get('error')}}</strong>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
-                                aria-label="Close" style="float: right"></button>
-                    </div>
-                @endif
 
-                @yield('admin.content')
+                @yield('user.content')
 
 
             </div>

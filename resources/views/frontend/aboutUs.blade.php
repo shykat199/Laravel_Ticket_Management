@@ -24,15 +24,15 @@
                     Who we are
                 </h4>
                 <div class="row gx-4 py-4 px-5 who-we-are-content">
-                    <div class="col-6 who-we-are-content-paragraph">
-                        <p>
-                            {!! $aboutUs[0]->value !!}
-                        </p>
-                    </div>
-                    <div class="col-6 who-we-are-content-paragraph">
-                        <p>
-                            {!! $aboutUs[0]->value !!}
-                        </p>
+                    <div class="col-12 who-we-are-content-paragraph" style="text-align: justify;">
+
+
+                        @if(getSettingData('aboutus'))
+                            <p class="text-center text-justify">
+                                {{strip_tags(getSettingData('aboutus')['aboutus'])}}
+                            </p>
+                        @endif
+
                     </div>
                 </div>
                 <p class="text-center fst-italic text-muted">
@@ -75,7 +75,7 @@
                             <div class="card border-0 h-100">
                                 <div class="row g-0">
                                     <div class="col-md-2 pt-3 ">
-                                        <img  src="{{asset('storage/service/'.$service->service_logo)}}" alt="" />
+                                        <img src="{{asset('storage/service/'.$service->service_logo)}}" alt=""/>
                                     </div>
                                     <div class="col-md-10">
                                         <div class="card-body">
@@ -107,12 +107,14 @@
                                     <div class="col-12">
                                         <div class="row pt-5">
                                             <div class="col-3 d-flex align-items-center  justify-content-end">
-                                                <img class="img-fluid home-carousal-image" src="{{asset('storage/image/'.$testimonial->image)}}"
+                                                <img class="img-fluid home-carousal-image"
+                                                     src="{{asset('storage/image/'.$testimonial->image)}}"
                                                      alt="avatar">
                                             </div>
                                             <div class="col-7 d-flex  flex-column  justify-content-center">
 
-                                                <p class="text-muted fst-italic text-justify">" {{strip_tags($testimonial->feedback_text)}} "</p>
+                                                <p class="text-muted fst-italic text-justify">
+                                                    " {{strip_tags($testimonial->feedback_text)}} "</p>
                                                 <small class="text-muted">{{$testimonial->name}}</small>
                                             </div>
                                         </div>

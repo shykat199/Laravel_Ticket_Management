@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'ticket' => \App\Http\Middleware\TicketMiddleware::class,
         'prevent_back_history'=>\App\Http\Middleware\PreventBackHistory::class,
         'role'=>\App\Http\Middleware\RoleMiddleware::class,
+        'user'=>\App\Http\Middleware\UserMiddleware::class,
     ];
 }

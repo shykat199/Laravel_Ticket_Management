@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BusRequest;
 use App\Models\BusCompany;
+use App\Models\BusDestination;
 use App\Models\BusDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,8 +23,17 @@ class BusDetailsController extends Controller
 
         //return $values;
 
-        $allBusDetails = BusDetails::with('busCompany')->get();
-        //dd($allBusDetails);
+        //$allBusDetails=$allBusDetails->load('busCompany');
+//        $allBusDetails = BusDetails::with('busCompany')
+//            ->whereRaw('bus_companies.status = 1')
+//            ->get();
+
+        $allBusDetails = BusDetails::leftJoin('bus_companies','bus_details.company_id','=','bus_companies.id')
+            ->selectRaw('bus_details.*,bus_companies.status,bus_companies.bus_company')
+            ->whereRaw('bus_companies.status = 1')->get();
+        //return $allBusDetails;
+
+       // dd($allBusDetails);
 
         $busType = DB::select(DB::raw('SHOW COLUMNS FROM bus_details WHERE Field = "bus_type"'))[0]->Type;
         preg_match('/^enum\((.*)\)$/', $busType, $matches);
@@ -39,22 +49,6 @@ class BusDetailsController extends Controller
         return view('admin.interface.busDetails.index', compact('allBusDetails', 'allCompanies', 'values'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(BusRequest $request)
     {
         $storeBus = BusDetails::create([
@@ -72,16 +66,6 @@ class BusDetailsController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\BusDetails $busDetails
-     * @return \Illuminate\Http\Response
-     */
-    public function show(BusDetails $busDetails)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -157,8 +141,19 @@ class BusDetailsController extends Controller
      */
     public function destroy(string $id)
     {
-        $bus = BusDetails::where('id', $id)->first();
-        $dltBus = $bus->delete();
+
+//        $busDestination=BusDestination::join('bus_destinations','bus_details.id','=','bus_destinations.bus_details_id')
+//        ->
+//        ;
+        $busDestination = BusDetails::join('bus_destinations','bus_details.id','=','bus_destinations.bus_details_id')
+            ->where('bus_destinations.id', '=', $id)->get();
+        //dd($busDestination);
+        if (count($busDestination)>0){
+            return redirect()->back()->with('error','Bus Coach Can Not Be Deleted');
+        }else{
+            $bus = BusDetails::where('id', $id)->first();
+            $dltBus = $bus->delete();
+        }
 
         if ($dltBus) {
             return to_route('admin.bus_details.index')->with('success', 'Bus Deleted Successfully.');

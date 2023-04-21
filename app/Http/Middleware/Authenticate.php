@@ -21,7 +21,7 @@ class Authenticate extends Middleware
             Session::flash('error','Please LogIn First.');
         }
         if (! $request->expectsJson()) {
-            Session::put('oldUrl',$request->url());
+            //Session::put('oldUrl',$request->url());
             return route('admin.login_page');
         }
 

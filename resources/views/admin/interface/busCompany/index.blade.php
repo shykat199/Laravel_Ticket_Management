@@ -57,6 +57,7 @@
             $idx=1;
         @endphp
         @foreach($allCompanies as $company)
+
             <tr>
                 <td>{{$idx++}}</td>
                 <td class="company_name" data-id="{{$company->id}}">{{$company->bus_company}}</td>
@@ -129,7 +130,8 @@
             $('input[name=toggle]').change(function () {
                 let mode = $(this).prop('checked');
                 let id = $(this).val();
-
+                // console.log(mode);
+                // console.log(id);
                 let productObj = {};
                 productObj.mode = $(this).prop('checked');
                 productObj.company_id = $(this).val();

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Testmonial extends Model
 {
     use HasFactory;
-    protected $fillable=['user_id','feedback_text','image','status'];
+    protected $fillable=['user_id','feedback_text','image','status','name'];
 
     public function users(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
