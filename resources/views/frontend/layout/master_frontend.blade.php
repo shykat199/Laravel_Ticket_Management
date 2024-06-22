@@ -5,7 +5,7 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Train Ticket Booking</title>
+    <title>Bus Ticket Booking System</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset("frontend/assets/css/font-awesome.min.css")}}"/>
     <link rel="stylesheet" href="{{asset("frontend/assets/css/slick.css")}}"/>
@@ -64,6 +64,12 @@
                     </li>
                     <li class="nav-item pe-4">
                         <a href="{{route('frontend.aboutUs')}}" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item pe-4">
+                        <a href="javascript:void(0)" class="nav-link" id="addBus">Add Bus</a>
+                    </li>
+                    <li class="nav-item pe-4">
+                        <a href="javascript:void(0)" class="nav-link" id="searchBus">Search Bus</a>
                     </li>
                 </ul>
 
@@ -227,7 +233,9 @@
     @stack('script')
     <script>
         $(document).ready(function () {
-
+            $('#searchBus').click(function (){
+               $('.ticket-booking-home-header-search-ticket-form').removeClass('d-none')
+            })
         })
     </script>
 

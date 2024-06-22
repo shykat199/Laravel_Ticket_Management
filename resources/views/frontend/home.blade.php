@@ -12,8 +12,7 @@
                         </div>
                     </div>
                 </div>
-                <div
-                    class="col-12 col-sm-12 col-md-6 col-lg-6 ticket-booking-home-header-search-ticket-form d-flex flex-column justify-content-end">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 ticket-booking-home-header-search-ticket-form d-flex flex-column justify-content-end d-none">
 
                     <form class="row g-3 pt-3 pb-5 px-2" action="{{route('frontend.show.result')}}" method="get">
                         <!-- travelling route start -->
@@ -72,12 +71,6 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-6 d-flex align-items-end hero-input-with-icon mt-4">
-                            <input type="datetime-local" name="returnOfDate" class="form-control" id="inputtext4"
-                                   min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
-                                   max="{{ $max_date->format('Y-m-d\TH:i:s') }}" placeholder="One Way">
-
-                        </div>
                         <!-- travelling date end -->
                         <!-- travelling person start -->
 
@@ -94,15 +87,6 @@
                             @error('totalPerson')
                             <span class="invalid-feedback d-block" role="alert">{{$message}}</span>
                             @enderror
-                        </div>
-
-                        @php
-                            $kids = [0, 1, 2, 3, 4, 5];
-                        @endphp
-                        <div class="col-md-6 d-flex align-items-end hero-input-with-icon mt-4 hide-numberType-icon">
-                            <input type="number" name="totalKids" value="{{isset($_GET['totalKids']) ?? ""}}"
-                                   class="form-control" id="inputtext4"
-                                   placeholder="0 Kids">
                         </div>
 
                         <!-- travelling person end -->
