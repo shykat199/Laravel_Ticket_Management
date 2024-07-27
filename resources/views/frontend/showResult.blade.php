@@ -475,7 +475,6 @@
 
                                             <input type="hidden" name="bus_id" id="" value="{{$searchResult->id}}">
 
-{{--                                            @dd($searchResult->id)--}}
 
                                             @if(isset($sessionData['returnOfDate']))
                                                 <input type="hidden" name="busReturnId" id="" value="{{$searchResult->dateOfReturnId}}">

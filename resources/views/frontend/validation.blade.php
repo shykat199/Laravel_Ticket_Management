@@ -1,6 +1,229 @@
 @extends('frontend.layout.master_frontend')
 @section('show.frontend')
 
+    <style>
+
+        .plane {
+            margin: 20px auto;
+            max-width: 300px;
+        }
+
+        .cockpit {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            border-bottom: 5px solid #d8d8d8;
+            &:before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 500px;
+                width: 100%;
+                border-radius: 50%;
+                border-right: 5px solid #d8d8d8;
+                border-left: 5px solid #d8d8d8;
+            }
+        }
+
+        .exit {
+            position: relative;
+            height: 50px;
+            &:before,
+            &:after {
+                content: "EXIT";
+                font-size: 14px;
+                line-height: 18px;
+                padding: 0px 2px;
+                font-family: "Arial Narrow", Arial, sans-serif;
+                display: block;
+                position: absolute;
+                background: green;
+                color: white;
+                top: 50%;
+                transform: translate(0, -50%);
+            }
+            &:before {
+                left: 0;
+            }
+            &:after {
+                right: 0;
+            }
+        }
+
+        .fuselage {
+            border-right: 5px solid #d8d8d8;
+            border-left: 5px solid #d8d8d8;
+        }
+
+        ol {
+            list-style :none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .seats {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+        }
+
+        .seat {
+            display: flex;
+            flex: 0 0 14.28571428571429%;
+            padding: 5px;
+            position: relative;
+            &:nth-child(3) {
+                margin-right: 14.28571428571429%;
+            }
+            input[type=checkbox] {
+                position: absolute;
+                opacity: 0;
+            }
+            input[type=checkbox]:checked {
+                + label {
+                    background: #bada55;
+                    -webkit-animation-name: rubberBand;
+                    animation-name: rubberBand;
+                    animation-duration: 300ms;
+                    animation-fill-mode: both;
+                }
+            }
+            input[type=checkbox]:disabled {
+                + label {
+                    background: #dddddd;
+                    text-indent: -9999px;
+                    overflow: hidden;
+                    &:after {
+                        content: "X";
+                        text-indent: 0;
+                        position: absolute;
+                        top: 4px;
+                        left: 50%;
+                        transform: translate(-50%, 0%);
+                    }
+                    &:hover {
+                        box-shadow: none;
+                        cursor: not-allowed;
+                    }
+                }
+            }
+            label {
+                display: block;
+                position: relative;
+                width: 100%;
+                text-align: center;
+                font-size: 14px;
+                font-weight: bold;
+                line-height: 1.5rem;
+                padding: 4px 0;
+                background: #50C878;
+                border-radius: 5px;
+                animation-duration: 300ms;
+                animation-fill-mode: both;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    width: 75%;
+                    height: 75%;
+                    top: 1px;
+                    left: 50%;
+                    transform: translate(-50%, 0%);
+                    background: rgba(255,255,255,.4);
+                    border-radius: 3px;
+                }
+                &:hover {
+                    cursor: pointer;
+                    box-shadow: 0 0 0px 2px #5C6AFF;
+                }
+
+            }
+        }
+
+        @-webkit-keyframes rubberBand {
+            0% {
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+
+            30% {
+                -webkit-transform: scale3d(1.25, 0.75, 1);
+                transform: scale3d(1.25, 0.75, 1);
+            }
+
+            40% {
+                -webkit-transform: scale3d(0.75, 1.25, 1);
+                transform: scale3d(0.75, 1.25, 1);
+            }
+
+            50% {
+                -webkit-transform: scale3d(1.15, 0.85, 1);
+                transform: scale3d(1.15, 0.85, 1);
+            }
+
+            65% {
+                -webkit-transform: scale3d(.95, 1.05, 1);
+                transform: scale3d(.95, 1.05, 1);
+            }
+
+            75% {
+                -webkit-transform: scale3d(1.05, .95, 1);
+                transform: scale3d(1.05, .95, 1);
+            }
+
+            100% {
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+        }
+
+        @keyframes rubberBand {
+            0% {
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+
+            30% {
+                -webkit-transform: scale3d(1.25, 0.75, 1);
+                transform: scale3d(1.25, 0.75, 1);
+            }
+
+            40% {
+                -webkit-transform: scale3d(0.75, 1.25, 1);
+                transform: scale3d(0.75, 1.25, 1);
+            }
+
+            50% {
+                -webkit-transform: scale3d(1.15, 0.85, 1);
+                transform: scale3d(1.15, 0.85, 1);
+            }
+
+            65% {
+                -webkit-transform: scale3d(.95, 1.05, 1);
+                transform: scale3d(.95, 1.05, 1);
+            }
+
+            75% {
+                -webkit-transform: scale3d(1.05, .95, 1);
+                transform: scale3d(1.05, .95, 1);
+            }
+
+            100% {
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+        }
+
+        .rubberBand {
+            -webkit-animation-name: rubberBand;
+            animation-name: rubberBand;
+        }
+    </style>
+
     <!-- header hero start -->
     <section class="result-header-hero">
         <div class="container ticket-booking-home-header-hero-container">
@@ -482,6 +705,20 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                @if(!\Illuminate\Support\Facades\Auth::check())
+                                    <button type="button" class="py-2 btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModalCenter">
+                                        Log In Book Seat
+                                    </button>
+                                @else
+                                    <button type="button" class="py-2 btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModalCenterSelectSeat">
+                                        Select Seat
+                                    </button>
+                                @endif
+
+
                                 <div class="row vailidation-content pt-4">
                                     <div class="col-12 all-ticket-card-left">
                                         <div
@@ -647,6 +884,67 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="modal fade" id="exampleModalCenterSelectSeat" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog " role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalCenterTitle">Please Select Seat Form Here</h5>
+
+                                        </div>
+                                        @php
+                                            $busDetailsData = isset($busDetails) && !empty($busDetails[0][0])?$busDetails[0][0]:$busDetails[1][0];
+                                            $availableSeatData =getBusDestinationInformation($busDetailsData,$sessionData['dateOfJourney']);
+                                            $totalSeat = $availableSeatData['totalSeat'];
+                                            $destinationId = $availableSeatData['destinationId'];
+                                            $bookedSeat = $availableSeatData['bookedSeat'];
+                                            $doj = $sessionData['dateOfJourney'];
+                                            $bus_details_id = $availableSeatData['bus_details_id'];
+                                            $seatPerRow = 6;
+
+                                        @endphp
+                                        <input type="hidden" name="destinationId" value="{{$destinationId}}">
+                                        <input type="hidden" name="doj" value="{{$doj}}">
+                                        <input type="hidden" name="bus_details_id" value="{{$bus_details_id}}">
+                                        <input type="hidden" name="destinations_id" value="{{$busDetailsData->id}}">
+                                            <div class="modal-body">
+
+                                                <div class="plane">
+                                                    <div class="exit exit--front fuselage">
+
+                                                    </div>
+                                                    <ol class="cabin fuselage">
+                                                        @for ($row = 1; $row <= $totalSeat; $row++)
+                                                            <li class="row row--{{ $row }}">
+                                                                <ol class="seats" type="A">
+                                                                    @for ($seat = 1; $seat <= $seatPerRow; $seat++)
+                                                                        @php
+                                                                            $seatId = $row . chr(64 + $seat);
+                                                                        @endphp
+                                                                        <li class="seat">
+                                                                            <input value="{{ $seatId }}" {{in_array($seatId,$bookedSeat)?'disabled':''}} name="seatName[]" type="checkbox" id="{{ $seatId }}" />
+                                                                            <label
+                                                                                style="background: {{in_array($seatId,$bookedSeat)?'#FF0000':'#50C878'}}"
+                                                                                for="{{ $seatId }}">{{ $seatId }}</label>
+                                                                        </li>
+                                                                    @endfor
+                                                                </ol>
+                                                            </li>
+                                                        @endfor
+                                                    </ol>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Book Seat
+                                                </button>
+                                            </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="d-flex align-items-center justify-content-between pt-5  total-cost">
                                 <div class="total-price">
 

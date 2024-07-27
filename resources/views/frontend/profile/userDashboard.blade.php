@@ -16,7 +16,6 @@
 
                                     <h4 class="header-title">Total Occupied Ticket</h4>
                                     <h4 class="text-muted fw-normal mt-0 text-truncate" title="Campaign Sent">{{$allBuyTicket}}</h4>
-
                                     <div class="d-flex align-items-center mt-4">
                                         <div class="flex-shrink-0">
                                             <h5 class="font-13 text-muted my-0"><i class="mdi mdi-clock-outline"></i>{{\Carbon\Carbon::now()->format('d-m-Y')}}</h5>
@@ -56,6 +55,9 @@
                                                     </div>
                                                     <div>
                                                         <strong>Bus Type</strong> :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$ticket->destinations->busDetails->bus_type}}
+                                                    </div>
+                                                    <div>
+                                                        <strong>Seat numbers</strong> :{{$ticket->seat}}
                                                     </div>
 
                                                 </div>

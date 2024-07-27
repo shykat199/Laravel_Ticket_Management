@@ -13,6 +13,7 @@ use App\Http\Controllers\frontend\ValidationController;
 use App\Http\Controllers\frontend\ReservationController;
 use App\Http\Controllers\frontend\FrontendAuthController;
 use App\Http\Controllers\admin\AdminDashboard;
+use App\Http\Controllers\ManageSeatController;
 
 
 //require base_path('routes/blog.php');
@@ -99,6 +100,8 @@ Route::get('/about_us', [AboutUsPageController::class, 'index'])->name('frontend
 
 // Search result page
 Route::get('/show/result', [ResultController::class, 'index'])->name('frontend.show.result.page');
+
+Route::get('/book-seat', [ManageSeatController::class, 'index'])->name('frontend.show.seat');
 
 
 //add passenger

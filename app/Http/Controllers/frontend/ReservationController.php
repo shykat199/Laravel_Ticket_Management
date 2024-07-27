@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use App\Models\BusDetails;
 use App\Models\Card;
+use App\Models\ManageSeat;
 use App\Models\Passenger;
 use App\Models\Payment;
 use App\Models\Reservation;
@@ -30,11 +31,33 @@ class ReservationController extends Controller
 //
 //            return to_route('user.loginPage');
 //        } else {
+        dd($request->all());
+        if (empty($request->seatName)){
+            return  redirect()->back()->with('error','You need to select Seat number.');
+        }
 
             $paymentDetails = $request->session()->get('paymentDetails');
             $sessionData = $request->session()->get('searchedResults');
             $sessionPassengerData = $request->session()->get('sessionPassengerData');
             $busDetails = $request->session()->get('sessionTicketPrice');
+            $data=[];
+
+        foreach ($request->post('seatName') as $seat) {
+            $data[] = [
+                'bus_id' => $request->post('bus_details_id'),
+                'destinations_id' => $request->post('destinationId'),
+                'doj' => Carbon::parse($request->post('doj'))->format('Y-m-d H:i:s'),
+                'seat_number' => $seat,
+                'user_id' => Auth::id(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+        }
+
+        if (!empty($data)){
+            ManageSeat::insert($data);
+        }
+
             //dd($sessionData['$busDetails']);
 
             // For Reservation Session Data Store in Reservation Model
@@ -46,7 +69,7 @@ class ReservationController extends Controller
         $busDestinatinIds=array();
 //        dd($busDetails[1][0]->ticket_price);
 
-        if ($sessionData['returnOfDate']){
+        if (isset($sessionData['returnOfDate'])){
 
             $busDestinationReturnId=isset($busDetails[0][0]) ? $busDetails[0][0]->id :'';
             $per_seat_price_return=$busDetails[0][0]->ticket_price;
@@ -92,7 +115,7 @@ class ReservationController extends Controller
                 'total_seat_price' => $total_seat_price,
             ]);
 
-            if($sessionData['returnOfDate']){
+            if(isset($sessionData['returnOfDate'])){
                 $storeReturnReservation = Reservation::create([
                     'bus_destination_id' => $busDestinationReturnId,
                     'user_id' => $userId,
@@ -133,7 +156,7 @@ class ReservationController extends Controller
 
            // dd($storeReturnReservation->id);
 
-        if($sessionData['returnOfDate']){
+        if(isset($sessionData['returnOfDate'])){
 
             foreach ($sessionPassengerData['users'] as $key => $data) {
 
@@ -201,9 +224,18 @@ class ReservationController extends Controller
     public function UserDashboard()
     {
 
-        $ticketDetails = Reservation::with('passengers', 'destinations.busDetails.busCompany')->select('reservations.*')
+        $ticketDetails = Reservation::with('passengers', 'destinations.busDetails.busCompany')
+            ->select('reservations.*',DB::raw('GROUP_CONCAT(DISTINCT manage_seats.seat_number) AS seat'))
             ->where('reservations.user_id', Auth::id())
+            ->join('manage_seats',function ($join){
+                $join->on('reservations.bus_destination_id','=','manage_seats.destinations_id')
+                    ->where('manage_seats.user_id',Auth::id());
+            })
+            ->groupBy(DB::raw('DATE(manage_seats.doj)'))
             ->latest()->limit(1)->get();
+//        $totalSeat = ManageSeat::where('bus_id',$ticketDetails->destinations->id)
+//            ->where('user_id',Auth::id())
+//            ->where(DB::raw('DATE(doj)'))
 
         $allBuyTicket = Reservation::select('reservations.*')
             ->where('reservations.user_id', Auth::id())->count();

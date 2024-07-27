@@ -53,7 +53,7 @@ class PaymentController extends Controller
         $max_date = Carbon::now()->addWeek();
         $froms = BusDestination::select('starting_point')->groupby('starting_point')->get();
         $tos = BusDestination::select('arrival_point')->groupby('arrival_point')->get();
-        //dd($paymentDetails);
+//        dd($paymentDetails,$sessionPassengerData,$busDetails,$sessionData,$min_date,$max_date,$froms,$tos);
 
         return view('frontend.validation', compact('paymentDetails', 'sessionPassengerData', 'busDetails', 'sessionData', 'min_date', 'max_date', 'froms', 'tos'));
     }

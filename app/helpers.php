@@ -292,3 +292,16 @@ function getSettingData($input=null){
 
 
 }
+
+function getBusDestinationInformation($busDetails=null,$doj=null){
+    $data = \App\Models\BusDetails::with(['busCompany'])->where('id',$busDetails->bus_details_id)->first();
+    $seatBookInformation = \App\Models\ManageSeat::where('bus_id',$data->id)
+        ->where(\Illuminate\Support\Facades\DB::raw('DATE(doj)'),\Illuminate\Support\Carbon::parse($doj)->format('Y-m-d'))->get()->toArray();
+    return[
+        'bookedSeat'=>array_column($seatBookInformation,'seat_number'),
+        'destinationId'=>$busDetails->id,
+        'totalSeat'=>$data->bus_seat,
+        'bus_details_id'=>$data->id,
+    ];
+
+}
