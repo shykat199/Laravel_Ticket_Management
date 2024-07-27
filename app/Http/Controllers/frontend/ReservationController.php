@@ -31,7 +31,7 @@ class ReservationController extends Controller
 //
 //            return to_route('user.loginPage');
 //        } else {
-        dd($request->all());
+
         if (empty($request->seatName)){
             return  redirect()->back()->with('error','You need to select Seat number.');
         }
