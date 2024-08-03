@@ -951,7 +951,7 @@
                                     <h5>Total Cost
 
                                         @if(!empty($sessionData) && isset($sessionData['returnOfDate'])?$sessionData['returnOfDate']:'')
-                                        <span class="text-danger fs-1">
+                                        <span class="text-danger fs-1" id="totalAmt">
                                                 ${{!empty($busDetails) && isset($busDetails[0][0]->ticket_price) && isset($sessionData['totalPerson']) || isset($sessionData['totalKids']) ?
                                                             ($busDetails[0][0]->ticket_price * $sessionData['totalPerson'])+
                                                             ($busDetails[0][0]->ticket_price * $sessionData['totalKids'])+
@@ -960,7 +960,7 @@
                                         </span>
 
                                         @else
-                                            <span class="text-danger fs-1">
+                                            <span class="text-danger fs-1" id="totalAmt">
                                                 ${{!empty($busDetails) && isset($busDetails[0][0]) && isset($sessionData['totalPerson']) || isset($sessionData['totalKids']) ?
                                                             ($busDetails[0][0]->ticket_price * $sessionData['totalPerson'])+
                                                             ($busDetails[0][0]->ticket_price * $sessionData['totalKids']):(isset($busDetails) ? $busDetails[1][0]->ticket_price:'')}}
@@ -1015,6 +1015,13 @@
                                 @else
                                     <button type="submit" class="py-2 btn btn-danger">BUY
                                         TICKET
+                                    </button>
+
+                                    <button class="btn btn-primary btn-lg btn-block" id="sslczPayBtn"
+                                            token="if you have any token validation"
+                                            postdata=""
+                                            order="If you already have the transaction generated for current order"
+                                            endpoint="{{ route('ajax-via-pay') }}"> Pay Now
                                     </button>
                                 @endif
 
@@ -1093,6 +1100,28 @@
 
         });
 
+    </script>
+
+    <script>
+        var obj = {};
+        obj.cus_id = '{{\Illuminate\Support\Facades\Auth::id()}}';
+        obj.cus_phone = '017xxxxxxxx';
+        obj.cus_email = `{{$paymentDetails['email']}}`;
+        obj.cus_addr1 = 'Khulna';
+        obj.amount = $('#totalAmt').text().trim().replace(/[^\d]/g, '');
+
+        $('#sslczPayBtn').prop('postdata', obj);
+
+        (function (window, document) {
+            var loader = function () {
+                var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
+                // script.src = "https://seamless-epay.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR LIVE
+                script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR SANDBOX
+                tag.parentNode.insertBefore(script, tag);
+            };
+
+            window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+        })(window, document);
     </script>
 
 @endsection

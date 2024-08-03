@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\frontend\PaymentController;
+use App\Http\Controllers\SslCommerzPaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\frontend\HomePageController;
 use App\Http\Controllers\frontend\DashsboardController;
@@ -79,7 +80,22 @@ Route::middleware(['user', 'auth'])->prefix('user')->group(function () {
     Route::get('/user/profile/delete/{id}', [ReservationController::class, 'dltReservation'])->name('dlt.user.reservation');
     Route::post('/reservation-done', [ReservationController::class, 'store'])->name('reservation.done');
 
+
 });
+
+// SSLCOMMERZ Start
+//    Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+//    Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax'])->name('ajax-via-pay');
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success'])->name('success');
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail'])->name('fail');
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel'])->name('cancel');
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn'])->name('ipn');
+//SSLCOMMERZ END
 
 
 //Home page
